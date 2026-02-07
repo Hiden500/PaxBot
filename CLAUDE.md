@@ -1,6 +1,6 @@
 # Pax-Automata — Claude Code Constitution
 
-**This file is the "Rules of the Land."** It defines immutable conventions. It is **not** a scratchpad. Do not store task lists or progress here—use `docs/project-tracker.md` for that.
+This file defines the **permanent operating rules** for Claude Code in this repo. It is the "Rules of the Land": immutable conventions. It is **not** a scratchpad or status log. Do not store task lists or progress here—use `docs/project-tracker.md` for that.
 
 ---
 
@@ -51,17 +51,19 @@
 ## 4. Naming Conventions
 
 - **Files:** `kebab-case` for scripts and config; `snake_case` for War Room data files to match PRD (`current_state.json`, `strategic_ledger.json`).
-- **Branches:** `feature/<short-name>` or `fix/<short-name>` (e.g. `feature/perception-layer`, `fix/ledger-schema`).
-- **Commits (on feature branches):** Clear, present-tense messages; frequent checkpoints are encouraged.
+- **Branches:** `feature/<short-name>`, `fix/<short-name>`, or `chore/<short-name>` (e.g. `feature/perception-layer`, `fix/ledger-schema`, `chore/deps`).
+- **Commits (on feature branches):** Clear, present-tense messages; meaningful and scoped (checkpoints are fine, but avoid noisy micro-commits).
 
 ---
 
-## 5. Git Protocol (Senior Engineer Workflow)
+## 5. Workflow + Git Rules
 
-- **Branch first:** Always create a `feature/` or `fix/` branch before making changes. Do not commit directly to `main`.
-- **Auto-commit on feature branches:** Commit frequently on the current feature branch to create checkpoints.
-- **Merge to main:** The human performs `git merge --squash` (or equivalent) into `main` after review. The goal is one clean, human-readable commit per feature on `main`.
-- **Do not** push API keys, `.env`, or secrets; keep them in `.gitignore` and/or env only.
+- **Branch first:** Always do work on a feature branch, never directly on `main`. Use branch names like `feature/...`, `fix/...`, `chore/...`.
+- **Commits:** You may create local commits as checkpoints. Keep them meaningful and scoped. **Never push** to the remote—pushing is always a human action.
+- **No AI attribution:** Do not add any AI attribution trailers (e.g. "Co-authored-by") to commit messages. Messages should look human.
+- **Before any commit,** review changes with `git diff` and `git diff --staged`.
+- **Merge to main:** The human performs `git merge --squash` (or equivalent) into `main` after review. One clean, human-readable commit per feature on `main`.
+- **Secrets:** Do not commit API keys, `.env`, or secrets; keep them in `.gitignore` and/or env only.
 
 ---
 
@@ -73,11 +75,40 @@
 | `docs/project-tracker.md` | Status     | Scratchpad: what is finished vs pending; checklists. |
 | `docs/logs/`         | History     | Timestamped logs for major refactors or debug sessions. |
 
-Do **not** use `CLAUDE.md` for task lists or progress. Update `docs/project-tracker.md` instead.
+Do **not** use `CLAUDE.md` for task lists or progress. Update `docs/project-tracker.md` instead. Read the tracker at the start of a task and update it at the end. Logs in `docs/logs/` should capture decisions and debugging steps, not raw transcripts.
 
 ---
 
-## 7. Behavioral Guardrails (#)
+## 7. Session Hygiene
+
+- Use **`/clear`** when switching to a new, unrelated task (e.g. finishing UI work and starting database work).
+- Use **`/compact`** during long debugging/refactor sessions to reduce context bloat; preserve key state, discard raw logs.
+- Keep tasks scoped. Avoid mixing multiple unrelated objectives in one session.
+
+---
+
+## 8. Editing + Safety
+
+- Prefer **Plan Mode** for complex or multi-file changes. Always propose a plan before large refactors.
+- Do not modify unrelated files. Avoid repo-wide formatting or drive-by edits.
+- Be cautious with high-churn files unless explicitly requested: lockfiles (`package-lock.json`, `pnpm-lock.yaml`, etc.), generated build artifacts (`dist/`, `build/`).
+
+---
+
+## 9. Quality Gates
+
+- Keep `main` in a working, deployable state.
+- Before merging work into `main`, ensure: tests pass; typecheck/lint passes (if applicable); diff is reviewed and scoped.
+
+---
+
+## 10. Parallel Work (Advanced)
+
+- If running multiple Claude sessions, isolate work using Git worktrees: one branch + one worktree per task; avoid overlapping edits on the same files.
+
+---
+
+## 11. Behavioral Guardrails (#)
 
 These rules are permanent. Follow them unless the user explicitly overrides in the current conversation.
 
@@ -87,21 +118,26 @@ These rules are permanent. Follow them unless the user explicitly overrides in t
 - **# Test Before Implementation:** Prefer writing a test (or test contract) before implementing new behavior, when tests are applicable.
 - **# Restraint on UI:** Do not change UI or front-end behavior unless explicitly asked; when in doubt, focus on logic and structure.
 - **# Context Control:** When the user tags a file with `@` (e.g. `Refactor @auth.ts`), restrict changes to that file or explicitly scoped call sites unless the user asks for broader changes.
-- **# Git Commits:** Feel free to commit but do not push. Do not include co-authored-by Anthropic or any AI co-author trailers in commit messages. Messages should look as human as possible.
 - **# Constitution Integrity:** `CLAUDE.md` is the Constitution (immutable rules), not a diary. Do NOT update it with current status, debugging notes, or temporary thoughts. Only update it if the architectural patterns or tech stack explicitly change.
-- **# Tracker Discipline:** When executing a complex task, always maintain status in `docs/project-tracker.md`. Read this file at the start of a task to know where we are, and update the checklist at the end of a response. Also read other reference files (e.g. the Mermaid diagram) if confused.
-- **# Log Preservation:** For major refactors or debugging sessions, do not overwrite previous notes. Create a new markdown file in `docs/logs/` with the timestamp (e.g. `docs/logs/2026-02-07-auth-debug.md`) to preserve the chain of thought.
+- **# Tracker Discipline:** When executing a complex task, maintain status in `docs/project-tracker.md`. Read it at the start of a task; update the checklist at the end. Read other reference files (e.g. the Mermaid diagram) if confused.
+- **# Log Preservation:** For major refactors or debugging sessions, do not overwrite previous notes. Create a new file in `docs/logs/` with the timestamp (e.g. `docs/logs/2026-02-07-auth-debug.md`). Capture decisions and debugging steps, not raw transcripts.
 
 ---
 
-## 8. Day-One Checklist (Human)
+## 12. Default Operating Principle
+
+Claude should behave like a careful engineering teammate: small, reversible steps; explicit plans for complex work; branch isolation; human-controlled pushes; repo stays clean and readable.
+
+---
+
+## 13. Day-One Checklist (Human)
 
 When opening this repo for a new work session:
 
 1. Run or review the bootstrap/scaffold (e.g. `./scripts/scaffold.sh`) if the tree is missing `war-room/` or `docs/`.
-2. Verify `CLAUDE.md` and that Git Protocol + Memory Rules are present.
+2. Verify `CLAUDE.md` and that Workflow + Git Rules and Memory Rules are present.
 3. Check `docs/project-tracker.md` for current status and next tasks.
-4. Create a `feature/<name>` or `fix/<name>` branch before having Claude make changes.
+4. Create a `feature/<name>`, `fix/<name>`, or `chore/<name>` branch before having Claude make changes.
 
 ---
 
