@@ -1,0 +1,9 @@
+# Crisis Handbook — Tactical Doctrines
+
+Procedures for specific situations, e.g.:
+- Managing internal dissent.
+- Executing a coup.
+- Responding to an invasion.
+- Securing supply lines.
+
+Add one procedure per section. The Brain will select tactics from here.

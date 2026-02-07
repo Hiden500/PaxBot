@@ -1,0 +1,22 @@
+# Environment and secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+secrets/
+
+# Dependencies
+node_modules/
+
+# Runtime / build
+dist/
+build/
+*.tsbuildinfo
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+
+# Logs and local state (optional: uncomment if war-room is generated at runtime)
+# war-room/current_state.json

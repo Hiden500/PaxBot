@@ -1,0 +1,52 @@
+sequenceDiagram
+    autonumber
+    participant Game as Pax Historia (Browser)
+
+    box Playwright Interface (The Body)
+        participant Spy as Network Spy
+        participant Hand as Playwright Hand
+    end
+
+    participant Brain as AI Brain (LLM)
+
+    box The "War Room" (Local Files)
+        participant State as current_state.json
+        participant Const as constitution.md
+        participant Handbook as crisis_handbook.txt
+        participant Ledger as strategic_ledger.json
+    end
+
+    Note over Game, Spy: PHASE 1: PERCEPTION
+    Game->>Spy: (Network) api/simple-chat Response
+    Spy->>State: Write new Game State (Map + Events)
+    Spy->>Brain: Trigger "New Turn" Event
+
+    Note over Brain, Ledger: PHASE 2: CONTEXT ASSEMBLY
+    Brain->>State: Read Current World Status
+    Brain->>Const: Read Goals ("Who am I, what are my goals (Fixed document)?")
+    Brain->>Handbook: Read Tactics ("How do I handle this (Crisis Handbook)?")
+    Brain->>Ledger: Read Active Plans ("What is the current operation (Memory of ongoing operations)?")
+
+    Note over Brain, Hand: PHASE 2.5: STRATEGIC CONSULTATION (Chief of Staff)
+    Brain->>Brain: Decision: Do I need external advice (i.e. in-game advisor)?
+    Brain->>Hand: Type Query ("What is our biggest threat? Which nations are currently weak... etc") into **Advisor Chat**
+    Hand->>Game: Submit Query
+    Game-->>Hand: Advisor Reply ("Rome is massing troops")
+    Hand->>Brain: Return Advice to Context
+
+    Note over Brain: PHASE 3: REASONING
+    Brain->>Brain: 1. Update Strategic Ledger Status (Did Phase 1 succeed?)
+    Brain->>Brain: 2. Filter options via Constitution
+    Brain->>Brain: 3. Select Tactic from Handbook (incorporating Advisor advice)
+    Brain->>Brain: 4. Generate Batch of Next Moves
+    Brain->>Ledger: 5. Update ledger with new attempted plans
+
+    Note over Brain, Hand: PHASE 4: BATCH EXECUTION
+    Brain->>Hand: Send Action(s) List ["Action 1", "Action 2", "Action 3"]
+    loop For Each Action in List
+        Hand->>Game: Type Command & Submit
+        Game-->>Hand: Acknowledge
+    end
+
+    Brain->>Ledger: WRITE: Update All Ongoing Operations (Save Memory)
+    Note over Game, Ledger: Turn Complete

@@ -1,0 +1,30 @@
+{
+  "name": "pax-automata",
+  "version": "1.0.0",
+  "description": "Autonomous agent for Pax Historia (browser grand-strategy game)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phillipyan300/Pax-Automata.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phillipyan300/Pax-Automata/issues"
+  },
+  "homepage": "https://github.com/phillipyan300/Pax-Automata#readme",
+  "dependencies": {
+    "playwright": "^1.58.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
