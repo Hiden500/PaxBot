@@ -5,6 +5,10 @@
 *.pem
 secrets/
 
+# Auth state (captured from manual login — never commit)
+auth/
+auth_profile/
+
 # Dependencies
 node_modules/
 

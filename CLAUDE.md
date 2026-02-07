@@ -18,7 +18,9 @@ This file defines the **permanent operating rules** for Claude Code in this repo
 |-------------|---------------------|--------|
 | Browser automation | **Playwright** | Intercept `/api/simple-chat`, drive UI (action box, advisor box). |
 | Runtime     | **Node.js + TypeScript** | Preferred for Playwright and tooling; use Python only if explicitly required. |
-| LLM         | TBD (API or local)   | Used for reasoning and batch-of-actions generation. |
+| LLM         | **Anthropic Claude API** (via SDK) | Reasoning and batch-of-actions generation. |
+| Validation  | **Zod**              | Schema validation at all JSON boundaries. |
+| TS execution | **tsx**             | Fast TypeScript execution (replaces ts-node). |
 | War Room storage | JSON + Markdown + TXT in `war-room/` | See folder layout below. |
 
 ---
@@ -40,7 +42,11 @@ This file defines the **permanent operating rules** for Claude Code in this repo
 │   ├── crisis_handbook.txt   # Tactical playbook.
 │   ├── strategic_ledger.json # Active plans / long-term memory.
 │   └── current_state.json    # Latest game state (written by Spy).
-├── src/                      # Application code (structure TBD: e.g. spy/, brain/, hand/).
+├── src/                      # Application code.
+│   ├── spy/                  # Perception layer (Playwright intercept, state parsing).
+│   ├── brain/                # Reasoning layer (context assembly, LLM calls, action generation).
+│   ├── hand/                 # Execution layer (Playwright UI automation).
+│   └── shared/               # Types, Zod schemas, utilities shared across modules.
 └── scripts/                  # One-off or scaffold scripts (e.g. scaffold.sh).
 ```
 
@@ -56,7 +62,49 @@ This file defines the **permanent operating rules** for Claude Code in this repo
 
 ---
 
-## 5. Workflow + Git Rules
+## 5. Pre-flight Rule
+
+**Before creating any new file or module**, check this file (`CLAUDE.md`) to confirm the correct path, naming convention, and module boundary. If the file doesn't fit the canonical structure, stop and discuss.
+
+---
+
+## 6. Coding Standards
+
+- **Functional-first:** No classes unless there's a clear reason (e.g. Playwright Page wrapper). Prefer plain functions and modules.
+- **Zod at boundaries:** Every JSON file read/write and every external API response gets a Zod schema. Validate, don't assume.
+- **Explicit return types** on all exported functions.
+- **Barrel exports:** Each module directory (`spy/`, `brain/`, `hand/`, `shared/`) has an `index.ts` re-exporting its public API.
+- **No `any`:** Use `unknown` + Zod parsing instead. TypeScript strict mode.
+- **Imports:** Prefer relative imports within a module; use `../shared/` for cross-module shared code.
+
+---
+
+## 7. Architecture — Data-Flow Contracts
+
+The cognitive loop passes data through well-defined boundaries:
+
+```
+Spy (Playwright intercept)
+  → writes current_state.json (Zod-validated GameState)
+  → emits "new-turn" event
+
+Brain (context assembly)
+  ← reads current_state.json, constitution.md, crisis_handbook.txt, strategic_ledger.json
+  → calls Anthropic Claude API with assembled prompt
+  → receives ActionBatch (Zod-validated)
+  → updates strategic_ledger.json
+
+Hand (Playwright UI driver)
+  ← receives ActionBatch from Brain
+  → types each action into the action box, submits
+  → optionally queries advisor, returns advice to Brain
+```
+
+Each boundary has a Zod schema. Modules communicate through files (War Room) and function calls — no shared mutable state.
+
+---
+
+## 8. Workflow + Git Rules
 
 - **Branch first:** Always do work on a feature branch, never directly on `main`. Use branch names like `feature/...`, `fix/...`, `chore/...`.
 - **Commits:** You may create local commits as checkpoints. Keep them meaningful and scoped. **Never push** to the remote—pushing is always a human action.
@@ -67,7 +115,7 @@ This file defines the **permanent operating rules** for Claude Code in this repo
 
 ---
 
-## 6. Memory Rules (Dual-Document System)
+## 9. Memory Rules (Dual-Document System)
 
 | File / Location      | Type        | Purpose |
 |----------------------|------------|---------|
@@ -79,7 +127,7 @@ Do **not** use `CLAUDE.md` for task lists or progress. Update `docs/project-trac
 
 ---
 
-## 7. Session Hygiene
+## 10. Session Hygiene
 
 - Use **`/clear`** when switching to a new, unrelated task (e.g. finishing UI work and starting database work).
 - Use **`/compact`** during long debugging/refactor sessions to reduce context bloat; preserve key state, discard raw logs.
@@ -87,7 +135,7 @@ Do **not** use `CLAUDE.md` for task lists or progress. Update `docs/project-trac
 
 ---
 
-## 8. Editing + Safety
+## 11. Editing + Safety
 
 - Prefer **Plan Mode** for complex or multi-file changes. Always propose a plan before large refactors.
 - Do not modify unrelated files. Avoid repo-wide formatting or drive-by edits.
@@ -95,20 +143,20 @@ Do **not** use `CLAUDE.md` for task lists or progress. Update `docs/project-trac
 
 ---
 
-## 9. Quality Gates
+## 12. Quality Gates
 
 - Keep `main` in a working, deployable state.
 - Before merging work into `main`, ensure: tests pass; typecheck/lint passes (if applicable); diff is reviewed and scoped.
 
 ---
 
-## 10. Parallel Work (Advanced)
+## 13. Parallel Work (Advanced)
 
 - If running multiple Claude sessions, isolate work using Git worktrees: one branch + one worktree per task; avoid overlapping edits on the same files.
 
 ---
 
-## 11. Behavioral Guardrails (#)
+## 14. Behavioral Guardrails (#)
 
 These rules are permanent. Follow them unless the user explicitly overrides in the current conversation.
 
@@ -124,13 +172,13 @@ These rules are permanent. Follow them unless the user explicitly overrides in t
 
 ---
 
-## 12. Default Operating Principle
+## 15. Default Operating Principle
 
 Claude should behave like a careful engineering teammate: small, reversible steps; explicit plans for complex work; branch isolation; human-controlled pushes; repo stays clean and readable.
 
 ---
 
-## 13. Day-One Checklist (Human)
+## 16. Day-One Checklist (Human)
 
 When opening this repo for a new work session:
 
