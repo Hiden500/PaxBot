@@ -20,11 +20,12 @@
   },
   "homepage": "https://github.com/phillipyan300/Pax-Automata#readme",
   "dependencies": {
-    "playwright": "^1.58.2"
+    "playwright": "^1.58.2",
+    "tsx": "^4.21.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.2.1",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
 }

@@ -87,6 +87,10 @@ These rules are permanent. Follow them unless the user explicitly overrides in t
 - **# Test Before Implementation:** Prefer writing a test (or test contract) before implementing new behavior, when tests are applicable.
 - **# Restraint on UI:** Do not change UI or front-end behavior unless explicitly asked; when in doubt, focus on logic and structure.
 - **# Context Control:** When the user tags a file with `@` (e.g. `Refactor @auth.ts`), restrict changes to that file or explicitly scoped call sites unless the user asks for broader changes.
+- **# Git Commits:** Feel free to commit but do not push. Do not include co-authored-by Anthropic or any AI co-author trailers in commit messages. Messages should look as human as possible.
+- **# Constitution Integrity:** `CLAUDE.md` is the Constitution (immutable rules), not a diary. Do NOT update it with current status, debugging notes, or temporary thoughts. Only update it if the architectural patterns or tech stack explicitly change.
+- **# Tracker Discipline:** When executing a complex task, always maintain status in `docs/project-tracker.md`. Read this file at the start of a task to know where we are, and update the checklist at the end of a response. Also read other reference files (e.g. the Mermaid diagram) if confused.
+- **# Log Preservation:** For major refactors or debugging sessions, do not overwrite previous notes. Create a new markdown file in `docs/logs/` with the timestamp (e.g. `docs/logs/2026-02-07-auth-debug.md`) to preserve the chain of thought.
 
 ---
 
