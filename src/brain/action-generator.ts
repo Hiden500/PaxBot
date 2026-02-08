@@ -48,10 +48,44 @@ function mergeLedger(
   return { active_operations: ops };
 }
 
+/** Remove operations where every step is COMPLETE or FAILED (nothing left to do). */
+function pruneLedger(ledger: StrategicLedger): StrategicLedger {
+  const active = ledger.active_operations.filter((op) =>
+    op.steps.some((s) => s.status === "PENDING")
+  );
+  const pruned = ledger.active_operations.length - active.length;
+  if (pruned > 0) {
+    console.log(`[Brain] Pruned ${pruned} finished operation(s) from ledger`);
+  }
+  return { active_operations: active };
+}
+
 function writeLedger(ledger: StrategicLedger): void {
-  // Validate before writing
-  StrategicLedgerSchema.parse(ledger);
-  fs.writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 2), "utf-8");
+  const pruned = pruneLedger(ledger);
+  StrategicLedgerSchema.parse(pruned);
+  fs.writeFileSync(LEDGER_PATH, JSON.stringify(pruned, null, 2), "utf-8");
+}
+
+// ---------------------------------------------------------------------------
+// Status normalization (Gemini sometimes returns non-uppercase values)
+// ---------------------------------------------------------------------------
+
+const VALID_STATUSES = new Set(["COMPLETE", "PENDING", "FAILED"]);
+
+function normalizeStatuses(obj: Record<string, unknown>): void {
+  const updates = obj.ledger_updates;
+  if (!Array.isArray(updates)) return;
+
+  for (const op of updates) {
+    if (op && typeof op === "object" && Array.isArray((op as Record<string, unknown>).steps)) {
+      for (const step of (op as Record<string, unknown>).steps as Record<string, unknown>[]) {
+        if (step && typeof step.status === "string") {
+          const upper = step.status.toUpperCase();
+          step.status = VALID_STATUSES.has(upper) ? upper : "PENDING";
+        }
+      }
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -75,12 +109,18 @@ export async function generateActions(): Promise<ActionBatch> {
     `[Brain] Prompt built — system: ${system.length} chars, user: ${user.length} chars`
   );
 
-  console.log("[Brain] Calling Gemini 2.5 Flash...");
+  console.log("\n════════════════════════════════════════════════════════");
+  console.log("  BRAIN: STRATEGIC PLANNING IN PROGRESS");
+  console.log("  Reading constitution, crisis handbook, strategic ledger...");
+  console.log("  Analyzing game state, advisor intel, and active operations...");
+  console.log("  Generating actions via Gemini 2.5 Flash...");
+  console.log("════════════════════════════════════════════════════════\n");
   const rawResponse = await callGemini(system, user);
   console.log(`[Brain] Gemini responded — ${rawResponse.length} chars`);
 
-  // Parse + validate
-  const parsed: unknown = JSON.parse(rawResponse);
+  // Parse + normalize + validate
+  const parsed = JSON.parse(rawResponse) as Record<string, unknown>;
+  normalizeStatuses(parsed);
   const batch = ActionBatchSchema.parse(parsed);
   console.log(
     `[Brain] Validated — ${batch.actions.length} actions, ${batch.ledger_updates.length} ledger updates`
@@ -126,7 +166,10 @@ async function main(): Promise<void> {
   console.log("\nDone.");
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
-  process.exit(1);
-});
+// Only run standalone when invoked directly via `npm run brain`
+if (process.argv[1]?.includes("action-generator")) {
+  main().catch((err) => {
+    console.error("Fatal error:", err);
+    process.exit(1);
+  });
+}

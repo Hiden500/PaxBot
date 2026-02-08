@@ -3,7 +3,7 @@
     {
       "operation_id": "OP_001",
       "goal": "Achieve significant industrial and military superiority for global power projection.",
-      "current_phase": 2,
+      "current_phase": 4,
       "steps": [
         {
           "phase": 1,
@@ -48,7 +48,7 @@
         {
           "phase": 2,
           "action": "Expand naval and air force capabilities.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 2,
@@ -58,43 +58,296 @@
         {
           "phase": 2,
           "action": "Solidify influence in the Western Hemisphere.",
-          "status": "PENDING"
-        },
-        {
-          "phase": 3,
-          "action": "Deploy significant forces to Pacific and Atlantic theaters.",
-          "status": "PENDING"
-        }
-      ]
-    },
-    {
-      "operation_id": "OP_002",
-      "goal": "Secure USA dominance in the Pacific, gather intelligence, and prepare to challenge regional rivals.",
-      "current_phase": 3,
-      "steps": [
-        {
-          "phase": 1,
-          "action": "Establish intelligence network targeting Japan.",
           "status": "COMPLETE"
         },
         {
           "phase": 2,
-          "action": "Strategically reinforce Pacific territories (e.g., Hawaii, Philippines).",
+          "action": "Recruit 1 infantry battalion in Ohio.",
           "status": "COMPLETE"
         },
         {
           "phase": 2,
-          "action": "Enhance intelligence on Japanese military and industrial capabilities.",
+          "action": "Recruit 1 infantry battalion in Florida.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Build a Naval Shipyard in California.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Build an Air Base in Texas.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Initiate a trade agreement with Mexico.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Initiate a trade agreement with Canada.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Recruit 1 infantry battalion in California.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Build Naval Shipyard in New York.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Launch domestic propaganda for 'National Preparedness'.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Order construction of 2 battleships and 1 aircraft carrier.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Recruit 1 infantry battalion in Ohio.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Establish intelligence on European military capabilities for future arms sales.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Initiate defense contracts with Canada to strengthen continental security.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Build an Air Base in California.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Recruit 2 infantry battalions in Florida and 2 in California.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Build a Heavy Industry Factory in Ohio.",
           "status": "COMPLETE"
         },
         {
           "phase": 3,
-          "action": "Develop and deploy a powerful Pacific Fleet.",
+          "action": "Finalize non-aggression pact and trade agreement with Brazil.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Initiate secret military staff talks with the United Kingdom.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Order construction of one new Battleship in California.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Build a new Air Base in Texas.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Expedite negotiations to finalize Brazil non-aggression pact and trade agreement.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Deploy California Defense Battalion II to Philippines.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Expand advanced naval fortifications around Manila Bay, Philippines.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Dispatch high-level military delegation to London for secret staff talks with British command.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Order immediate construction of two new destroyer squadrons (Norfolk, San Diego).",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Recruit two new infantry battalions in Texas.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Establish intelligence network in Japanese-held Manchuria and Korea.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Order construction of 1 new Aircraft Carrier in California to boost naval projection.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Recruit 2 infantry battalions in New York and 1 in Florida to strengthen Atlantic defenses.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Expand intelligence operations to monitor French and Italian colonial movements in Africa and assess their vulnerabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Allocate emergency funds to Texas National Guard for accelerated readiness by March 1936.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Direct General Douglas MacArthur to commence war games simulating Japanese invasion scenarios in the Philippines.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Initiate high-level diplomatic discussions with the United Kingdom for a military coordination framework.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Order construction of a new Air Base in Washington State.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Recruit 1 additional infantry battalion in California.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Accelerate and prioritize intelligence operations on French and Italian colonial vulnerabilities in Africa.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Launch a domestic propaganda campaign on American industrial and military readiness.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Order construction of two new Destroyer Escorts at San Diego Naval Base.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Order Naval Base expansion in Hawaii to fortify Pacific presence.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Formalize a Defense Coordination Agreement with the United Kingdom.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Allocate emergency funds to accelerate training for the 4th California Infantry Battalion.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Intensify intelligence collection on Italian military movements and supply lines in East Africa.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Initiate covert propaganda efforts in French North Africa to exploit internal instabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Begin preliminary economic studies for potential trade restrictions against Japan.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Order construction of 2 additional Essex-class aircraft carriers at San Diego and Norfolk naval shipyards to further expand our Pacific and Atlantic fleet projection capabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Deploy the 2nd and 3rd Texas Infantry Battalions from Texas to Hawaii to augment Pacific defenses and fortify the Pearl Harbor naval base.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Formally offer a comprehensive trade and security pact to the French Republic, focused on Mediterranean stability and North African economic development, including a clause for joint intelligence sharing regarding Italian and German activities.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 4,
+          "action": "Allocate $150 million in emergency funds to establish new heavy industry factories in California (Los Angeles) and Texas (Houston) to accelerate war material production and industrial capacity.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Initiate detailed economic studies on potential trade restrictions and comprehensive embargoes against Japan, focusing specifically on oil, steel, and rubber imports.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Direct intelligence assets in Japanese-occupied Manchuria and Korea to specifically identify, track, and assess Japanese elite naval and air force units and their operational readiness.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Authorize the War Department to begin planning for military intervention scenarios in Southeast Asia and China, specifically to counter potential Japanese aggression and to secure strategic resources.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Order construction of two additional Caldwell-class destroyer squadrons, one at Norfolk Naval Shipyard and one at San Diego Naval Base, to further expand naval escort capabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Authorize expansion of the Puget Sound Air Defense Complex in Washington State, adding two additional pursuit squadrons, to strengthen Pacific air projection capabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Offer to share intelligence with France on Italian military movements in North Africa and the Mediterranean, emphasizing mutual interests in regional stability to mend relations after recent 'intelligence gathering' incidents.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Order the 4th California Infantry Battalion to prepare for immediate deployment to the Philippines, augmenting General MacArthur's garrison and fortifying American Pacific defenses.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Initiate comprehensive trade negotiations with the United Kingdom, focusing on strategic resources and reciprocal economic benefits to bolster our aligned interests against potential threats.",
           "status": "PENDING"
         },
         {
           "phase": 4,
-          "action": "Seek opportunities to weaken Japanese influence.",
+          "action": "Finalize detailed economic studies on potential comprehensive embargoes against Japan, specifically targeting oil, steel, and rubber imports, for implementation in the next phase.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 4,
+          "action": "Monitor French Republic's response to intelligence sharing offer and prepare further diplomatic overtures or alternative weakening strategies.",
           "status": "PENDING"
         }
       ]

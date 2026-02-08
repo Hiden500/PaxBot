@@ -3,8 +3,15 @@
  * Used by the interactor (manual session) and will be used by the batch executor.
  */
 
-import type { Page } from "playwright";
+import type { Locator, Page } from "playwright";
 import { SELECTORS } from "./selectors";
+
+/** Type text character-by-character with a fast typing effect. */
+const TYPE_DELAY_MS = 15;
+async function typeText(box: Locator, text: string): Promise<void> {
+  await box.click();
+  await box.pressSequentially(text, { delay: TYPE_DELAY_MS });
+}
 
 /** Open the actions panel (⚡) if the action textarea is not visible. */
 async function ensureActionsPanelOpen(page: Page): Promise<void> {
@@ -22,9 +29,13 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
 export async function enterAction(page: Page, text: string): Promise<void> {
   await ensureActionsPanelOpen(page);
   const box = page.locator(SELECTORS.actionBox);
-  await box.fill(text);
+  await typeText(box, text);
   await page.locator(SELECTORS.actionSubmitButton).first().click();
   console.log("[Action] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
+  // Scroll the actions scroll container to the bottom so the user can see the submitted action
+  await page.locator("div.min-h-0.flex-1.overflow-y-auto").first().evaluate(
+    (el) => el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
+  ).catch(() => {});
 }
 
 /** Open the advisor panel (flag icon in bottom-right) if the advisor textarea is not visible. */
@@ -43,9 +54,16 @@ async function ensureAdvisorPanelOpen(page: Page): Promise<void> {
 export async function enterAdvisorQuery(page: Page, text: string): Promise<void> {
   await ensureAdvisorPanelOpen(page);
   const box = page.locator(SELECTORS.advisorBox);
-  await box.fill(text);
+  await typeText(box, text);
   await page.getByRole("button", { name: "Send message" }).click();
   console.log("[Advisor] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
+  // Scroll the advisor chat container to the bottom
+  await page.locator("div.flex.grow.flex-col.gap-3").first().evaluate(
+    (el) => {
+      const scrollParent = el.closest(".overflow-y-auto") ?? el.parentElement;
+      if (scrollParent) scrollParent.scrollTo({ top: scrollParent.scrollHeight, behavior: "smooth" });
+    }
+  ).catch(() => {});
 }
 
 /** Poll interval and how long we wait for the advisor response to stop changing (streaming). */
@@ -112,7 +130,7 @@ const NEXT_EVENT_FIRST_TIMEOUT_MS = 120_000;
 /** After the first event, each next one usually appears quickly; use shorter timeout to exit when done. */
 const NEXT_EVENT_LATER_TIMEOUT_MS = 10_000;
 /** Pause after each click so the next "Next Event" or "Proceed" can render. */
-const NEXT_EVENT_PAUSE_AFTER_CLICK_MS = 3000;
+const NEXT_EVENT_PAUSE_AFTER_CLICK_MS = 500;
 const NEXT_EVENT_MAX_CLICKS = 80;
 
 /**
@@ -137,6 +155,12 @@ export async function dismissNextEvents(page: Page): Promise<void> {
     await btn.click();
     clicks++;
     if (clicks % 10 === 0) console.log("[Hand] Dismissed", clicks, "events…");
+    // Wait for the new event content to render before scrolling
+    await page.waitForTimeout(1000);
+    // Scroll the news container to bottom so the user can read each new event
+    await page.locator("div.min-h-0.flex-1.overflow-y-auto").first().evaluate(
+      (el) => el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
+    ).catch(() => {});
     await page.waitForTimeout(NEXT_EVENT_PAUSE_AFTER_CLICK_MS);
   }
 
@@ -151,4 +175,20 @@ export async function dismissNextEvents(page: Page): Promise<void> {
   } catch {
     // No Proceed button; timeline may already be closed
   }
+
+  // Zoom out the map: move cursor to center of viewport and scroll out
+  await zoomOutMap(page);
+}
+
+/** Move cursor to the center of the viewport and scroll to zoom the map all the way out. */
+async function zoomOutMap(page: Page): Promise<void> {
+  const vp = page.viewportSize();
+  if (!vp) return;
+  await page.mouse.move(vp.width / 2, vp.height / 2);
+  await page.waitForTimeout(500);
+  for (let i = 0; i < 12; i++) {
+    await page.mouse.wheel(0, 300);
+    await page.waitForTimeout(80);
+  }
+  console.log("[Hand] Zoomed map out.");
 }

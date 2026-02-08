@@ -109,7 +109,7 @@ export async function callGemini(
       systemInstruction: system,
       responseMimeType: "application/json",
       responseSchema: RESPONSE_SCHEMA,
-      maxOutputTokens: 4096,
+      maxOutputTokens: 16384,
     },
     contents: user,
   });

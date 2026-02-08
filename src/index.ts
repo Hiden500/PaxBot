@@ -10,7 +10,6 @@
 import { chromium } from "playwright";
 import * as fs from "fs";
 import * as path from "path";
-import * as readline from "readline";
 import {
   clickNextTurn,
   enterAction,
@@ -38,7 +37,7 @@ const GAME_PAGE_URL = process.env.GAME_URL ?? "";
 
 const ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
-const ACTION_DELAY_MS = 1500;
+const ACTION_DELAY_MS = 2000;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -49,19 +48,6 @@ function ensureAuthState(): void {
     console.error("No auth state. Run: npm run capture-auth");
     process.exit(1);
   }
-}
-
-function prompt(message: string): Promise<string> {
-  return new Promise((resolve) => {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-    rl.question(message, (input) => {
-      rl.close();
-      resolve((input ?? "").trim().toLowerCase());
-    });
-  });
 }
 
 function sleep(ms: number): Promise<void> {
@@ -93,13 +79,13 @@ async function boot() {
     await openPresetAndSelectWW2(page);
   }
 
-  // Wait for game UI to render
-  await page.waitForTimeout(3000);
+  // Brief wait for game UI to finish rendering (navigation already waited 2.5s)
+  await page.waitForTimeout(1000);
 
   try {
     await page
       .locator(SELECTORS.actionBox)
-      .waitFor({ state: "visible", timeout: 10000 });
+      .waitFor({ state: "visible", timeout: 5000 });
     console.log("[Boot] Game UI visible. Ready to start cognitive loop.\n");
   } catch {
     console.log(
@@ -174,31 +160,24 @@ async function main(): Promise<void> {
 
   let turnNumber = 1;
 
+  // Graceful shutdown on Ctrl+C
+  let stopping = false;
+  process.on("SIGINT", () => {
+    if (stopping) process.exit(1);
+    stopping = true;
+    console.log("\nCtrl+C received — finishing current turn then shutting down...");
+  });
+
   try {
-    while (true) {
+    while (!stopping) {
       await runTurn(page, turnNumber);
 
-      // ── Pause: wait for user ──────────────────────────────────────
-      console.log(
-        '\n--- Type "ready" to advance to next turn, "quit" to exit. ---'
-      );
-      const answer = await prompt("> ");
+      if (stopping) break;
 
-      if (answer === "quit" || answer === "q") {
-        console.log("Shutting down...");
-        break;
-      }
-
-      if (answer === "ready" || answer === "r") {
-        console.log("[Turn Advance] Advancing 1 week...");
-        await clickNextTurn(page);
-        turnNumber++;
-      } else {
-        // Just Enter — re-run Brain without advancing turn
-        console.log(
-          "[Skip] Not advancing turn. Will re-run advisor + Brain.\n"
-        );
-      }
+      // Auto-advance to next turn
+      console.log("\n[Turn Advance] Advancing 1 week...");
+      await clickNextTurn(page);
+      turnNumber++;
     }
   } catch (err) {
     console.error("Loop error:", err);
