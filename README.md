@@ -58,7 +58,24 @@ npm run build
 npm start
 ```
 
-> The agent is under active development. Currently only the project scaffold is in place — no phases are implemented yet. See [Project Status](#project-status) below.
+### Interactor (login, navigate, test text entry)
+
+One script drives a single game session: loads saved auth, opens the game, and can type into the action/advisor boxes. Useful for testing navigation and UI before wiring the full agent.
+
+```bash
+# Capture auth once (manual Google login), then:
+npm run capture-auth
+
+# Run the interactor (browser stays open until you press Enter)
+npm run interactor
+```
+
+- **Open a specific game page:** `GAME_URL=https://www.paxhistoria.co/game/your-game-id npm run interactor`
+- **Run a quick action/advisor test:** `TEST_ENTRY=1 npm run interactor` (submits one action and one advisor query after load)
+
+See [`docs/auth-setup.md`](docs/auth-setup.md) for auth state and [`src/interactor.ts`](src/interactor.ts) for the script.
+
+> The full cognitive loop is under active development. The interactor and auth flow are working; Perception (Spy) and Brain are in progress. See [Project Status](#project-status) below.
 
 ## Project Status
 

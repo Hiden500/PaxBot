@@ -8,6 +8,7 @@
     "start": "tsx src/index.ts",
     "capture-auth": "tsx scripts/capture-auth-state.ts",
     "demo-auth": "tsx scripts/demo-auth-state.ts",
+    "interactor": "tsx src/interactor.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
