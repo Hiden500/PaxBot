@@ -83,8 +83,8 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 - [x] **Advisor response:** `writeAdvisorResponse(text)` writes the latest advisor reply to `war-room/advisor_response.txt` (overwritten each turn). Brain will read this in Phase 3 context assembly.
 
 **Remaining (for a new agent):**
-- [ ] Optional: add Zod schema in `src/shared/schemas.ts` for `current_state.json` (shape: `{ current_state: string }` only)
-- [ ] When building the full cognitive loop in `src/index.ts`, call spy capture + state writer after advisor submit (or on a dedicated “new turn” trigger)
+- [x] ~~Optional: add Zod schema in `src/shared/schemas.ts` for `current_state.json`~~ — Done (Phase 3 Brain work: `GameStateSchema` in `src/shared/schemas.ts`)
+- [ ] When building the full cognitive loop in `src/index.ts`, call spy capture + state writer after advisor submit (or on a dedicated "new turn" trigger)
 
 **How to test:** `TEST_ENTRY=1 npm run interactor` — after advisor submit, check `war-room/current_state.json` for the payload.
 
@@ -123,7 +123,7 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 - [x] Flow diagram updated: Phase 2.5 writes to advisor_response.txt; Phase 2 context assembly reads it
 
 **Sub-tasks remaining:**
-- [ ] Brain context assembler explicitly reads `advisor_response.txt` when building Phase 3 prompt
+- [x] ~~Brain context assembler explicitly reads `advisor_response.txt` when building Phase 3 prompt~~ — Done (`src/brain/context-assembler.ts` lines 66-71)
 
 ---
 
@@ -194,3 +194,6 @@ These require a human with a browser and DevTools open:
 ## Logs
 
 Timestamped writeups go under `docs/logs/` (e.g. `2026-02-07-scaffold.md`).
+
+- `docs/logs/2026-02-07-phase1-spy-handoff.md` — Phase 1 Spy module handoff
+- `docs/logs/2026-02-08-phase3-brain-module.md` — Phase 3 Brain module build log (LLM testing, shared schemas, Brain pipeline, cost estimate)

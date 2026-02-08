@@ -48,12 +48,19 @@ export async function enterAdvisorQuery(page: Page, text: string): Promise<void>
   console.log("[Advisor] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
 }
 
+/** Poll interval and how long we wait for the advisor response to stop changing (streaming). */
+const ADVISOR_POLL_MS = 2000;
+const ADVISOR_STABLE_MS = 5000;
+
 /** Wait for the latest advisor response to have content, then return its full text. */
 export async function getLastAdvisorResponseText(
   page: Page,
-  timeoutMs: number = 30000
+  timeoutMs: number = 60000
 ): Promise<string> {
   const start = Date.now();
+  let lastText = "";
+  let lastChangeTime = 0;
+
   while (Date.now() - start < timeoutMs) {
     const locator = page.locator(SELECTORS.advisorResponseContent);
     try {
@@ -65,13 +72,19 @@ export async function getLastAdvisorResponseText(
         if (text) parts.push(text);
       }
       const full = parts.join("\n\n").trim();
-      if (full.length > 80) return full;
+      if (full.length > 80) {
+        if (full !== lastText) {
+          lastText = full;
+          lastChangeTime = Date.now();
+        }
+        if (Date.now() - lastChangeTime >= ADVISOR_STABLE_MS) return lastText;
+      }
     } catch {
       // no element or empty yet
     }
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(ADVISOR_POLL_MS);
   }
-  return "";
+  return lastText || "";
 }
 
 /** Return the first few sentences of a block of text (for terminal preview). */
