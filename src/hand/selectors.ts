@@ -21,6 +21,10 @@ export const SELECTORS = {
   /** Advisor response text lives inside this (markdown rendered). */
   advisorResponseContent: 'div.markdown-content',
 
+  // Time jump (next turn) — top right
+  /** Button that opens the time-jump picker (jump-forward icon). */
+  nextTurnButton: 'button:has(svg.feather-jump-forward)',
+
   // Home / presets navigation (after login)
   choosePresetButton: 'a[href="/presets"]',
   ww2PresetLink: 'a[aria-label="Open World War II"]',

@@ -16,6 +16,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as readline from "readline";
 import {
+  clickNextTurn,
   enterAction,
   enterAdvisorQuery,
   firstFewSentences,
@@ -87,15 +88,27 @@ async function main(): Promise<void> {
       if (advisorText) {
         console.log("\n[Advisor] First few sentences:", firstFewSentences(advisorText));
       }
+
+      console.log("\n--- Type 'ready' and press Enter to advance to next turn, or just Enter to close. ---");
+      const answer = await new Promise<string>((resolve) => {
+        const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+        rl.question("> ", (input) => {
+          rl.close();
+          resolve((input ?? "").trim().toLowerCase());
+        });
+      });
+      if (answer === "ready") {
+        await clickNextTurn(page);
+      }
     } catch (e) {
       console.warn("Test entry failed (not on a game page?):", e);
     }
   }
 
-  console.log("\n--- Interactor ready. Browser will stay open until you press Enter. ---");
+  console.log("\n--- Press Enter to close the browser and exit. ---");
   await new Promise<void>((resolve) => {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-    rl.question("Press Enter to close the browser and exit... ", () => {
+    rl.question("> ", () => {
       rl.close();
       resolve();
     });

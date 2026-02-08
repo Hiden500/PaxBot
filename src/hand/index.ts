@@ -4,5 +4,7 @@ export {
   enterAdvisorQuery,
   getLastAdvisorResponseText,
   firstFewSentences,
+  clickNextTurn,
+  dismissNextEvents,
 } from "./actions";
 export { openPresetAndSelectWW2 } from "./navigate";
