@@ -10,7 +10,7 @@
 |--------|---------|
 | **spy/** | Perception: Playwright network intercept, parse `/api/simple-chat` → `current_state.json`. |
 | **brain/** | Reasoning: read War Room files, assemble context, call LLM, produce action batch. |
-| **hand/** | Execution: UI automation — selectors, type into action/advisor box, submit; used by interactor and by full-loop executor. |
+| **hand/** | Execution: UI automation — selectors, action/advisor box, submit; next turn (jump forward + 1 week), Next Event loop, Proceed; used by interactor and by full-loop executor. |
 | **shared/** | Shared types, Zod schemas, utilities. |
 | **interactor.ts** (root) | Entry point for a *single manual session*: load auth, navigate, test action/advisor, run Spy. Imports from **hand/** and **spy/**. Not a separate folder. |
 | **index.ts** (root) | Future entry point for the *full cognitive loop* (Spy → War Room → Brain → Hand). |
@@ -150,18 +150,18 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 
 ---
 
-## Phase 4: Hand — Pending
+## Phase 4: Hand — In Progress
 
 **Goal:** Execute the action batch by typing each action into the game UI.
 
-**Files to create/modify:**
-- `src/hand/executor.ts` — iterate ActionBatch, type + submit each action
-- `src/hand/index.ts` — barrel export (update)
+**Files:** `src/hand/` — selectors, actions (enterAction, enterAdvisorQuery, clickNextTurn, dismissNextEvents), navigate (openPresetAndSelectWW2), index (barrel export).
 
-**Sub-tasks:**
-- [ ] Identify action box submit selectors/mechanics (need DevTools — human task)
-- [ ] Implement batch executor (loop through actions, type + submit)
-- [ ] Implement time-jump trigger
+**Done:**
+- [x] Action/advisor box submit (selectors, enterAction, enterAdvisorQuery)
+- [x] Next turn: jump-forward button → 1 week → Next Event loop (with long timeout for first event/LLM) → Proceed &lt;date&gt;
+
+**Sub-tasks remaining:**
+- [ ] Implement batch executor (iterate ActionBatch, type + submit each action in `executor.ts`)
 - [ ] Final ledger commit after execution
 - [ ] Wire full cognitive loop in `src/index.ts`
 
@@ -170,7 +170,7 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 ## Interactor behavior (manual session)
 
 - **Action box check:** After navigation completes, we wait **3s** for the game view to render, then wait up to **10s** for the action box to be visible. If not found, we log “Action box not visible yet…” and continue (test entry may still run if you navigate manually).
-- **Test entry (`TEST_ENTRY=1`):** 2.5s delay before the test block, then `enterAction` → 2.5s → Spy capture + `enterAdvisorQuery` → write stripped game state to `current_state.json`.
+- **Test entry (`TEST_ENTRY=1`):** 2.5s delay before the test block, then `enterAction` → 2.5s → Spy capture + `enterAdvisorQuery` → write stripped game state to `current_state.json`. Then prompt: **Type 'ready' and Enter** to advance to next turn, or Enter to skip. If you type `ready`, Hand runs next turn (jump-forward → 1 week), then dismisses event popups (clicks "Next Event" until none left, then "Proceed &lt;date&gt;" to close the timeline).
 
 ---
 
@@ -179,9 +179,9 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 These require a human with a browser and DevTools open:
 
 - [x] ~~Capture `/api/simple-chat` JSON payload~~ — Done (request payload captured on advisor submit)
+- [x] ~~Identify timeline/jump selector~~ — Done (next-turn button, 1 week, Next Event loop, Proceed &lt;date&gt; in `src/hand/actions.ts`)
 - [ ] Confirm/update Hand selectors in `src/hand/selectors.ts` if the game UI changes (action/advisor placeholders, submit: Enter vs button)
 - [ ] Identify diplomacy chat selector
-- [ ] Identify timeline/jump selector
 - [ ] Determine submit mechanics for each UI element (button? Enter? both?)
 
 ---

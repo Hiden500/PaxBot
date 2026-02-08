@@ -1,9 +1,141 @@
-# Crisis Handbook — Tactical Doctrines
+SOVEREIGN HANDBOOK — Strategies, Tactics and Structure For the Aspiring AI Player. The brain will select tactics from here.
 
-Procedures for specific situations, e.g.:
-- Managing internal dissent.
-- Executing a coup.
-- Responding to an invasion.
-- Securing supply lines.
+I. NATIONAL IDENTITY & MANDATE
 
-Add one procedure per section. The Brain will select tactics from here.
+Administrative Metadata
+- Nation Name:
+- Regime Type: (e.g., Democracy, Autocracy, Single-party state, Monarchy)
+- Ruling Ideology: (e.g., Right-leaning, Left-leaning, Centrist)
+
+1. Sovereignty and Purpose
+- Geopolitical Representation: Explain the entity you are simulating on the world stage.
+- National Tasks: What is the nation currently tasked with doing (e.g., industrialization, defense, expansion)?
+- Strategic Friction: What issues do you foresee (civil unrest, terrorism, economic collapse)?
+- Sovereign Assets: What resources (military, financial, infrastructure) does the state have for issuing directives?
+
+2. Governance & M.O.
+- Operating Procedures: What frequent practices and behaviors does the nation use to achieve objectives (the group's M.O.)?
+- Power Structure: Is the state highly centralized (Autocracy) or distributed (Democracy)? How quickly can directives be passed?
+
+II. THE GEOPOLITICAL & CULTURAL LANDSCAPE
+
+3. Internal & External Dynamics
+- Active Political Events: Major political events in the nation or region (changes in government, wars, rebellions).
+- Hegemonic Power: Dominant political party or faction in control.
+- Dominant Ideologies: Core ideologies driving the population (Pro-Monarchy, Pro-Republic, Isolationism, etc.).
+- Cultural Geography: Religion, demographics, popular beliefs.
+- Strategic Windows: Popular religious or public events (e.g., Carnaval, Holi) that can be used for mobilization or propaganda.
+
+4a. Historical Setting (Retrospective)
+- Regional Precedents: Events in your region in the years leading up to the current state (wars, major laws).
+- Global Context: World-scale events (scientific discoveries, global conflicts) occurring simultaneously.
+- Historical Foresight: Based on actual history, what significant events are scheduled to happen after this period?
+
+4b. Contemporary/Future Setting
+- Probabilistic Events: Based on events that have already occurred, what is most likely to occur soon?
+- Global Volatility: Significant international shifts that could impact your sovereignty?
+
+III. OPERATIONAL CHALLENGES & ASSETS
+
+5. Foundational State Elements
+- Primary Conflicts: Major issues from the world summary (territorial disputes, internal power struggles).
+- Sovereign Documents: Foundational documents (constitution, manifestos, state propaganda).
+- Directives & Active Logic: When taking action, use active verbs (Move, Allocate, Establish, Mobilize, Annex) to solve, prevent, or take action.
+
+6. Resource Catalog
+- Military Power: Mercenaries, paramilitary groups, special forces, insurgency groups.
+- Infrastructure: Ports, railroads, plantations, mines, power plants.
+- Financial Capital: Offshore accounts, investments, black market trade.
+- Intelligence: Spies, surveillance equipment, couriers.
+
+---
+
+IV. HOW TO THINK ABOUT STRATEGY
+
+Crisis mapping (for nation-states)
+Map the political, economic, and military geography of the world and your region. Link ideologies, events, influential groups, and policies in one mental map. The map is dynamic: other powers and new events will change it. Keep it updated so you can exploit or resolve issues through directives. Use it to navigate the political landscape and to suggest concrete actions.
+
+Arcs and flexibility
+Plan multi-step arcs toward an end goal (e.g. industrial parity, regional alliance, territorial revision). Keep arcs flexible enough to bend around obstacles but rigid enough to matter. If you cannot acquire one resource, use what you have: redirect the arc. Creative resourcefulness is fundamental. Track: arcs in progress, resources available, resources in use, resources needed.
+
+Aqueduct metaphor
+Your ultimate goal is like Rome’s need for water. Arcs are the arches that get you there; each directive is a stone. One action may seem small, but a sequence of actions builds the structure. Plan the main arc so it culminates when it can have impact; have a backup arc if the situation blocks the first.
+
+Strategy outline (ask yourself)
+1. What are a few reasonable end goals given your nation’s identity and constraints?
+2. What arcs can you use to achieve them (diplomatic, economic, military)?
+3. What resources do you have at your disposal? Who is in power? What can you do that others cannot?
+4. What resources do you need to acquire? What alliances, trade, or intelligence do you need?
+5. What ideologies, events, groups, or other nations can you use to acquire resources and further your goal? How do your arcs fit together?
+
+---
+
+V. DIRECTIVE VERBS & TACTICAL CATEGORIES (NATION-STATE)
+
+Acquire
+- Alliances: Approach powers with shared interests; offer trade, security, or political support in exchange for commitment.
+- Loyalty: Use shared history, ideology, or past cooperation to justify requests for support or increased authority. If no prior link, build a credible case (e.g. mutual benefit, common threat).
+- Intelligence: Establish networks to track other nations’ moves, unrest, or opportunities. Use diplomats, spies, and trade contacts.
+- Territory or influence: Negotiate, pressure, or prepare the ground for annexation or sphere-of-influence expansion.
+- Trade and capital: Secure raw materials, markets, or loans from other states or commercial actors to fund your arcs.
+
+Allocate
+- Military: Move battalions, station forces in key regions, build or reinforce defenses.
+- Funds: Subsidize industry, pay for infrastructure, fund allies or proxies.
+- Infrastructure: Build or prioritize railroads, ports, mines, factories where they support your goal.
+- Political capital: Back factions, lobby for policies, or invest in propaganda to shift domestic or foreign opinion.
+
+Execute
+- Diplomacy: Propose treaties, offer guarantees, issue ultimatums, or mediate between others.
+- Mobilization: Institute drafts, expand production, rally population for war or sacrifice.
+- War: Invasion, annexation, guerrilla campaign, support for revolution or civil war elsewhere. Combine with diplomacy (alliances, peace terms).
+- Internal change: Support coup, democratic transition, or crackdown to align the state with your arc.
+- Economic levers: Embargo, trade deals, loans, or sanctions to reward or pressure other states.
+- Sabotage: Disrupt supply lines, industry, or communications; damage infrastructure (rails, ports, mines); spread disorder or panic; poison, arson, or “accidents” that degrade the enemy’s ability to resist.
+- Assassination and decapitation: Remove key figures (ruler, general, minister) to create succession crisis, paralysis, or factional struggle. Use poison, “accident,” staged execution, or proxy. Weakens resolve and command before you move.
+- Execution and purge: Public or secret elimination of rivals, traitors, or opposition (Order 66–style). Consolidate power at home or encourage defection abroad by showing consequences. Use sparingly; can backfire if seen as tyranny.
+- Spies and intelligence: Place or recruit agents to gather information, spread disinformation, bribe or blackmail officials, or trigger incidents that justify your next move. Intelligence makes sabotage and decapitation possible.
+- Religion and ideology: Mobilize religious or ideological factions against the target regime; support dissident clergy or prophets; frame your cause as holy or righteous; exploit sectarian or ethnic fault lines so the target fractures from within before you commit armies.
+
+Weaken then invade (advisor’s rule)
+Do not go head-on if you can help it. Structure: weaken the nation first, then invade or absorb. Be creative.
+- Weaken by alliance: Isolate the target diplomatically, then strike when they have no allies or are already at war elsewhere.
+- Weaken by holiday or surprise: Strike when their guard is down (festival, winter, harvest, political transition). Speed and shock reduce their ability to mobilize.
+- Weaken by religion or ideology: Fuel internal split (sectarian, ethnic, or ideological). Support rebels, heretics, or separatists. When the state is busy putting out fires, move in or demand concessions.
+- Weaken by decapitation: Remove the head (assassination, capture, or forced abdication). Succession fights and power vacuums make invasion or puppet takeover easier.
+- Weaken by Order 66: Turn their own apparatus against them—bribe generals, buy off garrisons, trigger purges that gut their command, or engineer a “loyal” coup that hands you the keys. Then “invite” in your troops or merge governments.
+- Weaken by economy and sabotage: Strangle trade, wreck rails or industry, spread famine or unrest. A hungry, divided, and disorganized state falls faster than one that can fight a long war.
+Combine several: e.g. sabotage + decapitation + holiday attack, or religion + alliance + invasion once the target is fractured.
+
+---
+
+VI. EXAMPLES FOR INSPIRATION
+
+Crisis map (sketch for a nation-state)
+- Popular ideologies: Pro-Monarchy, Pro-Republic, Isolationist, Pro-British Trade, etc.
+- Important events: Abdication of a ruler, rebellions in a region, refusal to pay taxes, foreign incursions.
+- Influential groups: Conservatives, Liberals, military leaders, merchants, landowners, labor.
+- Policies in action: Tax changes, subsidies, troop deployments, drafts, trade agreements.
+- State of the world: Rebellions, popularity of regime, regional poverty, drought or plenty.
+- Personal ideas: Coup, build industry in key region, close or open trade routes, ally with X.
+
+Multi-step arc example (industrial buildup)
+Step 1: Allocate funds to railroads linking resource regions to ports.
+Step 2: Secure raw materials via trade deals or territorial control.
+Step 3: Build or expand factories in key regions.
+Step 4: Mobilize labor or attract skilled workers; subsidize key industries.
+Step 5: Use industrial output to strengthen military or trade leverage.
+
+Multi-step arc example (diplomatic bloc)
+Step 1: Approach the most natural ally (shared threat or interest).
+Step 2: Offer something concrete (trade, guarantee, intelligence).
+Step 3: Propose a formal agreement or joint stance.
+Step 4: Bring in a second power to widen the bloc.
+Step 5: Use the bloc to deter adversaries or negotiate from strength.
+
+Tactical inspiration
+- Use economic leverage on neighbors: offer trade or loans in exchange for alignment, or threaten embargo if they side with your rival.
+- Establish intelligence and contacts before a major move: know who will resist, who will comply, and where unrest might break out.
+- Mobilize popular support or nationalist sentiment before a costly war or reform so the state can sustain the effort.
+- If blocked on one path (e.g. alliance denied), pivot: seek another partner, build industry first, or use propaganda to shift the board before trying again.
+- Research historical figures and institutions: reference past cooperation or precedent to justify requests (e.g. “remind X of our prior coordination and request expanded authority to address the current threat”).

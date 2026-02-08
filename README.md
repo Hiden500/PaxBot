@@ -71,11 +71,11 @@ npm run interactor
 ```
 
 - **Open a specific game page:** `GAME_URL=https://www.paxhistoria.co/game/your-game-id npm run interactor`
-- **Run a quick action/advisor test:** `TEST_ENTRY=1 npm run interactor` (submits one action and one advisor query after load)
+- **Run a quick action/advisor test:** `TEST_ENTRY=1 npm run interactor` (submits one action and one advisor query, writes game state). Then type **`ready`** and Enter to advance one week and dismiss event popups (Next Event → Proceed).
 
 See [`docs/auth-setup.md`](docs/auth-setup.md) for auth state and [`src/interactor.ts`](src/interactor.ts) for the script.
 
-> The full cognitive loop is under active development. The interactor and auth flow are working; Perception (Spy) and Brain are in progress. See [Project Status](#project-status) below.
+> The full cognitive loop is under active development. The interactor, auth flow, Spy (perception), and Hand (action/advisor/next turn/events) are working; Brain is in progress. See [Project Status](#project-status) below.
 
 ## Project Status
 
@@ -84,11 +84,11 @@ Tracked in [`docs/project-tracker.md`](docs/project-tracker.md).
 | Phase | Status |
 |-------|--------|
 | Phase 0: Project Init | Done |
-| Phase 1: Perception (Spy) | In Progress |
+| Phase 1: Perception (Spy) | Done |
 | Phase 2: War Room | Pending |
 | Phase 2.5: Advisor Query | Pending |
 | Phase 3: Brain (LLM) | Pending |
-| Phase 4: Hand (Execution) | Pending |
+| Phase 4: Hand (Execution) | In Progress |
 
 ## Tech Stack
 
