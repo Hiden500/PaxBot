@@ -3,51 +3,61 @@
     {
       "operation_id": "OP_001",
       "goal": "Achieve significant industrial and military superiority for global power projection.",
-      "current_phase": 1,
+      "current_phase": 2,
       "steps": [
         {
           "phase": 1,
           "action": "Build industry in California.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 1,
           "action": "Build industry in Texas.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 1,
           "action": "Build industry in New York.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 1,
           "action": "Recruit 1 infantry battalion in California.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 1,
           "action": "Recruit 1 infantry battalion in Texas.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 1,
           "action": "Recruit 1 infantry battalion in New York.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 1,
           "action": "Begin construction of national railroad network.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 2,
           "action": "Continue industrial expansion in other strategic regions.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 2,
           "action": "Expand naval and air force capabilities.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 2,
+          "action": "Leverage European conflicts for economic gain through arms sales.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Solidify influence in the Western Hemisphere.",
           "status": "PENDING"
         },
         {
@@ -60,17 +70,22 @@
     {
       "operation_id": "OP_002",
       "goal": "Secure USA dominance in the Pacific, gather intelligence, and prepare to challenge regional rivals.",
-      "current_phase": 1,
+      "current_phase": 3,
       "steps": [
         {
           "phase": 1,
           "action": "Establish intelligence network targeting Japan.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 2,
           "action": "Strategically reinforce Pacific territories (e.g., Hawaii, Philippines).",
-          "status": "PENDING"
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 2,
+          "action": "Enhance intelligence on Japanese military and industrial capabilities.",
+          "status": "COMPLETE"
         },
         {
           "phase": 3,

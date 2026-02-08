@@ -47,9 +47,10 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 | Phase 0: Project Init | **Done** | Repo scaffold, Node+TS, Playwright, docs, CLAUDE.md |
 | Phase 1: Perception | **Done** | Spy captures `/api/simple-chat` request → `war-room/current_state.json`; optional Zod + full-loop wiring left |
 | Phase 2: War Room | **Mostly Done** | Constitution + handbook populated; Zod schemas for ledger + game state in `src/shared/schemas.ts` |
-| Phase 2.5: Advisor | Pending | Query advisor chat, scrape response into context |
+| Phase 2.5: Advisor | **Done** | Advisor query + response capture wired into cognitive loop |
 | Phase 3: Brain | **Done** | Context assembly, Gemini 2.5 Flash reasoning, action batch generation, ledger updates |
-| Phase 4: Hand | In Progress | Hand module (`src/hand/`); interactor (`src/interactor.ts`) uses it for manual sessions |
+| Phase 4: Hand | **Done** | Hand module (`src/hand/`); batch execution wired into cognitive loop |
+| Phase 5: Cognitive Loop | **Done** | Full loop in `src/index.ts`: boot → advisor → spy → brain → hand → next turn → repeat |
 
 ---
 
@@ -155,7 +156,7 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 
 ---
 
-## Phase 4: Hand — In Progress
+## Phase 4: Hand — Done
 
 **Goal:** Execute the action batch by typing each action into the game UI.
 
@@ -164,11 +165,33 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 **Done:**
 - [x] Action/advisor box submit (selectors, enterAction, enterAdvisorQuery)
 - [x] Next turn: jump-forward button → 1 week → Next Event loop (with long timeout for first event/LLM) → Proceed &lt;date&gt;
+- [x] Batch execution: loop over `batch.actions[]`, call `enterAction()` for each with 1.5s delay — wired directly in `src/index.ts` (no separate `executor.ts` needed)
+- [x] Full cognitive loop wired in `src/index.ts`
 
-**Sub-tasks remaining:**
-- [ ] Implement batch executor (iterate ActionBatch, type + submit each action in `executor.ts`)
-- [ ] Final ledger commit after execution
-- [ ] Wire full cognitive loop in `src/index.ts`
+**Remaining:**
+- [ ] Post-execution ledger commit (mark operations as advanced after Hand finishes) — nice-to-have, not blocking
+
+---
+
+## Phase 5: Cognitive Loop — Done
+
+**Goal:** Wire Spy → Brain → Hand into an autonomous loop with user-gated turn advancement.
+
+**File:** `src/index.ts` (rewritten from stub)
+
+**Run:** `npm start` (or `GAME_URL=<url> npm start` to skip preset flow)
+
+**Flow per turn:**
+1. Spy capture starts → advisor query fires → Spy intercepts `/api/simple-chat` → writes `current_state.json`
+2. Advisor response polled → writes `advisor_response.txt`
+3. Brain: `generateActions()` reads war-room files → calls Gemini → validates → writes ledger
+4. Hand: iterates `batch.actions[]` → `enterAction()` for each
+5. User prompt: "ready" → advance 1 week → repeat; "quit" → exit; Enter → re-run without advancing
+
+**User controls:**
+- `ready` / `r` — advance turn, continue loop
+- `quit` / `q` — clean shutdown
+- Enter (empty) — re-run advisor + Brain on same turn (useful for re-rolling)
 
 ---
 
