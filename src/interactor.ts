@@ -26,6 +26,7 @@ import {
 } from "./hand";
 import {
   captureNextSimpleChatRequestBody,
+  writeAdvisorResponse,
   writeGameStateFromPayload,
 } from "./spy";
 
@@ -78,13 +79,16 @@ async function main(): Promise<void> {
       await enterAction(page, "build up industry in arizona");
       await page.waitForTimeout(STEP_DELAY_MS);
 
-      // Spy: capture /api/simple-chat request payload when we submit to advisor (game state).
+      // Advisor: ask standard question (current position + advice for next actions). Spy captures state and stores response.
+      const ADVISOR_QUERY =
+        "What is our current position and what do you advise for our next actions?";
       const bodyPromise = captureNextSimpleChatRequestBody(page);
-      await enterAdvisorQuery(page, "what should i do next");
+      await enterAdvisorQuery(page, ADVISOR_QUERY);
       const requestBody = await bodyPromise;
       writeGameStateFromPayload(requestBody);
 
       const advisorText = await getLastAdvisorResponseText(page);
+      writeAdvisorResponse(advisorText);
       if (advisorText) {
         console.log("\n[Advisor] First few sentences:", firstFewSentences(advisorText));
       }

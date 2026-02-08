@@ -46,9 +46,9 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 |-------|--------|-------------|
 | Phase 0: Project Init | **Done** | Repo scaffold, Node+TS, Playwright, docs, CLAUDE.md |
 | Phase 1: Perception | **Done** | Spy captures `/api/simple-chat` request → `war-room/current_state.json`; optional Zod + full-loop wiring left |
-| Phase 2: War Room | Pending | Populate constitution, handbook, ledger schema |
+| Phase 2: War Room | **Mostly Done** | Constitution + handbook populated; Zod schemas for ledger + game state in `src/shared/schemas.ts` |
 | Phase 2.5: Advisor | Pending | Query advisor chat, scrape response into context |
-| Phase 3: Brain | Pending | Context assembly, LLM reasoning, action batch generation |
+| Phase 3: Brain | **Done** | Context assembly, Gemini 2.5 Flash reasoning, action batch generation, ledger updates |
 | Phase 4: Hand | In Progress | Hand module (`src/hand/`); interactor (`src/interactor.ts`) uses it for manual sessions |
 
 ---
@@ -80,6 +80,7 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 - [x] Write only the **`current_state`** field to `war-room/current_state.json` as `{ "current_state": "..." }`
 - [x] **Strip advisor-only content** before writing: drop text before `*** Description of the Map in the CURRENT Round: ***` (advisor system prompt) and from `Remember, it is crucially important that you guide the player` onward (respond-to-user tail). Stored prompt is game-state only (map, USA status, event history, diplomacy) so the Brain is not confused by advisor instructions.
 - [x] Wired into interactor when `TEST_ENTRY=1`: capture starts before `enterAdvisorQuery`, then we await and write
+- [x] **Advisor response:** `writeAdvisorResponse(text)` writes the latest advisor reply to `war-room/advisor_response.txt` (overwritten each turn). Brain will read this in Phase 3 context assembly.
 
 **Remaining (for a new agent):**
 - [ ] Optional: add Zod schema in `src/shared/schemas.ts` for `current_state.json` (shape: `{ current_state: string }` only)
@@ -97,56 +98,60 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 
 ---
 
-## Phase 2: War Room — Pending
+## Phase 2: War Room — Mostly Done
 
 **Goal:** Populate the War Room template files with real strategic content and validate the ledger schema.
 
-**Files to create/modify:**
-- `war-room/constitution.md` — long-term goals (populate with real content)
-- `war-room/crisis_handbook.txt` — tactical playbook (populate with real content)
-- `src/shared/schemas.ts` — Zod schema for StrategicLedger (add to existing)
-- `src/brain/war-room-reader.ts` — read + validate all War Room files
+**Done:**
+- [x] Write constitution content (`war-room/constitution.md`)
+- [x] Write crisis handbook content (`war-room/crisis_handbook.txt`)
+- [x] Define Zod schemas (`src/shared/schemas.ts`): GameState, OperationStep, Operation, StrategicLedger, ActionBatch
+- [x] Implement War Room reader as part of Brain context-assembler (`src/brain/context-assembler.ts`)
 
-**Sub-tasks:**
-- [ ] Write constitution content (long-term goals, identity, constraints)
-- [ ] Write crisis handbook content (tactical doctrines, procedures)
-- [ ] Define Zod StrategicLedger schema
-- [ ] Implement War Room reader (read all files, validate, return typed context)
+**Remaining:**
+- [ ] `advisor_response.txt` — placeholder exists conceptually but file isn't created until Phase 2.5 wires advisor query
 
 ---
 
-## Phase 2.5: Advisor — Pending
+## Phase 2.5: Advisor — In Progress
 
 **Goal:** Query the in-game advisor and scrape the response into the Brain's context.
 
-**Files to create/modify:**
-- `src/hand/advisor.ts` — type query into advisor box, wait for response, extract text
-- `src/hand/index.ts` — barrel export
+**Done:**
+- [x] Advisor query and response capture (Hand: `enterAdvisorQuery`, `getLastAdvisorResponseText`; already in use)
+- [x] Store advisor response in `war-room/advisor_response.txt` (Spy: `writeAdvisorResponse`). Overwritten each turn. Standard question for now: "What is our current position and what do you advise for our next actions?"
+- [x] Flow diagram updated: Phase 2.5 writes to advisor_response.txt; Phase 2 context assembly reads it
 
-**Sub-tasks:**
-- [ ] Identify advisor box selectors (need DevTools — human task)
-- [ ] Implement advisor query function (type → submit → wait → scrape response)
-- [ ] Add advisor response to Brain context assembly
+**Sub-tasks remaining:**
+- [ ] Brain context assembler explicitly reads `advisor_response.txt` when building Phase 3 prompt
 
 ---
 
-## Phase 3: Brain — Pending
+## Phase 3: Brain — Done
 
-**Goal:** Assemble all context, call Claude API, generate a validated batch of actions.
+**Goal:** Assemble all context, call LLM, generate a validated batch of actions.
 
-**Files to create/modify:**
-- `src/brain/context-assembler.ts` — read all inputs, build prompt
-- `src/brain/llm-client.ts` — Anthropic Claude API wrapper
-- `src/brain/action-generator.ts` — call LLM, parse + validate ActionBatch
-- `src/shared/schemas.ts` — Zod schema for ActionBatch (add to existing)
+**LLM:** Gemini 2.5 Flash via `@google/genai` SDK (1M context window, forced JSON output via `responseSchema`).
+
+**Files created:**
+- `src/shared/schemas.ts` — Zod schemas: GameState, OperationStep, Operation, StrategicLedger, ActionBatch
+- `src/shared/index.ts` — barrel export
+- `src/brain/context-assembler.ts` — reads all 5 War Room files, builds system + user prompts
+- `src/brain/llm-client.ts` — Gemini 2.5 Flash wrapper with forced JSON mode (`responseMimeType` + `responseSchema`)
+- `src/brain/action-generator.ts` — orchestrator: context → prompt → Gemini → validate → ledger write → return actions
 - `src/brain/index.ts` — barrel export
 
-**Sub-tasks:**
-- [ ] Define ActionBatch Zod schema
-- [ ] Implement context assembler (GameState + War Room files + advisor → prompt)
-- [ ] Implement Claude API client
-- [ ] Implement action generator (prompt → ActionBatch)
-- [ ] Update strategic_ledger.json with new plans after generation
+**Done:**
+- [x] Define ActionBatch Zod schema
+- [x] Implement context assembler (GameState + War Room files + advisor → prompt)
+- [x] Implement Gemini API client with forced JSON output
+- [x] Implement action generator (prompt → ActionBatch)
+- [x] Pre-execution ledger write (merge updates by operation_id)
+- [x] Standalone test: `npm run brain` — tested successfully, generates strategic actions + ledger updates
+
+**Remaining (for future phases):**
+- [ ] Post-execution ledger write (after Hand executes actions) — belongs in `src/index.ts` orchestrator
+- [ ] Wire into full cognitive loop in `src/index.ts`
 
 ---
 
@@ -170,7 +175,7 @@ Hand and Spy are **modules**; they don’t know about each other. The **entry po
 ## Interactor behavior (manual session)
 
 - **Action box check:** After navigation completes, we wait **3s** for the game view to render, then wait up to **10s** for the action box to be visible. If not found, we log “Action box not visible yet…” and continue (test entry may still run if you navigate manually).
-- **Test entry (`TEST_ENTRY=1`):** 2.5s delay before the test block, then `enterAction` → 2.5s → Spy capture + `enterAdvisorQuery` → write stripped game state to `current_state.json`. Then prompt: **Type 'ready' and Enter** to advance to next turn, or Enter to skip. If you type `ready`, Hand runs next turn (jump-forward → 1 week), then dismisses event popups (clicks "Next Event" until none left, then "Proceed &lt;date&gt;" to close the timeline).
+- **Test entry (`TEST_ENTRY=1`):** 2.5s delay before the test block, then `enterAction` → 2.5s → Spy capture + `enterAdvisorQuery` with standard question ("What is our current position and what do you advise for our next actions?") → write game state to `current_state.json` and advisor reply to `advisor_response.txt`. Then prompt: **Type 'ready' and Enter** to advance to next turn, or Enter to skip. If you type `ready`, Hand runs next turn (jump-forward → 1 week), then dismisses event popups (clicks "Next Event" until none left, then "Proceed &lt;date&gt;" to close the timeline).
 
 ---
 

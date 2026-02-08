@@ -1,3 +1,88 @@
 {
-  "active_operations": []
+  "active_operations": [
+    {
+      "operation_id": "OP_001",
+      "goal": "Achieve significant industrial and military superiority for global power projection.",
+      "current_phase": 1,
+      "steps": [
+        {
+          "phase": 1,
+          "action": "Build industry in California.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 1,
+          "action": "Build industry in Texas.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 1,
+          "action": "Build industry in New York.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 1,
+          "action": "Recruit 1 infantry battalion in California.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 1,
+          "action": "Recruit 1 infantry battalion in Texas.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 1,
+          "action": "Recruit 1 infantry battalion in New York.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 1,
+          "action": "Begin construction of national railroad network.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 2,
+          "action": "Continue industrial expansion in other strategic regions.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 2,
+          "action": "Expand naval and air force capabilities.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 3,
+          "action": "Deploy significant forces to Pacific and Atlantic theaters.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_002",
+      "goal": "Secure USA dominance in the Pacific, gather intelligence, and prepare to challenge regional rivals.",
+      "current_phase": 1,
+      "steps": [
+        {
+          "phase": 1,
+          "action": "Establish intelligence network targeting Japan.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 2,
+          "action": "Strategically reinforce Pacific territories (e.g., Hawaii, Philippines).",
+          "status": "PENDING"
+        },
+        {
+          "phase": 3,
+          "action": "Develop and deploy a powerful Pacific Fleet.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 4,
+          "action": "Seek opportunities to weaken Japanese influence.",
+          "status": "PENDING"
+        }
+      ]
+    }
+  ]
 }

@@ -9,7 +9,9 @@
     "capture-auth": "tsx scripts/capture-auth-state.ts",
     "demo-auth": "tsx scripts/demo-auth-state.ts",
     "interactor": "tsx src/interactor.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-llm": "tsx scripts/test-llm-guardrails.ts",
+    "brain": "tsx src/brain/action-generator.ts"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,10 @@
   },
   "homepage": "https://github.com/phillipyan300/Pax-Automata#readme",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.74.0",
+    "@google/genai": "^1.40.0",
+    "dotenv": "^17.2.4",
+    "openai": "^6.18.0",
     "playwright": "^1.58.2",
     "tsx": "^4.21.0",
     "zod": "^4.3.6"

@@ -56,3 +56,15 @@ export function writeGameStateFromPayload(body: string | null): void {
   fs.writeFileSync(WAR_ROOM_PATH, JSON.stringify(out, null, 2), "utf-8");
   console.log("[Spy] Wrote game state (current_state, advisor instructions stripped) to war-room/current_state.json");
 }
+
+const ADVISOR_RESPONSE_PATH = path.join(process.cwd(), "war-room", "advisor_response.txt");
+
+/**
+ * Writes the latest advisor reply to war-room/advisor_response.txt.
+ * Overwritten each turn when we get a new response. Brain reads this in Phase 3.
+ */
+export function writeAdvisorResponse(text: string | null): void {
+  fs.mkdirSync(path.dirname(ADVISOR_RESPONSE_PATH), { recursive: true });
+  fs.writeFileSync(ADVISOR_RESPONSE_PATH, text ?? "", "utf-8");
+  console.log("[Spy] Wrote advisor response to war-room/advisor_response.txt");
+}

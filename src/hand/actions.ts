@@ -55,11 +55,17 @@ export async function getLastAdvisorResponseText(
 ): Promise<string> {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
-    const last = page.locator(SELECTORS.advisorResponseContent).last();
+    const locator = page.locator(SELECTORS.advisorResponseContent);
     try {
-      await last.waitFor({ state: "visible", timeout: 2000 });
-      const text = (await last.innerText()).trim();
-      if (text.length > 80) return text;
+      await locator.first().waitFor({ state: "visible", timeout: 2000 });
+      const count = await locator.count();
+      const parts: string[] = [];
+      for (let i = 0; i < count; i++) {
+        const text = (await locator.nth(i).innerText()).trim();
+        if (text) parts.push(text);
+      }
+      const full = parts.join("\n\n").trim();
+      if (full.length > 80) return full;
     } catch {
       // no element or empty yet
     }

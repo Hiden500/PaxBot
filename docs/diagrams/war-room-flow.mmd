@@ -13,6 +13,7 @@ sequenceDiagram
         participant State as current_state.json
         participant Const as constitution.md
         participant Handbook as crisis_handbook.txt
+        participant AdvisorResp as advisor_response.txt
         participant Ledger as strategic_ledger.json
     end
 
@@ -26,12 +27,14 @@ sequenceDiagram
     Brain->>Const: Read Goals ("Who am I, what are my goals (Fixed document)?")
     Brain->>Handbook: Read Tactics ("How do I handle this (Crisis Handbook)?")
     Brain->>Ledger: Read Active Plans ("What is the current operation (Memory of ongoing operations)?")
+    Brain->>AdvisorResp: Read Latest Advisor Advice (current position + next actions; overwritten each turn)
 
     Note over Brain, Hand: PHASE 2.5: STRATEGIC CONSULTATION (Chief of Staff)
     Brain->>Brain: Decision: Do I need external advice (i.e. in-game advisor)?
-    Brain->>Hand: Type Query ("What is our biggest threat? Which nations are currently weak... etc") into **Advisor Chat**
+    Brain->>Hand: Type Query (e.g. "What is our current position and what do you advise for our next actions?") into **Advisor Chat**
     Hand->>Game: Submit Query
-    Game-->>Hand: Advisor Reply ("Rome is massing troops")
+    Game-->>Hand: Advisor Reply
+    Hand->>AdvisorResp: Write advisor response (overwritten each turn)
     Hand->>Brain: Return Advice to Context
 
     Note over Brain: PHASE 3: REASONING
