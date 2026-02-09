@@ -2,8 +2,8 @@
   "active_operations": [
     {
       "operation_id": "OP_001",
-      "goal": "Achieve significant industrial and military superiority for global power projection.",
-      "current_phase": 12,
+      "goal": "Achieve significant industrial and military superiority for global power projection and world conquest.",
+      "current_phase": 31,
       "steps": [
         {
           "phase": 1,
@@ -292,11 +292,6 @@
         },
         {
           "phase": 4,
-          "action": "Formally offer a comprehensive trade and security pact to the French Republic, focused on Mediterranean stability and North African economic development, including a clause for joint intelligence sharing regarding Italian and German activities.",
-          "status": "FAILED"
-        },
-        {
-          "phase": 4,
           "action": "Allocate $150 million in emergency funds to establish new heavy industry factories in California (Los Angeles) and Texas (Houston) to accelerate war material production and industrial capacity.",
           "status": "COMPLETE"
         },
@@ -477,16 +472,6 @@
         },
         {
           "phase": 9,
-          "action": "Launch naval invasion of French Morocco and Algerian Coast from Eastern Seaboard and Gulf Coast mobilized forces, targeting Casablanca, Oran, and Algiers.",
-          "status": "FAILED"
-        },
-        {
-          "phase": 9,
-          "action": "Authorize immediate military aid, including weapons, ammunition, and strategic advisors, to the Republic of China to bolster their resistance against Japanese aggression.",
-          "status": "FAILED"
-        },
-        {
-          "phase": 9,
           "action": "Deploy the Fourth California Infantry Battalion from California to the Philippines to further reinforce General MacArthur's command and fortify defenses against Japanese aggression.",
           "status": "COMPLETE"
         },
@@ -494,11 +479,6 @@
           "phase": 9,
           "action": "Order the permanent repositioning of the Pacific Fleet's capital ships and supporting destroyers to Pearl Harbor, Hawaii, and Guam, establishing a forward-deployed naval deterrent against Japanese expansion.",
           "status": "COMPLETE"
-        },
-        {
-          "phase": 9,
-          "action": "Initiate new recruitment drives to raise 2 additional infantry battalions in Texas and 2 in California, bolstering domestic strategic reserves for ongoing and future operations.",
-          "status": "FAILED"
         },
         {
           "phase": 9,
@@ -514,26 +494,6 @@
           "phase": 9,
           "action": "Allocate funds for new heavy industry factories in Detroit and Pittsburgh to further increase war material production.",
           "status": "COMPLETE"
-        },
-        {
-          "phase": 9,
-          "action": "Allocate additional naval and air support, including strategic bombers and carrier-based fighters, to the American Invasion Fleet (Morocco-Algeria) to suppress French resistance and secure coastal objectives immediately.",
-          "status": "FAILED"
-        },
-        {
-          "phase": 9,
-          "action": "Deploy two infantry battalions from Florida to Casablanca and Oran to reinforce the ongoing invasion of the Algerian Coast and French Morocco, securing beachheads and pushing inland.",
-          "status": "FAILED"
-        },
-        {
-          "phase": 9,
-          "action": "Utilize intelligence gathered in French North Africa to target specific French colonial administration buildings, command centers, and major supply depots for immediate sabotage, disrupting their coordinated defense.",
-          "status": "FAILED"
-        },
-        {
-          "phase": 9,
-          "action": "Launch a nationwide public relations campaign justifying the North African intervention as a necessary measure to stabilize the region, protect American interests, and prevent broader European instability.",
-          "status": "FAILED"
         },
         {
           "phase": 10,
@@ -593,12 +553,12 @@
         {
           "phase": 11,
           "action": "Recruit 5 new infantry battalions in California and immediately deploy them to the Philippines to reinforce General Douglas MacArthur's command against Japanese expansion.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 11,
           "action": "Recruit 5 new infantry battalions in Texas and immediately deploy them to Hawaii to fortify Pearl Harbor and strengthen Pacific defenses.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 11,
@@ -613,41 +573,243 @@
         {
           "phase": 12,
           "action": "Deploy 'California Infantry Group II' from California to the Philippines to reinforce General Douglas MacArthur's command.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 12,
           "action": "Deploy 'Texas Infantry Group II' from Texas to Hawaii to fortify Pearl Harbor and strengthen Pacific defenses.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 12,
           "action": "Authorize significantly expanded military aid, including advanced weaponry and additional strategic advisors, to the Republic of China to bolster their resistance against Japanese aggression.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 12,
           "action": "Initiate covert intelligence operations and establish contacts with anti-colonial factions across French West Africa (specifically in Senegal, Guinea, and West Africa regions) to assess vulnerabilities and prepare for future interventions.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 12,
           "action": "Conduct targeted sabotage operations against key French colonial infrastructure (ports, railways, and administrative networks) in Senegal and West Africa to further destabilize their control.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 12,
           "action": "Recruit 3 new infantry battalions in Florida to strengthen domestic strategic reserves and prepare for future Caribbean and African deployments.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 12,
           "action": "Order construction of 1 new aircraft carrier at Norfolk Naval Shipyard in Virginia to continue enhancing our global power projection capabilities.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 12,
           "action": "Allocate funds for a new heavy industry factory in Ohio to boost overall war material production and industrial capacity.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 14,
+          "action": "Secure and consolidate administrative control over Senegal, Guinea, and Côte d'Ivoire, establishing resource extraction and local governance loyal to the USA.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 24,
+          "action": "Direct immediate and maximum resources to accelerate advanced research and development for carrier-based fighter aircraft, ensuring prototypes are combat-ready by late 1936.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 25,
+          "action": "Initiate mass production planning for the advanced carrier fighter aircraft, coordinating with naval aviation commands.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 26,
+          "action": "Begin initial low-rate production of combat-ready carrier fighter aircraft for immediate deployment upon carrier completion.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 28,
+          "action": "Sustain and expand mass production of advanced carrier fighter aircraft to ensure continuous delivery and rapid deployment to all new aircraft carriers.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 31,
+          "action": "Continue sustained mass production of advanced carrier fighter aircraft and ensure rapid deployment to all new aircraft carriers and carrier groups.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_002",
+      "goal": "Establish permanent American control over French colonial holdings in West Africa and integrate them into the American sphere.",
+      "current_phase": 15,
+      "steps": [
+        {
+          "phase": 9,
+          "action": "Establish intelligence networks within the French West African military command structure to identify potential defectors and gather precise troop deployment information.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Initiate covert recruitment drives among identified disgruntled French junior officers and administrators in Senegal and Côte d'Ivoire to cultivate local resistance leaders.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 12,
+          "action": "Provide advanced small arms, real-time intelligence, and specialized covert training to resistance groups and recruited French officers in Senegal and Côte d'Ivoire, escalating disruption against French colonial administration.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 14,
+          "action": "Launch the amphibious invasion of French West Africa, targeting Senegal and Côte d'Ivoire, with the West Africa Expeditionary Force, coordinating with the Free West Africa Front.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 14,
+          "action": "Direct the Free West Africa Front to initiate widespread synchronized uprisings and sabotage against French command structures and supply lines in Senegal and Côte d'Ivoire, immediately preceding American landings.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 15,
+          "action": "Allocate two fresh infantry divisions from the US mainland to garrison Senegal and Côte d'Ivoire, securing American military government and suppressing any French-backed resistance.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 15,
+          "action": "Initiate economic integration programs in Senegal and Côte d'Ivoire, transferring key resource extraction and trade infrastructure under American military government control.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_003",
+      "goal": "Establish permanent American control over the Korean peninsula and integrate it into the American sphere.",
+      "current_phase": 12,
+      "steps": [
+        {
+          "phase": 9,
+          "action": "Intensify covert operations by deploying additional specialized sabotage teams to Taiwan, specifically targeting Japanese naval dry docks at Keelung and major fuel depots for precision strikes to severely degrade their fleet maintenance and logistics.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Execute the amphibious invasion of North Korea and South Korea, targeting key coastal cities like Busan, Incheon, and Wonsan, using the full combat strength of the Pacific Fleet.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 12,
+          "action": "Allocate two fresh infantry divisions from the US mainland to garrison North Korea and South Korea, strengthening occupation and deterring Japanese counter-attacks.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Initiate economic integration programs in North Korea and South Korea, transferring key industrial and resource assets under American military government control.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_004",
+      "goal": "Establish the Philippines as a primary strategic hub for American power projection and defense in the Pacific.",
+      "current_phase": 12,
+      "steps": [
+        {
+          "phase": 9,
+          "action": "Ensure full operational readiness of the Philippine fortification network by deploying final defensive installations and integrating remaining anti-air and anti-ship missile systems across all critical coastal and airfield positions.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Utilize the Philippines as the primary staging ground for ongoing Korean invasion operations, maintaining secure logistics and air support.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 12,
+          "action": "Utilize the Philippines as a primary strategic hub for American power projection, defense, and logistical support for all Pacific operations.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_005",
+      "goal": "Achieve and maintain naval superiority in the Pacific to counter rival ambitions and enable American offensive operations.",
+      "current_phase": 17,
+      "steps": [
+        {
+          "phase": 10,
+          "action": "Formalize a mutual defense pact with the United Kingdom specifically for Southeast Asian colonial holdings (Singapore, Malaysia, Burma), outlining joint operational command and resource sharing.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Conduct joint military exercises with British forces in Southeast Asia to establish unified command and rapid response protocols against Japanese aggression.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 13,
+          "action": "Establish joint operational command procedures, integrated logistics coordination, and shared intelligence protocols with British naval and air forces for the comprehensive defense of Singapore, British Malaysia, and Burma.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 16,
+          "action": "Leverage the British-American Joint Command for Southeast Asia to gather intelligence on Japanese naval movements and maintain strategic pressure in the region during the Korean invasion.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 17,
+          "action": "Leverage the British-American Joint Command for Southeast Asia to maintain strategic pressure on Japanese assets and gather intelligence on rival naval movements.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_006",
+      "goal": "Establish undisputed economic and political dominance over Latin America to secure the hemisphere and weaken potential foreign footholds.",
+      "current_phase": 12,
+      "steps": [
+        {
+          "phase": 9,
+          "action": "Expand American military advisory missions and intelligence integration throughout Brazil and Argentina, ensuring unified operational doctrine and command structures for comprehensive hemisphere-wide collective security operations.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Deploy additional military advisors and economic missions to Colombia and Venezuela to further secure regional influence, consolidate economic advantage, and prevent any foreign footholds.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Expand military advisory missions and joint training exercises in Colombia and Venezuela, ensuring full integration into American defense architecture and preventing foreign influence.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_007",
+      "goal": "Establish and maintain a robust island chain defense across the Pacific to deter rival expansion and provide forward staging areas.",
+      "current_phase": 10,
+      "steps": [
+        {
+          "phase": 4,
+          "action": "Conduct reconnaissance of other strategic Pacific islands (e.g., Midway, Palmyra) for potential future fortification and airfield expansion.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Deploy additional heavy construction equipment and engineering battalions to Midway Atoll and Palmyra Island to drastically accelerate the construction of airfields, harbor improvements, and defensive fortifications, pushing for early operational readiness.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 9,
+          "action": "Fully operationalize Midway Atoll and Palmyra Island as forward operating bases for Pacific Fleet patrol operations and logistical support for extended campaigns.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Maintain and expand facilities at Midway Atoll and Palmyra Island to support ongoing Pacific Fleet operations and intelligence gathering.",
           "status": "PENDING"
         }
       ]

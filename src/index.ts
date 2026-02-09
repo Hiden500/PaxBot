@@ -39,13 +39,39 @@ const GAME_PAGE_URL = process.env.GAME_URL ?? "";
 // Screen layout: browser takes left 5/6 of a 1512x982 MacBook display.
 // CSS zoom scales the page down so the full-width game fits without clipping.
 const SCREEN_WIDTH = 1512;
-const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 5 / 6); // 1260
-const BROWSER_HEIGHT = 960;
-const PAGE_ZOOM = 0.5; // game renders at full size but displays 80% — fits in smaller window
+const SCREEN_HEIGHT = 982;
+const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 10 / 10); // 1260
+const BROWSER_HEIGHT = Math.round(SCREEN_HEIGHT * 5 / 10);
+const PAGE_ZOOM = 1; // game renders at full size but displays 70% — fits in smaller window
 
 const ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
 const ACTION_DELAY_MS = 2000;
+
+// ---------------------------------------------------------------------------
+// Startup banner (Claude-code style: mascot + multiline title)
+// ---------------------------------------------------------------------------
+
+const STARTUP_BANNER = `
+▗▄▄▖  ▗▄▖ ▗▖  ▗▖     ▗▄▖ ▗▖ ▗▖▗▄▄▄▖▗▄▖ ▗▖  ▗▖ ▗▄▖▗▄▄▄▖▗▄▖ 
+▐▌ ▐▌▐▌ ▐▌ ▝▚▞▘     ▐▌ ▐▌▐▌ ▐▌  █ ▐▌ ▐▌▐▛▚▞▜▌▐▌ ▐▌ █ ▐▌ ▐▌
+▐▛▀▘ ▐▛▀▜▌  ▐▌      ▐▛▀▜▌▐▌ ▐▌  █ ▐▌ ▐▌▐▌  ▐▌▐▛▀▜▌ █ ▐▛▀▜▌
+▐▌   ▐▌ ▐▌▗▞▘▝▚▖    ▐▌ ▐▌▝▚▄▞▘  █ ▝▚▄▞▘▐▌  ▐▌▐▌ ▐▌ █ ▐▌ ▐▌                                          
+<< Always watching, always learning, always winning. >>
+                            _______              
+                           /  ___  \\    
+                          |  /   \\  |
+                          | | (o) | |
+                          |  \\___/  |
+                           \\_______/
+Autonomous agent playing Pax Historia (browser grand strategy).
+Ingests game state, plans with AI, then executes autonomously.
+100+ games won and counting...
+`;
+
+function printStartupBanner(): void {
+  console.log(STARTUP_BANNER);
+}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -60,6 +86,37 @@ function ensureAuthState(): void {
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// ---------------------------------------------------------------------------
+// Background popup watcher — polls every 3s and dismisses popups instantly
+// ---------------------------------------------------------------------------
+
+const POPUP_POLL_MS = 3000;
+let popupWatcherTimer: ReturnType<typeof setInterval> | null = null;
+let popupCheckRunning = false; // prevent overlapping checks
+
+function startPopupWatcher(page: import("playwright").Page): void {
+  console.log("[PopupWatcher] Started — polling every 3s for stale popups.");
+  popupWatcherTimer = setInterval(async () => {
+    if (popupCheckRunning) return; // skip if previous check still running
+    popupCheckRunning = true;
+    try {
+      await dismissGamePopups(page);
+    } catch {
+      // Page might be navigating or closed — ignore
+    } finally {
+      popupCheckRunning = false;
+    }
+  }, POPUP_POLL_MS);
+}
+
+function stopPopupWatcher(): void {
+  if (popupWatcherTimer) {
+    clearInterval(popupWatcherTimer);
+    popupWatcherTimer = null;
+    console.log("[PopupWatcher] Stopped.");
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -129,9 +186,6 @@ async function runTurn(
   console.log(`  TURN ${turnNumber}`);
   console.log(`${"═".repeat(60)}\n`);
 
-  // Dismiss any stale popups (e.g. "Help Improve AI Models") before starting
-  await dismissGamePopups(page);
-
   // ── Phase 1: Perception ──────────────────────────────────────────────
   console.log("[Phase 1] Querying advisor + capturing game state...");
 
@@ -184,9 +238,12 @@ async function runTurn(
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
-  console.log("=== Pax-Automata — Cognitive Loop ===\n");
+  printStartupBanner();
 
   const { browser, page } = await boot();
+
+  // Start background popup watcher — catches "Get more tokens", "Help Improve AI Models", etc.
+  startPopupWatcher(page);
 
   let turnNumber = 1;
 
@@ -216,6 +273,7 @@ async function main(): Promise<void> {
   } catch (err) {
     console.error("Fatal loop error:", err);
   } finally {
+    stopPopupWatcher();
     await browser.close();
     console.log("Browser closed. Goodbye.");
   }

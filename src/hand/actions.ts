@@ -6,24 +6,41 @@
 import type { Locator, Page } from "playwright";
 import { SELECTORS } from "./selectors";
 
-/** Dismiss game popups ("Help Improve AI Models", "Get more tokens", etc.) if visible. */
+/** Dismiss game popups ("Help Improve AI Models", "Get more tokens", etc.) if visible.
+ *  Called before every major UI interaction as a safety net. */
 export async function dismissGamePopups(page: Page): Promise<void> {
-  // "Help Improve AI Models" → click "Maybe later"
-  const maybeLater = page.getByRole("button", { name: "Maybe later" }).first();
+  // 1. "Help Improve AI Models" → click "Maybe later"
   try {
-    await maybeLater.waitFor({ state: "visible", timeout: 500 });
-    await maybeLater.click();
-    console.log("[Hand] Dismissed 'Help Improve AI Models' popup.");
-    await page.waitForTimeout(500);
+    const maybeLater = page.getByRole("button", { name: "Maybe later" }).first();
+    if (await maybeLater.isVisible()) {
+      await maybeLater.click();
+      console.log("[Hand] Dismissed 'Help Improve AI Models' popup.");
+      await page.waitForTimeout(500);
+    }
   } catch { /* not present */ }
 
-  // "Get more tokens" / any dialog → click the X (Close) button inside the dialog
-  const dialogClose = page.locator('section[role="dialog"] button[aria-label="Close"]').first();
+  // 2. "Get more tokens" / any dialog with an aria-label="Close" X button.
+  //    HTML: <section role="dialog"> ... <button aria-label="Close"> (the X)
   try {
-    await dialogClose.waitFor({ state: "visible", timeout: 500 });
-    await dialogClose.click();
-    console.log("[Hand] Dismissed dialog popup (Get more tokens, etc.).");
-    await page.waitForTimeout(500);
+    const closeBtn = page.locator('section[role="dialog"] button[aria-label="Close"]').first();
+    if (await closeBtn.isVisible()) {
+      console.log("[Hand] Dialog popup detected (Get more tokens, etc.) — clicking Close...");
+      await closeBtn.click();
+      console.log("[Hand] Dismissed dialog popup.");
+      await page.waitForTimeout(500);
+      return; // done
+    }
+  } catch { /* not present */ }
+
+  // 3. Fallback: any visible aria-label="Dismiss" button (hidden screen-reader dismiss buttons)
+  try {
+    const dismissBtn = page.locator('button[aria-label="Dismiss"]').first();
+    if (await dismissBtn.isVisible()) {
+      await dismissBtn.click();
+      console.log("[Hand] Dismissed dialog via Dismiss button.");
+      await page.waitForTimeout(500);
+      return;
+    }
   } catch { /* not present */ }
 }
 
@@ -47,6 +64,7 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
     } catch {
       // Dismiss any popup/modal/event that might be blocking the panel
       console.log(`[Hand] Action panel not visible (attempt ${attempt + 1}/${ACTION_PANEL_RETRIES}), dismissing overlays...`);
+      await dismissGamePopups(page);
       await page.keyboard.press("Escape");
       await page.waitForTimeout(2000);
 
@@ -95,6 +113,13 @@ async function ensureAdvisorPanelOpen(page: Page): Promise<void> {
     await box.waitFor({ state: "visible", timeout: 3000 });
     return;
   } catch {
+    // Maybe a popup is covering — dismiss and try again
+    await dismissGamePopups(page);
+    try {
+      await box.waitFor({ state: "visible", timeout: 2000 });
+      return;
+    } catch { /* still not visible, click the trigger */ }
+
     await page.locator(SELECTORS.advisorPanelTrigger).click();
     await box.waitFor({ state: "visible", timeout: 10000 });
     await page.waitForTimeout(500);
@@ -167,6 +192,8 @@ export function firstFewSentences(text: string, maxSentences: number = 3): strin
  * Call after actions/advisor are submitted.
  */
 export async function clickNextTurn(page: Page): Promise<void> {
+  // Dismiss popups before attempting next turn
+  await dismissGamePopups(page);
   await page.locator(SELECTORS.nextTurnButton).first().click();
   await page.waitForTimeout(1500);
   // Button shows date + "1 week" (e.g. "12/8/1935" and "1 week"); match by text.
@@ -221,9 +248,17 @@ export async function dismissNextEvents(page: Page): Promise<void> {
     if (clicks % 10 === 0) console.log("[Hand] Dismissed", clicks, "events…");
     // Wait for the new event content to render before scrolling
     await page.waitForTimeout(2000);
-    // Scroll the news container to bottom so the user can read each new event
+    // Scroll the latest bold event headline into view so the user can read it
     await page.locator("div.min-h-0.flex-1.overflow-y-auto").first().evaluate(
-      (el) => el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
+      (container) => {
+        const headlines = container.querySelectorAll(".font-bold.uppercase");
+        const last = headlines[headlines.length - 1];
+        if (last) {
+          last.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+        }
+      }
     ).catch(() => {});
     await page.waitForTimeout(NEXT_EVENT_PAUSE_AFTER_CLICK_MS);
   }
