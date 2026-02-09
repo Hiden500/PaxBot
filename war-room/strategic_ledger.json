@@ -2,37 +2,131 @@
   "active_operations": [
     {
       "operation_id": "OP_PACIFIC_DOMINANCE",
-      "goal": "Achieve total US dominance in the Pacific through military and industrial buildup, followed by conquest of key regional powers and resource-rich territories, culminating in the total conquest and annexation of Japan.",
-      "current_phase": 19,
+      "goal": "Complete the total conquest and annexation of all remaining Japanese-held territories, including Micronesia, Korea, Dalian, South Sakhalin, Tsugaru Strait, and Kuril Islands.",
+      "current_phase": 24,
       "steps": [
         {
-          "phase": 12,
-          "action": "Execute amphibious assault landings on Taiwan to secure key strategic objectives.",
+          "phase": 20,
+          "action": "Advance on Nagoya, consolidate control of western and central Honshu, and prepare for the final assault on the Tokyo-Kanto Plain.",
           "status": "COMPLETE"
         },
         {
-          "phase": 13,
-          "action": "Consolidate control over Taiwan, eliminating all Japanese resistance and establishing permanent occupation.",
+          "phase": 22,
+          "action": "Initiate Operation Avalanche: Amphibious invasion of Hokkaido from Honshu/Kyushu staging areas, supported by strategic bombing.",
           "status": "COMPLETE"
         },
         {
-          "phase": 15,
-          "action": "Execute Operation Cascade: Commence the amphibious invasion of Kyushu, Japan's southernmost home island.",
+          "phase": 22,
+          "action": "Intensify naval blockade and reconnaissance around Japanese-held Micronesia to isolate garrisons and gather intelligence.",
           "status": "COMPLETE"
         },
         {
-          "phase": 15,
-          "action": "Execute assault landings on Kyushu's western beaches and establish beachheads, initiating an aggressive push inland.",
+          "phase": 22,
+          "action": "Initiate covert sabotage operations against Japanese infrastructure in North Korea, South Korea, and Dalian to destabilize defenses.",
           "status": "COMPLETE"
         },
         {
-          "phase": 16,
-          "action": "Consolidate control over Kyushu and establish it as a primary staging ground for further operations against the Japanese home islands.",
+          "phase": 22,
+          "action": "Commence detailed operational planning for the invasion of remaining Japanese-held territories in Korea, South Sakhalin, and the Kuril Islands.",
           "status": "COMPLETE"
         },
         {
-          "phase": 19,
-          "action": "Consolidate control of Honshu and initiate final conquest operations across all remaining Japanese territories.",
+          "phase": 24,
+          "action": "Execute Operation Trident: Amphibious invasion and conquest of North Korea, South Korea, and Dalian.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 24,
+          "action": "Execute Operation Seawolf: Amphibious invasion and conquest of Micronesia.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 24,
+          "action": "Execute Operation Northern Gale: Amphibious invasion and conquest of South Sakhalin, Kuril Islands, and Tsugaru Strait.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_AXIS_GERMANY",
+      "goal": "Total conquest of Germany.",
+      "current_phase": 4,
+      "steps": [
+        {
+          "phase": 2,
+          "action": "Launch covert sabotage operations targeting critical German industrial infrastructure and supply lines.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Support internal dissent within Germany through propaganda and covert funding for anti-regime factions.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Initiate comprehensive diplomatic pressure against Germany, calling on neutral powers to condemn their aggressive expansionism and isolate them politically.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Intensify covert operations and intelligence gathering against Germany.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 4,
+          "action": "Accelerate training and transport for the German invasion force.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 4,
+          "action": "Finalize operational planning and coordinate with UK for German invasion.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 5,
+          "action": "Commence full-scale amphibious invasion and conquest of Germany, targeting key industrial and administrative centers.",
+          "status": "PENDING"
+        }
+      ]
+    },
+    {
+      "operation_id": "OP_AXIS_ITALY",
+      "goal": "Total conquest of Italy.",
+      "current_phase": 4,
+      "steps": [
+        {
+          "phase": 2,
+          "action": "Launch covert sabotage operations targeting critical Italian industrial infrastructure and supply lines.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Execute targeted decapitation strikes against key Italian military leaders to create command paralysis.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 3,
+          "action": "Impose stringent economic sanctions and trade embargos on Italy, targeting critical imports like oil and raw materials to weaken their industrial capacity and war effort.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 4,
+          "action": "Intensify covert operations and intelligence gathering against Italy, reactivating decapitation.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 4,
+          "action": "Accelerate training and transport for the Italian invasion force.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 4,
+          "action": "Finalize operational planning and coordinate with UK for Italian invasion.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 5,
+          "action": "Commence full-scale amphibious invasion and conquest of Italy, targeting key industrial and administrative centers.",
           "status": "PENDING"
         }
       ]
