@@ -36,13 +36,26 @@ const WAR_ROOM = path.join(process.cwd(), "war-room");
 // Context assembly (Phase 2)
 // ---------------------------------------------------------------------------
 
+/** Read a JSON file with a clear error message on failure. */
+function readJson(filePath: string): unknown {
+  const raw = fs.readFileSync(filePath, "utf-8");
+  if (!raw.trim()) {
+    throw new Error(`War Room file is empty: ${path.basename(filePath)}`);
+  }
+  try {
+    return JSON.parse(raw);
+  } catch (err) {
+    throw new Error(
+      `Failed to parse ${path.basename(filePath)} (${raw.length} chars): ${(err as Error).message}`
+    );
+  }
+}
+
 export function assembleContext(): BrainContext {
   // 1. current_state.json — Zod-validated
-  const stateRaw = fs.readFileSync(
-    path.join(WAR_ROOM, "current_state.json"),
-    "utf-8"
+  const gameState = GameStateSchema.parse(
+    readJson(path.join(WAR_ROOM, "current_state.json"))
   );
-  const gameState = GameStateSchema.parse(JSON.parse(stateRaw));
 
   // 2. constitution.md — raw text
   const constitution = fs.readFileSync(
@@ -57,11 +70,9 @@ export function assembleContext(): BrainContext {
   );
 
   // 4. strategic_ledger.json — Zod-validated
-  const ledgerRaw = fs.readFileSync(
-    path.join(WAR_ROOM, "strategic_ledger.json"),
-    "utf-8"
+  const ledger = StrategicLedgerSchema.parse(
+    readJson(path.join(WAR_ROOM, "strategic_ledger.json"))
   );
-  const ledger = StrategicLedgerSchema.parse(JSON.parse(ledgerRaw));
 
   // 5. advisor_response.txt — optional, may not exist yet
   const advisorPath = path.join(WAR_ROOM, "advisor_response.txt");

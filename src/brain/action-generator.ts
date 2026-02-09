@@ -148,7 +148,14 @@ export async function generateActions(): Promise<ActionBatch> {
   console.log(`[Brain] Gemini responded — ${rawResponse.length} chars`);
 
   // Parse + normalize + validate
-  const parsed = JSON.parse(rawResponse) as Record<string, unknown>;
+  let parsed: Record<string, unknown>;
+  try {
+    parsed = JSON.parse(rawResponse) as Record<string, unknown>;
+  } catch (err) {
+    throw new Error(
+      `Failed to parse Gemini response (${rawResponse.length} chars, starts: ${rawResponse.slice(0, 100)}): ${(err as Error).message}`
+    );
+  }
   normalizeStatuses(parsed);
   const batch = ActionBatchSchema.parse(parsed);
   console.log(

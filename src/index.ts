@@ -37,12 +37,14 @@ const BASE_URL = "https://www.paxhistoria.co";
 const GAME_PAGE_URL = process.env.GAME_URL ?? "";
 
 // Screen layout: browser takes left 5/6 of a 1512x982 MacBook display.
-// CSS zoom scales the page down so the full-width game fits without clipping.
+// CSS transform scale shrinks the page so the game fits without clipping.
 const SCREEN_WIDTH = 1512;
 const SCREEN_HEIGHT = 982;
-const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 10 / 10); // 1260
-const BROWSER_HEIGHT = Math.round(SCREEN_HEIGHT * 5 / 10);
-const PAGE_ZOOM = 0.7; // game renders at full size but displays 70% — fits in smaller window
+const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 6.5 / 10); // 1260
+const BROWSER_HEIGHT = Math.round(SCREEN_HEIGHT * 10 / 10);
+// Separate horizontal and vertical scale (e.g. 0.7 = 70% size).
+const PAGE_ZOOM_X = 1;
+const PAGE_ZOOM_Y = 0.8;
 
 const ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
@@ -123,8 +125,26 @@ function stopPopupWatcher(): void {
 // Boot: launch browser, navigate to game
 // ---------------------------------------------------------------------------
 
+const WAR_ROOM = path.join(process.cwd(), "war-room");
+
+function resetWarRoom(): void {
+  fs.writeFileSync(
+    path.join(WAR_ROOM, "strategic_ledger.json"),
+    JSON.stringify({ active_operations: [] }, null, 2) + "\n",
+    "utf-8"
+  );
+  fs.writeFileSync(
+    path.join(WAR_ROOM, "current_state.json"),
+    JSON.stringify({ current_state: "" }, null, 2) + "\n",
+    "utf-8"
+  );
+  fs.writeFileSync(path.join(WAR_ROOM, "advisor_response.txt"), "", "utf-8");
+  console.log("[Boot] War Room reset (ledger, state, advisor).");
+}
+
 async function boot() {
   ensureAuthState();
+  resetWarRoom();
 
   console.log("[Boot] Launching browser with auth state...");
   const browser = await chromium.launch({
@@ -143,6 +163,11 @@ async function boot() {
   console.log(`[Boot] Navigating to ${BASE_URL}...`);
   await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
 
+  console.log("\nPress ENTER when ready to start...\n");
+  await new Promise<void>((resolve) => {
+    process.stdin.once("data", () => resolve());
+  });
+
   if (GAME_PAGE_URL) {
     console.log(`[Boot] Navigating to game: ${GAME_PAGE_URL}...`);
     await page.goto(GAME_PAGE_URL, {
@@ -156,12 +181,14 @@ async function boot() {
   // Brief wait for game UI to finish rendering (navigation already waited 2.5s)
   await page.waitForTimeout(1000);
 
-  // Scale the page down using CSS transform (not zoom) so both horizontal AND vertical
-  // shrink equally without the page re-flowing its layout to fill extra space.
-  await page.evaluate((z) => {
-    document.body.style.transformOrigin = "top left";
-    document.body.style.transform = `dscale(${z})`;
-  }, PAGE_ZOOM);
+  // Scale the page down using CSS transform so it fits; separate X/Y for aspect control.
+  await page.evaluate(
+    ({ sx, sy }: { sx: number; sy: number }) => {
+      document.body.style.transformOrigin = "top left";
+      document.body.style.transform = `scale(${sx}, ${sy})`;
+    },
+    { sx: PAGE_ZOOM_X, sy: PAGE_ZOOM_Y }
+  );
 
   try {
     await page
