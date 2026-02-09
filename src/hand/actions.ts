@@ -6,6 +6,27 @@
 import type { Locator, Page } from "playwright";
 import { SELECTORS } from "./selectors";
 
+/** Dismiss game popups ("Help Improve AI Models", "Get more tokens", etc.) if visible. */
+export async function dismissGamePopups(page: Page): Promise<void> {
+  // "Help Improve AI Models" → click "Maybe later"
+  const maybeLater = page.getByRole("button", { name: "Maybe later" }).first();
+  try {
+    await maybeLater.waitFor({ state: "visible", timeout: 500 });
+    await maybeLater.click();
+    console.log("[Hand] Dismissed 'Help Improve AI Models' popup.");
+    await page.waitForTimeout(500);
+  } catch { /* not present */ }
+
+  // "Get more tokens" / any dialog → click the X (Close) button inside the dialog
+  const dialogClose = page.locator('section[role="dialog"] button[aria-label="Close"]').first();
+  try {
+    await dialogClose.waitFor({ state: "visible", timeout: 500 });
+    await dialogClose.click();
+    console.log("[Hand] Dismissed dialog popup (Get more tokens, etc.).");
+    await page.waitForTimeout(500);
+  } catch { /* not present */ }
+}
+
 /** Type text character-by-character with a fast typing effect. */
 const TYPE_DELAY_MS = 15;
 async function typeText(box: Locator, text: string): Promise<void> {
@@ -13,17 +34,46 @@ async function typeText(box: Locator, text: string): Promise<void> {
   await box.pressSequentially(text, { delay: TYPE_DELAY_MS });
 }
 
-/** Open the actions panel (⚡) if the action textarea is not visible. */
+/** Open the actions panel (⚡) if the action textarea is not visible.
+ *  Retries with Escape presses to dismiss any overlaying popups/modals. */
+const ACTION_PANEL_RETRIES = 3;
 async function ensureActionsPanelOpen(page: Page): Promise<void> {
   const box = page.locator(SELECTORS.actionBox);
-  try {
-    await box.waitFor({ state: "visible", timeout: 3000 });
-    return;
-  } catch {
-    await page.locator(SELECTORS.actionsPanelButton).click();
-    await box.waitFor({ state: "visible", timeout: 10000 });
-    await page.waitForTimeout(500);
+
+  for (let attempt = 0; attempt < ACTION_PANEL_RETRIES; attempt++) {
+    try {
+      await box.waitFor({ state: "visible", timeout: 3000 });
+      return;
+    } catch {
+      // Dismiss any popup/modal/event that might be blocking the panel
+      console.log(`[Hand] Action panel not visible (attempt ${attempt + 1}/${ACTION_PANEL_RETRIES}), dismissing overlays...`);
+      await page.keyboard.press("Escape");
+      await page.waitForTimeout(2000);
+
+      // Also try clicking stale event buttons that may not have been dismissed
+      for (const name of ["Maybe later", "Next Event", "Proceed", "Close", "OK", "Continue"]) {
+        const stale = page.getByRole("button", { name }).first();
+        try {
+          await stale.waitFor({ state: "visible", timeout: 500 });
+          await stale.click();
+          console.log(`[Hand] Dismissed stale "${name}" button`);
+          await page.waitForTimeout(1000);
+        } catch { /* not present */ }
+      }
+    }
+
+    try {
+      await page.locator(SELECTORS.actionsPanelButton).click();
+      await box.waitFor({ state: "visible", timeout: 5000 });
+      await page.waitForTimeout(500);
+      return;
+    } catch {
+      await page.keyboard.press("Escape");
+      await page.waitForTimeout(2000);
+    }
   }
+
+  throw new Error("Could not open actions panel after retries");
 }
 
 export async function enterAction(page: Page, text: string): Promise<void> {
@@ -143,20 +193,34 @@ export async function dismissNextEvents(page: Page): Promise<void> {
   const start = Date.now();
   const timeoutMs = 180_000;
 
+  const nextEventBtn = page.getByRole("button", { name: "Next Event" }).first();
+  const proceedBtn = page.getByRole("button", { name: /Proceed\s+\d/i }).first();
+
   while (clicks < NEXT_EVENT_MAX_CLICKS && Date.now() - start < timeoutMs) {
-    const btn = page.getByRole("button", { name: "Next Event" }).first();
     const waitMs = clicks === 0 ? NEXT_EVENT_FIRST_TIMEOUT_MS : NEXT_EVENT_LATER_TIMEOUT_MS;
-    try {
-      if (clicks === 0) console.log("[Hand] Waiting for first event (loading/LLM may take a while)…");
-      await btn.waitFor({ state: "visible", timeout: waitMs });
-    } catch {
+    if (clicks === 0) console.log("[Hand] Waiting for first event (loading/LLM may take a while)…");
+
+    // Race: wait for either "Next Event" or "Proceed" — whichever appears first
+    const winner = await Promise.race([
+      nextEventBtn.waitFor({ state: "visible", timeout: waitMs }).then(() => "next" as const).catch(() => null),
+      proceedBtn.waitFor({ state: "visible", timeout: waitMs }).then(() => "proceed" as const).catch(() => null),
+    ]);
+
+    if (winner === "proceed") {
+      // Proceed appeared — no more events, click it immediately
       break;
     }
-    await btn.click();
+    if (!winner) {
+      // Neither appeared — timeout
+      break;
+    }
+
+    // "Next Event" appeared — click it
+    await nextEventBtn.click();
     clicks++;
     if (clicks % 10 === 0) console.log("[Hand] Dismissed", clicks, "events…");
     // Wait for the new event content to render before scrolling
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
     // Scroll the news container to bottom so the user can read each new event
     await page.locator("div.min-h-0.flex-1.overflow-y-auto").first().evaluate(
       (el) => el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
@@ -166,10 +230,9 @@ export async function dismissNextEvents(page: Page): Promise<void> {
 
   if (clicks > 0) console.log("[Hand] Done dismissing events. Total:", clicks);
 
-  // Final step: click "Proceed 12/8/1935" (or current date) to close the timeline and land on the new turn.
-  const proceedBtn = page.getByRole("button", { name: /Proceed\s+\d/i }).first();
+  // Click Proceed to close the timeline
   try {
-    await proceedBtn.waitFor({ state: "visible", timeout: 8000 });
+    await proceedBtn.waitFor({ state: "visible", timeout: 3000 });
     await proceedBtn.click();
     console.log("[Hand] Clicked Proceed (timeline closed).");
   } catch {

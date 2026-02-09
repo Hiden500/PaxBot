@@ -95,11 +95,20 @@ Generate 3-8 actions per turn. Each action is a plain-English directive that wil
 For the strategic ledger:
 - Review any active operations and update their step statuses (COMPLETE, PENDING, FAILED).
 - Create new operations for multi-turn plans you're initiating this turn.
-- Each operation needs a unique operation_id (e.g. "OP_001"), a goal, the current phase number, and a list of steps with phase/action/status.`;
+- Each operation needs a unique operation_id (e.g. "OP_001"), a goal, the current phase number, and a list of steps with phase/action/status.
+- IMPORTANT: Only return PENDING and FAILED steps in your ledger_updates. Do NOT include steps that are already COMPLETE — they are tracked automatically. This keeps responses concise.`;
+
+  // Only send PENDING/FAILED steps to the LLM — COMPLETE steps are noise that bloats context and output.
+  const trimmedLedger = {
+    active_operations: ctx.ledger.active_operations.map((op) => ({
+      ...op,
+      steps: op.steps.filter((s) => s.status !== "COMPLETE"),
+    })),
+  };
 
   const ledgerContent =
     ctx.ledger.active_operations.length > 0
-      ? JSON.stringify(ctx.ledger, null, 2)
+      ? JSON.stringify(trimmedLedger, null, 2)
       : "None — this is the first turn. Create new operations for your strategic plans.";
 
   const advisorContent =

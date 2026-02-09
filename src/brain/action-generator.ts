@@ -37,8 +37,13 @@ function mergeLedger(
       (op) => op.operation_id === update.operation_id
     );
     if (idx >= 0) {
-      // Update existing operation in-place
-      ops[idx] = update;
+      // Merge: keep existing COMPLETE steps, add/update PENDING/FAILED from LLM
+      const existingComplete = ops[idx].steps.filter((s) => s.status === "COMPLETE");
+      const merged = {
+        ...update,
+        steps: [...existingComplete, ...update.steps],
+      };
+      ops[idx] = merged;
     } else {
       // New operation — append
       ops.push(update);

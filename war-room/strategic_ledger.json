@@ -3,7 +3,7 @@
     {
       "operation_id": "OP_001",
       "goal": "Achieve significant industrial and military superiority for global power projection.",
-      "current_phase": 4,
+      "current_phase": 12,
       "steps": [
         {
           "phase": 1,
@@ -338,16 +338,316 @@
         {
           "phase": 4,
           "action": "Initiate comprehensive trade negotiations with the United Kingdom, focusing on strategic resources and reciprocal economic benefits to bolster our aligned interests against potential threats.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 4,
           "action": "Finalize detailed economic studies on potential comprehensive embargoes against Japan, specifically targeting oil, steel, and rubber imports, for implementation in the next phase.",
-          "status": "PENDING"
+          "status": "COMPLETE"
         },
         {
           "phase": 4,
           "action": "Monitor French Republic's response to intelligence sharing offer and prepare further diplomatic overtures or alternative weakening strategies.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 5,
+          "action": "Deploy the 4th California Infantry Battalion to the Philippines, augmenting General MacArthur's garrison.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 5,
+          "action": "Recruit 1 infantry battalion in Florida and immediately deploy it to the Panama Canal to strengthen Caribbean defenses.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 5,
+          "action": "Recruit 1 infantry battalion in Florida and immediately deploy it to Puerto Rico to strengthen Caribbean defenses.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 5,
+          "action": "Intensify covert propaganda and intelligence operations in French North Africa, specifically targeting vulnerabilities and internal factionalism to further weaken the French position.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 5,
+          "action": "Recruit 2 infantry battalions in California to replenish and strengthen domestic strategic reserves.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 6,
+          "action": "Implement comprehensive embargoes on oil, steel, and rubber against Japan to cripple their war economy and halt their expansion in China.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 6,
+          "action": "Formalize the comprehensive trade and security pact with the United Kingdom, focusing on reciprocal economic benefits and shared intelligence against totalitarian expansionism.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 6,
+          "action": "Dispatch covert operatives to French North Africa to conduct a rapid assessment for immediate opportunistic intervention, identifying key separatist leaders and local factions for potential support and invasion pretexts.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 6,
+          "action": "Recruit 2 new infantry battalions in California and 1 in Texas to bolster domestic strategic reserves and prepare for future deployments.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 6,
+          "action": "Order construction of 1 new aircraft carrier at Norfolk Naval Shipyard and 2 heavy cruisers at San Diego Naval Base to enhance global power projection.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 6,
+          "action": "Allocate funds for railway network expansion connecting key industrial hubs in the Midwest and Northeast to Pacific and Atlantic ports.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Intensify covert intelligence and propaganda operations across French North Africa to fully fracture colonial authority and identify key indigenous leaders for potential collaboration.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Initiate immediate strategic planning for a rapid naval and ground invasion of French North Africa for the next turn, identifying key landing zones, logistical requirements, and potential resistance points.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Deploy the First California Reserve Battalion from California to the Philippines to reinforce General MacArthur's command.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Deploy the Second California Reserve Battalion from California to the Philippines to reinforce General MacArthur's command.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Deploy the Third California Infantry Battalion from California to the Philippines to reinforce General MacArthur's command.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Order the Pacific Fleet to conduct high-profile maneuvers and exercises near Hawaii, signaling American naval readiness and deterrence to Japan.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Order construction of 1 new aircraft carrier at Norfolk Naval Shipyard and 2 heavy cruisers at San Diego Naval Base to further enhance global power projection.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 7,
+          "action": "Recruit 2 new infantry battalions in Ohio and 1 in Pennsylvania to strengthen domestic strategic reserves and future deployment capabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 8,
+          "action": "Mobilize initial invasion forces from the Eastern Seaboard and Gulf Coast for a rapid deployment to French North Africa, completing detailed operational plans for landings in French Morocco and the Algerian Coast next turn.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 8,
+          "action": "Authorize immediate military aid, including weapons, ammunition, and strategic advisors, to the Republic of China to bolster their resistance against Japanese aggression.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 8,
+          "action": "Deploy the Fourth California Infantry Battalion from California to the Philippines to further reinforce General MacArthur's command and fortify defenses against Japanese aggression.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 8,
+          "action": "Order the permanent repositioning of the Pacific Fleet's capital ships and supporting destroyers to Pearl Harbor, Hawaii, and Guam, establishing a forward-deployed naval deterrent against Japanese expansion.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 8,
+          "action": "Initiate new recruitment drives to raise 2 additional infantry battalions in Texas and 2 in California, bolstering domestic strategic reserves for ongoing and future operations.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 8,
+          "action": "Order construction of two new battleships, one at Norfolk Naval Shipyard in Virginia and one at San Diego Naval Base in California, to expand global naval power projection.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 9,
+          "action": "Launch naval invasion of French Morocco and Algerian Coast from Eastern Seaboard and Gulf Coast mobilized forces, targeting Casablanca, Oran, and Algiers.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 9,
+          "action": "Authorize immediate military aid, including weapons, ammunition, and strategic advisors, to the Republic of China to bolster their resistance against Japanese aggression.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 9,
+          "action": "Deploy the Fourth California Infantry Battalion from California to the Philippines to further reinforce General MacArthur's command and fortify defenses against Japanese aggression.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 9,
+          "action": "Order the permanent repositioning of the Pacific Fleet's capital ships and supporting destroyers to Pearl Harbor, Hawaii, and Guam, establishing a forward-deployed naval deterrent against Japanese expansion.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 9,
+          "action": "Initiate new recruitment drives to raise 2 additional infantry battalions in Texas and 2 in California, bolstering domestic strategic reserves for ongoing and future operations.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 9,
+          "action": "Order construction of two new battleships, one at Norfolk Naval Shipyard in Virginia and one at San Diego Naval Base in California, to expand global naval power projection.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 9,
+          "action": "Order construction of 2 new aircraft carriers, one at Norfolk Naval Shipyard and one at San Diego Naval Base, to enhance global power projection capabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 9,
+          "action": "Allocate funds for new heavy industry factories in Detroit and Pittsburgh to further increase war material production.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 9,
+          "action": "Allocate additional naval and air support, including strategic bombers and carrier-based fighters, to the American Invasion Fleet (Morocco-Algeria) to suppress French resistance and secure coastal objectives immediately.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 9,
+          "action": "Deploy two infantry battalions from Florida to Casablanca and Oran to reinforce the ongoing invasion of the Algerian Coast and French Morocco, securing beachheads and pushing inland.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 9,
+          "action": "Utilize intelligence gathered in French North Africa to target specific French colonial administration buildings, command centers, and major supply depots for immediate sabotage, disrupting their coordinated defense.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 9,
+          "action": "Launch a nationwide public relations campaign justifying the North African intervention as a necessary measure to stabilize the region, protect American interests, and prevent broader European instability.",
+          "status": "FAILED"
+        },
+        {
+          "phase": 10,
+          "action": "Recruit 5 infantry battalions in California.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Recruit 5 infantry battalions in Texas.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Recruit 3 infantry battalions in Florida.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Authorize immediate military aid, including weapons, ammunition, and strategic advisors, to the Republic of China to bolster their resistance against Japanese aggression.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Order covert sabotage operations targeting French colonial administration and military supply lines in French Morocco and Algerian Coast.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Launch a nationwide public relations campaign justifying imminent intervention in North Africa to stabilize the region and protect American interests.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Order construction of 1 new aircraft carrier at Norfolk Naval Shipyard (Virginia) and 1 new battleship at San Diego Naval Base (California) to enhance global power projection.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 10,
+          "action": "Prepare detailed plans for a renewed naval invasion of French Morocco and Algerian Coast for next turn, leveraging newly recruited forces.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Launch a comprehensive naval invasion of French Morocco and the Algerian Coast. Deploy \"California Infantry Group I\" to secure Casablanca, \"Texas Infantry Group I\" to secure Oran, and \"Florida Infantry Group I\" to secure Algiers.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Allocate immediate naval and air support to the North Africa Invasion Fleet, including strategic bombers from domestic air bases and carrier-based fighters, to suppress French resistance and secure coastal objectives.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Direct intelligence assets to execute immediate decapitation strikes against key French military commanders and administrative leaders in French Morocco and the Algerian Coast as invasion forces land, to maximize confusion and paralysis.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Recruit 5 new infantry battalions in California and immediately deploy them to the Philippines to reinforce General Douglas MacArthur's command against Japanese expansion.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 11,
+          "action": "Recruit 5 new infantry battalions in Texas and immediately deploy them to Hawaii to fortify Pearl Harbor and strengthen Pacific defenses.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 11,
+          "action": "Order construction of 2 new aircraft carriers, one at Norfolk Naval Shipyard (Virginia) and one at San Diego Naval Base (California), to accelerate global power projection.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 11,
+          "action": "Order construction of 2 new heavy cruisers, one at New York Naval Shipyard and one at San Diego Naval Base, to augment the fleet's escort and attack capabilities.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 12,
+          "action": "Deploy 'California Infantry Group II' from California to the Philippines to reinforce General Douglas MacArthur's command.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Deploy 'Texas Infantry Group II' from Texas to Hawaii to fortify Pearl Harbor and strengthen Pacific defenses.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Authorize significantly expanded military aid, including advanced weaponry and additional strategic advisors, to the Republic of China to bolster their resistance against Japanese aggression.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Initiate covert intelligence operations and establish contacts with anti-colonial factions across French West Africa (specifically in Senegal, Guinea, and West Africa regions) to assess vulnerabilities and prepare for future interventions.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Conduct targeted sabotage operations against key French colonial infrastructure (ports, railways, and administrative networks) in Senegal and West Africa to further destabilize their control.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Recruit 3 new infantry battalions in Florida to strengthen domestic strategic reserves and prepare for future Caribbean and African deployments.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Order construction of 1 new aircraft carrier at Norfolk Naval Shipyard in Virginia to continue enhancing our global power projection capabilities.",
+          "status": "PENDING"
+        },
+        {
+          "phase": 12,
+          "action": "Allocate funds for a new heavy industry factory in Ohio to boost overall war material production and industrial capacity.",
           "status": "PENDING"
         }
       ]

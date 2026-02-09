@@ -6,5 +6,6 @@ export {
   firstFewSentences,
   clickNextTurn,
   dismissNextEvents,
+  dismissGamePopups,
 } from "./actions";
 export { openPresetAndSelectWW2 } from "./navigate";

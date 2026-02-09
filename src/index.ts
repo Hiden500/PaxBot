@@ -14,6 +14,7 @@ import {
   clickNextTurn,
   enterAction,
   enterAdvisorQuery,
+  dismissGamePopups,
   firstFewSentences,
   getLastAdvisorResponseText,
   openPresetAndSelectWW2,
@@ -34,6 +35,13 @@ const AUTH_DIR = path.join(process.cwd(), "auth");
 const STATE_PATH = path.join(AUTH_DIR, "auth_state.json");
 const BASE_URL = "https://www.paxhistoria.co";
 const GAME_PAGE_URL = process.env.GAME_URL ?? "";
+
+// Screen layout: browser takes left 5/6 of a 1512x982 MacBook display.
+// CSS zoom scales the page down so the full-width game fits without clipping.
+const SCREEN_WIDTH = 1512;
+const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 5 / 6); // 1260
+const BROWSER_HEIGHT = 960;
+const PAGE_ZOOM = 0.5; // game renders at full size but displays 80% — fits in smaller window
 
 const ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
@@ -62,7 +70,13 @@ async function boot() {
   ensureAuthState();
 
   console.log("[Boot] Launching browser with auth state...");
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({
+    headless: false,
+    args: [
+      `--window-position=0,25`,
+      `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`,
+    ],
+  });
   const context = await browser.newContext({ storageState: STATE_PATH });
   const page = await context.newPage();
 
@@ -81,6 +95,13 @@ async function boot() {
 
   // Brief wait for game UI to finish rendering (navigation already waited 2.5s)
   await page.waitForTimeout(1000);
+
+  // Scale the page down using CSS transform (not zoom) so both horizontal AND vertical
+  // shrink equally without the page re-flowing its layout to fill extra space.
+  await page.evaluate((z) => {
+    document.body.style.transformOrigin = "top left";
+    document.body.style.transform = `scale(${z})`;
+  }, PAGE_ZOOM);
 
   try {
     await page
@@ -107,6 +128,9 @@ async function runTurn(
   console.log(`\n${"═".repeat(60)}`);
   console.log(`  TURN ${turnNumber}`);
   console.log(`${"═".repeat(60)}\n`);
+
+  // Dismiss any stale popups (e.g. "Help Improve AI Models") before starting
+  await dismissGamePopups(page);
 
   // ── Phase 1: Perception ──────────────────────────────────────────────
   console.log("[Phase 1] Querying advisor + capturing game state...");
@@ -140,13 +164,19 @@ async function runTurn(
 
   // ── Phase 4: Execution ──────────────────────────────────────────────
   console.log(`\n[Phase 4] Submitting ${batch.actions.length} actions...`);
+  let submitted = 0;
   for (let i = 0; i < batch.actions.length; i++) {
-    await enterAction(page, batch.actions[i]);
+    try {
+      await enterAction(page, batch.actions[i]);
+      submitted++;
+    } catch (err) {
+      console.log(`[Phase 4] SKIPPED action ${i + 1} (panel blocked): ${(err as Error).message?.slice(0, 80)}`);
+    }
     if (i < batch.actions.length - 1) {
       await sleep(ACTION_DELAY_MS);
     }
   }
-  console.log("[Phase 4] All actions submitted.");
+  console.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
 }
 
 // ---------------------------------------------------------------------------
@@ -170,7 +200,11 @@ async function main(): Promise<void> {
 
   try {
     while (!stopping) {
-      await runTurn(page, turnNumber);
+      try {
+        await runTurn(page, turnNumber);
+      } catch (err) {
+        console.error(`\n[Turn ${turnNumber}] ERROR — skipping to next week:`, (err as Error).message?.slice(0, 120));
+      }
 
       if (stopping) break;
 
@@ -180,7 +214,7 @@ async function main(): Promise<void> {
       turnNumber++;
     }
   } catch (err) {
-    console.error("Loop error:", err);
+    console.error("Fatal loop error:", err);
   } finally {
     await browser.close();
     console.log("Browser closed. Goodbye.");
