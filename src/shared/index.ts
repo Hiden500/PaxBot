@@ -1,5 +1,6 @@
 export {
   GameStateSchema,
+  OwnershipSnapshotSchema,
   OperationStepSchema,
   OperationSchema,
   StrategicLedgerSchema,
@@ -8,6 +9,7 @@ export {
 
 export type {
   GameState,
+  OwnershipSnapshot,
   OperationStep,
   Operation,
   StrategicLedger,

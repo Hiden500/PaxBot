@@ -1,3 +1,41 @@
 {
-  "active_operations": []
+  "active_operations": [
+    {
+      "operation_id": "OP_PACIFIC_DOMINANCE",
+      "goal": "Achieve total US dominance in the Pacific through military and industrial buildup, followed by conquest of key regional powers and resource-rich territories, culminating in the total conquest and annexation of Japan.",
+      "current_phase": 19,
+      "steps": [
+        {
+          "phase": 12,
+          "action": "Execute amphibious assault landings on Taiwan to secure key strategic objectives.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 13,
+          "action": "Consolidate control over Taiwan, eliminating all Japanese resistance and establishing permanent occupation.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 15,
+          "action": "Execute Operation Cascade: Commence the amphibious invasion of Kyushu, Japan's southernmost home island.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 15,
+          "action": "Execute assault landings on Kyushu's western beaches and establish beachheads, initiating an aggressive push inland.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 16,
+          "action": "Consolidate control over Kyushu and establish it as a primary staging ground for further operations against the Japanese home islands.",
+          "status": "COMPLETE"
+        },
+        {
+          "phase": 19,
+          "action": "Consolidate control of Honshu and initiate final conquest operations across all remaining Japanese territories.",
+          "status": "PENDING"
+        }
+      ]
+    }
+  ]
 }

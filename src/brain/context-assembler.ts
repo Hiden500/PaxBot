@@ -9,8 +9,10 @@ import * as fs from "fs";
 import * as path from "path";
 import {
   GameStateSchema,
+  OwnershipSnapshotSchema,
   StrategicLedgerSchema,
   type GameState,
+  type OwnershipSnapshot,
   type StrategicLedger,
 } from "../shared";
 
@@ -24,6 +26,8 @@ export interface BrainContext {
   handbook: string;
   ledger: StrategicLedger;
   advisorResponse: string;
+  /** Explicit list of regions we own; any region not listed is NOT ours. */
+  ownership: OwnershipSnapshot | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -81,7 +85,18 @@ export function assembleContext(): BrainContext {
     advisorResponse = fs.readFileSync(advisorPath, "utf-8").trim();
   }
 
-  return { gameState, constitution, handbook, ledger, advisorResponse };
+  // 6. ownership_snapshot.json — explicit "what we own" (written by Spy from state blob)
+  const ownershipPath = path.join(WAR_ROOM, "ownership_snapshot.json");
+  let ownership: OwnershipSnapshot | null = null;
+  if (fs.existsSync(ownershipPath)) {
+    try {
+      ownership = OwnershipSnapshotSchema.parse(readJson(ownershipPath));
+    } catch {
+      // ignore parse errors; ownership stays null
+    }
+  }
+
+  return { gameState, constitution, handbook, ledger, advisorResponse, ownership };
 }
 
 // ---------------------------------------------------------------------------
@@ -114,7 +129,10 @@ CRITICAL — INVASION MANDATE:
 - Per the constitution: after 2-3 weakening actions against a target, INVADE. Cap weakening at 4 phases max, then the next step MUST be a concrete invasion.
 - If an operation has been running for 4+ phases without an invasion step, add one NOW.
 - Vague steps like "establish administration" or "sustain presence" are NOT acceptable as final steps. Replace them with specific military conquest actions.
-- The goal of every operation is TOTAL CONQUEST of the target — no peace deals, no half-measures.`;
+- The goal of every operation is TOTAL CONQUEST of the target — no peace deals, no half-measures.
+
+Advisor question for next turn:
+- Also suggest one short question to ask the in-game advisor on the NEXT turn (next_advisor_query). It should be specific to your plans: e.g. "What is the military situation in [region] and should we invade now?" or "Which neighbor is most vulnerable to our next move?" One sentence, under 100 words.`;
 
   // Only send PENDING/FAILED steps to the LLM — COMPLETE steps are noise that bloats context and output.
   const trimmedLedger = {
@@ -132,7 +150,17 @@ CRITICAL — INVASION MANDATE:
   const advisorContent =
     ctx.advisorResponse || "No advisor response available this turn.";
 
-  const user = `CURRENT GAME STATE:
+  const ownershipBlock =
+    ctx.ownership != null
+      ? `
+REGIONS WE OWN (authoritative — do not confuse with troop locations):
+We are ${ctx.ownership.our_nation}. We OWN exactly these regions: ${ctx.ownership.regions_we_own.join(", ")}.
+Any region NOT in this list is NOT ours — it is a potential target for conquest or already belongs to another nation. Do not assume we own a region just because we have troops stationed there; only regions listed here are ours.
+
+`
+      : "";
+
+  const user = `${ownershipBlock}CURRENT GAME STATE:
 ${ctx.gameState.current_state}
 
 ACTIVE OPERATIONS (your ongoing strategic plans):
@@ -141,7 +169,7 @@ ${ledgerContent}
 ADVISOR FEEDBACK:
 ${advisorContent}
 
-Generate your orders for this turn.`;
+Generate your orders for this turn. Include next_advisor_query: a single question to ask the advisor next turn (specific to your strategy).`;
 
   return { system, user };
 }

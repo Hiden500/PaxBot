@@ -56,38 +56,43 @@ async function typeText(box: Locator, text: string): Promise<void> {
 const ACTION_PANEL_RETRIES = 3;
 async function ensureActionsPanelOpen(page: Page): Promise<void> {
   const box = page.locator(SELECTORS.actionBox);
+  const panelBtn = page.locator(SELECTORS.actionsPanelButton);
 
   for (let attempt = 0; attempt < ACTION_PANEL_RETRIES; attempt++) {
-    try {
-      await box.waitFor({ state: "visible", timeout: 3000 });
-      return;
-    } catch {
-      // Dismiss any popup/modal/event that might be blocking the panel
-      console.log(`[Hand] Action panel not visible (attempt ${attempt + 1}/${ACTION_PANEL_RETRIES}), dismissing overlays...`);
-      await dismissGamePopups(page);
-      await page.keyboard.press("Escape");
-      await page.waitForTimeout(2000);
+    // Quick check: already visible?
+    if (await box.isVisible()) return;
 
-      // Also try clicking stale event buttons that may not have been dismissed
-      for (const name of ["Maybe later", "Next Event", "Proceed", "Close", "OK", "Continue"]) {
-        const stale = page.getByRole("button", { name }).first();
-        try {
-          await stale.waitFor({ state: "visible", timeout: 500 });
-          await stale.click();
-          console.log(`[Hand] Dismissed stale "${name}" button`);
-          await page.waitForTimeout(1000);
-        } catch { /* not present */ }
-      }
+    console.log(`[Hand] Action panel not visible (attempt ${attempt + 1}/${ACTION_PANEL_RETRIES}), opening...`);
+
+    // Clear popups that may be covering the panel
+    await dismissGamePopups(page);
+
+    // Re-check immediately — popup may have been the only blocker
+    if (await box.isVisible()) {
+      console.log("[Hand] Action panel visible after popup dismissal.");
+      return;
     }
 
+    // Try clicking the panel button to open it
     try {
-      await page.locator(SELECTORS.actionsPanelButton).click();
-      await box.waitFor({ state: "visible", timeout: 5000 });
-      await page.waitForTimeout(500);
+      await panelBtn.click();
+      await box.waitFor({ state: "visible", timeout: 2000 });
+      console.log("[Hand] Action panel opened.");
       return;
-    } catch {
-      await page.keyboard.press("Escape");
-      await page.waitForTimeout(2000);
+    } catch { /* didn't work */ }
+
+    // Heavier recovery: Escape + stale buttons
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
+    for (const name of ["Maybe later", "Next Event", "Proceed", "Close", "OK", "Continue"]) {
+      try {
+        const stale = page.getByRole("button", { name }).first();
+        if (await stale.isVisible()) {
+          await stale.click();
+          console.log(`[Hand] Dismissed stale "${name}" button`);
+          await page.waitForTimeout(300);
+        }
+      } catch { /* not present */ }
     }
   }
 
@@ -209,6 +214,26 @@ export function firstFewSentences(text: string, maxSentences: number = 3): strin
   return sentences.slice(0, maxSentences).join(" ").trim() || text.slice(0, 300);
 }
 
+/** Close action/advisor panel overlays by clicking their X close buttons.
+ *  These are plain buttons with an SVG X icon (feather "x": two crossing lines)
+ *  and no aria-label. Needed on compressed viewports where panels cover the
+ *  next-turn button. */
+async function closePanelOverlays(page: Page): Promise<void> {
+  // Selector: button containing the feather X icon (two specific <line> elements)
+  const xButtons = page.locator('button:has(svg line[x1="18"][y1="6"][x2="6"][y2="18"])');
+  const count = await xButtons.count();
+  for (let i = 0; i < count; i++) {
+    try {
+      const btn = xButtons.nth(i);
+      if (await btn.isVisible()) {
+        await btn.click();
+        console.log(`[Hand] Closed panel overlay (X button ${i + 1}/${count}).`);
+        await page.waitForTimeout(300);
+      }
+    } catch { /* button disappeared or not interactive */ }
+  }
+}
+
 /**
  * Click the next-turn control (top right), then click the "1 week" button to advance.
  * Then repeatedly click "Next Event" until no more event popups (or timeout).
@@ -217,12 +242,27 @@ export function firstFewSentences(text: string, maxSentences: number = 3): strin
 export async function clickNextTurn(page: Page): Promise<void> {
   // Dismiss popups before attempting next turn
   await dismissGamePopups(page);
+  // Close action/advisor panels that may cover the next-turn button on small viewports
+  await closePanelOverlays(page);
   await page.locator(SELECTORS.nextTurnButton).first().click();
   await page.waitForTimeout(1500);
   // Button shows date + "1 week" (e.g. "12/8/1935" and "1 week"); match by text.
   await page.getByRole("button", { name: /1 week/i }).click();
   console.log("[Hand] Clicked next turn (1 week).");
   await dismissNextEvents(page);
+
+  // Reopen the advisor panel after news so it's ready for the next turn cycle
+  // (trigger is a toggle — only click if the panel is NOT already open)
+  try {
+    const advisorBox = page.locator(SELECTORS.advisorBox);
+    if (!(await advisorBox.isVisible())) {
+      await page.locator(SELECTORS.advisorPanelTrigger).click();
+      await advisorBox.waitFor({ state: "visible", timeout: 3000 });
+      console.log("[Hand] Reopened advisor panel after news.");
+    }
+  } catch {
+    console.log("[Hand] Could not reopen advisor panel — will retry when needed.");
+  }
 }
 
 /** First "Next Event" can take a long time (site shows loading until LLM returns). */

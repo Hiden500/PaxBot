@@ -40,15 +40,34 @@ const GAME_PAGE_URL = process.env.GAME_URL ?? "";
 // CSS transform scale shrinks the page so the game fits without clipping.
 const SCREEN_WIDTH = 1512;
 const SCREEN_HEIGHT = 982;
-const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 6.5 / 10); // 1260
+const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 7 / 10); // 1260
 const BROWSER_HEIGHT = Math.round(SCREEN_HEIGHT * 10 / 10);
 // Separate horizontal and vertical scale (e.g. 0.7 = 70% size).
-const PAGE_ZOOM_X = 1;
-const PAGE_ZOOM_Y = 0.8;
+const PAGE_ZOOM_X = 0.87;
+const PAGE_ZOOM_Y = 0.87;
 
-const ADVISOR_QUERY =
+/** Default advisor question when no dynamic suggestion exists yet (e.g. turn 1). */
+const DEFAULT_ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
+const NEXT_ADVISOR_QUERY_PATH = path.join(
+  process.cwd(),
+  "war-room",
+  "next_advisor_query.txt"
+);
 const ACTION_DELAY_MS = 2000;
+
+/** Advisor query for this turn: dynamic (from last Brain suggestion) or default. */
+function getAdvisorQueryForTurn(): string {
+  try {
+    if (fs.existsSync(NEXT_ADVISOR_QUERY_PATH)) {
+      const q = fs.readFileSync(NEXT_ADVISOR_QUERY_PATH, "utf-8").trim();
+      if (q) return q;
+    }
+  } catch {
+    // ignore read errors, fall back to default
+  }
+  return DEFAULT_ADVISOR_QUERY;
+}
 
 // ---------------------------------------------------------------------------
 // Startup banner (Claude-code style: mascot + multiline title)
@@ -66,8 +85,8 @@ const STARTUP_BANNER = `
                           | | (o) | |
                           |  \\___/  |
                            \\_______/
-Autonomous agent playing Pax Historia (browser grand strategy).
-Ingests game state, plans with AI, then executes autonomously.
+Autonomous agent playing Pax Historia (grand strategy).
+Ingests game state, plans, then executes autonomously.
 100+ games won and counting...
 `;
 
@@ -221,7 +240,11 @@ async function runTurn(
 
   // Start Spy capture BEFORE triggering the advisor query
   const bodyPromise = captureNextSimpleChatRequestBody(page);
-  await enterAdvisorQuery(page, ADVISOR_QUERY);
+  const advisorQuery = getAdvisorQueryForTurn();
+  if (advisorQuery !== DEFAULT_ADVISOR_QUERY) {
+    console.log(`[Phase 1] Advisor query (dynamic): ${advisorQuery.slice(0, 70)}${advisorQuery.length > 70 ? "..." : ""}`);
+  }
+  await enterAdvisorQuery(page, advisorQuery);
 
   // Await the intercepted request body
   const requestBody = await bodyPromise;

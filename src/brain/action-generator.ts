@@ -25,6 +25,11 @@ import { callGemini } from "./llm-client";
 // ---------------------------------------------------------------------------
 
 const LEDGER_PATH = path.join(process.cwd(), "war-room", "strategic_ledger.json");
+const NEXT_ADVISOR_QUERY_PATH = path.join(
+  process.cwd(),
+  "war-room",
+  "next_advisor_query.txt"
+);
 
 function mergeLedger(
   existing: StrategicLedger,
@@ -168,6 +173,16 @@ export async function generateActions(): Promise<ActionBatch> {
     writeLedger(merged);
     console.log(
       `[Brain] Ledger updated — ${merged.active_operations.length} total operations`
+    );
+  }
+
+  // Persist dynamic advisor query for next turn (no extra API call)
+  const nextQuery =
+    batch.next_advisor_query?.trim() ?? "";
+  if (nextQuery) {
+    fs.writeFileSync(NEXT_ADVISOR_QUERY_PATH, nextQuery, "utf-8");
+    console.log(
+      `[Brain] Next advisor query set: "${nextQuery.length > 55 ? nextQuery.slice(0, 55) + "..." : nextQuery}"`
     );
   }
 

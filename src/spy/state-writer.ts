@@ -5,10 +5,17 @@
  * We persist the stripped game state under the key "current_state" (not "prompt")
  * so the Brain/LLM sees only game state: map, USA status, event history, diplomacy.
  * Other keys (gameID, round, etc.) are not written.
+ *
+ * We also parse "Status of X" / "All Regions Owned" and write ownership_snapshot.json
+ * so the Brain has an explicit reference: what we own vs what we do not.
  */
 
 import * as fs from "fs";
 import * as path from "path";
+import {
+  parseOwnershipFromStateText,
+  writeOwnershipSnapshot,
+} from "./ownership-parser";
 
 const WAR_ROOM_PATH = path.join(process.cwd(), "war-room", "current_state.json");
 
@@ -55,6 +62,12 @@ export function writeGameStateFromPayload(body: string | null): void {
   fs.mkdirSync(path.dirname(WAR_ROOM_PATH), { recursive: true });
   fs.writeFileSync(WAR_ROOM_PATH, JSON.stringify(out, null, 2), "utf-8");
   console.log("[Spy] Wrote game state (current_state, advisor instructions stripped) to war-room/current_state.json");
+
+  // Explicit ownership snapshot so Brain knows what we own vs what we do not
+  if (out.current_state) {
+    const ownership = parseOwnershipFromStateText(out.current_state);
+    if (ownership) writeOwnershipSnapshot(ownership);
+  }
 }
 
 const ADVISOR_RESPONSE_PATH = path.join(process.cwd(), "war-room", "advisor_response.txt");

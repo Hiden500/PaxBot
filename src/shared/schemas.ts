@@ -18,6 +18,17 @@ export const GameStateSchema = z.object({
 export type GameState = z.infer<typeof GameStateSchema>;
 
 // ---------------------------------------------------------------------------
+// War Room: ownership_snapshot.json (written by Spy from parsed state)
+// ---------------------------------------------------------------------------
+
+export const OwnershipSnapshotSchema = z.object({
+  our_nation: z.string(),
+  regions_we_own: z.array(z.string()),
+});
+
+export type OwnershipSnapshot = z.infer<typeof OwnershipSnapshotSchema>;
+
+// ---------------------------------------------------------------------------
 // War Room: strategic_ledger.json (read/written by Brain)
 // ---------------------------------------------------------------------------
 
@@ -52,6 +63,8 @@ export const ActionBatchSchema = z.object({
   reasoning: z.string(),
   actions: z.array(z.string()),
   ledger_updates: z.array(OperationSchema),
+  /** Optional: question to ask the in-game advisor on the NEXT turn (dynamic per turn). */
+  next_advisor_query: z.string().max(500).optional(),
 });
 
 export type ActionBatch = z.infer<typeof ActionBatchSchema>;

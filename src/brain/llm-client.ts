@@ -80,6 +80,11 @@ const RESPONSE_SCHEMA = {
       description:
         "Updated or new operations to save in the strategic ledger",
     },
+    next_advisor_query: {
+      type: Type.STRING,
+      description:
+        "One short question to ask the in-game advisor on the NEXT turn (e.g. about a specific front, nation, or decision). Keep under 100 words.",
+    },
   },
   required: ["reasoning", "actions", "ledger_updates"],
 };
