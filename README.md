@@ -6,6 +6,18 @@ The agent runs a **cognitive loop**: perceive the world, consult memory and goal
 
 ---
 
+## **Quick Start: Configure & Play**
+
+**All you need to do is modify three things:**
+
+1. **Game scenario preset** — Choose which historical scenario to play
+2. **The country** — Select which nation the agent will control
+3. **The constitution** (`war-room/constitution.md`) — Define the agent's goals and strategic identity
+
+**The agent will take care of the rest!** It will automatically perceive the game state, reason about actions, execute moves, and advance through turns—running the full cognitive loop autonomously.
+
+---
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)

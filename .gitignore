@@ -24,3 +24,6 @@ build/
 
 # Logs and local state (optional: uncomment if war-room is generated at runtime)
 # war-room/current_state.json
+
+# Temporary media files
+tempMedia/
