@@ -96,7 +96,14 @@ For the strategic ledger:
 - Review any active operations and update their step statuses (COMPLETE, PENDING, FAILED).
 - Create new operations for multi-turn plans you're initiating this turn.
 - Each operation needs a unique operation_id (e.g. "OP_001"), a goal, the current phase number, and a list of steps with phase/action/status.
-- IMPORTANT: Only return PENDING and FAILED steps in your ledger_updates. Do NOT include steps that are already COMPLETE — they are tracked automatically. This keeps responses concise.`;
+- IMPORTANT: Only return PENDING and FAILED steps in your ledger_updates. Do NOT include steps that are already COMPLETE — they are tracked automatically. This keeps responses concise.
+
+CRITICAL — INVASION MANDATE:
+- Every operation targeting a foreign nation MUST culminate in an invasion/conquest step. No operation should end with "maintain", "consolidate", or "monitor" — those are intermediate steps, not endpoints.
+- Per the constitution: after 2-3 weakening actions against a target, INVADE. Cap weakening at 4 phases max, then the next step MUST be a concrete invasion.
+- If an operation has been running for 4+ phases without an invasion step, add one NOW.
+- Vague steps like "establish administration" or "sustain presence" are NOT acceptable as final steps. Replace them with specific military conquest actions.
+- The goal of every operation is TOTAL CONQUEST of the target — no peace deals, no half-measures.`;
 
   // Only send PENDING/FAILED steps to the LLM — COMPLETE steps are noise that bloats context and output.
   const trimmedLedger = {

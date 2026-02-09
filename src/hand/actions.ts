@@ -91,7 +91,30 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
     }
   }
 
-  throw new Error("Could not open actions panel after retries");
+  // Last resort: reload the game page without query params and click "Start Playing!"
+  console.log("[Hand] Action panel stuck — reloading game page to recover...");
+  try {
+    const currentUrl = new URL(page.url());
+    currentUrl.search = ""; // strip ?round=N etc.
+    await page.goto(currentUrl.toString(), { waitUntil: "domcontentloaded", timeout: 20000 });
+    await page.waitForTimeout(3000);
+
+    // Click "Start Playing!" if it appears (re-entering an in-progress game)
+    const startBtn = page.getByRole("button", { name: "Start Playing!" }).first();
+    try {
+      await startBtn.waitFor({ state: "visible", timeout: 8000 });
+      await startBtn.click();
+      console.log("[Hand] Clicked 'Start Playing!' after reload.");
+      await page.waitForTimeout(3000);
+    } catch { /* might already be on the game page */ }
+
+    await dismissGamePopups(page);
+    await box.waitFor({ state: "visible", timeout: 10000 });
+    console.log("[Hand] Action panel recovered after page reload.");
+    return;
+  } catch {
+    throw new Error("Could not open actions panel — reload recovery also failed");
+  }
 }
 
 export async function enterAction(page: Page, text: string): Promise<void> {
@@ -227,22 +250,16 @@ export async function dismissNextEvents(page: Page): Promise<void> {
     const waitMs = clicks === 0 ? NEXT_EVENT_FIRST_TIMEOUT_MS : NEXT_EVENT_LATER_TIMEOUT_MS;
     if (clicks === 0) console.log("[Hand] Waiting for first event (loading/LLM may take a while)…");
 
-    // Race: wait for either "Next Event" or "Proceed" — whichever appears first
-    const winner = await Promise.race([
-      nextEventBtn.waitFor({ state: "visible", timeout: waitMs }).then(() => "next" as const).catch(() => null),
-      proceedBtn.waitFor({ state: "visible", timeout: waitMs }).then(() => "proceed" as const).catch(() => null),
-    ]);
-
-    if (winner === "proceed") {
-      // Proceed appeared — no more events, click it immediately
-      break;
-    }
-    if (!winner) {
-      // Neither appeared — timeout
+    // Always check "Next Event" first — it takes priority over "Proceed".
+    // Only break when Next Event is genuinely gone.
+    try {
+      await nextEventBtn.waitFor({ state: "visible", timeout: waitMs });
+    } catch {
+      // "Next Event" didn't appear in time — done with events
       break;
     }
 
-    // "Next Event" appeared — click it
+    // "Next Event" is visible — click it
     await nextEventBtn.click();
     clicks++;
     if (clicks % 10 === 0) console.log("[Hand] Dismissed", clicks, "events…");

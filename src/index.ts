@@ -42,7 +42,7 @@ const SCREEN_WIDTH = 1512;
 const SCREEN_HEIGHT = 982;
 const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 10 / 10); // 1260
 const BROWSER_HEIGHT = Math.round(SCREEN_HEIGHT * 5 / 10);
-const PAGE_ZOOM = 1; // game renders at full size but displays 70% — fits in smaller window
+const PAGE_ZOOM = 0.7; // game renders at full size but displays 70% — fits in smaller window
 
 const ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
@@ -134,7 +134,10 @@ async function boot() {
       `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`,
     ],
   });
-  const context = await browser.newContext({ storageState: STATE_PATH });
+  const context = await browser.newContext({
+    storageState: STATE_PATH,
+    viewport: { width: BROWSER_WIDTH, height: BROWSER_HEIGHT },
+  });
   const page = await context.newPage();
 
   console.log(`[Boot] Navigating to ${BASE_URL}...`);
@@ -157,7 +160,7 @@ async function boot() {
   // shrink equally without the page re-flowing its layout to fill extra space.
   await page.evaluate((z) => {
     document.body.style.transformOrigin = "top left";
-    document.body.style.transform = `scale(${z})`;
+    document.body.style.transform = `dscale(${z})`;
   }, PAGE_ZOOM);
 
   try {

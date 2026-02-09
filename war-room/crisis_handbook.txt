@@ -61,6 +61,9 @@ Plan multi-step arcs toward an end goal (e.g. industrial parity, regional allian
 Aqueduct metaphor
 Your ultimate goal is like Rome’s need for water. Arcs are the arches that get you there; each directive is a stone. One action may seem small, but a sequence of actions builds the structure. Plan the main arc so it culminates when it can have impact; have a backup arc if the situation blocks the first.
 
+Culminate in action, not preparation
+Do not stay passive. Arcs should end in decisive execution—invasion, annexation, regime change, or war—not in endless buildup. The last step is doing the thing: cross the border, absorb the territory, topple the regime. If your plan has five steps, step five must be the invasion (or equivalent), not "prepare for a future invasion."
+
 Strategy outline (ask yourself)
 1. What are a few reasonable end goals given your nation’s identity and constraints?
 2. What arcs can you use to achieve them (diplomatic, economic, military)?
@@ -98,14 +101,14 @@ Execute
 - Religion and ideology: Mobilize religious or ideological factions against the target regime; support dissident clergy or prophets; frame your cause as holy or righteous; exploit sectarian or ethnic fault lines so the target fractures from within before you commit armies.
 
 Weaken then invade (advisor’s rule)
-Do not go head-on if you can help it. Structure: weaken the nation first, then invade or absorb. Be creative.
+Do not go head-on if you can help it. Structure: weaken the nation first, then invade or absorb. The payoff is always the invasion or absorption—do not stop at "weakening." Be creative in how you weaken; be decisive in executing the invasion.
 - Weaken by alliance: Isolate the target diplomatically, then strike when they have no allies or are already at war elsewhere.
 - Weaken by holiday or surprise: Strike when their guard is down (festival, winter, harvest, political transition). Speed and shock reduce their ability to mobilize.
 - Weaken by religion or ideology: Fuel internal split (sectarian, ethnic, or ideological). Support rebels, heretics, or separatists. When the state is busy putting out fires, move in or demand concessions.
 - Weaken by decapitation: Remove the head (assassination, capture, or forced abdication). Succession fights and power vacuums make invasion or puppet takeover easier.
 - Weaken by Order 66: Turn their own apparatus against them—bribe generals, buy off garrisons, trigger purges that gut their command, or engineer a “loyal” coup that hands you the keys. Then “invite” in your troops or merge governments.
 - Weaken by economy and sabotage: Strangle trade, wreck rails or industry, spread famine or unrest. A hungry, divided, and disorganized state falls faster than one that can fight a long war.
-Combine several: e.g. sabotage + decapitation + holiday attack, or religion + alliance + invasion once the target is fractured.
+Combine several: e.g. sabotage + decapitation + holiday attack, or religion + alliance + invasion once the target is fractured. In every case, the final move is invasion, annexation, or regime takeover—not "considering" it.
 
 ---
 
@@ -117,25 +120,31 @@ Crisis map (sketch for a nation-state)
 - Influential groups: Conservatives, Liberals, military leaders, merchants, landowners, labor.
 - Policies in action: Tax changes, subsidies, troop deployments, drafts, trade agreements.
 - State of the world: Rebellions, popularity of regime, regional poverty, drought or plenty.
-- Personal ideas: Coup, build industry in key region, close or open trade routes, ally with X.
+- Personal ideas: Coup, build industry in key region, close or open trade routes, ally with X—then invade.
 
-Multi-step arc example (industrial buildup)
+Multi-step arc example (weaken then invade — primary template)
+Step 1: Isolate the target (alliance with their rivals, or deny them allies).
+Step 2: Weaken internally (sabotage, fund rebels, decapitation, or propaganda to split opinion).
+Step 3: Position forces and choose the moment (holiday, harvest, succession crisis).
+Step 4: Execute the invasion—cross the border, take key cities, demand surrender or annexation.
+
+Multi-step arc example (industrial buildup → invasion)
 Step 1: Allocate funds to railroads linking resource regions to ports.
-Step 2: Secure raw materials via trade deals or territorial control.
-Step 3: Build or expand factories in key regions.
-Step 4: Mobilize labor or attract skilled workers; subsidize key industries.
-Step 5: Use industrial output to strengthen military or trade leverage.
+Step 2: Secure raw materials via trade or territorial control.
+Step 3: Build or expand factories; mobilize labor and subsidize key industries.
+Step 4: Use industrial output to equip and supply the army.
+Step 5: Execute invasion of the target region or neighbor—conquer, annex, or install a puppet regime.
 
-Multi-step arc example (diplomatic bloc)
+Multi-step arc example (diplomatic bloc → invasion)
 Step 1: Approach the most natural ally (shared threat or interest).
 Step 2: Offer something concrete (trade, guarantee, intelligence).
-Step 3: Propose a formal agreement or joint stance.
-Step 4: Bring in a second power to widen the bloc.
-Step 5: Use the bloc to deter adversaries or negotiate from strength.
+Step 3: Propose a formal agreement or joint stance; bring in a second power to widen the bloc.
+Step 4: Use the bloc to isolate the target and secure your flanks.
+Step 5: Execute invasion of the isolated target—strike when they have no allies, annex or dictate terms.
 
 Tactical inspiration
-- Use economic leverage on neighbors: offer trade or loans in exchange for alignment, or threaten embargo if they side with your rival.
-- Establish intelligence and contacts before a major move: know who will resist, who will comply, and where unrest might break out.
-- Mobilize popular support or nationalist sentiment before a costly war or reform so the state can sustain the effort.
-- If blocked on one path (e.g. alliance denied), pivot: seek another partner, build industry first, or use propaganda to shift the board before trying again.
-- Research historical figures and institutions: reference past cooperation or precedent to justify requests (e.g. “remind X of our prior coordination and request expanded authority to address the current threat”).
+- Use economic leverage on neighbors: offer trade or loans in exchange for alignment, or threaten embargo; then use the resulting dependency or isolation to justify or enable invasion.
+- Establish intelligence and contacts before a major move: know who will resist, who will comply, and where unrest might break out—then invade when the picture is clear.
+- Mobilize popular support or nationalist sentiment before a costly war so the state can sustain the effort—then launch the invasion.
+- If blocked on one path (e.g. alliance denied), pivot: seek another partner, build industry first, or use propaganda to shift the board—but do not abandon the goal; the end step remains invasion or regime change.
+- Research historical figures and institutions: reference past cooperation or precedent to justify requests—and to justify military action if the target reneges or resists.

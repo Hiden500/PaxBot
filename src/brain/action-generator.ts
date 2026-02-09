@@ -53,16 +53,40 @@ function mergeLedger(
   return { active_operations: ops };
 }
 
-/** Remove operations where every step is COMPLETE or FAILED (nothing left to do). */
+/** Max COMPLETE steps to retain per operation — older ones are trimmed to save space. */
+const MAX_COMPLETE_STEPS_PER_OP = 5;
+
+/** Remove fully-finished operations, and trim old COMPLETE steps from active ones. */
 function pruneLedger(ledger: StrategicLedger): StrategicLedger {
+  // 1. Drop operations with no PENDING steps
   const active = ledger.active_operations.filter((op) =>
     op.steps.some((s) => s.status === "PENDING")
   );
-  const pruned = ledger.active_operations.length - active.length;
-  if (pruned > 0) {
-    console.log(`[Brain] Pruned ${pruned} finished operation(s) from ledger`);
+  const opsDropped = ledger.active_operations.length - active.length;
+  if (opsDropped > 0) {
+    console.log(`[Brain] Pruned ${opsDropped} finished operation(s) from ledger`);
   }
-  return { active_operations: active };
+
+  // 2. Trim old COMPLETE steps — keep only the most recent N per operation
+  let stepsDropped = 0;
+  const trimmed = active.map((op) => {
+    const complete = op.steps.filter((s) => s.status === "COMPLETE");
+    const other = op.steps.filter((s) => s.status !== "COMPLETE");
+
+    if (complete.length <= MAX_COMPLETE_STEPS_PER_OP) return op;
+
+    const dropped = complete.length - MAX_COMPLETE_STEPS_PER_OP;
+    stepsDropped += dropped;
+    // Keep only the last N complete steps (most recent phases)
+    const kept = complete.slice(-MAX_COMPLETE_STEPS_PER_OP);
+    return { ...op, steps: [...kept, ...other] };
+  });
+
+  if (stepsDropped > 0) {
+    console.log(`[Brain] Trimmed ${stepsDropped} old COMPLETE step(s) from ledger`);
+  }
+
+  return { active_operations: trimmed };
 }
 
 function writeLedger(ledger: StrategicLedger): void {

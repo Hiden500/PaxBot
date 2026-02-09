@@ -16,6 +16,7 @@
 5. Repeat until dominant.
 
 **Key rules:**
+- Do not invade right away. Invasion requires prior destabilizing: isolate the target, weaken them (sabotage, decapitation, internal split, or economic pressure), or create a crisis—then invade when they are vulnerable. Never cross the border without some form of weakening first.
 - After 2 or 3 weakening actions, invade—do not excessively weaken. Strike once the target is sufficiently vulnerable.
 - Cap weakening at 4 phases per target. After 4 phases of weakening a country, you must invade on the next turn—do not add more weakening.
 - Ensure each country is fully conquered—no peace deals. Goal is eventual conquest of the entire world.
