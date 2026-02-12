@@ -51,6 +51,8 @@ npm install
 
 Create a `.env` with your API keys if you use the Brain (see [docs/auth-setup.md](docs/auth-setup.md) for auth and env).
 
+**Pro tip:** Use **Gemini Pro (student)**—it’s **free** for students and doesn’t hit rate limits, so you can run heavy testing (even overnight) without hitting caps.
+
 ### Run the full cognitive loop
 
 ```bash
@@ -241,6 +243,8 @@ We are **not** “ask the advisor and execute its advice.” The advisor is in t
 ## Example Run
 
 One run played as **the US**: within about 20 rounds the agent island-hopped slowly toward Japan (Iwo Jima, Okinawa) and, before that, made plans with the British AI and used coordination plus embargoes to slowly strangle and weaken Japan. The campaign showed the ledger and constitution driving a multi-phase arc (alliance, economic pressure, then amphibious push) rather than single-turn reactions.
+
+**See video of the agent winning the Pacific War + more:** [linked tweet](https://x.com/PhillipYan2/status/2020912702273749050?s=20)
 
 ---
 
