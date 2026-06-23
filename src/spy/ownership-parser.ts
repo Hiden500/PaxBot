@@ -24,17 +24,21 @@ const NEXT_SECTION_RE = /\n\s*-\s+[A-Za-z]/;
  */
 export function parseOwnershipFromStateText(stateText: string): OwnershipSnapshot | null {
   const statusMatch = stateText.match(STATUS_RE);
-  if (!statusMatch) return null;
+  if (!statusMatch) {
+    return null;
+  }
 
   const ourNation = statusMatch[1].trim();
   const afterStatus = stateText.slice(statusMatch.index! + statusMatch[0].length);
   const ownedIdx = afterStatus.indexOf(ALL_REGIONS_OWNED_MARKER);
-  if (ownedIdx === -1) return null;
+  if (ownedIdx === -1) {
+    return null;
+  }
 
   const listStart = ownedIdx + ALL_REGIONS_OWNED_MARKER.length;
   let listEnd = afterStatus.length;
   const nextSection = afterStatus.slice(listStart).match(NEXT_SECTION_RE);
-  if (nextSection && nextSection.index != null) {
+  if (nextSection && typeof nextSection.index === "number") {
     listEnd = listStart + nextSection.index;
   }
   const rawList = afterStatus.slice(listStart, listEnd);
@@ -42,6 +46,7 @@ export function parseOwnershipFromStateText(stateText: string): OwnershipSnapsho
   // Comma-separated; may have newlines and optional quotes
   const regions = rawList
     .split(",")
+    .map((s) => s.replace(/^["']|["']$/g, "").trim())
     .map((s) => s.replace(/^["']|["']$/g, "").trim())
     .filter(Boolean);
 
@@ -57,12 +62,10 @@ export function parseOwnershipFromStateText(stateText: string): OwnershipSnapsho
  */
 export function writeOwnershipSnapshot(snapshot: OwnershipSnapshot): void {
   const dir = path.dirname(OWNERSHIP_PATH);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(
-    OWNERSHIP_PATH,
-    JSON.stringify(snapshot, null, 2),
-    "utf-8"
-  );
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  fs.writeFileSync(OWNERSHIP_PATH, JSON.stringify(snapshot, null, 2), "utf-8");
   console.log(
     `[Spy] Wrote ownership snapshot: ${snapshot.our_nation}, ${snapshot.regions_we_own.length} regions we own → war-room/ownership_snapshot.json`
   );

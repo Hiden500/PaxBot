@@ -26,42 +26,34 @@ import {
   writeGameStateFromPayload,
 } from "./spy";
 import { generateActions } from "./brain";
+import { validateEnv } from "./brain/llm-client";
+import { BROWSER_CONFIG, PATHS } from "./shared/config";
 
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
 
-const AUTH_DIR = path.join(process.cwd(), "auth");
-const STATE_PATH = path.join(AUTH_DIR, "auth_state.json");
+const AUTH_DIR = path.join(process.cwd(), PATHS.AUTH_DIR);
+const STATE_PATH = path.join(AUTH_DIR, PATHS.AUTH_STATE);
 const BASE_URL = "https://www.paxhistoria.co";
 const GAME_PAGE_URL = process.env.GAME_URL ?? "";
 
-// Screen layout: browser takes left 5/6 of a 1512x982 MacBook display.
-// CSS transform scale shrinks the page so the game fits without clipping.
-const SCREEN_WIDTH = 1512;
-const SCREEN_HEIGHT = 982;
-const BROWSER_WIDTH = Math.round(SCREEN_WIDTH * 7 / 10); // 1260
-const BROWSER_HEIGHT = Math.round(SCREEN_HEIGHT * 10 / 10);
-// Separate horizontal and vertical scale (e.g. 0.7 = 70% size).
-const PAGE_ZOOM_X = 0.87;
-const PAGE_ZOOM_Y = 0.87;
+const BROWSER_WIDTH = Math.round((BROWSER_CONFIG.SCREEN_WIDTH * 7) / 10);
+const BROWSER_HEIGHT = BROWSER_CONFIG.SCREEN_HEIGHT;
 
 /** Default advisor question when no dynamic suggestion exists yet (e.g. turn 1). */
 const DEFAULT_ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
-const NEXT_ADVISOR_QUERY_PATH = path.join(
-  process.cwd(),
-  "war-room",
-  "next_advisor_query.txt"
-);
-const ACTION_DELAY_MS = 2000;
+const NEXT_ADVISOR_QUERY_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.NEXT_ADVISOR_QUERY);
 
 /** Advisor query for this turn: dynamic (from last Brain suggestion) or default. */
 function getAdvisorQueryForTurn(): string {
   try {
     if (fs.existsSync(NEXT_ADVISOR_QUERY_PATH)) {
       const q = fs.readFileSync(NEXT_ADVISOR_QUERY_PATH, "utf-8").trim();
-      if (q) return q;
+      if (q) {
+        return q;
+      }
     }
   } catch {
     // ignore read errors, fall back to default
@@ -113,14 +105,15 @@ function sleep(ms: number): Promise<void> {
 // Background popup watcher — polls every 3s and dismisses popups instantly
 // ---------------------------------------------------------------------------
 
-const POPUP_POLL_MS = 3000;
 let popupWatcherTimer: ReturnType<typeof setInterval> | null = null;
 let popupCheckRunning = false; // prevent overlapping checks
 
 function startPopupWatcher(page: import("playwright").Page): void {
   console.log("[PopupWatcher] Started — polling every 3s for stale popups.");
   popupWatcherTimer = setInterval(async () => {
-    if (popupCheckRunning) return; // skip if previous check still running
+    if (popupCheckRunning) {
+      return;
+    } // skip if previous check still running
     popupCheckRunning = true;
     try {
       await dismissGamePopups(page);
@@ -129,7 +122,7 @@ function startPopupWatcher(page: import("playwright").Page): void {
     } finally {
       popupCheckRunning = false;
     }
-  }, POPUP_POLL_MS);
+  }, BROWSER_CONFIG.POPUP_POLL_MS);
 }
 
 function stopPopupWatcher(): void {
@@ -144,20 +137,20 @@ function stopPopupWatcher(): void {
 // Boot: launch browser, navigate to game
 // ---------------------------------------------------------------------------
 
-const WAR_ROOM = path.join(process.cwd(), "war-room");
+const WAR_ROOM = path.join(process.cwd(), PATHS.WAR_ROOM);
 
 function resetWarRoom(): void {
   fs.writeFileSync(
-    path.join(WAR_ROOM, "strategic_ledger.json"),
+    path.join(WAR_ROOM, PATHS.STRATEGIC_LEDGER),
     JSON.stringify({ active_operations: [] }, null, 2) + "\n",
     "utf-8"
   );
   fs.writeFileSync(
-    path.join(WAR_ROOM, "current_state.json"),
+    path.join(WAR_ROOM, PATHS.CURRENT_STATE),
     JSON.stringify({ current_state: "" }, null, 2) + "\n",
     "utf-8"
   );
-  fs.writeFileSync(path.join(WAR_ROOM, "advisor_response.txt"), "", "utf-8");
+  fs.writeFileSync(path.join(WAR_ROOM, PATHS.ADVISOR_RESPONSE), "", "utf-8");
   console.log("[Boot] War Room reset (ledger, state, advisor).");
 }
 
@@ -168,10 +161,7 @@ async function boot() {
   console.log("[Boot] Launching browser with auth state...");
   const browser = await chromium.launch({
     headless: false,
-    args: [
-      `--window-position=0,25`,
-      `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`,
-    ],
+    args: [`--window-position=0,25`, `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`],
   });
   const context = await browser.newContext({
     storageState: STATE_PATH,
@@ -203,21 +193,19 @@ async function boot() {
   // Scale the page down using CSS transform so it fits; separate X/Y for aspect control.
   await page.evaluate(
     ({ sx, sy }: { sx: number; sy: number }) => {
+      /* eslint-disable no-undef */
       document.body.style.transformOrigin = "top left";
       document.body.style.transform = `scale(${sx}, ${sy})`;
+      /* eslint-enable no-undef */
     },
-    { sx: PAGE_ZOOM_X, sy: PAGE_ZOOM_Y }
+    { sx: BROWSER_CONFIG.PAGE_ZOOM_X, sy: BROWSER_CONFIG.PAGE_ZOOM_Y }
   );
 
   try {
-    await page
-      .locator(SELECTORS.actionBox)
-      .waitFor({ state: "visible", timeout: 5000 });
+    await page.locator(SELECTORS.actionBox).waitFor({ state: "visible", timeout: 5000 });
     console.log("[Boot] Game UI visible. Ready to start cognitive loop.\n");
   } catch {
-    console.log(
-      "[Boot] Action box not visible yet. Continuing — may need manual navigation."
-    );
+    console.log("[Boot] Action box not visible yet. Continuing — may need manual navigation.");
   }
 
   return { browser, page };
@@ -227,10 +215,7 @@ async function boot() {
 // Cognitive loop: one full turn
 // ---------------------------------------------------------------------------
 
-async function runTurn(
-  page: import("playwright").Page,
-  turnNumber: number
-): Promise<void> {
+async function runTurn(page: import("playwright").Page, turnNumber: number): Promise<void> {
   console.log(`\n${"═".repeat(60)}`);
   console.log(`  TURN ${turnNumber}`);
   console.log(`${"═".repeat(60)}\n`);
@@ -242,7 +227,9 @@ async function runTurn(
   const bodyPromise = captureNextSimpleChatRequestBody(page);
   const advisorQuery = getAdvisorQueryForTurn();
   if (advisorQuery !== DEFAULT_ADVISOR_QUERY) {
-    console.log(`[Phase 1] Advisor query (dynamic): ${advisorQuery.slice(0, 70)}${advisorQuery.length > 70 ? "..." : ""}`);
+    console.log(
+      `[Phase 1] Advisor query (dynamic): ${advisorQuery.slice(0, 70)}${advisorQuery.length > 70 ? "..." : ""}`
+    );
   }
   await enterAdvisorQuery(page, advisorQuery);
 
@@ -254,9 +241,7 @@ async function runTurn(
   const advisorText = await getLastAdvisorResponseText(page);
   writeAdvisorResponse(advisorText);
   if (advisorText) {
-    console.log(
-      `[Phase 1] Advisor says: ${firstFewSentences(advisorText)}\n`
-    );
+    console.log(`[Phase 1] Advisor says: ${firstFewSentences(advisorText)}\n`);
   }
 
   // ── Phase 2+3: Brain ────────────────────────────────────────────────
@@ -277,10 +262,12 @@ async function runTurn(
       await enterAction(page, batch.actions[i]);
       submitted++;
     } catch (err) {
-      console.log(`[Phase 4] SKIPPED action ${i + 1} (panel blocked): ${(err as Error).message?.slice(0, 80)}`);
+      console.log(
+        `[Phase 4] SKIPPED action ${i + 1} (panel blocked): ${(err as Error).message?.slice(0, 80)}`
+      );
     }
     if (i < batch.actions.length - 1) {
-      await sleep(ACTION_DELAY_MS);
+      await sleep(BROWSER_CONFIG.ACTION_DELAY_MS);
     }
   }
   console.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
@@ -290,8 +277,31 @@ async function runTurn(
 // Main loop
 // ---------------------------------------------------------------------------
 
+/** Save ledger and state to timestamped snapshots for recovery. */
+function saveLedgerSnapshot(turnNumber: number): void {
+  try {
+    const src = path.join(WAR_ROOM, PATHS.STRATEGIC_LEDGER);
+    if (fs.existsSync(src)) {
+      const dst = path.join(WAR_ROOM, `ledger_snapshot_turn_${turnNumber}.json`);
+      fs.copyFileSync(src, dst);
+      console.log(`[Shutdown] Ledger snapshot saved → ${dst}`);
+    }
+    const state = path.join(WAR_ROOM, PATHS.CURRENT_STATE);
+    if (fs.existsSync(state)) {
+      const dst = path.join(WAR_ROOM, `state_snapshot_turn_${turnNumber}.json`);
+      fs.copyFileSync(state, dst);
+      console.log(`[Shutdown] State snapshot saved → ${dst}`);
+    }
+  } catch (err) {
+    console.error("[Shutdown] Failed to save snapshot:", (err as Error).message);
+  }
+}
+
 async function main(): Promise<void> {
   printStartupBanner();
+
+  // Validate environment before doing anything else
+  validateEnv();
 
   const { browser, page } = await boot();
 
@@ -303,9 +313,12 @@ async function main(): Promise<void> {
   // Graceful shutdown on Ctrl+C
   let stopping = false;
   process.on("SIGINT", () => {
-    if (stopping) process.exit(1);
+    if (stopping) {
+      process.exit(1);
+    }
     stopping = true;
-    console.log("\nCtrl+C received — finishing current turn then shutting down...");
+    console.log("\nCtrl+C received — saving state then shutting down...");
+    saveLedgerSnapshot(turnNumber);
   });
 
   try {
@@ -313,10 +326,15 @@ async function main(): Promise<void> {
       try {
         await runTurn(page, turnNumber);
       } catch (err) {
-        console.error(`\n[Turn ${turnNumber}] ERROR — skipping to next week:`, (err as Error).message?.slice(0, 120));
+        console.error(
+          `\n[Turn ${turnNumber}] ERROR — skipping to next week:`,
+          (err as Error).message?.slice(0, 120)
+        );
       }
 
-      if (stopping) break;
+      if (stopping) {
+        break;
+      }
 
       // Auto-advance to next turn
       console.log("\n[Turn Advance] Advancing 1 week...");
@@ -327,6 +345,7 @@ async function main(): Promise<void> {
     console.error("Fatal loop error:", err);
   } finally {
     stopPopupWatcher();
+    saveLedgerSnapshot(turnNumber);
     await browser.close();
     console.log("Browser closed. Goodbye.");
   }

@@ -33,7 +33,7 @@ export type OwnershipSnapshot = z.infer<typeof OwnershipSnapshotSchema>;
 // ---------------------------------------------------------------------------
 
 export const OperationStepSchema = z.object({
-  phase: z.number(),
+  phase: z.number().nonnegative(),
   action: z.string(),
   status: z.enum(["COMPLETE", "PENDING", "FAILED"]),
 });

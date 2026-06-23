@@ -19,28 +19,20 @@ import {
 } from "../shared";
 import { assembleContext, buildPrompt } from "./context-assembler";
 import { callGemini } from "./llm-client";
+import { LEDGER_CONFIG, PATHS } from "../shared/config";
 
 // ---------------------------------------------------------------------------
 // Ledger merge logic
 // ---------------------------------------------------------------------------
 
-const LEDGER_PATH = path.join(process.cwd(), "war-room", "strategic_ledger.json");
-const NEXT_ADVISOR_QUERY_PATH = path.join(
-  process.cwd(),
-  "war-room",
-  "next_advisor_query.txt"
-);
+const LEDGER_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.STRATEGIC_LEDGER);
+const NEXT_ADVISOR_QUERY_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.NEXT_ADVISOR_QUERY);
 
-function mergeLedger(
-  existing: StrategicLedger,
-  updates: Operation[]
-): StrategicLedger {
+function mergeLedger(existing: StrategicLedger, updates: Operation[]): StrategicLedger {
   const ops = [...existing.active_operations];
 
   for (const update of updates) {
-    const idx = ops.findIndex(
-      (op) => op.operation_id === update.operation_id
-    );
+    const idx = ops.findIndex((op) => op.operation_id === update.operation_id);
     if (idx >= 0) {
       // Merge: keep existing COMPLETE steps, add/update PENDING/FAILED from LLM
       const existingComplete = ops[idx].steps.filter((s) => s.status === "COMPLETE");
@@ -57,9 +49,6 @@ function mergeLedger(
 
   return { active_operations: ops };
 }
-
-/** Max COMPLETE steps to retain per operation — older ones are trimmed to save space. */
-const MAX_COMPLETE_STEPS_PER_OP = 5;
 
 /** Remove fully-finished operations, and trim old COMPLETE steps from active ones. */
 function pruneLedger(ledger: StrategicLedger): StrategicLedger {
@@ -78,12 +67,14 @@ function pruneLedger(ledger: StrategicLedger): StrategicLedger {
     const complete = op.steps.filter((s) => s.status === "COMPLETE");
     const other = op.steps.filter((s) => s.status !== "COMPLETE");
 
-    if (complete.length <= MAX_COMPLETE_STEPS_PER_OP) return op;
+    if (complete.length <= LEDGER_CONFIG.MAX_COMPLETE_STEPS_PER_OP) {
+      return op;
+    }
 
-    const dropped = complete.length - MAX_COMPLETE_STEPS_PER_OP;
+    const dropped = complete.length - LEDGER_CONFIG.MAX_COMPLETE_STEPS_PER_OP;
     stepsDropped += dropped;
     // Keep only the last N complete steps (most recent phases)
-    const kept = complete.slice(-MAX_COMPLETE_STEPS_PER_OP);
+    const kept = complete.slice(-LEDGER_CONFIG.MAX_COMPLETE_STEPS_PER_OP);
     return { ...op, steps: [...kept, ...other] };
   });
 
@@ -108,7 +99,9 @@ const VALID_STATUSES = new Set(["COMPLETE", "PENDING", "FAILED"]);
 
 function normalizeStatuses(obj: Record<string, unknown>): void {
   const updates = obj.ledger_updates;
-  if (!Array.isArray(updates)) return;
+  if (!Array.isArray(updates)) {
+    return;
+  }
 
   for (const op of updates) {
     if (op && typeof op === "object" && Array.isArray((op as Record<string, unknown>).steps)) {
@@ -139,9 +132,7 @@ export async function generateActions(): Promise<ActionBatch> {
   // Phase 3: Reasoning
   console.log("[Brain] Phase 3: Building prompt...");
   const { system, user } = buildPrompt(ctx);
-  console.log(
-    `[Brain] Prompt built — system: ${system.length} chars, user: ${user.length} chars`
-  );
+  console.log(`[Brain] Prompt built — system: ${system.length} chars, user: ${user.length} chars`);
 
   console.log("\n════════════════════════════════════════════════════════");
   console.log("  BRAIN: STRATEGIC PLANNING IN PROGRESS");
@@ -171,14 +162,11 @@ export async function generateActions(): Promise<ActionBatch> {
   if (batch.ledger_updates.length > 0) {
     const merged = mergeLedger(ctx.ledger, batch.ledger_updates);
     writeLedger(merged);
-    console.log(
-      `[Brain] Ledger updated — ${merged.active_operations.length} total operations`
-    );
+    console.log(`[Brain] Ledger updated — ${merged.active_operations.length} total operations`);
   }
 
   // Persist dynamic advisor query for next turn (no extra API call)
-  const nextQuery =
-    batch.next_advisor_query?.trim() ?? "";
+  const nextQuery = batch.next_advisor_query?.trim() ?? "";
   if (nextQuery) {
     fs.writeFileSync(NEXT_ADVISOR_QUERY_PATH, nextQuery, "utf-8");
     console.log(
