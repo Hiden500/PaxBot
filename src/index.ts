@@ -1,5 +1,5 @@
 /**
- * Pax-Automata — full cognitive loop.
+ * PaxBot — full cognitive loop.
  *
  * Boot → navigate → loop: Advisor query → Spy capture → Brain reasoning → Hand execution → next turn.
  *
@@ -28,6 +28,7 @@ import {
 import { generateActions } from "./brain";
 import { validateEnv } from "./brain/llm-client";
 import { BROWSER_CONFIG, PATHS } from "./shared/config";
+import { getSessionDir } from "./shared/session";
 import { loadMemory, saveMemory, updateMemoryAfterTurn } from "./memory";
 
 // ---------------------------------------------------------------------------
@@ -45,13 +46,12 @@ const BROWSER_HEIGHT = BROWSER_CONFIG.SCREEN_HEIGHT;
 /** Default advisor question when no dynamic suggestion exists yet (e.g. turn 1). */
 const DEFAULT_ADVISOR_QUERY =
   "What is our current position and what do you advise for our next actions?";
-const NEXT_ADVISOR_QUERY_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.NEXT_ADVISOR_QUERY);
-
 /** Advisor query for this turn: dynamic (from last Brain suggestion) or default. */
 function getAdvisorQueryForTurn(): string {
+  const nextQueryPath = path.join(getSessionDir(), PATHS.NEXT_ADVISOR_QUERY);
   try {
-    if (fs.existsSync(NEXT_ADVISOR_QUERY_PATH)) {
-      const q = fs.readFileSync(NEXT_ADVISOR_QUERY_PATH, "utf-8").trim();
+    if (fs.existsSync(nextQueryPath)) {
+      const q = fs.readFileSync(nextQueryPath, "utf-8").trim();
       if (q) {
         return q;
       }
@@ -67,10 +67,7 @@ function getAdvisorQueryForTurn(): string {
 // ---------------------------------------------------------------------------
 
 const STARTUP_BANNER = `
-▗▄▄▖  ▗▄▖ ▗▖  ▗▖     ▗▄▖ ▗▖ ▗▖▗▄▄▄▖▗▄▖ ▗▖  ▗▖ ▗▄▖▗▄▄▄▖▗▄▖ 
-▐▌ ▐▌▐▌ ▐▌ ▝▚▞▘     ▐▌ ▐▌▐▌ ▐▌  █ ▐▌ ▐▌▐▛▚▞▜▌▐▌ ▐▌ █ ▐▌ ▐▌
-▐▛▀▘ ▐▛▀▜▌  ▐▌      ▐▛▀▜▌▐▌ ▐▌  █ ▐▌ ▐▌▐▌  ▐▌▐▛▀▜▌ █ ▐▛▀▜▌
-▐▌   ▐▌ ▐▌▗▞▘▝▚▖    ▐▌ ▐▌▝▚▄▞▘  █ ▝▚▄▞▘▐▌  ▐▌▐▌ ▐▌ █ ▐▌ ▐▌                                          
+PAXBOT
 << Always watching, always learning, always winning. >>
                             _______              
                            /  ___  \\    
@@ -141,18 +138,20 @@ function stopPopupWatcher(): void {
 const WAR_ROOM = path.join(process.cwd(), PATHS.WAR_ROOM);
 
 function resetWarRoom(): void {
+  const sessionDir = getSessionDir();
+
   fs.writeFileSync(
-    path.join(WAR_ROOM, PATHS.STRATEGIC_LEDGER),
+    path.join(sessionDir, PATHS.STRATEGIC_LEDGER),
     JSON.stringify({ active_operations: [] }, null, 2) + "\n",
     "utf-8"
   );
   fs.writeFileSync(
-    path.join(WAR_ROOM, PATHS.CURRENT_STATE),
+    path.join(sessionDir, PATHS.CURRENT_STATE),
     JSON.stringify({ current_state: "" }, null, 2) + "\n",
     "utf-8"
   );
-  fs.writeFileSync(path.join(WAR_ROOM, PATHS.ADVISOR_RESPONSE), "", "utf-8");
-  console.log("[Boot] War Room reset (ledger, state, advisor).");
+  fs.writeFileSync(path.join(sessionDir, PATHS.ADVISOR_RESPONSE), "", "utf-8");
+  console.log(`[Boot] War Room session reset (ledger, state, advisor) in ${sessionDir}.`);
 }
 
 async function boot() {
@@ -246,7 +245,7 @@ async function runTurn(page: import("playwright").Page, turnNumber: number): Pro
   }
 
   // ── Phase 2+3: Brain ────────────────────────────────────────────────
-  console.log("[Phase 2+3] Running Brain (Gemini 2.5 Flash)...");
+  console.log("[Phase 2+3] Running Brain (LLM)...");
   const batch = await generateActions();
 
   console.log(`\n[Brain] Reasoning: ${batch.reasoning}`);
@@ -292,16 +291,17 @@ async function runTurn(page: import("playwright").Page, turnNumber: number): Pro
 
 /** Save ledger and state to timestamped snapshots for recovery. */
 function saveLedgerSnapshot(turnNumber: number): void {
+  const sessionDir = getSessionDir();
   try {
-    const src = path.join(WAR_ROOM, PATHS.STRATEGIC_LEDGER);
+    const src = path.join(sessionDir, PATHS.STRATEGIC_LEDGER);
     if (fs.existsSync(src)) {
-      const dst = path.join(WAR_ROOM, `ledger_snapshot_turn_${turnNumber}.json`);
+      const dst = path.join(sessionDir, `ledger_snapshot_turn_${turnNumber}.json`);
       fs.copyFileSync(src, dst);
       console.log(`[Shutdown] Ledger snapshot saved → ${dst}`);
     }
-    const state = path.join(WAR_ROOM, PATHS.CURRENT_STATE);
+    const state = path.join(sessionDir, PATHS.CURRENT_STATE);
     if (fs.existsSync(state)) {
-      const dst = path.join(WAR_ROOM, `state_snapshot_turn_${turnNumber}.json`);
+      const dst = path.join(sessionDir, `state_snapshot_turn_${turnNumber}.json`);
       fs.copyFileSync(state, dst);
       console.log(`[Shutdown] State snapshot saved → ${dst}`);
     }

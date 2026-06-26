@@ -9,7 +9,7 @@ import * as fs from "fs";
 import * as path from "path";
 import type { Campaign } from "./types";
 import { validateCampaign } from "./validator";
-import { callGemini } from "../brain/llm-client";
+import { callLLM } from "../brain/llm-client";
 import { PATHS } from "../shared/config";
 import { getPrimaryCampaign, invalidateCache } from "./loader";
 
@@ -17,7 +17,7 @@ import { getPrimaryCampaign, invalidateCache } from "./loader";
 // Prompt for the LLM
 // ---------------------------------------------------------------------------
 
-const BUILDER_SYSTEM_PROMPT = `You are a Campaign Architect for Pax-Automata, an AI agent that plays the grand strategy game Pax Historia.
+const BUILDER_SYSTEM_PROMPT = `You are a Campaign Architect for PaxBot, an AI agent that plays the grand strategy game Pax Historia.
 
 Your task is to convert a player's natural language strategy description into a structured JSON campaign definition.
 
@@ -74,7 +74,7 @@ export async function buildCampaignFromDescription(description: string): Promise
       `[Campaign Builder] Building campaign from description (${description.length} chars)...`
     );
 
-    const rawResponse = await callGemini(BUILDER_SYSTEM_PROMPT, description);
+    const rawResponse = await callLLM(BUILDER_SYSTEM_PROMPT, description);
 
     // Parse the response
     let parsed: Record<string, unknown>;

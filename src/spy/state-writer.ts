@@ -14,8 +14,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { parseOwnershipFromStateText, writeOwnershipSnapshot } from "./ownership-parser";
 import { GAME_STATE_CONFIG, PATHS } from "../shared/config";
-
-const WAR_ROOM_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CURRENT_STATE);
+import { getSessionDir } from "../shared/session";
 
 const NEXT_MARKER_RE = /(?=\*\*\* Description of the Map)/;
 
@@ -60,11 +59,14 @@ function stripAdvisorOnlyContent(prompt: string): string {
  * top/bottom content, and writes { "current_state": "<string>" } to war-room/current_state.json.
  */
 export function writeGameStateFromPayload(body: string | null): void {
+  const sessionDir = getSessionDir();
+  const warRoomPath = path.join(sessionDir, PATHS.CURRENT_STATE);
   const out: { current_state: string | null } = { current_state: null };
+
   if (body === null || body === "") {
-    fs.mkdirSync(path.dirname(WAR_ROOM_PATH), { recursive: true });
-    fs.writeFileSync(WAR_ROOM_PATH, JSON.stringify(out, null, 2), "utf-8");
-    console.log("[Spy] Wrote game state (no payload) to war-room/current_state.json");
+    fs.mkdirSync(path.dirname(warRoomPath), { recursive: true });
+    fs.writeFileSync(warRoomPath, JSON.stringify(out, null, 2), "utf-8");
+    console.log(`[Spy] Wrote game state (no payload) to ${warRoomPath}`);
     return;
   }
   try {
@@ -75,10 +77,10 @@ export function writeGameStateFromPayload(body: string | null): void {
   } catch {
     // not JSON; leave current_state null
   }
-  fs.mkdirSync(path.dirname(WAR_ROOM_PATH), { recursive: true });
-  fs.writeFileSync(WAR_ROOM_PATH, JSON.stringify(out, null, 2), "utf-8");
+  fs.mkdirSync(path.dirname(warRoomPath), { recursive: true });
+  fs.writeFileSync(warRoomPath, JSON.stringify(out, null, 2), "utf-8");
   console.log(
-    "[Spy] Wrote game state (current_state, advisor instructions stripped) to war-room/current_state.json"
+    `[Spy] Wrote game state (current_state, advisor instructions stripped) to ${warRoomPath}`
   );
 
   // Explicit ownership snapshot so Brain knows what we own vs what we do not
@@ -90,14 +92,15 @@ export function writeGameStateFromPayload(body: string | null): void {
   }
 }
 
-const ADVISOR_RESPONSE_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.ADVISOR_RESPONSE);
-
 /**
  * Writes the latest advisor reply to war-room/advisor_response.txt.
  * Overwritten each turn when we get a new response. Brain reads this in Phase 3.
  */
 export function writeAdvisorResponse(text: string | null): void {
-  fs.mkdirSync(path.dirname(ADVISOR_RESPONSE_PATH), { recursive: true });
-  fs.writeFileSync(ADVISOR_RESPONSE_PATH, text ?? "", "utf-8");
-  console.log("[Spy] Wrote advisor response to war-room/advisor_response.txt");
+  const sessionDir = getSessionDir();
+  const advisorPath = path.join(sessionDir, PATHS.ADVISOR_RESPONSE);
+
+  fs.mkdirSync(path.dirname(advisorPath), { recursive: true });
+  fs.writeFileSync(advisorPath, text ?? "", "utf-8");
+  console.log(`[Spy] Wrote advisor response to ${advisorPath}`);
 }

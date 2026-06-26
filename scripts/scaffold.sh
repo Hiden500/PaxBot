@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Pax-Automata scaffold: creates war-room/ and placeholder files.
+# PaxBot scaffold: creates war-room/ and placeholder files.
 # Run from repo root: ./scripts/scaffold.sh
 # Safe to re-run; does not overwrite existing content if files already exist.
 

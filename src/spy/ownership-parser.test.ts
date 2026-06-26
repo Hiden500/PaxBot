@@ -5,6 +5,7 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import { parseOwnershipFromStateText, writeOwnershipSnapshot } from "./ownership-parser";
+import { getSessionDir } from "../shared/session";
 
 // ---------------------------------------------------------------------------
 // parseOwnershipFromStateText
@@ -104,7 +105,7 @@ describe("parseOwnershipFromStateText", () => {
 // ---------------------------------------------------------------------------
 
 describe("writeOwnershipSnapshot", () => {
-  const TEST_DIR = path.join(process.cwd(), "war-room");
+  const TEST_DIR = getSessionDir();
   const TEST_PATH = path.join(TEST_DIR, "ownership_snapshot.json");
 
   beforeEach(() => {

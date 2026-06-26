@@ -209,7 +209,7 @@ README должен обновляться при изменении функц�
 
 ### `/docs/pax-historia-research.md`
 
-Persistent reference doc for building Pax-Automata. Updated as we learn more from the live game.
+Persistent reference doc for building PaxBot. Updated as we learn more from the live game.
 
 ### `/docs/PRD.md`
 

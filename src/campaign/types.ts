@@ -1,7 +1,7 @@
 /**
  * Campaign: Types
  *
- * Structured campaign definition for Pax-Automata.
+ * Structured campaign definition for PaxBot.
  * Replaces the need to hardcode strategy in prompts.
  */
 

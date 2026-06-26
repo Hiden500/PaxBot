@@ -78,6 +78,18 @@
 
 ---
 
+## Версия 3.1 — Изоляция сессий, Markdown Campaigns и Документация (завершён)
+
+- [x] Переименование проекта в PaxBot
+- [x] LLM Neutralization
+- [x] Campaign Engine v2 с Markdown input форматом
+- [x] Поддержка изолированных сессий (`war-room/sessions/`)
+- [x] Добавлен скрипт `manual-test`
+- [x] Создание документации (`api.md`, `database.md`, `deployment.md`, `security.md`, `testing.md`, `decisions.md`)
+- [x] Обновление существующей документации
+
+---
+
 ## Версия 4.0 — Оценка и контроль
 
 - [ ] **Phase 6 (P1):** KPI System

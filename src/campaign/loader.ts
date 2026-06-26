@@ -10,6 +10,7 @@ import * as path from "path";
 import type { Campaign } from "./types";
 import { validateCampaign, isValidCampaign } from "./validator";
 import { PATHS } from "../shared/config";
+import { getActiveCampaignName } from "../shared";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -87,11 +88,19 @@ export function findCampaign(name: string): Campaign | undefined {
 }
 
 /**
- * Get the first (primary) campaign, or undefined if none exist.
+ * Get the active campaign.
+ * Uses the name from active-campaign.txt, falling back to the first available if not found.
  */
 export function getPrimaryCampaign(): Campaign | undefined {
   const campaigns = loadAllCampaigns();
-  return campaigns[0];
+  if (campaigns.length === 0) {
+    return undefined;
+  }
+
+  const activeName = getActiveCampaignName();
+  const active = campaigns.find((c) => c.name === activeName);
+
+  return active ?? campaigns[0];
 }
 
 /**

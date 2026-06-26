@@ -2,7 +2,7 @@
   "mcpServers": {
     "repowise": {
       "command": "repowise",
-      "args": ["mcp", "D:/Pax-Automata", "--transport", "stdio"],
+      "args": ["mcp", "D:/PaxBot", "--transport", "stdio"],
       "description": "repowise: codebase intelligence \u2014 docs, graph, git signals, dead code, decisions"
     }
   }

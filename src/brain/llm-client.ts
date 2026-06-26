@@ -57,13 +57,13 @@ function buildConfig(system: string): ProviderConfig {
 
 /**
  * Call the configured LLM with the given system instruction and user prompt.
- * Supports Gemini, Groq, and OpenAI — configurable via LLM_PROVIDER env var.
+ * Configurable via LLM_PROVIDER env var.
  *
  * @param system - System instruction / context prompt.
  * @param user - User prompt (game state + strategic context).
  * @returns JSON string response from the LLM.
  */
-export async function callGemini(system: string, user: string): Promise<string> {
+export async function callLLM(system: string, user: string): Promise<string> {
   validateEnv();
   const activeProvider = getProvider();
   const config = buildConfig(system);

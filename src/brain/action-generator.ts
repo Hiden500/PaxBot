@@ -10,110 +10,14 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import {
-  ActionBatchSchema,
-  StrategicLedgerSchema,
-  type ActionBatch,
-  type Operation,
-  type StrategicLedger,
-} from "../shared";
+import { type ActionBatch } from "../shared";
 import { assembleContext, buildPrompt } from "./context-assembler";
-import { callGemini } from "./llm-client";
-import { LEDGER_CONFIG, PATHS } from "../shared/config";
+import { callLLM } from "./llm-client";
+import { PATHS } from "../shared/config";
+import { mergeLedger, writeLedger } from "./ledger-manager";
+import { parseLLMResponse } from "./response-parser";
 
-// ---------------------------------------------------------------------------
-// Ledger merge logic
-// ---------------------------------------------------------------------------
-
-const LEDGER_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.STRATEGIC_LEDGER);
 const NEXT_ADVISOR_QUERY_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.NEXT_ADVISOR_QUERY);
-
-function mergeLedger(existing: StrategicLedger, updates: Operation[]): StrategicLedger {
-  const ops = [...existing.active_operations];
-
-  for (const update of updates) {
-    const idx = ops.findIndex((op) => op.operation_id === update.operation_id);
-    if (idx >= 0) {
-      // Merge: keep existing COMPLETE steps, add/update PENDING/FAILED from LLM
-      const existingComplete = ops[idx].steps.filter((s) => s.status === "COMPLETE");
-      const merged = {
-        ...update,
-        steps: [...existingComplete, ...update.steps],
-      };
-      ops[idx] = merged;
-    } else {
-      // New operation — append
-      ops.push(update);
-    }
-  }
-
-  return { active_operations: ops };
-}
-
-/** Remove fully-finished operations, and trim old COMPLETE steps from active ones. */
-function pruneLedger(ledger: StrategicLedger): StrategicLedger {
-  // 1. Drop operations with no PENDING steps
-  const active = ledger.active_operations.filter((op) =>
-    op.steps.some((s) => s.status === "PENDING")
-  );
-  const opsDropped = ledger.active_operations.length - active.length;
-  if (opsDropped > 0) {
-    console.log(`[Brain] Pruned ${opsDropped} finished operation(s) from ledger`);
-  }
-
-  // 2. Trim old COMPLETE steps — keep only the most recent N per operation
-  let stepsDropped = 0;
-  const trimmed = active.map((op) => {
-    const complete = op.steps.filter((s) => s.status === "COMPLETE");
-    const other = op.steps.filter((s) => s.status !== "COMPLETE");
-
-    if (complete.length <= LEDGER_CONFIG.MAX_COMPLETE_STEPS_PER_OP) {
-      return op;
-    }
-
-    const dropped = complete.length - LEDGER_CONFIG.MAX_COMPLETE_STEPS_PER_OP;
-    stepsDropped += dropped;
-    // Keep only the last N complete steps (most recent phases)
-    const kept = complete.slice(-LEDGER_CONFIG.MAX_COMPLETE_STEPS_PER_OP);
-    return { ...op, steps: [...kept, ...other] };
-  });
-
-  if (stepsDropped > 0) {
-    console.log(`[Brain] Trimmed ${stepsDropped} old COMPLETE step(s) from ledger`);
-  }
-
-  return { active_operations: trimmed };
-}
-
-function writeLedger(ledger: StrategicLedger): void {
-  const pruned = pruneLedger(ledger);
-  StrategicLedgerSchema.parse(pruned);
-  fs.writeFileSync(LEDGER_PATH, JSON.stringify(pruned, null, 2), "utf-8");
-}
-
-// ---------------------------------------------------------------------------
-// Status normalization (Gemini sometimes returns non-uppercase values)
-// ---------------------------------------------------------------------------
-
-const VALID_STATUSES = new Set(["COMPLETE", "PENDING", "FAILED"]);
-
-function normalizeStatuses(obj: Record<string, unknown>): void {
-  const updates = obj.ledger_updates;
-  if (!Array.isArray(updates)) {
-    return;
-  }
-
-  for (const op of updates) {
-    if (op && typeof op === "object" && Array.isArray((op as Record<string, unknown>).steps)) {
-      for (const step of (op as Record<string, unknown>).steps as Record<string, unknown>[]) {
-        if (step && typeof step.status === "string") {
-          const upper = step.status.toUpperCase();
-          step.status = VALID_STATUSES.has(upper) ? upper : "PENDING";
-        }
-      }
-    }
-  }
-}
 
 // ---------------------------------------------------------------------------
 // Main pipeline
@@ -138,22 +42,13 @@ export async function generateActions(): Promise<ActionBatch> {
   console.log("  BRAIN: STRATEGIC PLANNING IN PROGRESS");
   console.log("  Reading constitution, crisis handbook, strategic ledger...");
   console.log("  Analyzing game state, advisor intel, and active operations...");
-  console.log("  Generating actions via Gemini 2.5 Flash...");
+  console.log("  Generating actions via LLM...");
   console.log("════════════════════════════════════════════════════════\n");
-  const rawResponse = await callGemini(system, user);
-  console.log(`[Brain] Gemini responded — ${rawResponse.length} chars`);
+  const rawResponse = await callLLM(system, user);
+  console.log(`[Brain] LLM responded — ${rawResponse.length} chars`);
 
   // Parse + normalize + validate
-  let parsed: Record<string, unknown>;
-  try {
-    parsed = JSON.parse(rawResponse) as Record<string, unknown>;
-  } catch (err) {
-    throw new Error(
-      `Failed to parse Gemini response (${rawResponse.length} chars, starts: ${rawResponse.slice(0, 100)}): ${(err as Error).message}`
-    );
-  }
-  normalizeStatuses(parsed);
-  const batch = ActionBatchSchema.parse(parsed);
+  const batch = parseLLMResponse(rawResponse);
   console.log(
     `[Brain] Validated — ${batch.actions.length} actions, ${batch.ledger_updates.length} ledger updates`
   );
@@ -182,7 +77,7 @@ export async function generateActions(): Promise<ActionBatch> {
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
-  console.log("=== Pax-Automata Brain — Standalone Test ===\n");
+  console.log("=== PaxBot Brain — Standalone Test ===\n");
 
   const batch = await generateActions();
 

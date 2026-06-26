@@ -1,8 +1,8 @@
-# Architecture — Pax-Automata
+# Architecture — PaxBot
 
 ## 1. Общая архитектура
 
-Pax-Automata построена по принципу **Cognitive Loop** (когнитивный цикл): агент воспринимает состояние игры, принимает стратегическое решение и выполняет действия через браузерную автоматизацию.
+PaxBot построена по принципу **Cognitive Loop** (когнитивный цикл): агент воспринимает состояние игры, принимает стратегическое решение и выполняет действия через браузерную автоматизацию.
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -48,20 +48,20 @@ Pax-Automata построена по принципу **Cognitive Loop** (ког
 
 **Файлы:**
 
-| Файл                            | Назначение                                      |
-| ------------------------------- | ----------------------------------------------- |
-| `current_state.json`            | Текущее состояние игры (карта, армии, события)  |
-| `constitution.md`               | Долгосрочные цели (неизменяемый документ)       |
-| `crisis_handbook.txt`           | Тактические доктрины и процедуры                |
-| `strategic_ledger.json`         | Долговременная память: активные планы, операции |
-| `ownership_snapshot.json`       | Снэпшот владения территориями                   |
-| `next_advisor_query.txt`        | Очередной запрос к советнику                    |
-| `advisor_response.txt`          | Ответ советника                                 |
-| `campaigns/*.json`              | Структурированные кампании (v2.0)               |
-| `memory/strategic_summary.json` | Долговременная стратегическая память (v3.0)     |
-| `memory/rival_profiles.json`    | Профили государств-соперников (v3.0)            |
-| `memory/lessons_learned.json`   | Извлечённые уроки (v3.0)                        |
-| `strategy/strategy-plan.json`   | Стратегические фазы и план развития (v3.0)      |
+| Файл                                    | Назначение                                      |
+| --------------------------------------- | ----------------------------------------------- |
+| Файл/Папка                              | Назначение                                      |
+| -------------------------------         | ----------------------------------------------- |
+| `constitution.md`                       | Долгосрочные цели (неизменяемый документ)       |
+| `crisis_handbook.txt`                   | Тактические доктрины и процедуры                |
+| `next_advisor_query.txt`                | Очередной запрос к советнику                    |
+| `advisor_response.txt`                  | Ответ советника                                 |
+| `campaigns/`                            | Структурированные кампании (JSON/MD)            |
+| `sessions/<id>/current_state.json`      | Текущее состояние игры (карта, армии, события)  |
+| `sessions/<id>/strategic_ledger.json`   | Долговременная память: активные планы, операции |
+| `sessions/<id>/ownership_snapshot.json` | Снэпшот владения территориями                   |
+| `sessions/<id>/memory/`                 | Долговременная стратегическая память (v3.0)     |
+| `sessions/<id>/strategy/`               | Стратегические фазы и план развития (v3.0)      |
 
 ### 2.3 Brain — Мышление (LLM Logic)
 
@@ -106,7 +106,7 @@ Pax-Automata построена по принципу **Cognitive Loop** (ког
 | Campaign Validator | `src/campaign/` | Валидация campaign.json файлов (12 unit-тестов)                     |
 | Campaign Builder   | `src/campaign/` | LLM-парсер стратегии на естественном языке в структурированный JSON |
 
-**Вход:** `war-room/campaigns/*.json`
+**Вход:** `war-room/campaigns/*.json`, `war-room/campaigns/*.md`
 **Выход:** Структурированная кампания в контексте Brain
 
 ### 2.5 Hand — Исполнение (Execution)
@@ -143,7 +143,7 @@ Pax-Automata построена по принципу **Cognitive Loop** (ког
 | Memory Loader  | `src/memory/` | Загрузка/сохранение memory-файлов, форматирование для промпта |
 | Memory Updater | `src/memory/` | Авто-извлечение достижений/провалов из reasoning LLM          |
 
-**Файлы:** `war-room/memory/strategic_summary.json`, `rival_profiles.json`, `lessons_learned.json`
+**Файлы:** `war-room/sessions/<id>/memory/strategic_summary.json`, `rival_profiles.json`, `lessons_learned.json`
 
 ### 2.7 Strategy — Стратегические фазы (v3.0)
 
@@ -157,7 +157,7 @@ Pax-Automata построена по принципу **Cognitive Loop** (ког
 | ---------------- | --------------- | --------------------------------------------------------- |
 | Strategy Planner | `src/strategy/` | Загрузка плана, анализ exit conditions, управление фазами |
 
-**Файлы:** `war-room/strategy/strategy-plan.json`
+**Файлы:** `war-room/sessions/<id>/strategy/strategy-plan.json`
 
 **Фазы по умолчанию:** Stabilization → Economic Expansion → Regional Dominance → Global Power
 

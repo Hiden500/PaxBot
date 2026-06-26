@@ -1,4 +1,4 @@
-# Roadmap — Pax-Automata
+# Roadmap — PaxBot
 
 ## 1. Текущий статус
 
@@ -34,6 +34,7 @@ Pax Historia UI → Memory Update (Phase 5)
 | **v1.0** | ✅ Завершён | Тесты, CI, стабилизация, graceful shutdown, логирование |
 | **v2.0** | ✅ Завершён | LLM Provider Abstraction, Campaign Engine, Builder      |
 | **v3.0** | ✅ Завершён | Strategic Memory, Strategic Phases                      |
+| **v3.1** | ✅ Завершён | Изоляция сессий, Markdown Campaigns, Документация       |
 
 **Ограничения текущей архитектуры:**
 
@@ -241,6 +242,20 @@ Brain должен знать:
 
 ---
 
+## 5.5. Версия 3.1 — Изоляция сессий и Документация (завершён)
+
+**Цель:** Поддержка нескольких кампаний без конфликта файлов и расширение технической документации.
+
+**Ключевые изменения:**
+
+- Поддержка `sessions/<id>/` в папке `war-room/`
+- Markdown input формат для кампаний
+- Рефакторинг модуля `action-generator`
+- Скрипт `manual-test` для запуска без браузера
+- Созданы: `api.md`, `database.md`, `deployment.md`, `security.md`, `testing.md`, `decisions.md`
+
+---
+
 ## 6. Версия 4.0 — Оценка и контроль
 
 **Цель:** Объективно измерять прогресс и ввести самопроверку.
@@ -381,5 +396,6 @@ Executor
 | **v1.0** | Тесты, CI, стабилизация, логирование, graceful shutdown | P0-P1     |
 | **v2.0** | Multi-provider LLM, Campaign Engine, Campaign Builder   | P0-P1     |
 | **v3.0** | Strategic Memory, Strategic Phases                      | P1        |
+| **v3.1** | Изоляция сессий, Markdown Campaigns, Документация       | P1        |
 | **v4.0** | KPI System, Critic Module, Risk Engine                  | P1-P2     |
 | **v5.0** | Historical Knowledge Base, Strategic Council            | P3-P4     |

@@ -13,10 +13,13 @@ vi.mock("./ownership-parser", () => ({
 
 // Re-import after mocking
 import { writeGameStateFromPayload, writeAdvisorResponse } from "./state-writer";
+import { getSessionDir } from "../shared/session";
+import { PATHS } from "../shared/config";
 
+const sessionDir = getSessionDir();
 const WAR_ROOM = path.join(process.cwd(), "war-room");
-const STATE_PATH = path.join(WAR_ROOM, "current_state.json");
-const ADVISOR_PATH = path.join(WAR_ROOM, "advisor_response.txt");
+const STATE_PATH = path.join(sessionDir, PATHS.CURRENT_STATE);
+const ADVISOR_PATH = path.join(sessionDir, PATHS.ADVISOR_RESPONSE);
 
 function cleanFiles() {
   [STATE_PATH, ADVISOR_PATH].forEach((p) => {

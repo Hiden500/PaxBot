@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "project": {
-    "name": "Pax-Automata",
+    "name": "PaxBot",
     "is_monorepo": false,
     "total_files": 254,
     "entry_points": ["src/index.ts"],

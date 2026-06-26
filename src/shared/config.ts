@@ -1,5 +1,5 @@
 /**
- * Central configuration for Pax-Automata.
+ * Central configuration for PaxBot.
  * All constants and configuration values should be defined here.
  */
 
@@ -78,6 +78,9 @@ export const PATHS = {
   AUTH_STATE: "auth_state.json",
   CURRENT_STATE: "current_state.json",
   ADVISOR_RESPONSE: "advisor_response.txt",
+  CAMPAIGNS_DIR: "campaigns",
+  SESSIONS_DIR: "sessions",
+  ACTIVE_CAMPAIGN: "active-campaign.txt",
   STRATEGIC_LEDGER: "strategic_ledger.json",
   OWNERSHIP_SNAPSHOT: "ownership_snapshot.json",
   NEXT_ADVISOR_QUERY: "next_advisor_query.txt",

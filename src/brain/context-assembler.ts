@@ -14,6 +14,7 @@ import {
   type GameState,
   type OwnershipSnapshot,
   type StrategicLedger,
+  getSessionDir,
 } from "../shared";
 import { getPrimaryCampaign, formatCampaignForPrompt } from "../campaign";
 import type { Campaign } from "../campaign";
@@ -68,8 +69,10 @@ function readJson(filePath: string): unknown {
 }
 
 export function assembleContext(): BrainContext {
+  const sessionDir = getSessionDir();
+
   // 1. current_state.json — Zod-validated
-  const gameState = GameStateSchema.parse(readJson(path.join(WAR_ROOM, "current_state.json")));
+  const gameState = GameStateSchema.parse(readJson(path.join(sessionDir, "current_state.json")));
 
   // 2. constitution.md — raw text
   const constitution = fs.readFileSync(path.join(WAR_ROOM, "constitution.md"), "utf-8");
@@ -79,18 +82,18 @@ export function assembleContext(): BrainContext {
 
   // 4. strategic_ledger.json — Zod-validated
   const ledger = StrategicLedgerSchema.parse(
-    readJson(path.join(WAR_ROOM, "strategic_ledger.json"))
+    readJson(path.join(sessionDir, "strategic_ledger.json"))
   );
 
   // 5. advisor_response.txt — optional, may not exist yet
-  const advisorPath = path.join(WAR_ROOM, "advisor_response.txt");
+  const advisorPath = path.join(sessionDir, "advisor_response.txt");
   let advisorResponse = "";
   if (fs.existsSync(advisorPath)) {
     advisorResponse = fs.readFileSync(advisorPath, "utf-8").trim();
   }
 
   // 6. ownership_snapshot.json — explicit "what we own" (written by Spy from state blob)
-  const ownershipPath = path.join(WAR_ROOM, "ownership_snapshot.json");
+  const ownershipPath = path.join(sessionDir, "ownership_snapshot.json");
   let ownership: OwnershipSnapshot | null = null;
   if (fs.existsSync(ownershipPath)) {
     try {

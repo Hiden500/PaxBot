@@ -9,8 +9,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import { OwnershipSnapshotSchema, type OwnershipSnapshot } from "../shared";
-
-const OWNERSHIP_PATH = path.join(process.cwd(), "war-room", "ownership_snapshot.json");
+import { PATHS } from "../shared/config";
+import { getSessionDir } from "../shared/session";
 
 /** Match **Status of USA:** or **Status of Republic Of China:** */
 const STATUS_RE = /\*\*Status of ([^*]+):\*\*/i;
@@ -61,12 +61,15 @@ export function parseOwnershipFromStateText(stateText: string): OwnershipSnapsho
  * Call after writing current_state.json when we have a parsed snapshot.
  */
 export function writeOwnershipSnapshot(snapshot: OwnershipSnapshot): void {
-  const dir = path.dirname(OWNERSHIP_PATH);
+  const sessionDir = getSessionDir();
+  const ownershipPath = path.join(sessionDir, PATHS.OWNERSHIP_SNAPSHOT);
+
+  const dir = path.dirname(ownershipPath);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
-  fs.writeFileSync(OWNERSHIP_PATH, JSON.stringify(snapshot, null, 2), "utf-8");
+  fs.writeFileSync(ownershipPath, JSON.stringify(snapshot, null, 2), "utf-8");
   console.log(
-    `[Spy] Wrote ownership snapshot: ${snapshot.our_nation}, ${snapshot.regions_we_own.length} regions we own → war-room/ownership_snapshot.json`
+    `[Spy] Wrote ownership snapshot: ${snapshot.our_nation}, ${snapshot.regions_we_own.length} regions we own → ${ownershipPath}`
   );
 }

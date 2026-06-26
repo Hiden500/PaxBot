@@ -18,15 +18,17 @@ vi.mock("playwright", () => ({
 
 vi.mock("./brain/llm-client", () => ({
   validateEnv: vi.fn(),
-  callGemini: vi.fn(),
+  callLLM: vi.fn(),
 }));
 
 // Import modules after mocking
 import { assembleContext, buildPrompt } from "./brain/context-assembler";
 import { writeGameStateFromPayload, writeAdvisorResponse } from "./spy/state-writer";
 import { ActionBatchSchema } from "./shared/schemas";
+import { getSessionDir } from "./shared/session";
 
 const WAR_ROOM = path.join(process.cwd(), "war-room");
+const sessionDir = getSessionDir();
 
 function cleanWarRoom(): void {
   const files = [
@@ -36,7 +38,7 @@ function cleanWarRoom(): void {
     "ownership_snapshot.json",
   ];
   files.forEach((file) => {
-    const filePath = path.join(WAR_ROOM, file);
+    const filePath = path.join(sessionDir, file);
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
@@ -69,7 +71,7 @@ Remember, it is crucially important that you guide the player
     fs.writeFileSync(path.join(WAR_ROOM, "constitution.md"), "Conquer the world.", "utf-8");
     fs.writeFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "Use force.", "utf-8");
     fs.writeFileSync(
-      path.join(WAR_ROOM, "strategic_ledger.json"),
+      path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify({ active_operations: [] }, null, 2),
       "utf-8"
     );
@@ -78,8 +80,8 @@ Remember, it is crucially important that you guide the player
     writeAdvisorResponse("Consider invading Germany next turn.");
 
     // Verify Spy wrote files
-    expect(fs.existsSync(path.join(WAR_ROOM, "current_state.json"))).toBe(true);
-    expect(fs.existsSync(path.join(WAR_ROOM, "advisor_response.txt"))).toBe(true);
+    expect(fs.existsSync(path.join(sessionDir, "current_state.json"))).toBe(true);
+    expect(fs.existsSync(path.join(sessionDir, "advisor_response.txt"))).toBe(true);
 
     // Phase 2: Brain assembles context
     const ctx = assembleContext();
@@ -100,14 +102,14 @@ Remember, it is crucially important that you guide the player
       current_state: "**Status of USA:** - All Regions Owned: Alaska, Texas",
     };
     fs.writeFileSync(
-      path.join(WAR_ROOM, "current_state.json"),
+      path.join(sessionDir, "current_state.json"),
       JSON.stringify(initialState, null, 2),
       "utf-8"
     );
     fs.writeFileSync(path.join(WAR_ROOM, "constitution.md"), "Conquer the world.", "utf-8");
     fs.writeFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "Use force.", "utf-8");
     fs.writeFileSync(
-      path.join(WAR_ROOM, "strategic_ledger.json"),
+      path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify({ active_operations: [] }, null, 2),
       "utf-8"
     );
@@ -142,14 +144,14 @@ Remember, it is crucially important that you guide the player
   it("handles missing optional files gracefully", () => {
     // Only write minimal required files
     fs.writeFileSync(
-      path.join(WAR_ROOM, "current_state.json"),
+      path.join(sessionDir, "current_state.json"),
       JSON.stringify({ current_state: "Map data" }, null, 2),
       "utf-8"
     );
     fs.writeFileSync(path.join(WAR_ROOM, "constitution.md"), "Goal.", "utf-8");
     fs.writeFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "Tactics.", "utf-8");
     fs.writeFileSync(
-      path.join(WAR_ROOM, "strategic_ledger.json"),
+      path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify({ active_operations: [] }, null, 2),
       "utf-8"
     );
@@ -178,7 +180,7 @@ Remember, it is crucially important that you guide the player
       ],
     };
     fs.writeFileSync(
-      path.join(WAR_ROOM, "strategic_ledger.json"),
+      path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify(initialLedger, null, 2),
       "utf-8"
     );
@@ -200,14 +202,14 @@ Remember, it is crucially important that you guide the player
 
     // Write updated ledger
     fs.writeFileSync(
-      path.join(WAR_ROOM, "strategic_ledger.json"),
+      path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify(updatedLedger, null, 2),
       "utf-8"
     );
 
     // Verify persistence
     const persisted = JSON.parse(
-      fs.readFileSync(path.join(WAR_ROOM, "strategic_ledger.json"), "utf-8")
+      fs.readFileSync(path.join(sessionDir, "strategic_ledger.json"), "utf-8")
     );
     expect(persisted.active_operations[0].current_phase).toBe(2);
     expect(persisted.active_operations[0].steps).toHaveLength(2);
@@ -226,7 +228,7 @@ More advisor tail content
 
     writeGameStateFromPayload(payloadWithNoise);
 
-    const state = JSON.parse(fs.readFileSync(path.join(WAR_ROOM, "current_state.json"), "utf-8"));
+    const state = JSON.parse(fs.readFileSync(path.join(sessionDir, "current_state.json"), "utf-8"));
 
     expect(state.current_state).not.toContain("Advisor system prompt");
     expect(state.current_state).not.toContain("Remember, it is crucially important");

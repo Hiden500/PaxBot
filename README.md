@@ -1,4 +1,4 @@
-# Pax-Automata 🤖🌍
+# PaxBot 🤖🌍
 
 **Автономный ИИ-агент для браузерной стратегии Pax Historia.**
 
@@ -59,7 +59,7 @@
 ```powershell
 # Клонировать репозиторий
 git clone https://github.com/Hiden500/PaxBot.git
-cd Pax-Automata
+cd PaxBot
 
 # Установить зависимости
 npm install
@@ -149,7 +149,7 @@ $env:LLM_PROVIDER="openai" ; npm start
 ## Структура проекта
 
 ```
-Pax-Automata/
+PaxBot/
 ├── src/                          # Исходный код
 │   ├── index.ts                  # Точка входа, когнитивный цикл
 │   ├── interactor.ts             # Network Interceptor (Spy)
@@ -165,11 +165,13 @@ Pax-Automata/
 │   ├── shared/                   # Общие типы и схемы
 │   └── spy/                      # Парсинг данных
 ├── war-room/                     # Файловая память
-│   ├── current_state.json        # Текущее состояние игры
-│   ├── strategic_ledger.json     # Активные операции
-│   ├── campaigns/                # Определения кампаний
-│   ├── memory/                   # Стратегическая память
-│   └── strategy/                 # Стратегические фазы
+│   ├── campaigns/                # Определения кампаний (MD/JSON)
+│   └── sessions/                 # Изолированные сессии
+│       └── <session_id>/
+│           ├── current_state.json        # Текущее состояние игры
+│           ├── strategic_ledger.json     # Активные операции
+│           ├── memory/                   # Стратегическая память
+│           └── strategy/                 # Стратегические фазы
 ├── auth/                         # Состояние аутентификации
 ├── docs/                         # Документация
 └── scripts/                      # Вспомогательные скрипты
@@ -193,14 +195,16 @@ npx vitest run src/strategy/      # Только strategy
 
 ## Команды npm
 
-| Команда                | Описание                                |
-| ---------------------- | --------------------------------------- |
-| `npm start`            | Запуск когнитивного цикла               |
-| `npm test`             | Запуск всех тестов                      |
-| `npm run capture-auth` | Захват состояния аутентификации         |
-| `npm run brain`        | Тест только Brain-модуля (без браузера) |
-| `npm run lint`         | Проверка линтером                       |
-| `npm run typecheck`    | Проверка типов TypeScript               |
+| Команда                   | Описание                                  |
+| ------------------------- | ----------------------------------------- |
+| `npm start`               | Запуск когнитивного цикла                 |
+| `npm test`                | Запуск всех тестов                        |
+| `npm run capture-auth`    | Захват состояния аутентификации           |
+| `npm run manual-test`     | Ручное тестирование промптов без браузера |
+| `npm run init-campaign`   | Инициализация новой кампании из Markdown  |
+| `npm run switch-campaign` | Переключение активной кампании            |
+| `npm run lint`            | Проверка линтером                         |
+| `npm run typecheck`       | Проверка типов TypeScript                 |
 
 ---
 
