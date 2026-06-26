@@ -7,6 +7,8 @@ export {
   ActionBatchSchema,
 } from "./schemas";
 
+export * from "./session";
+
 export type {
   GameState,
   OwnershipSnapshot,

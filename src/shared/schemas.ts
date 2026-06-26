@@ -1,5 +1,5 @@
 /**
- * Zod schemas for all JSON boundaries in Pax-Automata.
+ * Zod schemas for all JSON boundaries in PaxBot.
  *
  * Every JSON file read/write and every LLM response gets validated here.
  * See CLAUDE.md §6 ("Zod at boundaries") and the Mermaid diagram for data-flow.

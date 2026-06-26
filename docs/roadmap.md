@@ -1,34 +1,48 @@
-# Roadmap — Pax-Automata
+# Roadmap — PaxBot
 
 ## 1. Текущий статус
 
-**Активный спринт:** Стабилизация и тестирование (Version 1.0)
+**Активный спринт:** Version 4.0 — Оценка и контроль
 
 Текущая архитектура:
 
 ```text
 Spy (перехват network-трафика)
   ↓
-current_state.json
+current_state.json + ownership_snapshot.json
 
-Brain (LLM-логика)
+Brain (Context Assembly + LLM)
+  ├── constitution.md
+  ├── crisis_handbook.txt
+  ├── campaign (war-room/campaigns/)
+  ├── memory (war-room/memory/)
+  └── strategy (war-room/strategy/)
   ↓
-LLM (Gemini)
+LLM (Gemini / Groq / OpenAI — переключаемо)
+  ↓
+Action Generator → strategic_ledger.json
 
 Hand (Playwright автоматизация)
   ↓
-Pax Historia UI
+Pax Historia UI → Memory Update (Phase 5)
 ```
+
+**Завершённые версии:**
+
+| Версия   | Статус      | Ключевые изменения                                      |
+| -------- | ----------- | ------------------------------------------------------- |
+| **v1.0** | ✅ Завершён | Тесты, CI, стабилизация, graceful shutdown, логирование |
+| **v2.0** | ✅ Завершён | LLM Provider Abstraction, Campaign Engine, Builder      |
+| **v3.0** | ✅ Завершён | Strategic Memory, Strategic Phases                      |
+| **v3.1** | ✅ Завершён | Изоляция сессий, Markdown Campaigns, Документация       |
 
 **Ограничения текущей архитектуры:**
 
-- Single-agent архитектура
-- Стратегия вшита в промпты
-- Нет абстракции кампании
-- Ограниченная долговременная память
-- Нет горизонта стратегического планирования
+- Single-agent архитектура (будет решено в v5.0)
 - Нет системы оценки объективных показателей (KPI)
-- Жёсткая привязка к одному LLM-провайдеру (Gemini)
+- Нет модуля Critic для самопроверки
+- Нет Risk Engine для аудита
+- Стратегия частично в промптах (constitution.md, handbook)
 
 ---
 
@@ -228,6 +242,20 @@ Brain должен знать:
 
 ---
 
+## 5.5. Версия 3.1 — Изоляция сессий и Документация (завершён)
+
+**Цель:** Поддержка нескольких кампаний без конфликта файлов и расширение технической документации.
+
+**Ключевые изменения:**
+
+- Поддержка `sessions/<id>/` в папке `war-room/`
+- Markdown input формат для кампаний
+- Рефакторинг модуля `action-generator`
+- Скрипт `manual-test` для запуска без браузера
+- Созданы: `api.md`, `database.md`, `deployment.md`, `security.md`, `testing.md`, `decisions.md`
+
+---
+
 ## 6. Версия 4.0 — Оценка и контроль
 
 **Цель:** Объективно измерять прогресс и ввести самопроверку.
@@ -368,5 +396,6 @@ Executor
 | **v1.0** | Тесты, CI, стабилизация, логирование, graceful shutdown | P0-P1     |
 | **v2.0** | Multi-provider LLM, Campaign Engine, Campaign Builder   | P0-P1     |
 | **v3.0** | Strategic Memory, Strategic Phases                      | P1        |
+| **v3.1** | Изоляция сессий, Markdown Campaigns, Документация       | P1        |
 | **v4.0** | KPI System, Critic Module, Risk Engine                  | P1-P2     |
 | **v5.0** | Historical Knowledge Base, Strategic Council            | P3-P4     |

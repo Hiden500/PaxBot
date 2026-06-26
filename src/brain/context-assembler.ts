@@ -14,7 +14,14 @@ import {
   type GameState,
   type OwnershipSnapshot,
   type StrategicLedger,
+  getSessionDir,
 } from "../shared";
+import { getPrimaryCampaign, formatCampaignForPrompt } from "../campaign";
+import type { Campaign } from "../campaign";
+import { loadMemory, formatMemoryForPrompt } from "../memory";
+import type { StrategicMemory } from "../memory";
+import { loadStrategyPlan, formatStrategyForPrompt } from "../strategy";
+import type { StrategyPlan } from "../strategy";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -28,6 +35,12 @@ export interface BrainContext {
   advisorResponse: string;
   /** Explicit list of regions we own; any region not listed is NOT ours. */
   ownership: OwnershipSnapshot | null;
+  /** Active campaign definition (loaded from war-room/campaigns/). */
+  campaign: Campaign | null;
+  /** Strategic memory (achievements, rival profiles, lessons). */
+  memory: StrategicMemory;
+  /** Strategic phase plan. */
+  strategy: StrategyPlan;
 }
 
 // ---------------------------------------------------------------------------
@@ -56,37 +69,31 @@ function readJson(filePath: string): unknown {
 }
 
 export function assembleContext(): BrainContext {
+  const sessionDir = getSessionDir();
+
   // 1. current_state.json — Zod-validated
-  const gameState = GameStateSchema.parse(
-    readJson(path.join(WAR_ROOM, "current_state.json"))
-  );
+  const gameState = GameStateSchema.parse(readJson(path.join(sessionDir, "current_state.json")));
 
   // 2. constitution.md — raw text
-  const constitution = fs.readFileSync(
-    path.join(WAR_ROOM, "constitution.md"),
-    "utf-8"
-  );
+  const constitution = fs.readFileSync(path.join(WAR_ROOM, "constitution.md"), "utf-8");
 
   // 3. crisis_handbook.txt — raw text
-  const handbook = fs.readFileSync(
-    path.join(WAR_ROOM, "crisis_handbook.txt"),
-    "utf-8"
-  );
+  const handbook = fs.readFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "utf-8");
 
   // 4. strategic_ledger.json — Zod-validated
   const ledger = StrategicLedgerSchema.parse(
-    readJson(path.join(WAR_ROOM, "strategic_ledger.json"))
+    readJson(path.join(sessionDir, "strategic_ledger.json"))
   );
 
   // 5. advisor_response.txt — optional, may not exist yet
-  const advisorPath = path.join(WAR_ROOM, "advisor_response.txt");
+  const advisorPath = path.join(sessionDir, "advisor_response.txt");
   let advisorResponse = "";
   if (fs.existsSync(advisorPath)) {
     advisorResponse = fs.readFileSync(advisorPath, "utf-8").trim();
   }
 
   // 6. ownership_snapshot.json — explicit "what we own" (written by Spy from state blob)
-  const ownershipPath = path.join(WAR_ROOM, "ownership_snapshot.json");
+  const ownershipPath = path.join(sessionDir, "ownership_snapshot.json");
   let ownership: OwnershipSnapshot | null = null;
   if (fs.existsSync(ownershipPath)) {
     try {
@@ -96,7 +103,39 @@ export function assembleContext(): BrainContext {
     }
   }
 
-  return { gameState, constitution, handbook, ledger, advisorResponse, ownership };
+  // 7. Campaign definition — load from war-room/campaigns/ (non-critical)
+  const campaign = getPrimaryCampaign() ?? null;
+  if (campaign) {
+    console.log(`[Context] Campaign loaded: "${campaign.name}" (${campaign.country})`);
+  } else {
+    console.log("[Context] No campaign definition found — running without structured campaign");
+  }
+
+  // 8. Strategic memory — load from war-room/memory/
+  const memory = loadMemory();
+  console.log(
+    `[Context] Memory loaded — ${memory.summary.achievements.length} achievements, ` +
+      `${memory.rivalProfiles.length} rival profiles, ${memory.lessonsLearned.length} lessons`
+  );
+
+  // 9. Strategy plan — load from war-room/strategy/
+  const strategyCountry = campaign?.country;
+  const strategy = loadStrategyPlan(strategyCountry);
+  console.log(
+    `[Context] Strategy loaded — phase: ${strategy.phases[strategy.currentPhaseIndex].name} (index ${strategy.currentPhaseIndex})`
+  );
+
+  return {
+    gameState,
+    constitution,
+    handbook,
+    ledger,
+    advisorResponse,
+    ownership,
+    campaign,
+    memory,
+    strategy,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -147,11 +186,10 @@ Advisor question for next turn:
       ? JSON.stringify(trimmedLedger, null, 2)
       : "None — this is the first turn. Create new operations for your strategic plans.";
 
-  const advisorContent =
-    ctx.advisorResponse || "No advisor response available this turn.";
+  const advisorContent = ctx.advisorResponse || "No advisor response available this turn.";
 
   const ownershipBlock =
-    ctx.ownership != null
+    ctx.ownership !== null
       ? `
 REGIONS WE OWN (authoritative — do not confuse with troop locations):
 We are ${ctx.ownership.our_nation}. We OWN exactly these regions: ${ctx.ownership.regions_we_own.join(", ")}.
@@ -160,7 +198,13 @@ Any region NOT in this list is NOT ours — it is a potential target for conques
 `
       : "";
 
-  const user = `${ownershipBlock}CURRENT GAME STATE:
+  const campaignBlock = ctx.campaign !== null ? `\n${formatCampaignForPrompt(ctx.campaign)}\n` : "";
+
+  const memoryBlock = `\n${formatMemoryForPrompt(ctx.memory)}\n`;
+
+  const strategyBlock = `\n${formatStrategyForPrompt(ctx.strategy)}\n`;
+
+  const user = `${ownershipBlock}${campaignBlock}${memoryBlock}${strategyBlock}CURRENT GAME STATE:
 ${ctx.gameState.current_state}
 
 ACTIVE OPERATIONS (your ongoing strategic plans):

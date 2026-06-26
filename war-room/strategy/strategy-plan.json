@@ -1,0 +1,44 @@
+{
+  "name": "Default Grand Strategy",
+  "country": "Russia",
+  "phases": [
+    {
+      "name": "Stabilization",
+      "description": "Secure borders, build economy, strengthen military fundamentals.",
+      "entryConditions": ["Game start or after major defeat"],
+      "exitConditions": [
+        "GDP rank Top 10",
+        "Military rank Top 15",
+        "No active wars on home territory"
+      ],
+      "focusAreas": ["economy", "military_basics", "internal_stability"],
+      "minTurns": 5
+    },
+    {
+      "name": "Economic Expansion",
+      "description": "Grow GDP through trade, resource exports, and industrialization.",
+      "entryConditions": ["GDP rank Top 10", "Military rank Top 15", "Stable internal situation"],
+      "exitConditions": ["GDP rank Top 5", "Population > 100M (or growth > 5%)"],
+      "focusAreas": ["economy", "diplomacy", "technology"],
+      "minTurns": 8
+    },
+    {
+      "name": "Regional Dominance",
+      "description": "Establish military and diplomatic dominance over neighboring regions.",
+      "entryConditions": ["GDP rank Top 5", "Strong military", "Regional rivals weakened"],
+      "exitConditions": ["Control key bordering regions", "No major regional rivals"],
+      "focusAreas": ["military_expansion", "diplomacy", "regional_influence"],
+      "minTurns": 10
+    },
+    {
+      "name": "Global Power Projection",
+      "description": "Project power globally, challenge superpowers, expand influence worldwide.",
+      "entryConditions": ["Regional dominance achieved", "GDP rank Top 3", "Military rank Top 3"],
+      "exitConditions": ["Victory conditions met"],
+      "focusAreas": ["global_influence", "military_projection", "technology_leadership"],
+      "minTurns": 5
+    }
+  ],
+  "currentPhaseIndex": 0,
+  "turnsInCurrentPhase": 0
+}

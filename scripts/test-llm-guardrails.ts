@@ -156,7 +156,9 @@ async function callAnthropic(
     messages: [{ role: "user", content: userMessage }],
   });
   const block = response.content[0];
-  if (block.type === "text") return block.text;
+  if (block.type === "text") {
+    return block.text;
+  }
   return "[non-text response]";
 }
 
@@ -269,7 +271,7 @@ function detectRefusal(response: string): boolean {
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
-  console.log("=== Pax-Automata — LLM Guardrail Test ===\n");
+  console.log("=== PaxBot — LLM Guardrail Test ===\n");
 
   // Load game state
   const gameState = loadGameState();
@@ -283,19 +285,13 @@ async function main(): Promise<void> {
   });
 
   if (availableModels.length === 0) {
-    console.error(
-      "No API keys found! Copy .env.example to .env and fill in at least one key."
-    );
+    console.error("No API keys found! Copy .env.example to .env and fill in at least one key.");
     process.exit(1);
   }
 
-  const skippedModels = MODELS.filter(
-    (m) => !availableModels.some((a) => a.name === m.name)
-  );
+  const skippedModels = MODELS.filter((m) => !availableModels.some((a) => a.name === m.name));
   if (skippedModels.length > 0) {
-    console.log(
-      `Skipping (no API key): ${skippedModels.map((m) => m.name).join(", ")}\n`
-    );
+    console.log(`Skipping (no API key): ${skippedModels.map((m) => m.name).join(", ")}\n`);
   }
 
   console.log(
@@ -313,12 +309,7 @@ async function main(): Promise<void> {
       process.stdout.write(`${tag} ${prompt.label}... `);
 
       try {
-        const response = await callModel(
-          model,
-          apiKey,
-          systemPrompt,
-          prompt.content
-        );
+        const response = await callModel(model, apiKey, systemPrompt, prompt.content);
         const refused = detectRefusal(response);
         const snippet = response.slice(0, 200).replace(/\n/g, " ");
 
@@ -361,19 +352,18 @@ async function main(): Promise<void> {
     ...tiers.map((t, i) => t.padStart(tierWidths[i])),
   ].join(" | ");
   console.log(header);
-  console.log(
-    "─".repeat(nameWidth) +
-      tiers.map((_, i) => "─".repeat(tierWidths[i] + 3)).join("")
-  );
+  console.log("─".repeat(nameWidth) + tiers.map((_, i) => "─".repeat(tierWidths[i] + 3)).join(""));
 
   // Rows
   for (const model of availableModels) {
     const cells = tiers.map((tier, i) => {
-      const result = results.find(
-        (r) => r.model === model.name && r.tier === tier
-      );
-      if (!result) return "?".padStart(tierWidths[i]);
-      if (result.error) return "ERR".padStart(tierWidths[i]);
+      const result = results.find((r) => r.model === model.name && r.tier === tier);
+      if (!result) {
+        return "?".padStart(tierWidths[i]);
+      }
+      if (result.error) {
+        return "ERR".padStart(tierWidths[i]);
+      }
       return (result.passed ? "✓" : "✗").padStart(tierWidths[i]);
     });
     console.log([model.name.padEnd(nameWidth), ...cells].join(" | "));
@@ -385,9 +375,7 @@ async function main(): Promise<void> {
   const totalTests = results.length;
   const totalPassed = results.filter((r) => r.passed).length;
   const totalFailed = totalTests - totalPassed;
-  console.log(
-    `Total: ${totalPassed}/${totalTests} passed, ${totalFailed} refused/errored`
-  );
+  console.log(`Total: ${totalPassed}/${totalTests} passed, ${totalFailed} refused/errored`);
 }
 
 main().catch((err) => {

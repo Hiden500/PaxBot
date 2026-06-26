@@ -1,5 +1,5 @@
 /**
- * Central configuration for Pax-Automata.
+ * Central configuration for PaxBot.
  * All constants and configuration values should be defined here.
  */
 
@@ -8,10 +8,32 @@
 // ---------------------------------------------------------------------------
 
 export const LLM_CONFIG = {
-  MODEL: "gemini-2.5-flash",
-  MAX_OUTPUT_TOKENS: 16384,
+  MODEL: "gemini-flash-latest",
+  MAX_OUTPUT_TOKENS: 65536,
   RETRY_MAX_ATTEMPTS: 3,
   RETRY_BASE_DELAY_MS: 1000,
+} as const;
+
+// ---------------------------------------------------------------------------
+// LLM Provider Configuration
+// ---------------------------------------------------------------------------
+
+/**
+ * Default LLM provider to use.
+ * Override with LLM_PROVIDER environment variable.
+ * Supported: "gemini" | "groq" | "openai"
+ */
+export const DEFAULT_LLM_PROVIDER = "gemini" as const;
+
+/**
+ * Per-provider model overrides.
+ * Key = provider name, Value = model name.
+ * If not specified here, the provider's default model will be used.
+ */
+export const PROVIDER_MODELS: Record<string, string> = {
+  gemini: "gemini-flash-latest",
+  groq: "llama-3.3-70b-versatile",
+  openai: "gpt-4o-mini",
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -56,6 +78,9 @@ export const PATHS = {
   AUTH_STATE: "auth_state.json",
   CURRENT_STATE: "current_state.json",
   ADVISOR_RESPONSE: "advisor_response.txt",
+  CAMPAIGNS_DIR: "campaigns",
+  SESSIONS_DIR: "sessions",
+  ACTIVE_CAMPAIGN: "active-campaign.txt",
   STRATEGIC_LEDGER: "strategic_ledger.json",
   OWNERSHIP_SNAPSHOT: "ownership_snapshot.json",
   NEXT_ADVISOR_QUERY: "next_advisor_query.txt",

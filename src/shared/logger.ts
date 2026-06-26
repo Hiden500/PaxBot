@@ -6,7 +6,7 @@
 import pino from "pino";
 
 const LOG_DIR = process.cwd();
-const LOG_FILE = "pax-automata.log";
+const LOG_FILE = "paxbot.log";
 
 export const logger = pino(
   {
