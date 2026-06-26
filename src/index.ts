@@ -28,6 +28,7 @@ import {
 import { generateActions } from "./brain";
 import { validateEnv } from "./brain/llm-client";
 import { BROWSER_CONFIG, PATHS } from "./shared/config";
+import { loadMemory, saveMemory, updateMemoryAfterTurn } from "./memory";
 
 // ---------------------------------------------------------------------------
 // Config
@@ -271,6 +272,18 @@ async function runTurn(page: import("playwright").Page, turnNumber: number): Pro
     }
   }
   console.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
+
+  // ── Phase 5: Memory update ─────────────────────────────────────────
+  try {
+    const memory = loadMemory();
+    const updatedMemory = updateMemoryAfterTurn(memory, batch, turnNumber);
+    saveMemory(updatedMemory);
+    console.log(
+      `[Phase 5] Strategic memory updated (${updatedMemory.summary.achievements.length} achievements, ${updatedMemory.rivalProfiles.length} rival profiles)`
+    );
+  } catch (err) {
+    console.error(`[Phase 5] Memory update failed: ${(err as Error).message}`);
+  }
 }
 
 // ---------------------------------------------------------------------------

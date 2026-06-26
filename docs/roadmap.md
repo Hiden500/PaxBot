@@ -2,33 +2,46 @@
 
 ## 1. Текущий статус
 
-**Активный спринт:** Стабилизация и тестирование (Version 1.0)
+**Активный спринт:** Version 4.0 — Оценка и контроль
 
 Текущая архитектура:
 
 ```text
 Spy (перехват network-трафика)
   ↓
-current_state.json
+current_state.json + ownership_snapshot.json
 
-Brain (LLM-логика)
+Brain (Context Assembly + LLM)
+  ├── constitution.md
+  ├── crisis_handbook.txt
+  ├── campaign (war-room/campaigns/)
+  ├── memory (war-room/memory/)
+  └── strategy (war-room/strategy/)
   ↓
-LLM (Gemini)
+LLM (Gemini / Groq / OpenAI — переключаемо)
+  ↓
+Action Generator → strategic_ledger.json
 
 Hand (Playwright автоматизация)
   ↓
-Pax Historia UI
+Pax Historia UI → Memory Update (Phase 5)
 ```
+
+**Завершённые версии:**
+
+| Версия   | Статус      | Ключевые изменения                                      |
+| -------- | ----------- | ------------------------------------------------------- |
+| **v1.0** | ✅ Завершён | Тесты, CI, стабилизация, graceful shutdown, логирование |
+| **v2.0** | ✅ Завершён | LLM Provider Abstraction, Campaign Engine, Builder      |
+| **v3.0** | ✅ Завершён | Strategic Memory, Strategic Phases                      |
 
 **Ограничения текущей архитектуры:**
 
-- Single-agent архитектура
-- Стратегия вшита в промпты
-- Нет абстракции кампании
-- Ограниченная долговременная память
-- Нет горизонта стратегического планирования
+- Single-agent архитектура (будет решено в v5.0)
 - Нет системы оценки объективных показателей (KPI)
-- Жёсткая привязка к одному LLM-провайдеру (Gemini)
+- Нет модуля Critic для самопроверки
+- Нет Risk Engine для аудита
+- Стратегия частично в промптах (constitution.md, handbook)
 
 ---
 

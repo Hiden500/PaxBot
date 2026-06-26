@@ -36,23 +36,45 @@
 
 ---
 
-## Версия 2.0 — Гибкость провайдеров + Кампании
+## Версия 2.0 — Гибкость провайдеров + Кампании (завершён)
 
-- [ ] **Phase 1 (P0):** LLM Provider Abstraction — `src/brain/providers/`
-- [ ] **Phase 2 (P0):** Campaign Engine — `war-room/campaigns/`, `src/campaign/`
-- [ ] **Phase 3 (P1):** Campaign Builder — `src/campaign/builder.ts`
+- [x] **Phase 1 (P0):** LLM Provider Abstraction — `src/brain/providers/`
+  - Интерфейс `LLMProvider`, реализации Gemini/Groq/OpenAI, фабрика Registry
+  - Переключение провайдеров через `LLM_PROVIDER` env var
+  - Провайдер-агностик `llm-client.ts` (полная обратная совместимость)
+  - Поддержка `response_format: json_schema` для OpenAI и `json_object` для Groq
+- [x] **Phase 2 (P0):** Campaign Engine — `war-room/campaigns/`, `src/campaign/`
+  - Campaign types/loader/validator с полной валидацией
+  - Первая кампания "New Russia 2075"
+  - Интеграция в `context-assembler.ts` (campaign block в промпте)
+  - Unit-тесты validator (12 тестов)
+- [x] **Phase 3 (P1):** Campaign Builder — `src/campaign/builder.ts`
+  - LLM-парсер стратегии на естественном языке
+  - CLI entry point для standalone использования
+  - Функция `suggestCampaignPivot` для смены стратегии mid-game
+- [x] **Tests:** 96 тестов (все проходят)
 
 Связанные задачи из бэклога:
 
-- [ ] Поддержка нескольких LLM провайдеров с fallback-механизмом
+- [x] Поддержка нескольких LLM провайдеров с fallback-механизмом (через registry)
 
 ---
 
-## Версия 3.0 — Память и стратегия
+## Версия 3.0 — Память и стратегия (завершён)
 
-- [ ] **Phase 4 (P1):** Strategic Memory — `war-room/memory/`
-- [ ] **Phase 5 (P1):** Strategic Phases — `war-room/strategy-plan.json`
-- [ ] Web UI для мониторинга War Room
+- [x] **Phase 4 (P1):** Strategic Memory — `war-room/memory/`, `src/memory/`
+  - `types.ts` — StrategicSummary, RivalProfile, LearnedLesson
+  - `loader.ts` — загрузка/сохранение/форматирование для промпта
+  - `updater.ts` — автоматическое извлечение достижений/провалов из reasoning LLM
+  - Модуль `memory/index.ts`, 7 unit-тестов
+- [x] **Phase 5 (P1):** Strategic Phases — `war-room/strategy/`, `src/strategy/`
+  - `types.ts` — StrategyPlan, StrategicPhase, PhaseAnalysis
+  - `planner.ts` — загрузка плана, анализ фазы по exit-conditions (keyword matching)
+  - Default план: Stabilization → Economic Expansion → Regional Dominance → Global Power (4 фазы)
+  - Модуль `strategy/index.ts`, 9 unit-тестов
+- [x] **Integration:** Memory и Strategy добавлены в `BrainContext` и `buildPrompt()`
+- [x] **Cognitive Loop:** Phase 5 (Memory Update) после каждого turn в `src/index.ts`
+- [x] **Tests:** 112 тестов (все проходят)
 
 ---
 

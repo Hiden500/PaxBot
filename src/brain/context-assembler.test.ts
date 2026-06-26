@@ -7,10 +7,25 @@ import * as fs from "fs";
 vi.mock("fs", () => ({
   readFileSync: vi.fn(),
   existsSync: vi.fn(),
+  readdirSync: vi.fn(() => []),
+  writeFileSync: vi.fn(),
+  mkdirSync: vi.fn(),
 }));
 
 vi.mock("path", () => ({
-  join: vi.fn((...args: string[]) => args.join("/")),
+  join: vi.fn((...args: string[]) => {
+    // Handle absolute paths starting with "D:" — just join with /
+    const parts = args.map(String);
+    // If any part looks like a drive letter, handle specially
+    if (parts.some((p) => /^[A-Za-z]:/.test(p))) {
+      return parts.join("/").replace(/\\/g, "/");
+    }
+    return parts.join("/");
+  }),
+  resolve: vi.fn((...args: string[]) => {
+    const parts = args.map(String);
+    return parts.join("/").replace(/\\/g, "/");
+  }),
   basename: vi.fn((p: string) => p.split("/").pop() ?? p),
 }));
 
@@ -188,6 +203,34 @@ describe("buildPrompt", () => {
     ledger: { active_operations: [] },
     advisorResponse: "Japan is weak.",
     ownership: null,
+    campaign: null,
+    memory: {
+      summary: {
+        achievements: [],
+        failures: [],
+        currentPriorities: [],
+        historicalContext: "Test context.",
+        lastUpdatedTurn: 0,
+      },
+      rivalProfiles: [],
+      lessonsLearned: [],
+    },
+    strategy: {
+      name: "Test Strategy",
+      country: "Testland",
+      phases: [
+        {
+          name: "Test Phase",
+          description: "Testing",
+          entryConditions: ["start"],
+          exitConditions: ["done"],
+          focusAreas: ["test"],
+          minTurns: 1,
+        },
+      ],
+      currentPhaseIndex: 0,
+      turnsInCurrentPhase: 0,
+    },
   };
 
   it("returns system and user prompts", () => {
