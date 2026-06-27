@@ -1,3 +1,7 @@
 distill:
   commands:
-    enabled: false
+    enabled: true
+provider: gemini
+model: gemini-3.1-flash-lite-preview
+embedder: gemini
+reasoning: auto

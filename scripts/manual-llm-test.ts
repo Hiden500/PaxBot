@@ -33,6 +33,28 @@ async function main() {
   }
 
   console.log("\n[1/4] Собираем контекст...");
+
+  // Ensure session files exist to avoid ENOENT from assembleContext
+  const { getSessionDir } = require("../src/shared/session");
+  const fs = require("fs");
+  const path = require("path");
+  const sessionDir = getSessionDir();
+
+  if (!fs.existsSync(path.join(sessionDir, "current_state.json"))) {
+    fs.writeFileSync(
+      path.join(sessionDir, "current_state.json"),
+      JSON.stringify({ current_state: "" }),
+      "utf-8"
+    );
+  }
+  if (!fs.existsSync(path.join(sessionDir, "strategic_ledger.json"))) {
+    fs.writeFileSync(
+      path.join(sessionDir, "strategic_ledger.json"),
+      JSON.stringify({ active_operations: [] }),
+      "utf-8"
+    );
+  }
+
   // Assemble base context
   const ctx = assembleContext();
 
@@ -90,6 +112,25 @@ async function main() {
     });
     console.log("\n=== NEXT ADVISOR QUERY ===");
     console.log(batch.next_advisor_query);
+
+    // Update files (ledger and advisor query) for semi-manual play
+    const { mergeLedger, writeLedger } = require("../src/brain/ledger-manager");
+    const { PATHS } = require("../src/shared/config");
+
+    if (batch.ledger_updates.length > 0) {
+      const merged = mergeLedger(ctx.ledger, batch.ledger_updates);
+      writeLedger(merged);
+      console.log(
+        `\n✅ Обновлён стратегический реестр (операций: ${merged.active_operations.length})`
+      );
+    }
+
+    const nextQuery = batch.next_advisor_query?.trim() ?? "";
+    if (nextQuery) {
+      const nextQueryPath = path.join(sessionDir, PATHS.NEXT_ADVISOR_QUERY);
+      fs.writeFileSync(nextQueryPath, nextQuery, "utf-8");
+      console.log(`✅ Вопрос советнику сохранён в сессию`);
+    }
   } catch (err) {
     console.error("\n❌ Ошибка валидации схемы ActionBatch:");
     console.error(err);

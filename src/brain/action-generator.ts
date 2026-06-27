@@ -14,10 +14,9 @@ import { type ActionBatch } from "../shared";
 import { assembleContext, buildPrompt } from "./context-assembler";
 import { callLLM } from "./llm-client";
 import { PATHS } from "../shared/config";
+import { getSessionDir } from "../shared/session";
 import { mergeLedger, writeLedger } from "./ledger-manager";
 import { parseLLMResponse } from "./response-parser";
-
-const NEXT_ADVISOR_QUERY_PATH = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.NEXT_ADVISOR_QUERY);
 
 // ---------------------------------------------------------------------------
 // Main pipeline
@@ -63,7 +62,8 @@ export async function generateActions(): Promise<ActionBatch> {
   // Persist dynamic advisor query for next turn (no extra API call)
   const nextQuery = batch.next_advisor_query?.trim() ?? "";
   if (nextQuery) {
-    fs.writeFileSync(NEXT_ADVISOR_QUERY_PATH, nextQuery, "utf-8");
+    const nextQueryPath = path.join(getSessionDir(), PATHS.NEXT_ADVISOR_QUERY);
+    fs.writeFileSync(nextQueryPath, nextQuery, "utf-8");
     console.log(
       `[Brain] Next advisor query set: "${nextQuery.length > 55 ? nextQuery.slice(0, 55) + "..." : nextQuery}"`
     );

@@ -27,3 +27,6 @@ build/
 
 # Temporary media files
 tempMedia/
+
+# repowise API keys (local)
+.repowise/.env

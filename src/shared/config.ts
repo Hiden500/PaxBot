@@ -84,6 +84,4 @@ export const PATHS = {
   STRATEGIC_LEDGER: "strategic_ledger.json",
   OWNERSHIP_SNAPSHOT: "ownership_snapshot.json",
   NEXT_ADVISOR_QUERY: "next_advisor_query.txt",
-  CONSTITUTION: "constitution.md",
-  CRISIS_HANDBOOK: "crisis_handbook.txt",
 } as const;

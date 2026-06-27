@@ -35,19 +35,19 @@ function getProvider(): LLMProvider {
 /**
  * Build the provider-specific config from the system instruction.
  */
-function buildConfig(system: string): ProviderConfig {
+function buildConfig(system: string, options?: { disableSchema?: boolean }): ProviderConfig {
   const type = (process.env.LLM_PROVIDER as ProviderType) ?? DEFAULT_LLM_PROVIDER;
   const model = PROVIDER_MODELS[type] ?? LLM_CONFIG.MODEL;
 
   switch (type) {
     case "gemini":
-      return buildGeminiConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS);
+      return buildGeminiConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
     case "groq":
-      return buildGroqConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS);
+      return buildGroqConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
     case "openai":
-      return buildOpenAIConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS);
+      return buildOpenAIConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
     default:
-      return buildGeminiConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS);
+      return buildGeminiConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
   }
 }
 
@@ -63,10 +63,14 @@ function buildConfig(system: string): ProviderConfig {
  * @param user - User prompt (game state + strategic context).
  * @returns JSON string response from the LLM.
  */
-export async function callLLM(system: string, user: string): Promise<string> {
+export async function callLLM(
+  system: string,
+  user: string,
+  options?: { disableSchema?: boolean }
+): Promise<string> {
   validateEnv();
   const activeProvider = getProvider();
-  const config = buildConfig(system);
+  const config = buildConfig(system, options);
   return await callProviderWithRetry(activeProvider, user, config);
 }
 
