@@ -33,6 +33,28 @@ async function main() {
   }
 
   console.log("\n[1/4] Собираем контекст...");
+
+  // Ensure session files exist to avoid ENOENT from assembleContext
+  const { getSessionDir } = require("../src/shared/session");
+  const fs = require("fs");
+  const path = require("path");
+  const sessionDir = getSessionDir();
+
+  if (!fs.existsSync(path.join(sessionDir, "current_state.json"))) {
+    fs.writeFileSync(
+      path.join(sessionDir, "current_state.json"),
+      JSON.stringify({ current_state: "" }),
+      "utf-8"
+    );
+  }
+  if (!fs.existsSync(path.join(sessionDir, "strategic_ledger.json"))) {
+    fs.writeFileSync(
+      path.join(sessionDir, "strategic_ledger.json"),
+      JSON.stringify({ active_operations: [] }),
+      "utf-8"
+    );
+  }
+
   // Assemble base context
   const ctx = assembleContext();
 
