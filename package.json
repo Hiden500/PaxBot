@@ -16,6 +16,7 @@
     "brain": "tsx src/brain/action-generator.ts",
     "init-campaign": "tsx scripts/init-campaign.ts",
     "switch-campaign": "tsx scripts/switch-campaign.ts",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
   "repository": {
