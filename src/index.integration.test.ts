@@ -36,6 +36,7 @@ function cleanWarRoom(): void {
     "advisor_response.txt",
     "strategic_ledger.json",
     "ownership_snapshot.json",
+    "world_rules.txt",
   ];
   files.forEach((file) => {
     const filePath = path.join(sessionDir, file);
@@ -55,21 +56,23 @@ describe("Cognitive Loop Integration", () => {
     // Phase 1: Spy captures game state
     const mockPayload = JSON.stringify({
       prompt: `
-*** Description of the Map in the CURRENT Round: ***
-**Status of USA:** The United States of America...
-- All Regions Owned: Alaska, Hawaii, Texas
-- Military Units: 5 battalions
+You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of USA.
+[Context for This Game]
+World Rule 1
+Description of the Map in the CURRENT Round:
+"USA":
+All Owned Regions:
+"Alaska", "Hawaii", "Texas"
+All Battalions:
+5 battalions
 
-Event history:
+[Event History]
 - Turn 1: USA mobilized forces
 - Turn 2: Japan invaded
-Remember, it is crucially important that you guide the player
       `.trim(),
     });
 
     // Write required Brain files
-    fs.writeFileSync(path.join(WAR_ROOM, "constitution.md"), "Conquer the world.", "utf-8");
-    fs.writeFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "Use force.", "utf-8");
     fs.writeFileSync(
       path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify({ active_operations: [] }, null, 2),
@@ -87,9 +90,9 @@ Remember, it is crucially important that you guide the player
     const ctx = assembleContext();
 
     // Verify Brain read files correctly
-    expect(ctx.gameState.current_state).toContain("Status of USA");
-    expect(ctx.gameState.current_state).toContain("Alaska, Hawaii, Texas");
-    expect(ctx.gameState.current_state).not.toContain("Remember, it is crucially important");
+    expect(ctx.gameState.current_state).toContain("USA");
+    expect(ctx.gameState.current_state).toContain('"Alaska", "Hawaii", "Texas"');
+    expect(ctx.gameState.current_state).not.toContain("World Rule 1");
     expect(ctx.advisorResponse).toBe("Consider invading Germany next turn.");
     // Ownership parsing is tested in ownership-parser.test.ts
     // Here we just verify the integration flow works - ownership may be null if parsing fails
@@ -99,15 +102,13 @@ Remember, it is crucially important that you guide the player
   it("integrates Brain → Hand data flow with valid schema", () => {
     // Setup: Write initial state
     const initialState = {
-      current_state: "**Status of USA:** - All Regions Owned: Alaska, Texas",
+      current_state: '"USA":\nAll Owned Regions: Alaska, Texas\nAll Battalions:',
     };
     fs.writeFileSync(
       path.join(sessionDir, "current_state.json"),
       JSON.stringify(initialState, null, 2),
       "utf-8"
     );
-    fs.writeFileSync(path.join(WAR_ROOM, "constitution.md"), "Conquer the world.", "utf-8");
-    fs.writeFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "Use force.", "utf-8");
     fs.writeFileSync(
       path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify({ active_operations: [] }, null, 2),
@@ -130,6 +131,8 @@ Remember, it is crucially important that you guide the player
         },
       ],
       next_advisor_query: "Should we invade now?",
+      milestone_checks: [],
+      immediate_risks: [],
     };
 
     // Validate schema
@@ -148,8 +151,6 @@ Remember, it is crucially important that you guide the player
       JSON.stringify({ current_state: "Map data" }, null, 2),
       "utf-8"
     );
-    fs.writeFileSync(path.join(WAR_ROOM, "constitution.md"), "Goal.", "utf-8");
-    fs.writeFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "Tactics.", "utf-8");
     fs.writeFileSync(
       path.join(sessionDir, "strategic_ledger.json"),
       JSON.stringify({ active_operations: [] }, null, 2),
@@ -219,10 +220,12 @@ Remember, it is crucially important that you guide the player
     const payloadWithNoise = JSON.stringify({
       prompt: `
 Advisor system prompt here...
-*** Description of the Map in the CURRENT Round: ***
+[Context for This Game]
+World rules
+Description of the Map in the CURRENT Round:
 Actual game state content
-Remember, it is crucially important that you guide the player
-More advisor tail content
+[Event History]
+Events
       `.trim(),
     });
 
@@ -231,7 +234,7 @@ More advisor tail content
     const state = JSON.parse(fs.readFileSync(path.join(sessionDir, "current_state.json"), "utf-8"));
 
     expect(state.current_state).not.toContain("Advisor system prompt");
-    expect(state.current_state).not.toContain("Remember, it is crucially important");
+    expect(state.current_state).not.toContain("World rules");
     expect(state.current_state).toContain("Actual game state content");
   });
 });

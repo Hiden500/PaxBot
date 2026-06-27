@@ -17,7 +17,6 @@ import {
   dismissGamePopups,
   firstFewSentences,
   getLastAdvisorResponseText,
-  openPresetAndSelectWW2,
   SELECTORS,
 } from "./hand";
 import {
@@ -28,8 +27,19 @@ import {
 import { generateActions } from "./brain";
 import { validateEnv } from "./brain/llm-client";
 import { BROWSER_CONFIG, PATHS } from "./shared/config";
-import { getSessionDir } from "./shared/session";
+import {
+  getSessionDir,
+  tui,
+  TUIDashboard,
+  getActiveCampaignName,
+  setActiveCampaignName,
+  getCampaignUrl,
+  setCampaignUrl,
+} from "./shared";
 import { loadMemory, saveMemory, updateMemoryAfterTurn } from "./memory";
+import { getPrimaryCampaign, initializeCampaignFromMarkdown } from "./campaign";
+import { loadAllCampaigns } from "./campaign/loader";
+import { select, input, confirm } from "@inquirer/prompts";
 
 // ---------------------------------------------------------------------------
 // Config
@@ -38,7 +48,6 @@ import { loadMemory, saveMemory, updateMemoryAfterTurn } from "./memory";
 const AUTH_DIR = path.join(process.cwd(), PATHS.AUTH_DIR);
 const STATE_PATH = path.join(AUTH_DIR, PATHS.AUTH_STATE);
 const BASE_URL = "https://www.paxhistoria.co";
-const GAME_PAGE_URL = process.env.GAME_URL ?? "";
 
 const BROWSER_WIDTH = Math.round((BROWSER_CONFIG.SCREEN_WIDTH * 7) / 10);
 const BROWSER_HEIGHT = BROWSER_CONFIG.SCREEN_HEIGHT;
@@ -82,6 +91,213 @@ Ingests game state, plans, then executes autonomously.
 
 function printStartupBanner(): void {
   console.log(STARTUP_BANNER);
+}
+
+// ---------------------------------------------------------------------------
+// Menu
+// ---------------------------------------------------------------------------
+
+async function createNewCampaignFlow(): Promise<void> {
+  const filename = await input({
+    message: "Enter new campaign filename (e.g. 'my-campaign'):",
+    validate: (val) => {
+      if (!val.trim()) {
+        return "Filename cannot be empty.";
+      }
+      if (/[^a-zA-Z0-9_-]/.test(val)) {
+        return "Use only alphanumeric characters, dashes, or underscores.";
+      }
+      return true;
+    },
+  });
+
+  const mdName = `${filename}.md`;
+  const mdPath = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR, mdName);
+  const templatePath = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR, "TEMPLATE.md");
+
+  if (fs.existsSync(mdPath)) {
+    console.log(`\n⚠️ File ${mdName} already exists.`);
+    return;
+  }
+
+  // Copy template
+  if (fs.existsSync(templatePath)) {
+    fs.copyFileSync(templatePath, mdPath);
+  } else {
+    fs.writeFileSync(mdPath, "# New Campaign\n\n## Country\n...\n", "utf-8");
+  }
+
+  console.log(`\n✨ Created template at: ${mdPath}`);
+  console.log(
+    "📝 Please open this file in your editor and describe the campaign parameters (country, goals, priorities, constraints)."
+  );
+
+  await input({
+    message: "Press ENTER when you have finished editing the file to generate the JSON campaign...",
+  });
+
+  console.log("Generating campaign JSON using LLM...");
+  try {
+    const campaign = await initializeCampaignFromMarkdown(mdPath);
+    console.log(`✅ Campaign "${campaign.name}" created and set as active.`);
+  } catch (err) {
+    console.error(`❌ Failed to create campaign: ${(err as Error).message}`);
+  }
+}
+
+async function viewCampaignStatus(): Promise<void> {
+  const activeCampaign = getActiveCampaignName();
+  const currentUrl = getCampaignUrl() || process.env.GAME_URL || "None";
+  const memory = loadMemory();
+
+  console.log("\n==================================================");
+  console.log(`📊 CAMPAIGN STATUS: ${activeCampaign}`);
+  console.log(`🌐 GAME_URL: ${currentUrl}`);
+  console.log("==================================================");
+
+  // Strategic Summary
+  console.log(`\n📜 Historical Context:`);
+  console.log(`  ${memory.summary.historicalContext}`);
+
+  // Achievements
+  if (memory.summary.achievements.length > 0) {
+    console.log(`\n🏆 Achievements (${memory.summary.achievements.length}):`);
+    memory.summary.achievements.forEach((a) => {
+      console.log(`  • [Turn ${a.turn}] ${a.description}`);
+    });
+  } else {
+    console.log("\n🏆 Achievements: None yet");
+  }
+
+  // Failures
+  if (memory.summary.failures.length > 0) {
+    console.log(`\n❌ Failures (${memory.summary.failures.length}):`);
+    memory.summary.failures.forEach((f) => {
+      console.log(`  • [Turn ${f.turn}] ${f.description}`);
+    });
+  }
+
+  // Lessons Learned
+  if (memory.lessonsLearned.length > 0) {
+    console.log(`\n💡 Lessons Learned (${memory.lessonsLearned.length}):`);
+    memory.lessonsLearned.slice(-5).forEach((l) => {
+      const typeIcon = l.type === "success" ? "✅" : "⚠️";
+      console.log(`  ${typeIcon} [Turn ${l.turn}] ${l.lesson}`);
+    });
+  } else {
+    console.log("\n💡 Lessons Learned: None yet");
+  }
+
+  // Active Operations from ledger
+  const ledgerPath = path.join(getSessionDir(), PATHS.STRATEGIC_LEDGER);
+  if (fs.existsSync(ledgerPath)) {
+    try {
+      const rawLedger = fs.readFileSync(ledgerPath, "utf-8");
+      const ledger = JSON.parse(rawLedger);
+      if (ledger.active_operations && ledger.active_operations.length > 0) {
+        console.log(`\n⚔️ Active Operations (${ledger.active_operations.length}):`);
+        ledger.active_operations.forEach((op: any) => {
+          console.log(`  • [${op.operation_id}] ${op.goal}`);
+        });
+      } else {
+        console.log("\n⚔️ Active Operations: None");
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  console.log("\n==================================================");
+  await input({ message: "Press ENTER to return to menu..." });
+}
+
+async function resetCampaignSession(): Promise<void> {
+  const activeCampaign = getActiveCampaignName();
+  const confirmed = await confirm({
+    message: `⚠️ Are you sure you want to reset all session progress for campaign "${activeCampaign}"? This will delete memory, active operations and logs.`,
+    default: false,
+  });
+
+  if (confirmed) {
+    const sessionDir = getSessionDir();
+    if (fs.existsSync(sessionDir)) {
+      const files = fs.readdirSync(sessionDir);
+      for (const file of files) {
+        const filePath = path.join(sessionDir, file);
+        if (fs.statSync(filePath).isDirectory()) {
+          fs.rmSync(filePath, { recursive: true, force: true });
+        } else {
+          fs.unlinkSync(filePath);
+        }
+      }
+      console.log(`\n🧹 Session progress for campaign "${activeCampaign}" has been reset.`);
+    }
+  }
+}
+
+async function runInteractiveMenu(): Promise<void> {
+  if (process.argv.includes("--continue")) {
+    return;
+  }
+
+  let activeCampaign = getActiveCampaignName();
+  let currentUrl = getCampaignUrl() || process.env.GAME_URL || "";
+
+  let exit = false;
+  while (!exit) {
+    const action = await select({
+      message: "PaxBot Main Menu",
+      choices: [
+        { name: `🚀 Continue (${activeCampaign})`, value: "continue" },
+        { name: "📁 Select Campaign", value: "select_campaign" },
+        { name: "✨ Create New Campaign", value: "create_campaign" },
+        { name: `🌐 Change GAME_URL (current: ${currentUrl || "None"})`, value: "change_url" },
+        { name: "📊 View Campaign Status", value: "view_status" },
+        { name: "🧹 Reset Campaign Session", value: "reset_session" },
+        { name: "❌ Exit", value: "exit" },
+      ],
+    });
+
+    if (action === "continue") {
+      if (!currentUrl) {
+        console.log("⚠️ GAME_URL is not set. Please set it first.");
+        continue;
+      }
+      exit = true;
+    } else if (action === "select_campaign") {
+      const campaigns = loadAllCampaigns();
+      if (campaigns.length === 0) {
+        console.log("No campaigns found.");
+        continue;
+      }
+      const selected = await select({
+        message: "Select a campaign:",
+        choices: campaigns.map((c) => ({ name: c.name, value: c.name })),
+      });
+      setActiveCampaignName(selected);
+      activeCampaign = selected;
+      currentUrl = getCampaignUrl() || process.env.GAME_URL || "";
+    } else if (action === "create_campaign") {
+      await createNewCampaignFlow();
+      activeCampaign = getActiveCampaignName();
+      currentUrl = getCampaignUrl() || process.env.GAME_URL || "";
+    } else if (action === "change_url") {
+      const newUrl = await input({
+        message: "Enter GAME_URL:",
+        default: currentUrl,
+      });
+      if (newUrl.trim()) {
+        setCampaignUrl(newUrl.trim());
+        currentUrl = newUrl.trim();
+      }
+    } else if (action === "view_status") {
+      await viewCampaignStatus();
+    } else if (action === "reset_session") {
+      await resetCampaignSession();
+    } else if (action === "exit") {
+      process.exit(0);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -135,8 +351,6 @@ function stopPopupWatcher(): void {
 // Boot: launch browser, navigate to game
 // ---------------------------------------------------------------------------
 
-const WAR_ROOM = path.join(process.cwd(), PATHS.WAR_ROOM);
-
 function resetWarRoom(): void {
   const sessionDir = getSessionDir();
 
@@ -158,7 +372,13 @@ async function boot() {
   ensureAuthState();
   resetWarRoom();
 
-  console.log("[Boot] Launching browser with auth state...");
+  const campaign = getPrimaryCampaign();
+  if (campaign) {
+    tui.setCampaign(campaign.name);
+  }
+
+  tui.setStatus("Launching browser...");
+  tui.log("Launching browser with auth state...");
   const browser = await chromium.launch({
     headless: false,
     args: [`--window-position=0,25`, `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`],
@@ -169,23 +389,27 @@ async function boot() {
   });
   const page = await context.newPage();
 
-  console.log(`[Boot] Navigating to ${BASE_URL}...`);
-  await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
+  const currentUrl = getCampaignUrl() || process.env.GAME_URL;
+  if (currentUrl) {
+    tui.setStatus("Navigating to game URL...");
+    tui.log(`Navigating to game: ${currentUrl}...`);
+    await page.goto(currentUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 25000,
+    });
+  } else {
+    tui.setStatus("Navigating to Pax Historia...");
+    tui.log(`Navigating to ${BASE_URL}...`);
+    await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
+  }
 
-  console.log("\nPress ENTER when ready to start...\n");
+  // When TUI is active, we don't want a blocking stdin pause that blocks redraws,
+  // but if we do, we should notify the user via status.
+  tui.setStatus("Press ENTER in the terminal to start the game loop...");
+  tui.log("Waiting for user confirmation to start loop (Press ENTER in terminal)");
   await new Promise<void>((resolve) => {
     process.stdin.once("data", () => resolve());
   });
-
-  if (GAME_PAGE_URL) {
-    console.log(`[Boot] Navigating to game: ${GAME_PAGE_URL}...`);
-    await page.goto(GAME_PAGE_URL, {
-      waitUntil: "domcontentloaded",
-      timeout: 20000,
-    });
-  } else {
-    await openPresetAndSelectWW2(page);
-  }
 
   // Brief wait for game UI to finish rendering (navigation already waited 2.5s)
   await page.waitForTimeout(1000);
@@ -216,20 +440,19 @@ async function boot() {
 // ---------------------------------------------------------------------------
 
 async function runTurn(page: import("playwright").Page, turnNumber: number): Promise<void> {
-  console.log(`\n${"═".repeat(60)}`);
-  console.log(`  TURN ${turnNumber}`);
-  console.log(`${"═".repeat(60)}\n`);
+  tui.setTurn(turnNumber);
+
+  const memory = loadMemory();
+  tui.setLessons(memory.lessonsLearned.length);
 
   // ── Phase 1: Perception ──────────────────────────────────────────────
-  console.log("[Phase 1] Querying advisor + capturing game state...");
+  tui.setStatus(`[Turn ${turnNumber}] Querying advisor & capturing state...`);
 
   // Start Spy capture BEFORE triggering the advisor query
   const bodyPromise = captureNextSimpleChatRequestBody(page);
   const advisorQuery = getAdvisorQueryForTurn();
   if (advisorQuery !== DEFAULT_ADVISOR_QUERY) {
-    console.log(
-      `[Phase 1] Advisor query (dynamic): ${advisorQuery.slice(0, 70)}${advisorQuery.length > 70 ? "..." : ""}`
-    );
+    tui.log(`[Phase 1] Advisor query: ${advisorQuery.slice(0, 70)}...`);
   }
   await enterAdvisorQuery(page, advisorQuery);
 
@@ -241,28 +464,30 @@ async function runTurn(page: import("playwright").Page, turnNumber: number): Pro
   const advisorText = await getLastAdvisorResponseText(page);
   writeAdvisorResponse(advisorText);
   if (advisorText) {
-    console.log(`[Phase 1] Advisor says: ${firstFewSentences(advisorText)}\n`);
+    tui.setAdvisorResponse(advisorText);
+    tui.log(`[Phase 1] Advisor says: ${firstFewSentences(advisorText)}`);
   }
 
   // ── Phase 2+3: Brain ────────────────────────────────────────────────
-  console.log("[Phase 2+3] Running Brain (LLM)...");
+  tui.setStatus(`[Turn ${turnNumber}] Running Brain (LLM)...`);
+  tui.log("[Phase 2+3] Running Brain (LLM reasoning)...");
   const batch = await generateActions();
 
-  console.log(`\n[Brain] Reasoning: ${batch.reasoning}`);
-  console.log(`[Brain] Actions (${batch.actions.length}):`);
-  for (let i = 0; i < batch.actions.length; i++) {
-    console.log(`  ${i + 1}. ${batch.actions[i]}`);
-  }
+  tui.setReasoning(batch.reasoning);
+  tui.setActions(batch.actions);
+  tui.setMilestoneChecks(batch.milestone_checks || []);
+  tui.setImmediateRisks(batch.immediate_risks || []);
 
   // ── Phase 4: Execution ──────────────────────────────────────────────
-  console.log(`\n[Phase 4] Submitting ${batch.actions.length} actions...`);
+  tui.setStatus(`[Turn ${turnNumber}] Submitting ${batch.actions.length} actions...`);
+  tui.log(`[Phase 4] Submitting ${batch.actions.length} actions...`);
   let submitted = 0;
   for (let i = 0; i < batch.actions.length; i++) {
     try {
       await enterAction(page, batch.actions[i]);
       submitted++;
     } catch (err) {
-      console.log(
+      tui.log(
         `[Phase 4] SKIPPED action ${i + 1} (panel blocked): ${(err as Error).message?.slice(0, 80)}`
       );
     }
@@ -270,18 +495,18 @@ async function runTurn(page: import("playwright").Page, turnNumber: number): Pro
       await sleep(BROWSER_CONFIG.ACTION_DELAY_MS);
     }
   }
-  console.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
+  tui.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
 
   // ── Phase 5: Memory update ─────────────────────────────────────────
   try {
-    const memory = loadMemory();
     const updatedMemory = updateMemoryAfterTurn(memory, batch, turnNumber);
     saveMemory(updatedMemory);
-    console.log(
-      `[Phase 5] Strategic memory updated (${updatedMemory.summary.achievements.length} achievements, ${updatedMemory.rivalProfiles.length} rival profiles)`
+    tui.setLessons(updatedMemory.lessonsLearned.length);
+    tui.log(
+      `[Phase 5] Memory updated (${updatedMemory.summary.achievements.length} achievements, ${updatedMemory.rivalProfiles.length} profiles)`
     );
   } catch (err) {
-    console.error(`[Phase 5] Memory update failed: ${(err as Error).message}`);
+    tui.log(`[Phase 5] Memory update failed: ${(err as Error).message}`);
   }
 }
 
@@ -315,6 +540,14 @@ async function main(): Promise<void> {
 
   // Validate environment before doing anything else
   validateEnv();
+
+  // Run interactive menu first before clearing TUI
+  await runInteractiveMenu();
+
+  if (process.stdout.isTTY) {
+    TUIDashboard.active = true;
+    process.stdout.write("\x1b[2J\x1b[H"); // Clear screen
+  }
 
   const { browser, page } = await boot();
 
@@ -350,17 +583,19 @@ async function main(): Promise<void> {
       }
 
       // Auto-advance to next turn
-      console.log("\n[Turn Advance] Advancing 1 week...");
+      tui.setStatus(`[Turn ${turnNumber}] Advancing turn...`);
+      tui.log(`[Turn Advance] Advancing to next turn (Turn ${turnNumber + 1})...`);
       await clickNextTurn(page);
       turnNumber++;
     }
   } catch (err) {
-    console.error("Fatal loop error:", err);
+    tui.log(`Fatal loop error: ${(err as Error).message}`);
   } finally {
     stopPopupWatcher();
     saveLedgerSnapshot(turnNumber);
     await browser.close();
-    console.log("Browser closed. Goodbye.");
+    tui.setStatus("Stopped");
+    tui.log("Browser closed. Goodbye.");
   }
 }
 

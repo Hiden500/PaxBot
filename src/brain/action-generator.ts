@@ -10,7 +10,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { type ActionBatch } from "../shared";
+import { type ActionBatch, tui } from "../shared";
 import { assembleContext, buildPrompt } from "./context-assembler";
 import { callLLM } from "./llm-client";
 import { PATHS } from "../shared/config";
@@ -24,31 +24,30 @@ import { parseLLMResponse } from "./response-parser";
 
 export async function generateActions(): Promise<ActionBatch> {
   // Phase 2: Context Assembly
-  console.log("[Brain] Phase 2: Assembling context from War Room files...");
+  tui.setStatus("Brain: Assembling context...");
+  tui.log("[Brain] Phase 2: Assembling context from War Room files...");
   const ctx = assembleContext();
-  console.log(
+  tui.log(
     `[Brain] Context loaded — game state: ${ctx.gameState.current_state.length} chars, ` +
-      `operations: ${ctx.ledger.active_operations.length}, ` +
-      `advisor: ${ctx.advisorResponse ? "yes" : "none"}`
+      `operations: ${ctx.ledger.active_operations.length}`
   );
+  tui.setOperations(ctx.ledger.active_operations);
 
   // Phase 3: Reasoning
-  console.log("[Brain] Phase 3: Building prompt...");
+  tui.setStatus("Brain: Building prompt...");
+  tui.log("[Brain] Phase 3: Building prompt...");
   const { system, user } = buildPrompt(ctx);
-  console.log(`[Brain] Prompt built — system: ${system.length} chars, user: ${user.length} chars`);
+  tui.log(`[Brain] Prompt built — system: ${system.length} chars, user: ${user.length} chars`);
 
-  console.log("\n════════════════════════════════════════════════════════");
-  console.log("  BRAIN: STRATEGIC PLANNING IN PROGRESS");
-  console.log("  Reading constitution, crisis handbook, strategic ledger...");
-  console.log("  Analyzing game state, advisor intel, and active operations...");
-  console.log("  Generating actions via LLM...");
-  console.log("════════════════════════════════════════════════════════\n");
+  tui.setStatus("Brain: Waiting for LLM...");
+  tui.log("[Brain] Querying LLM (Strategic planning)...");
   const rawResponse = await callLLM(system, user);
-  console.log(`[Brain] LLM responded — ${rawResponse.length} chars`);
+  tui.log(`[Brain] LLM responded — ${rawResponse.length} chars`);
 
   // Parse + normalize + validate
+  tui.setStatus("Brain: Parsing response...");
   const batch = parseLLMResponse(rawResponse);
-  console.log(
+  tui.log(
     `[Brain] Validated — ${batch.actions.length} actions, ${batch.ledger_updates.length} ledger updates`
   );
 
@@ -56,7 +55,8 @@ export async function generateActions(): Promise<ActionBatch> {
   if (batch.ledger_updates.length > 0) {
     const merged = mergeLedger(ctx.ledger, batch.ledger_updates);
     writeLedger(merged);
-    console.log(`[Brain] Ledger updated — ${merged.active_operations.length} total operations`);
+    tui.setOperations(merged.active_operations);
+    tui.log(`[Brain] Ledger updated — ${merged.active_operations.length} total operations`);
   }
 
   // Persist dynamic advisor query for next turn (no extra API call)
@@ -64,7 +64,8 @@ export async function generateActions(): Promise<ActionBatch> {
   if (nextQuery) {
     const nextQueryPath = path.join(getSessionDir(), PATHS.NEXT_ADVISOR_QUERY);
     fs.writeFileSync(nextQueryPath, nextQuery, "utf-8");
-    console.log(
+    tui.setAdvisorQuery(nextQuery);
+    tui.log(
       `[Brain] Next advisor query set: "${nextQuery.length > 55 ? nextQuery.slice(0, 55) + "..." : nextQuery}"`
     );
   }

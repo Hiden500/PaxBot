@@ -124,6 +124,35 @@ const GEMINI_RESPONSE_SCHEMA = {
       description:
         "One short question to ask the in-game advisor on the NEXT turn (e.g. about a specific front, nation, or decision). Keep under 100 words.",
     },
+    milestone_checks: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          milestone: {
+            type: Type.STRING,
+            description: "The campaign objective or priority checked",
+          },
+          status: {
+            type: Type.STRING,
+            description: "ACHIEVED, NOT_ACHIEVED, or FAILED",
+          },
+          evidence: {
+            type: Type.STRING,
+            description: "Direct text evidence from the game state",
+          },
+        },
+        required: ["milestone", "status", "evidence"],
+      },
+      description: "Evaluation of our progress against current campaign milestones/priorities",
+    },
+    immediate_risks: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.STRING,
+      },
+      description: "Brief list of immediate direct threats observed in current state",
+    },
   },
-  required: ["reasoning", "actions", "ledger_updates"],
+  required: ["reasoning", "actions", "ledger_updates", "milestone_checks", "immediate_risks"],
 };

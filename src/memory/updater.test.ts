@@ -14,6 +14,8 @@ describe("updateMemoryAfterTurn", () => {
       "Successfully invaded Japan. Defeated their main army. GDP improved this quarter. Failed to capture Okinawa.",
     actions: ["Invade Japan with 3 divisions", "Send diplomats to China"],
     ledger_updates: [],
+    milestone_checks: [],
+    immediate_risks: [],
   };
 
   it("extracts achievements from reasoning", () => {
@@ -37,6 +39,8 @@ describe("updateMemoryAfterTurn", () => {
       reasoning: "We prioritize expanding economy and focus on military buildup.",
       actions: ["Build factories"],
       ledger_updates: [],
+      milestone_checks: [],
+      immediate_risks: [],
     };
     const result = updateMemoryAfterTurn(emptyMem, batchWithPriorities, 1);
     expect(result.summary.currentPriorities.length).toBeGreaterThan(0);

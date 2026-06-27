@@ -8,7 +8,7 @@
 // ---------------------------------------------------------------------------
 
 export const LLM_CONFIG = {
-  MODEL: "gemini-flash-latest",
+  MODEL: "gemini-2.5-flash",
   MAX_OUTPUT_TOKENS: 65536,
   RETRY_MAX_ATTEMPTS: 3,
   RETRY_BASE_DELAY_MS: 1000,
@@ -41,10 +41,13 @@ export const PROVIDER_MODELS: Record<string, string> = {
 // ---------------------------------------------------------------------------
 
 export const GAME_STATE_CONFIG = {
-  MAX_EVENT_HISTORY_CHARS: 4000,
-  EVENT_HISTORY_MARKER: "Event history",
-  MAP_HEADER: "*** Description of the Map in the CURRENT Round: ***",
-  ADVISOR_TAIL_START: "Remember, it is crucially important that you guide the player",
+  MAX_EVENT_HISTORY_CHARS: 2000,
+  EVENT_HISTORY_MARKER: "[Event History]",
+  MAP_HEADER: "Description of the Map in the CURRENT Round:",
+  RECENT_DIPLOMACY_MARKER: "[Recent Diplomacy]",
+  FINAL_REMINDERS_MARKER: "[Final Reminders]",
+  CONTEXT_MARKER: "[Context for This Game]",
+  GAME_DETAILS_MARKER: "[Game Details]",
 } as const;
 
 // ---------------------------------------------------------------------------

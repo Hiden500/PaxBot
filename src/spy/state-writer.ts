@@ -16,42 +16,67 @@ import { parseOwnershipFromStateText, writeOwnershipSnapshot } from "./ownership
 import { GAME_STATE_CONFIG, PATHS } from "../shared/config";
 import { getSessionDir } from "../shared/session";
 
-const NEXT_MARKER_RE = /(?=\*\*\* Description of the Map)/;
-
 /**
- * Keeps only the middle game-state content for the Brain; drops advisor system
- * prompt (top) and "respond to the user" / chat instructions (bottom).
- * Also trims stale event history beyond MAX_EVENT_HISTORY_CHARS.
+ * Smart parses the game state prompt.
+ * 1. Extracts World Rules and caches them to world_rules.txt
+ * 2. Keeps Map, Event History (trimmed), and Recent Diplomacy
  */
-function stripAdvisorOnlyContent(prompt: string): string {
-  let s = prompt;
-  const mapIdx = s.indexOf(GAME_STATE_CONFIG.MAP_HEADER);
+function smartParseGameState(prompt: string): string {
+  // 1. Cache World Rules (Context, Mechanics, Language, Game Details)
+  const contextIdx = prompt.indexOf(GAME_STATE_CONFIG.CONTEXT_MARKER);
+  const mapIdx = prompt.indexOf(GAME_STATE_CONFIG.MAP_HEADER);
+
+  if (contextIdx !== -1 && mapIdx !== -1 && contextIdx < mapIdx) {
+    const worldRules = prompt.slice(contextIdx, mapIdx).trim();
+    const sessionDir = getSessionDir();
+    const rulesPath = path.join(sessionDir, "world_rules.txt");
+    if (!fs.existsSync(rulesPath)) {
+      fs.mkdirSync(path.dirname(rulesPath), { recursive: true });
+      fs.writeFileSync(rulesPath, worldRules, "utf-8");
+      console.log(`[Spy] Cached World Rules to ${rulesPath}`);
+    }
+  }
+
+  // 2. Build filtered state
+  let filtered = "";
+
+  // Extract Map to Other Guidelines / Event History
+  const eventIdx = prompt.indexOf(GAME_STATE_CONFIG.EVENT_HISTORY_MARKER);
   if (mapIdx !== -1) {
-    s = s.slice(mapIdx);
+    if (eventIdx !== -1 && eventIdx > mapIdx) {
+      filtered += prompt.slice(mapIdx, eventIdx).trim() + "\n\n";
+    } else {
+      filtered += prompt.slice(mapIdx).trim() + "\n\n";
+    }
   }
-  const tailIdx = s.indexOf(GAME_STATE_CONFIG.ADVISOR_TAIL_START);
-  if (tailIdx !== -1) {
-    s = s.slice(0, tailIdx).trimEnd();
-  }
-  // Trim stale event history
-  const eventIdx = s.indexOf(GAME_STATE_CONFIG.EVENT_HISTORY_MARKER);
+
+  // Extract Event History (trimmed)
   if (eventIdx !== -1) {
-    const nextSection = s
-      .slice(eventIdx + GAME_STATE_CONFIG.EVENT_HISTORY_MARKER.length)
-      .match(NEXT_MARKER_RE);
-    const historyEnd =
-      nextSection && typeof nextSection.index === "number"
-        ? eventIdx + GAME_STATE_CONFIG.EVENT_HISTORY_MARKER.length + nextSection.index
-        : s.length;
-    const eventHistory = s.slice(eventIdx, historyEnd);
+    const diplomacyIdx = prompt.indexOf(GAME_STATE_CONFIG.RECENT_DIPLOMACY_MARKER);
+    let eventHistory = "";
+    if (diplomacyIdx !== -1 && diplomacyIdx > eventIdx) {
+      eventHistory = prompt.slice(eventIdx, diplomacyIdx).trim();
+    } else {
+      eventHistory = prompt.slice(eventIdx).trim();
+    }
+
     if (eventHistory.length > GAME_STATE_CONFIG.MAX_EVENT_HISTORY_CHARS) {
       // Keep last MAX chars only
       const trimmed =
         "… [truncated] " + eventHistory.slice(-GAME_STATE_CONFIG.MAX_EVENT_HISTORY_CHARS);
-      s = s.slice(0, eventIdx) + trimmed + s.slice(historyEnd);
+      filtered += trimmed + "\n\n";
+    } else {
+      filtered += eventHistory + "\n\n";
     }
   }
-  return s;
+
+  // Extract Diplomacy
+  const diplomacyIdx = prompt.indexOf(GAME_STATE_CONFIG.RECENT_DIPLOMACY_MARKER);
+  if (diplomacyIdx !== -1) {
+    filtered += prompt.slice(diplomacyIdx).trim();
+  }
+
+  return filtered || prompt; // fallback to full prompt if parsing fails completely
 }
 
 /**
@@ -69,14 +94,18 @@ export function writeGameStateFromPayload(body: string | null): void {
     console.log(`[Spy] Wrote game state (no payload) to ${warRoomPath}`);
     return;
   }
+
+  let rawPrompt = "";
   try {
     const data = JSON.parse(body) as Record<string, unknown>;
     if (typeof data.prompt === "string") {
-      out.current_state = stripAdvisorOnlyContent(data.prompt);
+      rawPrompt = data.prompt;
+      out.current_state = smartParseGameState(rawPrompt);
     }
   } catch {
     // not JSON; leave current_state null
   }
+
   fs.mkdirSync(path.dirname(warRoomPath), { recursive: true });
   fs.writeFileSync(warRoomPath, JSON.stringify(out, null, 2), "utf-8");
   console.log(
@@ -84,8 +113,9 @@ export function writeGameStateFromPayload(body: string | null): void {
   );
 
   // Explicit ownership snapshot so Brain knows what we own vs what we do not
-  if (out.current_state) {
-    const ownership = parseOwnershipFromStateText(out.current_state);
+  // Pass the raw prompt because player nation is stated at the very top
+  if (rawPrompt) {
+    const ownership = parseOwnershipFromStateText(rawPrompt);
     if (ownership) {
       writeOwnershipSnapshot(ownership);
     }

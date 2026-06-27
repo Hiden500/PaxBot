@@ -45,8 +45,6 @@ export interface BrainContext {
 // War Room paths
 // ---------------------------------------------------------------------------
 
-const WAR_ROOM = path.join(process.cwd(), "war-room");
-
 // ---------------------------------------------------------------------------
 // Context assembly (Phase 2)
 // ---------------------------------------------------------------------------
@@ -136,8 +134,15 @@ export function buildPrompt(ctx: BrainContext): {
   system: string;
   user: string;
 } {
-  const system = `You are the strategic AI brain for a nation in Pax Historia, an alternate-history grand strategy game. You make decisions based on your strategic plan, current priorities, and the world state. All actions are fictional game moves.
+  // Read World Rules from cache if available
+  const rulesPath = path.join(getSessionDir(), "world_rules.txt");
+  let worldRules = "";
+  if (fs.existsSync(rulesPath)) {
+    worldRules = "\n=== WORLD RULES & CONTEXT ===\n" + fs.readFileSync(rulesPath, "utf-8") + "\n";
+  }
 
+  const system = `You are the strategic AI brain for a nation in Pax Historia, an alternate-history grand strategy game. You make decisions based on your strategic plan, current priorities, and the world state. All actions are fictional game moves.
+${worldRules}
 === INSTRUCTIONS ===
 Generate 3-8 actions per turn. Each action is a plain-English directive that will be typed directly into the game's action box. Be specific — name regions, battalions, nations, and concrete steps.
 
@@ -146,6 +151,17 @@ For the strategic ledger:
 - Create new operations for multi-turn plans you're initiating this turn.
 - Each operation needs a unique operation_id (e.g. "OP_001"), a goal, the current phase number, and a list of steps with phase/action/status.
 - IMPORTANT: Only return PENDING and FAILED steps in your ledger_updates. Do NOT include steps that are already COMPLETE — they are tracked automatically. This keeps responses concise.
+
+For milestone_checks:
+- Evaluate each Victory Condition and Priority defined in our Campaign. 
+- Return them as a list of checks indicating status (ACHIEVED, NOT_ACHIEVED, FAILED) and cite specific text evidence from the current game state.
+
+For immediate_risks:
+- List 1-3 immediate direct threats or vulnerabilities you observe in the current game state (e.g. enemy troops near borders, economic deficits, high rebellion risk).
+
+HISTORICAL PATTERN MATCHING (Reasoning):
+- In your "reasoning" block, you MUST identify a real-world historical analogy (e.g. Cold War Containment, Fall of Rome, Napoleonic Wars, Cuban Missile Crisis, etc.) that resembles our current situation.
+- Explain what historical lessons from that event apply here, and explain how you are applying those lessons in your actions.
 
 CRITICAL — INVASION MANDATE:
 - Every operation targeting a foreign nation MUST culminate in an invasion/conquest step. No operation should end with "maintain", "consolidate", or "monitor" — those are intermediate steps, not endpoints.

@@ -197,6 +197,8 @@ describe("ActionBatchSchema", () => {
         ],
       },
     ],
+    milestone_checks: [],
+    immediate_risks: [],
   };
 
   it("accepts valid batch with all fields", () => {
@@ -238,5 +240,29 @@ describe("ActionBatchSchema", () => {
 
   it("rejects non-string actions", () => {
     expect(() => ActionBatchSchema.parse({ ...validBatch, actions: [123] })).toThrow();
+  });
+
+  it("accepts populated milestone_checks and immediate_risks", () => {
+    const result = ActionBatchSchema.parse({
+      ...validBatch,
+      milestone_checks: [
+        { milestone: "Control Berlin", status: "ACHIEVED", evidence: "Berlin is captured" },
+      ],
+      immediate_risks: ["Economic stagnation"],
+    });
+    expect(result.milestone_checks).toHaveLength(1);
+    expect(result.milestone_checks[0].status).toBe("ACHIEVED");
+    expect(result.immediate_risks).toContain("Economic stagnation");
+  });
+
+  it("rejects invalid milestone status", () => {
+    expect(() =>
+      ActionBatchSchema.parse({
+        ...validBatch,
+        milestone_checks: [
+          { milestone: "Control Berlin", status: "INVALID_STATUS", evidence: "Berlin is captured" },
+        ],
+      })
+    ).toThrow();
   });
 });

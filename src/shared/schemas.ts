@@ -55,9 +55,13 @@ export const StrategicLedgerSchema = z.object({
 
 export type StrategicLedger = z.infer<typeof StrategicLedgerSchema>;
 
-// ---------------------------------------------------------------------------
-// Brain output: ActionBatch (LLM response, validated after parsing)
-// ---------------------------------------------------------------------------
+export const MilestoneCheckSchema = z.object({
+  milestone: z.string(),
+  status: z.enum(["ACHIEVED", "NOT_ACHIEVED", "FAILED"]),
+  evidence: z.string(),
+});
+
+export type MilestoneCheck = z.infer<typeof MilestoneCheckSchema>;
 
 export const ActionBatchSchema = z.object({
   reasoning: z.string(),
@@ -65,6 +69,10 @@ export const ActionBatchSchema = z.object({
   ledger_updates: z.array(OperationSchema),
   /** Optional: question to ask the in-game advisor on the NEXT turn (dynamic per turn). */
   next_advisor_query: z.string().max(500).optional(),
+  /** Qualitative campaign objectives evaluation (Phase 6 Milestone Tracker) */
+  milestone_checks: z.array(MilestoneCheckSchema),
+  /** Brief list of immediate threats observed in current game state (Phase 8 Risk Engine) */
+  immediate_risks: z.array(z.string()),
 });
 
 export type ActionBatch = z.infer<typeof ActionBatchSchema>;
