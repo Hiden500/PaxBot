@@ -28,8 +28,9 @@ import {
 import { generateActions } from "./brain";
 import { validateEnv } from "./brain/llm-client";
 import { BROWSER_CONFIG, PATHS } from "./shared/config";
-import { getSessionDir } from "./shared/session";
+import { getSessionDir, tui, TUIDashboard } from "./shared";
 import { loadMemory, saveMemory, updateMemoryAfterTurn } from "./memory";
+import { getPrimaryCampaign } from "./campaign";
 
 // ---------------------------------------------------------------------------
 // Config
@@ -135,8 +136,6 @@ function stopPopupWatcher(): void {
 // Boot: launch browser, navigate to game
 // ---------------------------------------------------------------------------
 
-const WAR_ROOM = path.join(process.cwd(), PATHS.WAR_ROOM);
-
 function resetWarRoom(): void {
   const sessionDir = getSessionDir();
 
@@ -158,7 +157,13 @@ async function boot() {
   ensureAuthState();
   resetWarRoom();
 
-  console.log("[Boot] Launching browser with auth state...");
+  const campaign = getPrimaryCampaign();
+  if (campaign) {
+    tui.setCampaign(campaign.name);
+  }
+
+  tui.setStatus("Launching browser...");
+  tui.log("Launching browser with auth state...");
   const browser = await chromium.launch({
     headless: false,
     args: [`--window-position=0,25`, `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`],
@@ -169,16 +174,21 @@ async function boot() {
   });
   const page = await context.newPage();
 
-  console.log(`[Boot] Navigating to ${BASE_URL}...`);
+  tui.setStatus("Navigating to Pax Historia...");
+  tui.log(`Navigating to ${BASE_URL}...`);
   await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
 
-  console.log("\nPress ENTER when ready to start...\n");
+  // When TUI is active, we don't want a blocking stdin pause that blocks redraws,
+  // but if we do, we should notify the user via status.
+  tui.setStatus("Press ENTER in the terminal to start the game loop...");
+  tui.log("Waiting for user confirmation to start loop (Press ENTER in terminal)");
   await new Promise<void>((resolve) => {
     process.stdin.once("data", () => resolve());
   });
 
+  tui.setStatus("Selecting WW2 Preset...");
   if (GAME_PAGE_URL) {
-    console.log(`[Boot] Navigating to game: ${GAME_PAGE_URL}...`);
+    tui.log(`Navigating to game: ${GAME_PAGE_URL}...`);
     await page.goto(GAME_PAGE_URL, {
       waitUntil: "domcontentloaded",
       timeout: 20000,
@@ -216,20 +226,19 @@ async function boot() {
 // ---------------------------------------------------------------------------
 
 async function runTurn(page: import("playwright").Page, turnNumber: number): Promise<void> {
-  console.log(`\n${"═".repeat(60)}`);
-  console.log(`  TURN ${turnNumber}`);
-  console.log(`${"═".repeat(60)}\n`);
+  tui.setTurn(turnNumber);
+
+  const memory = loadMemory();
+  tui.setLessons(memory.lessonsLearned.length);
 
   // ── Phase 1: Perception ──────────────────────────────────────────────
-  console.log("[Phase 1] Querying advisor + capturing game state...");
+  tui.setStatus(`[Turn ${turnNumber}] Querying advisor & capturing state...`);
 
   // Start Spy capture BEFORE triggering the advisor query
   const bodyPromise = captureNextSimpleChatRequestBody(page);
   const advisorQuery = getAdvisorQueryForTurn();
   if (advisorQuery !== DEFAULT_ADVISOR_QUERY) {
-    console.log(
-      `[Phase 1] Advisor query (dynamic): ${advisorQuery.slice(0, 70)}${advisorQuery.length > 70 ? "..." : ""}`
-    );
+    tui.log(`[Phase 1] Advisor query: ${advisorQuery.slice(0, 70)}...`);
   }
   await enterAdvisorQuery(page, advisorQuery);
 
@@ -241,28 +250,30 @@ async function runTurn(page: import("playwright").Page, turnNumber: number): Pro
   const advisorText = await getLastAdvisorResponseText(page);
   writeAdvisorResponse(advisorText);
   if (advisorText) {
-    console.log(`[Phase 1] Advisor says: ${firstFewSentences(advisorText)}\n`);
+    tui.setAdvisorResponse(advisorText);
+    tui.log(`[Phase 1] Advisor says: ${firstFewSentences(advisorText)}`);
   }
 
   // ── Phase 2+3: Brain ────────────────────────────────────────────────
-  console.log("[Phase 2+3] Running Brain (LLM)...");
+  tui.setStatus(`[Turn ${turnNumber}] Running Brain (LLM)...`);
+  tui.log("[Phase 2+3] Running Brain (LLM reasoning)...");
   const batch = await generateActions();
 
-  console.log(`\n[Brain] Reasoning: ${batch.reasoning}`);
-  console.log(`[Brain] Actions (${batch.actions.length}):`);
-  for (let i = 0; i < batch.actions.length; i++) {
-    console.log(`  ${i + 1}. ${batch.actions[i]}`);
-  }
+  tui.setReasoning(batch.reasoning);
+  tui.setActions(batch.actions);
+  tui.setMilestoneChecks(batch.milestone_checks || []);
+  tui.setImmediateRisks(batch.immediate_risks || []);
 
   // ── Phase 4: Execution ──────────────────────────────────────────────
-  console.log(`\n[Phase 4] Submitting ${batch.actions.length} actions...`);
+  tui.setStatus(`[Turn ${turnNumber}] Submitting ${batch.actions.length} actions...`);
+  tui.log(`[Phase 4] Submitting ${batch.actions.length} actions...`);
   let submitted = 0;
   for (let i = 0; i < batch.actions.length; i++) {
     try {
       await enterAction(page, batch.actions[i]);
       submitted++;
     } catch (err) {
-      console.log(
+      tui.log(
         `[Phase 4] SKIPPED action ${i + 1} (panel blocked): ${(err as Error).message?.slice(0, 80)}`
       );
     }
@@ -270,18 +281,18 @@ async function runTurn(page: import("playwright").Page, turnNumber: number): Pro
       await sleep(BROWSER_CONFIG.ACTION_DELAY_MS);
     }
   }
-  console.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
+  tui.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
 
   // ── Phase 5: Memory update ─────────────────────────────────────────
   try {
-    const memory = loadMemory();
     const updatedMemory = updateMemoryAfterTurn(memory, batch, turnNumber);
     saveMemory(updatedMemory);
-    console.log(
-      `[Phase 5] Strategic memory updated (${updatedMemory.summary.achievements.length} achievements, ${updatedMemory.rivalProfiles.length} rival profiles)`
+    tui.setLessons(updatedMemory.lessonsLearned.length);
+    tui.log(
+      `[Phase 5] Memory updated (${updatedMemory.summary.achievements.length} achievements, ${updatedMemory.rivalProfiles.length} profiles)`
     );
   } catch (err) {
-    console.error(`[Phase 5] Memory update failed: ${(err as Error).message}`);
+    tui.log(`[Phase 5] Memory update failed: ${(err as Error).message}`);
   }
 }
 
@@ -311,6 +322,10 @@ function saveLedgerSnapshot(turnNumber: number): void {
 }
 
 async function main(): Promise<void> {
+  if (process.stdout.isTTY) {
+    TUIDashboard.active = true;
+    process.stdout.write("\x1b[2J\x1b[H"); // Clear screen
+  }
   printStartupBanner();
 
   // Validate environment before doing anything else
@@ -350,17 +365,19 @@ async function main(): Promise<void> {
       }
 
       // Auto-advance to next turn
-      console.log("\n[Turn Advance] Advancing 1 week...");
+      tui.setStatus(`[Turn ${turnNumber}] Advancing turn...`);
+      tui.log(`[Turn Advance] Advancing to next turn (Turn ${turnNumber + 1})...`);
       await clickNextTurn(page);
       turnNumber++;
     }
   } catch (err) {
-    console.error("Fatal loop error:", err);
+    tui.log(`Fatal loop error: ${(err as Error).message}`);
   } finally {
     stopPopupWatcher();
     saveLedgerSnapshot(turnNumber);
     await browser.close();
-    console.log("Browser closed. Goodbye.");
+    tui.setStatus("Stopped");
+    tui.log("Browser closed. Goodbye.");
   }
 }
 

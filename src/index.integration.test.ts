@@ -130,6 +130,8 @@ Remember, it is crucially important that you guide the player
         },
       ],
       next_advisor_query: "Should we invade now?",
+      milestone_checks: [],
+      immediate_risks: [],
     };
 
     // Validate schema

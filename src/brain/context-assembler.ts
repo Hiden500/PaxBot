@@ -45,8 +45,6 @@ export interface BrainContext {
 // War Room paths
 // ---------------------------------------------------------------------------
 
-const WAR_ROOM = path.join(process.cwd(), "war-room");
-
 // ---------------------------------------------------------------------------
 // Context assembly (Phase 2)
 // ---------------------------------------------------------------------------
@@ -146,6 +144,17 @@ For the strategic ledger:
 - Create new operations for multi-turn plans you're initiating this turn.
 - Each operation needs a unique operation_id (e.g. "OP_001"), a goal, the current phase number, and a list of steps with phase/action/status.
 - IMPORTANT: Only return PENDING and FAILED steps in your ledger_updates. Do NOT include steps that are already COMPLETE — they are tracked automatically. This keeps responses concise.
+
+For milestone_checks:
+- Evaluate each Victory Condition and Priority defined in our Campaign. 
+- Return them as a list of checks indicating status (ACHIEVED, NOT_ACHIEVED, FAILED) and cite specific text evidence from the current game state.
+
+For immediate_risks:
+- List 1-3 immediate direct threats or vulnerabilities you observe in the current game state (e.g. enemy troops near borders, economic deficits, high rebellion risk).
+
+HISTORICAL PATTERN MATCHING (Reasoning):
+- In your "reasoning" block, you MUST identify a real-world historical analogy (e.g. Cold War Containment, Fall of Rome, Napoleonic Wars, Cuban Missile Crisis, etc.) that resembles our current situation.
+- Explain what historical lessons from that event apply here, and explain how you are applying those lessons in your actions.
 
 CRITICAL — INVASION MANDATE:
 - Every operation targeting a foreign nation MUST culminate in an invasion/conquest step. No operation should end with "maintain", "consolidate", or "monitor" — those are intermediate steps, not endpoints.

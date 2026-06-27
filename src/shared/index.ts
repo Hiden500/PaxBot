@@ -8,6 +8,7 @@ export {
 } from "./schemas";
 
 export * from "./session";
+export * from "./tui";
 
 export type {
   GameState,

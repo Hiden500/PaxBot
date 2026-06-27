@@ -110,6 +110,14 @@ async function main() {
       console.log(`  [${op.operation_id}] ${op.goal} (phase ${op.current_phase})`);
       op.steps.forEach((s) => console.log(`    Phase ${s.phase}: ${s.action} [${s.status}]`));
     });
+    console.log("\n=== MILESTONES ===");
+    (batch.milestone_checks || []).forEach((m) => {
+      console.log(`  [${m.status}] ${m.milestone} -> Evidence: ${m.evidence}`);
+    });
+    console.log("\n=== IMMEDIATE RISKS ===");
+    (batch.immediate_risks || []).forEach((r) => {
+      console.log(`  - ${r}`);
+    });
     console.log("\n=== NEXT ADVISOR QUERY ===");
     console.log(batch.next_advisor_query);
 
