@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
   "project": {
-    "name": "PaxBot",
+    "name": "Pax-Automata",
     "is_monorepo": false,
-    "total_files": 254,
+    "total_files": 271,
     "entry_points": ["src/index.ts"],
     "tech_stack": [
       {
@@ -162,11 +162,11 @@
       "filePath": ".agents/agents/business/workers/lead-research-assistant.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 134,
+      "lineCount": 130,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 8,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 10,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: lead-research-assistant.md."
     },
     {
@@ -175,11 +175,11 @@
       "filePath": ".agents/agents/database/workers/api-builder.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 196,
+      "lineCount": 192,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 9,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 11,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: api-builder.md."
     },
     {
@@ -188,11 +188,11 @@
       "filePath": ".agents/agents/database/workers/database-architect.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 184,
+      "lineCount": 179,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 10,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 12,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: database-architect.md."
     },
     {
@@ -201,11 +201,11 @@
       "filePath": ".agents/agents/database/workers/supabase-auditor.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 718,
+      "lineCount": 694,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 11,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 13,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: supabase-auditor.md."
     },
     {
@@ -214,11 +214,11 @@
       "filePath": ".agents/agents/database/workers/supabase-fixer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 549,
+      "lineCount": 530,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 12,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 14,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: supabase-fixer.md."
     },
     {
@@ -227,11 +227,11 @@
       "filePath": ".agents/agents/database/workers/supabase-realtime-optimizer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 744,
+      "lineCount": 719,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 13,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 15,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: supabase-realtime-optimizer.md."
     },
     {
@@ -240,11 +240,11 @@
       "filePath": ".agents/agents/database/workers/supabase-storage-optimizer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 817,
+      "lineCount": 791,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 14,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 16,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: supabase-storage-optimizer.md."
     },
     {
@@ -253,11 +253,11 @@
       "filePath": ".agents/agents/development/workers/code-reviewer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 112,
+      "lineCount": 109,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 15,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 17,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: code-reviewer.md."
     },
     {
@@ -266,11 +266,11 @@
       "filePath": ".agents/agents/development/workers/code-structure-refactorer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 526,
+      "lineCount": 518,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 16,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 18,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: code-structure-refactorer.md."
     },
     {
@@ -279,11 +279,11 @@
       "filePath": ".agents/agents/development/workers/cost-calculator-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 565,
+      "lineCount": 555,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 17,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 19,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: cost-calculator-specialist.md."
     },
     {
@@ -292,11 +292,11 @@
       "filePath": ".agents/agents/development/workers/judge-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 2345,
+      "lineCount": 2270,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 18,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 20,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: judge-specialist.md."
     },
     {
@@ -305,11 +305,11 @@
       "filePath": ".agents/agents/development/workers/langgraph-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 935,
+      "lineCount": 904,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 19,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 21,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: langgraph-specialist.md."
     },
     {
@@ -318,11 +318,11 @@
       "filePath": ".agents/agents/development/workers/llm-service-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 722,
+      "lineCount": 708,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 20,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 22,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: llm-service-specialist.md."
     },
     {
@@ -331,11 +331,11 @@
       "filePath": ".agents/agents/development/workers/skill-builder-v2.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 267,
+      "lineCount": 255,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 21,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 23,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: skill-builder-v2.md."
     },
     {
@@ -344,11 +344,11 @@
       "filePath": ".agents/agents/development/workers/stage-pipeline-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 858,
+      "lineCount": 831,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 22,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 24,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: stage-pipeline-specialist.md."
     },
     {
@@ -357,11 +357,11 @@
       "filePath": ".agents/agents/development/workers/typescript-types-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 485,
+      "lineCount": 484,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 23,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 25,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: typescript-types-specialist.md."
     },
     {
@@ -370,11 +370,11 @@
       "filePath": ".agents/agents/development/workers/utility-builder.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 441,
+      "lineCount": 428,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 24,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 26,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: utility-builder.md."
     },
     {
@@ -383,11 +383,11 @@
       "filePath": ".agents/agents/documentation/workers/technical-writer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 155,
+      "lineCount": 151,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 25,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 27,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: technical-writer.md."
     },
     {
@@ -396,11 +396,11 @@
       "filePath": ".agents/agents/frontend/workers/fullstack-nextjs-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 227,
+      "lineCount": 222,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 26,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 28,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: fullstack-nextjs-specialist.md."
     },
     {
@@ -409,11 +409,11 @@
       "filePath": ".agents/agents/frontend/workers/nextjs-ui-designer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 577,
+      "lineCount": 559,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 27,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 29,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: nextjs-ui-designer.md."
     },
     {
@@ -422,11 +422,11 @@
       "filePath": ".agents/agents/frontend/workers/visual-effects-creator.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 156,
+      "lineCount": 152,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 28,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 30,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: visual-effects-creator.md."
     },
     {
@@ -435,11 +435,11 @@
       "filePath": ".agents/agents/health/workers/bug-fixer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 436,
+      "lineCount": 423,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 29,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 31,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: bug-fixer.md."
     },
     {
@@ -448,11 +448,11 @@
       "filePath": ".agents/agents/health/workers/bug-hunter.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 507,
+      "lineCount": 502,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 30,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 32,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: bug-hunter.md."
     },
     {
@@ -461,11 +461,11 @@
       "filePath": ".agents/agents/health/workers/dead-code-hunter.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 424,
+      "lineCount": 412,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 31,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 33,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: dead-code-hunter.md."
     },
     {
@@ -474,11 +474,11 @@
       "filePath": ".agents/agents/health/workers/dead-code-remover.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 476,
+      "lineCount": 465,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 32,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 34,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: dead-code-remover.md."
     },
     {
@@ -487,11 +487,11 @@
       "filePath": ".agents/agents/health/workers/dependency-auditor.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 382,
+      "lineCount": 370,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 33,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 35,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: dependency-auditor.md."
     },
     {
@@ -500,11 +500,11 @@
       "filePath": ".agents/agents/health/workers/dependency-updater.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 309,
+      "lineCount": 294,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 34,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 36,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: dependency-updater.md."
     },
     {
@@ -513,11 +513,11 @@
       "filePath": ".agents/agents/health/workers/reuse-fixer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 418,
+      "lineCount": 408,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 35,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 37,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: reuse-fixer.md."
     },
     {
@@ -526,11 +526,11 @@
       "filePath": ".agents/agents/health/workers/reuse-hunter.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 442,
+      "lineCount": 429,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 36,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 38,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: reuse-hunter.md."
     },
     {
@@ -539,11 +539,11 @@
       "filePath": ".agents/agents/health/workers/security-scanner.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 551,
+      "lineCount": 546,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 37,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 39,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: security-scanner.md."
     },
     {
@@ -552,11 +552,11 @@
       "filePath": ".agents/agents/health/workers/vulnerability-fixer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 415,
+      "lineCount": 403,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 38,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 40,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: vulnerability-fixer.md."
     },
     {
@@ -565,11 +565,11 @@
       "filePath": ".agents/agents/infrastructure/workers/bullmq-worker-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 489,
+      "lineCount": 476,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 39,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 41,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: bullmq-worker-specialist.md."
     },
     {
@@ -578,11 +578,11 @@
       "filePath": ".agents/agents/infrastructure/workers/deployment-engineer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 354,
+      "lineCount": 346,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 40,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 42,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: deployment-engineer.md."
     },
     {
@@ -591,11 +591,11 @@
       "filePath": ".agents/agents/infrastructure/workers/infrastructure-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 156,
+      "lineCount": 152,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 41,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 43,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: infrastructure-specialist.md."
     },
     {
@@ -604,11 +604,11 @@
       "filePath": ".agents/agents/infrastructure/workers/orchestration-logic-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 1057,
+      "lineCount": 1030,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 42,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 44,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: orchestration-logic-specialist.md."
     },
     {
@@ -617,11 +617,11 @@
       "filePath": ".agents/agents/infrastructure/workers/qdrant-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 368,
+      "lineCount": 357,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 43,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 45,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: qdrant-specialist.md."
     },
     {
@@ -630,11 +630,11 @@
       "filePath": ".agents/agents/infrastructure/workers/quality-validator-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 804,
+      "lineCount": 779,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 44,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 46,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: quality-validator-specialist.md."
     },
     {
@@ -643,11 +643,11 @@
       "filePath": ".agents/agents/infrastructure/workers/rag-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 524,
+      "lineCount": 508,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 45,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 47,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: rag-specialist.md."
     },
     {
@@ -656,11 +656,11 @@
       "filePath": ".agents/agents/infrastructure/workers/server-hardening-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 780,
+      "lineCount": 761,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 46,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 48,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: server-hardening-specialist.md."
     },
     {
@@ -669,11 +669,11 @@
       "filePath": ".agents/agents/integrations/workers/lms-integration-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 651,
+      "lineCount": 642,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 47,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 49,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: lms-integration-specialist.md."
     },
     {
@@ -682,11 +682,11 @@
       "filePath": ".agents/agents/meta/workers/meta-agent-v3.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 400,
+      "lineCount": 389,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 48,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 50,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: meta-agent-v3.md."
     },
     {
@@ -695,11 +695,11 @@
       "filePath": ".agents/agents/research/workers/problem-investigator.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 436,
+      "lineCount": 424,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 49,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 51,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: problem-investigator.md."
     },
     {
@@ -708,11 +708,11 @@
       "filePath": ".agents/agents/research/workers/research-specialist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 343,
+      "lineCount": 333,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 50,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 52,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: research-specialist.md."
     },
     {
@@ -721,11 +721,11 @@
       "filePath": ".agents/agents/testing/workers/accessibility-tester.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 639,
+      "lineCount": 617,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 51,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 53,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: accessibility-tester.md."
     },
     {
@@ -734,11 +734,11 @@
       "filePath": ".agents/agents/testing/workers/integration-tester.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 180,
+      "lineCount": 176,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 52,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 54,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: integration-tester.md."
     },
     {
@@ -747,11 +747,11 @@
       "filePath": ".agents/agents/testing/workers/mobile-fixes-implementer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 238,
+      "lineCount": 231,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 53,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 55,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: mobile-fixes-implementer.md."
     },
     {
@@ -760,11 +760,11 @@
       "filePath": ".agents/agents/testing/workers/mobile-responsiveness-tester.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 167,
+      "lineCount": 162,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 54,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 56,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: mobile-responsiveness-tester.md."
     },
     {
@@ -773,11 +773,11 @@
       "filePath": ".agents/agents/testing/workers/performance-optimizer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 249,
+      "lineCount": 242,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 55,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 57,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: performance-optimizer.md."
     },
     {
@@ -786,11 +786,11 @@
       "filePath": ".agents/agents/testing/workers/test-writer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 638,
+      "lineCount": 617,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 56,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 58,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: test-writer.md."
     },
     {
@@ -799,11 +799,11 @@
       "filePath": ".agents/commands/beads-init.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 73,
+      "lineCount": 70,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 57,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 59,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: beads-init.md."
     },
     {
@@ -814,9 +814,9 @@
       "symbolCount": 0,
       "lineCount": 18,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 58,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 60,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: health-bugs.md."
     },
     {
@@ -825,11 +825,11 @@
       "filePath": ".agents/commands/health-cleanup.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 20,
+      "lineCount": 19,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 59,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 61,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: health-cleanup.md."
     },
     {
@@ -838,11 +838,11 @@
       "filePath": ".agents/commands/health-deps.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 20,
+      "lineCount": 19,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 60,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 62,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: health-deps.md."
     },
     {
@@ -851,11 +851,11 @@
       "filePath": ".agents/commands/health-metrics.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 69,
+      "lineCount": 67,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 61,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 63,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: health-metrics.md."
     },
     {
@@ -864,11 +864,11 @@
       "filePath": ".agents/commands/health-reuse.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 20,
+      "lineCount": 19,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 62,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 64,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: health-reuse.md."
     },
     {
@@ -879,9 +879,9 @@
       "symbolCount": 0,
       "lineCount": 20,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 63,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 65,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: health-security.md."
     },
     {
@@ -890,11 +890,11 @@
       "filePath": ".agents/commands/onboard.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 141,
+      "lineCount": 137,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 64,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 66,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: onboard.md."
     },
     {
@@ -903,11 +903,11 @@
       "filePath": ".agents/commands/process-logs.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 18,
+      "lineCount": 17,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 65,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 67,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: process-logs.md."
     },
     {
@@ -916,11 +916,11 @@
       "filePath": ".agents/commands/push.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 37,
+      "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 66,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 68,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: push.md."
     },
     {
@@ -929,11 +929,11 @@
       "filePath": ".agents/commands/speckit.analyze.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 188,
+      "lineCount": 186,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 67,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 69,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.analyze.md."
     },
     {
@@ -942,11 +942,11 @@
       "filePath": ".agents/commands/speckit.checklist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 430,
+      "lineCount": 423,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 68,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 70,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.checklist.md."
     },
     {
@@ -955,11 +955,11 @@
       "filePath": ".agents/commands/speckit.clarify.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 294,
+      "lineCount": 297,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 69,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 71,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.clarify.md."
     },
     {
@@ -968,11 +968,11 @@
       "filePath": ".agents/commands/speckit.constitution.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 133,
+      "lineCount": 131,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 70,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 72,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.constitution.md."
     },
     {
@@ -981,11 +981,11 @@
       "filePath": ".agents/commands/speckit.implement.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 309,
+      "lineCount": 303,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 71,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 73,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.implement.md."
     },
     {
@@ -994,11 +994,11 @@
       "filePath": ".agents/commands/speckit.plan.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 110,
+      "lineCount": 107,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 72,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 74,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.plan.md."
     },
     {
@@ -1007,11 +1007,11 @@
       "filePath": ".agents/commands/speckit.specify.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 329,
+      "lineCount": 319,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 73,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 75,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.specify.md."
     },
     {
@@ -1020,11 +1020,11 @@
       "filePath": ".agents/commands/speckit.tasks.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 200,
+      "lineCount": 196,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 74,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 76,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.tasks.md."
     },
     {
@@ -1033,11 +1033,11 @@
       "filePath": ".agents/commands/speckit.taskstoissues.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 90,
+      "lineCount": 87,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 75,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 77,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.taskstoissues.md."
     },
     {
@@ -1046,11 +1046,11 @@
       "filePath": ".agents/commands/speckit.tobeads.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 86,
+      "lineCount": 83,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 76,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 78,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: speckit.tobeads.md."
     },
     {
@@ -1059,11 +1059,11 @@
       "filePath": ".agents/commands/status.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 23,
+      "lineCount": 22,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 77,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 79,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: status.md."
     },
     {
@@ -1072,11 +1072,11 @@
       "filePath": ".agents/commands/supabase-performance-optimizer.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 62,
+      "lineCount": 69,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 78,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 80,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: supabase-performance-optimizer.md."
     },
     {
@@ -1085,11 +1085,11 @@
       "filePath": ".agents/commands/translate-doc.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 66,
+      "lineCount": 64,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 79,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 81,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: translate-doc.md."
     },
     {
@@ -1098,11 +1098,11 @@
       "filePath": ".agents/commands/ultra-think.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 124,
+      "lineCount": 119,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 80,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 82,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: ultra-think.md."
     },
     {
@@ -1111,11 +1111,11 @@
       "filePath": ".agents/commands/upgrade.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 81,
+      "lineCount": 79,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 81,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 83,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: upgrade.md."
     },
     {
@@ -1124,11 +1124,11 @@
       "filePath": ".agents/commands/work.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 67,
+      "lineCount": 65,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 82,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 84,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: work.md."
     },
     {
@@ -1137,11 +1137,11 @@
       "filePath": ".agents/commands/worktree.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 98,
+      "lineCount": 95,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 83,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 85,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: worktree.md."
     },
     {
@@ -1152,9 +1152,9 @@
       "symbolCount": 0,
       "lineCount": 5,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 84,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 86,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1163,11 +1163,11 @@
       "filePath": ".agents/skills/algorithmic-art/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 504,
-      "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 85,
-      "tags": [],
+      "lineCount": 496,
+      "complexity": "moderate",
+      "pagerank": 0.002866,
+      "communityId": 87,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1176,12 +1176,13 @@
       "filePath": ".agents/skills/algorithmic-art/templates/generator_template.js",
       "language": "javascript",
       "symbolCount": 19,
-      "lineCount": 201,
+      "lineCount": 191,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 86,
+      "pagerank": 0.002866,
+      "communityId": 88,
       "tags": [],
-      "summary": "Config module generator_template defining initializeSeed, setup, draw."
+      "summary": "Config module generator_template defining initializeSeed, setup, draw.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/artifacts-builder/SKILL.md",
@@ -1189,11 +1190,11 @@
       "filePath": ".agents/skills/artifacts-builder/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 78,
+      "lineCount": 77,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 87,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 89,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1204,10 +1205,11 @@
       "symbolCount": 0,
       "lineCount": 39,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 88,
+      "pagerank": 0.002866,
+      "communityId": 90,
       "tags": [],
-      "summary": "Config module bundle-artifact."
+      "summary": "Config module bundle-artifact.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/artifacts-builder/scripts/init-artifact.sh",
@@ -1217,10 +1219,11 @@
       "symbolCount": 0,
       "lineCount": 256,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 89,
+      "pagerank": 0.002866,
+      "communityId": 91,
       "tags": [],
-      "summary": "Config module init-artifact."
+      "summary": "Config module init-artifact.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/beads/SKILL.md",
@@ -1228,11 +1231,11 @@
       "filePath": ".agents/skills/beads/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 62,
+      "lineCount": 65,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 90,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 92,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1241,11 +1244,11 @@
       "filePath": ".agents/skills/beads/resources/COMMANDS_QUICKREF.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 58,
+      "lineCount": 56,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 91,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 93,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: COMMANDS_QUICKREF.md."
     },
     {
@@ -1254,11 +1257,11 @@
       "filePath": ".agents/skills/beads/resources/DECISION_MATRIX.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 50,
+      "lineCount": 70,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 92,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 94,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: DECISION_MATRIX.md."
     },
     {
@@ -1267,11 +1270,11 @@
       "filePath": ".agents/skills/beads/resources/SPECKIT_BRIDGE.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 57,
+      "lineCount": 56,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 93,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 95,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SPECKIT_BRIDGE.md."
     },
     {
@@ -1280,11 +1283,11 @@
       "filePath": ".agents/skills/beads/resources/WORKFLOWS.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 63,
+      "lineCount": 60,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 94,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 96,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: WORKFLOWS.md."
     },
     {
@@ -1293,11 +1296,11 @@
       "filePath": ".agents/skills/calculate-priority-score/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 109,
+      "lineCount": 103,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 95,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 97,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1306,11 +1309,11 @@
       "filePath": ".agents/skills/calculate-priority-score/scoring-matrix.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 52,
+      "lineCount": 50,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 96,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 98,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: scoring-matrix.json."
     },
     {
@@ -1319,11 +1322,11 @@
       "filePath": ".agents/skills/canvas-design/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 301,
+      "lineCount": 298,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 97,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 99,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1332,11 +1335,11 @@
       "filePath": ".agents/skills/changelog-generator/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 80,
+      "lineCount": 77,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 98,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 100,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1345,11 +1348,11 @@
       "filePath": ".agents/skills/cleanup-health-inline/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 198,
+      "lineCount": 197,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 99,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 101,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1358,11 +1361,11 @@
       "filePath": ".agents/skills/code-review/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 206,
+      "lineCount": 201,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 100,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 102,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1371,11 +1374,11 @@
       "filePath": ".agents/skills/content-research-writer/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 369,
+      "lineCount": 352,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 101,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 103,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1384,11 +1387,11 @@
       "filePath": ".agents/skills/deps-health-inline/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 210,
+      "lineCount": 209,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 102,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 104,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1397,11 +1400,11 @@
       "filePath": ".agents/skills/extract-version/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 108,
+      "lineCount": 102,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 103,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 105,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1410,11 +1413,11 @@
       "filePath": ".agents/skills/format-commit-message/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 116,
+      "lineCount": 111,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 104,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 106,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1423,11 +1426,11 @@
       "filePath": ".agents/skills/format-commit-message/template.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 37,
+      "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 105,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 107,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: template.md."
     },
     {
@@ -1436,11 +1439,11 @@
       "filePath": ".agents/skills/format-markdown-table/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 106,
+      "lineCount": 101,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 106,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 108,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1449,11 +1452,11 @@
       "filePath": ".agents/skills/format-markdown-table/examples.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 53,
+      "lineCount": 48,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 107,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 109,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: examples.md."
     },
     {
@@ -1462,11 +1465,11 @@
       "filePath": ".agents/skills/format-todo-list/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 119,
+      "lineCount": 114,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 108,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 110,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1475,11 +1478,11 @@
       "filePath": ".agents/skills/format-todo-list/template.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 22,
+      "lineCount": 21,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 109,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 111,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: template.json."
     },
     {
@@ -1488,11 +1491,11 @@
       "filePath": ".agents/skills/frontend-aesthetics/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 81,
+      "lineCount": 80,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 110,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 112,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1501,11 +1504,11 @@
       "filePath": ".agents/skills/generate-changelog/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 128,
+      "lineCount": 123,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 111,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 113,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1514,11 +1517,11 @@
       "filePath": ".agents/skills/generate-changelog/commit-mapping.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 24,
+      "lineCount": 22,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 112,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 114,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: commit-mapping.json."
     },
     {
@@ -1527,11 +1530,11 @@
       "filePath": ".agents/skills/generate-report-header/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 124,
+      "lineCount": 119,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 113,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 115,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1540,11 +1543,11 @@
       "filePath": ".agents/skills/generate-report-header/template.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 35,
+      "lineCount": 33,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 114,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 116,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: template.md."
     },
     {
@@ -1553,11 +1556,11 @@
       "filePath": ".agents/skills/git-commit-helper/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 114,
+      "lineCount": 109,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 115,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 117,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1566,11 +1569,11 @@
       "filePath": ".agents/skills/health-bugs/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 274,
+      "lineCount": 264,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 116,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 118,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1579,11 +1582,11 @@
       "filePath": ".agents/skills/health-bugs/references/worker-prompts.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 98,
+      "lineCount": 93,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 117,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 119,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: worker-prompts.md."
     },
     {
@@ -1592,11 +1595,11 @@
       "filePath": ".agents/skills/lead-research-assistant/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 169,
+      "lineCount": 163,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 118,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 120,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1605,11 +1608,11 @@
       "filePath": ".agents/skills/parse-error-logs/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 155,
+      "lineCount": 148,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 119,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 121,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1618,11 +1621,11 @@
       "filePath": ".agents/skills/parse-error-logs/patterns.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 19,
+      "lineCount": 18,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 120,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 122,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: patterns.json."
     },
     {
@@ -1631,11 +1634,11 @@
       "filePath": ".agents/skills/parse-git-status/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 84,
+      "lineCount": 80,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 121,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 123,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1644,11 +1647,11 @@
       "filePath": ".agents/skills/parse-package-json/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 84,
+      "lineCount": 81,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 122,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 124,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1657,11 +1660,11 @@
       "filePath": ".agents/skills/parse-package-json/schema.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 23,
+      "lineCount": 22,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 123,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 125,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -1670,11 +1673,11 @@
       "filePath": ".agents/skills/process-issues/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 345,
+      "lineCount": 332,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 124,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 126,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1683,11 +1686,11 @@
       "filePath": ".agents/skills/process-logs/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 482,
+      "lineCount": 469,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 125,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 127,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1696,11 +1699,11 @@
       "filePath": ".agents/skills/render-template/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 147,
+      "lineCount": 142,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 126,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 128,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1711,9 +1714,9 @@
       "symbolCount": 0,
       "lineCount": 220,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 127,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 129,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1722,11 +1725,11 @@
       "filePath": ".agents/skills/rollback-changes/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 78,
+      "lineCount": 76,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 128,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 130,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1735,11 +1738,11 @@
       "filePath": ".agents/skills/rollback-changes/changes-log-schema.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 80,
+      "lineCount": 78,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 129,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 131,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: changes-log-schema.json."
     },
     {
@@ -1750,9 +1753,9 @@
       "symbolCount": 0,
       "lineCount": 60,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 130,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 132,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1761,11 +1764,11 @@
       "filePath": ".agents/skills/run-quality-gate/gate-mappings.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 63,
+      "lineCount": 56,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 131,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 133,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: gate-mappings.json."
     },
     {
@@ -1776,9 +1779,9 @@
       "symbolCount": 0,
       "lineCount": 207,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 132,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 134,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1787,11 +1790,11 @@
       "filePath": ".agents/skills/senior-architect/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 121,
+      "lineCount": 116,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 133,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 135,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1800,11 +1803,11 @@
       "filePath": ".agents/skills/senior-architect/references/architecture_patterns.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 468,
+      "lineCount": 450,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 134,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 136,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: architecture_patterns.md."
     },
     {
@@ -1813,11 +1816,11 @@
       "filePath": ".agents/skills/senior-architect/references/system_design_workflows.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 435,
+      "lineCount": 415,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 135,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 137,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: system_design_workflows.md."
     },
     {
@@ -1826,11 +1829,11 @@
       "filePath": ".agents/skills/senior-architect/references/tech_decision_guide.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 449,
-      "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 136,
-      "tags": [],
+      "lineCount": 507,
+      "complexity": "complex",
+      "pagerank": 0.002866,
+      "communityId": 138,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: tech_decision_guide.md."
     },
     {
@@ -1841,10 +1844,11 @@
       "symbolCount": 7,
       "lineCount": 82,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 137,
+      "pagerank": 0.002866,
+      "communityId": 139,
       "tags": [],
-      "summary": "Config module architecture_diagram_generator defining ArchitectureDiagramGenerator, __init__, run."
+      "summary": "Config module architecture_diagram_generator defining ArchitectureDiagramGenerator, __init__, run.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-architect/scripts/dependency_analyzer.py",
@@ -1854,10 +1858,11 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 138,
+      "pagerank": 0.002866,
+      "communityId": 140,
       "tags": [],
-      "summary": "Config module dependency_analyzer defining DependencyAnalyzer, __init__, run."
+      "summary": "Config module dependency_analyzer defining DependencyAnalyzer, __init__, run.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-architect/scripts/project_architect.py",
@@ -1867,10 +1872,11 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 139,
+      "pagerank": 0.002866,
+      "communityId": 141,
       "tags": [],
-      "summary": "Config module project_architect defining ProjectArchitect, __init__, run."
+      "summary": "Config module project_architect defining ProjectArchitect, __init__, run.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-devops/SKILL.md",
@@ -1878,11 +1884,11 @@
       "filePath": ".agents/skills/senior-devops/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 117,
+      "lineCount": 112,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 140,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 142,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1891,11 +1897,11 @@
       "filePath": ".agents/skills/senior-devops/references/cicd_pipeline_guide.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 42,
+      "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 141,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 143,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: cicd_pipeline_guide.md."
     },
     {
@@ -1904,11 +1910,11 @@
       "filePath": ".agents/skills/senior-devops/references/deployment_strategies.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 42,
+      "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 142,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 144,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: deployment_strategies.md."
     },
     {
@@ -1917,11 +1923,11 @@
       "filePath": ".agents/skills/senior-devops/references/infrastructure_as_code.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 42,
+      "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 143,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 145,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: infrastructure_as_code.md."
     },
     {
@@ -1932,10 +1938,11 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 144,
+      "pagerank": 0.002866,
+      "communityId": 146,
       "tags": [],
-      "summary": "Config module deployment_manager defining DeploymentManager, __init__, run."
+      "summary": "Config module deployment_manager defining DeploymentManager, __init__, run.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-devops/scripts/pipeline_generator.py",
@@ -1945,10 +1952,11 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 145,
+      "pagerank": 0.002866,
+      "communityId": 147,
       "tags": [],
-      "summary": "Config module pipeline_generator defining PipelineGenerator, __init__, run."
+      "summary": "Config module pipeline_generator defining PipelineGenerator, __init__, run.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-devops/scripts/terraform_scaffolder.py",
@@ -1958,10 +1966,11 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 146,
+      "pagerank": 0.002866,
+      "communityId": 148,
       "tags": [],
-      "summary": "Config module terraform_scaffolder defining TerraformScaffolder, __init__, run."
+      "summary": "Config module terraform_scaffolder defining TerraformScaffolder, __init__, run.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-prompt-engineer/SKILL.md",
@@ -1969,11 +1978,11 @@
       "filePath": ".agents/skills/senior-prompt-engineer/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 144,
+      "lineCount": 138,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 147,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 149,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1982,11 +1991,11 @@
       "filePath": ".agents/skills/senior-prompt-engineer/references/agentic_system_design.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 37,
+      "lineCount": 35,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 148,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 150,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: agentic_system_design.md."
     },
     {
@@ -1995,11 +2004,11 @@
       "filePath": ".agents/skills/senior-prompt-engineer/references/llm_evaluation_frameworks.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 37,
+      "lineCount": 35,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 149,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 151,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: llm_evaluation_frameworks.md."
     },
     {
@@ -2008,11 +2017,11 @@
       "filePath": ".agents/skills/senior-prompt-engineer/references/prompt_engineering_patterns.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 37,
+      "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 150,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 152,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: prompt_engineering_patterns.md."
     },
     {
@@ -2023,10 +2032,11 @@
       "symbolCount": 7,
       "lineCount": 72,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 151,
+      "pagerank": 0.002866,
+      "communityId": 153,
       "tags": [],
-      "summary": "Config module agent_orchestrator defining AgentOrchestrator, __init__, validate_config."
+      "summary": "Config module agent_orchestrator defining AgentOrchestrator, __init__, validate_config.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-prompt-engineer/scripts/prompt_optimizer.py",
@@ -2036,10 +2046,11 @@
       "symbolCount": 7,
       "lineCount": 71,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 152,
+      "pagerank": 0.002866,
+      "communityId": 154,
       "tags": [],
-      "summary": "Config module prompt_optimizer defining PromptOptimizer, __init__, validate_config."
+      "summary": "Config module prompt_optimizer defining PromptOptimizer, __init__, validate_config.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/senior-prompt-engineer/scripts/rag_evaluator.py",
@@ -2049,10 +2060,11 @@
       "symbolCount": 7,
       "lineCount": 71,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 153,
+      "pagerank": 0.002866,
+      "communityId": 155,
       "tags": [],
-      "summary": "Config module rag_evaluator defining RagEvaluator, __init__, validate_config."
+      "summary": "Config module rag_evaluator defining RagEvaluator, __init__, validate_config.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/setup-knip/SKILL.md",
@@ -2060,11 +2072,11 @@
       "filePath": ".agents/skills/setup-knip/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 234,
+      "lineCount": 232,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 154,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 156,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2073,11 +2085,11 @@
       "filePath": ".agents/skills/systematic-debugging/CREATION-LOG.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 109,
+      "lineCount": 107,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 155,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 157,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: CREATION-LOG.md."
     },
     {
@@ -2086,11 +2098,11 @@
       "filePath": ".agents/skills/systematic-debugging/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 254,
+      "lineCount": 262,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 156,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 158,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2099,12 +2111,13 @@
       "filePath": ".agents/skills/systematic-debugging/condition-based-waiting-example.ts",
       "language": "typescript",
       "symbolCount": 3,
-      "lineCount": 130,
+      "lineCount": 126,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 6,
+      "pagerank": 0.002866,
+      "communityId": 7,
       "tags": [],
-      "summary": "Config module condition-based-waiting-example defining waitForEvent, waitForEventCount, waitForEventMatch."
+      "summary": "Config module condition-based-waiting-example defining waitForEvent, waitForEventCount, waitForEventMatch.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/systematic-debugging/condition-based-waiting.md",
@@ -2112,11 +2125,11 @@
       "filePath": ".agents/skills/systematic-debugging/condition-based-waiting.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 90,
+      "lineCount": 92,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 157,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 159,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: condition-based-waiting.md."
     },
     {
@@ -2125,11 +2138,11 @@
       "filePath": ".agents/skills/systematic-debugging/defense-in-depth.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 94,
+      "lineCount": 91,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 158,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 160,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: defense-in-depth.md."
     },
     {
@@ -2140,10 +2153,11 @@
       "symbolCount": 0,
       "lineCount": 39,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 159,
+      "pagerank": 0.002866,
+      "communityId": 161,
       "tags": [],
-      "summary": "Config module find-polluter."
+      "summary": "Config module find-polluter.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/systematic-debugging/root-cause-tracing.md",
@@ -2151,11 +2165,11 @@
       "filePath": ".agents/skills/systematic-debugging/root-cause-tracing.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 137,
+      "lineCount": 133,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 160,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 162,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: root-cause-tracing.md."
     },
     {
@@ -2166,9 +2180,9 @@
       "symbolCount": 0,
       "lineCount": 16,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 161,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 163,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: test-academic.md."
     },
     {
@@ -2177,11 +2191,11 @@
       "filePath": ".agents/skills/systematic-debugging/test-pressure-1.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 48,
+      "lineCount": 47,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 162,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 164,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: test-pressure-1.md."
     },
     {
@@ -2190,11 +2204,11 @@
       "filePath": ".agents/skills/systematic-debugging/test-pressure-2.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 58,
+      "lineCount": 57,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 163,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 165,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: test-pressure-2.md."
     },
     {
@@ -2203,11 +2217,11 @@
       "filePath": ".agents/skills/systematic-debugging/test-pressure-3.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 69,
+      "lineCount": 67,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 164,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 166,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: test-pressure-3.md."
     },
     {
@@ -2216,11 +2230,11 @@
       "filePath": ".agents/skills/theme-factory/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 79,
+      "lineCount": 78,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 165,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 167,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2229,11 +2243,11 @@
       "filePath": ".agents/skills/theme-factory/themes/arctic-frost.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 14,
+      "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 166,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 168,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: arctic-frost.md."
     },
     {
@@ -2242,11 +2256,11 @@
       "filePath": ".agents/skills/theme-factory/themes/botanical-garden.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 13,
+      "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 167,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 169,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: botanical-garden.md."
     },
     {
@@ -2257,9 +2271,9 @@
       "symbolCount": 0,
       "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 168,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 170,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: desert-rose.md."
     },
     {
@@ -2268,11 +2282,11 @@
       "filePath": ".agents/skills/theme-factory/themes/forest-canopy.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 13,
+      "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 169,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 171,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: forest-canopy.md."
     },
     {
@@ -2283,9 +2297,9 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 170,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 172,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: golden-hour.md."
     },
     {
@@ -2294,11 +2308,11 @@
       "filePath": ".agents/skills/theme-factory/themes/midnight-galaxy.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 13,
+      "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 171,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 173,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: midnight-galaxy.md."
     },
     {
@@ -2307,11 +2321,11 @@
       "filePath": ".agents/skills/theme-factory/themes/modern-minimalist.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 14,
+      "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 172,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 174,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: modern-minimalist.md."
     },
     {
@@ -2320,11 +2334,11 @@
       "filePath": ".agents/skills/theme-factory/themes/ocean-depths.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 14,
+      "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 173,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 175,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: ocean-depths.md."
     },
     {
@@ -2333,11 +2347,11 @@
       "filePath": ".agents/skills/theme-factory/themes/sunset-boulevard.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 14,
+      "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 174,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 176,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: sunset-boulevard.md."
     },
     {
@@ -2346,11 +2360,11 @@
       "filePath": ".agents/skills/theme-factory/themes/tech-innovation.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 14,
+      "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 175,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 177,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: tech-innovation.md."
     },
     {
@@ -2359,11 +2373,11 @@
       "filePath": ".agents/skills/ui-design-system/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 27,
+      "lineCount": 26,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 176,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 178,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2374,10 +2388,11 @@
       "symbolCount": 21,
       "lineCount": 455,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 177,
+      "pagerank": 0.002866,
+      "communityId": 179,
       "tags": [],
-      "summary": "Config module design_token_generator defining DesignTokenGenerator, __init__, generate_complete_system."
+      "summary": "Config module design_token_generator defining DesignTokenGenerator, __init__, generate_complete_system.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/ux-researcher-designer/SKILL.md",
@@ -2385,11 +2400,11 @@
       "filePath": ".agents/skills/ux-researcher-designer/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 24,
+      "lineCount": 23,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 178,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 180,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2400,10 +2415,11 @@
       "symbolCount": 19,
       "lineCount": 533,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 179,
+      "pagerank": 0.002866,
+      "communityId": 181,
       "tags": [],
-      "summary": "Config module persona_generator defining PersonaGenerator, __init__, generate_persona_from_data."
+      "summary": "Config module persona_generator defining PersonaGenerator, __init__, generate_persona_from_data.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/validate-plan-file/SKILL.md",
@@ -2411,11 +2427,11 @@
       "filePath": ".agents/skills/validate-plan-file/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 245,
+      "lineCount": 237,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 180,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 182,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2424,11 +2440,11 @@
       "filePath": ".agents/skills/validate-plan-file/schema.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 18,
+      "lineCount": 17,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 181,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 183,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -2437,11 +2453,11 @@
       "filePath": ".agents/skills/validate-report-file/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 129,
+      "lineCount": 123,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 182,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 184,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2450,11 +2466,11 @@
       "filePath": ".agents/skills/validate-report-file/schema.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 41,
+      "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 183,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 185,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -2463,11 +2479,11 @@
       "filePath": ".agents/skills/webapp-testing/SKILL.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 100,
-      "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 184,
-      "tags": [],
+      "lineCount": 97,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 186,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2478,10 +2494,11 @@
       "symbolCount": 3,
       "lineCount": 26,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 185,
+      "pagerank": 0.002866,
+      "communityId": 187,
       "tags": [],
-      "summary": "Config module console_logging defining handle_console_message."
+      "summary": "Config module console_logging defining handle_console_message.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/webapp-testing/examples/element_discovery.py",
@@ -2491,10 +2508,11 @@
       "symbolCount": 0,
       "lineCount": 37,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 186,
+      "pagerank": 0.002866,
+      "communityId": 188,
       "tags": [],
-      "summary": "Config module element_discovery."
+      "summary": "Config module element_discovery.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/webapp-testing/examples/static_html_automation.py",
@@ -2504,10 +2522,11 @@
       "symbolCount": 2,
       "lineCount": 24,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 187,
+      "pagerank": 0.002866,
+      "communityId": 189,
       "tags": [],
-      "summary": "Config module static_html_automation (2 symbols)."
+      "summary": "Config module static_html_automation (2 symbols).",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.agents/skills/webapp-testing/scripts/with_server.py",
@@ -2517,10 +2536,11 @@
       "symbolCount": 2,
       "lineCount": 94,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 188,
+      "pagerank": 0.002866,
+      "communityId": 190,
       "tags": [],
-      "summary": "Config module with_server defining is_server_ready, main."
+      "summary": "Config module with_server defining is_server_ready, main.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:.claude/CLAUDE.md",
@@ -2528,10 +2548,10 @@
       "filePath": ".claude/CLAUDE.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 196,
+      "lineCount": 305,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 189,
+      "pagerank": 0.002866,
+      "communityId": 191,
       "tags": [],
       "summary": "Repository instructions and context for AI coding agents."
     },
@@ -2543,8 +2563,8 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 190,
+      "pagerank": 0.002866,
+      "communityId": 192,
       "tags": ["config"],
       "summary": "ESLint linting rules."
     },
@@ -2554,11 +2574,11 @@
       "filePath": ".mcp.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 7,
+      "lineCount": 6,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 191,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 193,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: .mcp.json."
     },
     {
@@ -2569,9 +2589,9 @@
       "symbolCount": 0,
       "lineCount": 1,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 192,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 194,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: config.yaml."
     },
     {
@@ -2580,11 +2600,11 @@
       "filePath": ".repowise/knowledge-graph.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 8311,
+      "lineCount": 8134,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 193,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 195,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: knowledge-graph.json."
     },
     {
@@ -2593,11 +2613,11 @@
       "filePath": ".repowise/mcp.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 7,
+      "lineCount": 6,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 194,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 196,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: mcp.json."
     },
     {
@@ -2606,11 +2626,11 @@
       "filePath": ".repowise/state.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 26,
+      "lineCount": 25,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 195,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 197,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: state.json."
     },
     {
@@ -2619,11 +2639,11 @@
       "filePath": "Agents.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 507,
+      "lineCount": 508,
       "complexity": "complex",
-      "pagerank": 0.003096,
-      "communityId": 196,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 198,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: Agents.md."
     },
     {
@@ -2632,10 +2652,10 @@
       "filePath": "README.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 241,
+      "lineCount": 244,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 197,
+      "pagerank": 0.002866,
+      "communityId": 199,
       "tags": [],
       "summary": "Project overview and entry point for new readers."
     },
@@ -2647,10 +2667,23 @@
       "symbolCount": 0,
       "lineCount": 132,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 198,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 200,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: PRD.md."
+    },
+    {
+      "id": "file:docs/api.md",
+      "type": "document",
+      "filePath": "docs/api.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 70,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 201,
+      "tags": ["low_signal_summary"],
+      "summary": "Documentation: api.md."
     },
     {
       "id": "file:docs/architecture.md",
@@ -2658,11 +2691,11 @@
       "filePath": "docs/architecture.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 445,
+      "lineCount": 447,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 199,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 202,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: architecture.md."
     },
     {
@@ -2671,12 +2704,51 @@
       "filePath": "docs/changelog.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 162,
+      "lineCount": 188,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 200,
+      "pagerank": 0.002866,
+      "communityId": 203,
       "tags": [],
       "summary": "Release history and notable changes."
+    },
+    {
+      "id": "file:docs/database.md",
+      "type": "document",
+      "filePath": "docs/database.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 47,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 204,
+      "tags": ["low_signal_summary"],
+      "summary": "Documentation: database.md."
+    },
+    {
+      "id": "file:docs/decisions.md",
+      "type": "document",
+      "filePath": "docs/decisions.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 66,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 205,
+      "tags": ["low_signal_summary"],
+      "summary": "Documentation: decisions.md."
+    },
+    {
+      "id": "file:docs/deployment.md",
+      "type": "document",
+      "filePath": "docs/deployment.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 41,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 206,
+      "tags": ["low_signal_summary"],
+      "summary": "Documentation: deployment.md."
     },
     {
       "id": "file:docs/pax-historia-research.md",
@@ -2684,11 +2756,11 @@
       "filePath": "docs/pax-historia-research.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 244,
+      "lineCount": 266,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 201,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 207,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: pax-historia-research.md."
     },
     {
@@ -2697,12 +2769,38 @@
       "filePath": "docs/roadmap.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 312,
+      "lineCount": 335,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 202,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 208,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: roadmap.md."
+    },
+    {
+      "id": "file:docs/security.md",
+      "type": "document",
+      "filePath": "docs/security.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 37,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 209,
+      "tags": [],
+      "summary": "Security policy and vulnerability-reporting process."
+    },
+    {
+      "id": "file:docs/testing.md",
+      "type": "document",
+      "filePath": "docs/testing.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 31,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 210,
+      "tags": ["low_signal_summary"],
+      "summary": "Documentation: testing.md."
     },
     {
       "id": "file:docs/todo.md",
@@ -2710,11 +2808,11 @@
       "filePath": "docs/todo.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 120,
+      "lineCount": 136,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 203,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 211,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: todo.md."
     },
     {
@@ -2723,10 +2821,10 @@
       "filePath": "package.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 41,
+      "lineCount": 43,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 205,
+      "pagerank": 0.002866,
+      "communityId": 213,
       "tags": ["config"],
       "summary": "Node package manifest: dependencies, scripts, and metadata."
     },
@@ -2738,7 +2836,7 @@
       "symbolCount": 2,
       "lineCount": 58,
       "complexity": "simple",
-      "pagerank": 0.003096,
+      "pagerank": 0.002866,
       "communityId": 0,
       "tags": [],
       "summary": "Docs & Tooling module capture-auth-state defining main.",
@@ -2752,8 +2850,8 @@
       "symbolCount": 0,
       "lineCount": 57,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 206,
+      "pagerank": 0.002866,
+      "communityId": 214,
       "tags": [],
       "summary": "Docs & Tooling module combine-videos.",
       "primaryOwner": "Phillip Yan"
@@ -2766,11 +2864,39 @@
       "symbolCount": 2,
       "lineCount": 39,
       "complexity": "simple",
-      "pagerank": 0.003096,
+      "pagerank": 0.002866,
       "communityId": 0,
       "tags": [],
       "summary": "Docs & Tooling module demo-auth-state defining main.",
       "primaryOwner": "Phillip Yan"
+    },
+    {
+      "id": "file:scripts/init-campaign.ts",
+      "type": "file",
+      "filePath": "scripts/init-campaign.ts",
+      "language": "typescript",
+      "symbolCount": 1,
+      "lineCount": 77,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 3,
+      "tags": [],
+      "summary": "Docs & Tooling module init-campaign defining main.",
+      "primaryOwner": "hiden500"
+    },
+    {
+      "id": "file:scripts/manual-llm-test.ts",
+      "type": "file",
+      "filePath": "scripts/manual-llm-test.ts",
+      "language": "typescript",
+      "symbolCount": 1,
+      "lineCount": 109,
+      "complexity": "moderate",
+      "pagerank": 0.002866,
+      "communityId": 0,
+      "tags": [],
+      "summary": "Docs & Tooling module manual-llm-test defining main.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:scripts/scaffold.sh",
@@ -2780,11 +2906,25 @@
       "symbolCount": 0,
       "lineCount": 53,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 207,
+      "pagerank": 0.002866,
+      "communityId": 215,
       "tags": [],
       "summary": "Docs & Tooling module scaffold.",
       "primaryOwner": "Phillip Yan"
+    },
+    {
+      "id": "file:scripts/switch-campaign.ts",
+      "type": "file",
+      "filePath": "scripts/switch-campaign.ts",
+      "language": "typescript",
+      "symbolCount": 1,
+      "lineCount": 39,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 0,
+      "tags": [],
+      "summary": "Docs & Tooling module switch-campaign defining main.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:scripts/test-llm-guardrails.ts",
@@ -2792,10 +2932,10 @@
       "filePath": "scripts/test-llm-guardrails.ts",
       "language": "typescript",
       "symbolCount": 15,
-      "lineCount": 311,
+      "lineCount": 299,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 4,
+      "pagerank": 0.002866,
+      "communityId": 5,
       "tags": [],
       "summary": "Docs & Tooling module test-llm-guardrails defining ModelConfig, TestPrompt, TestResult.",
       "primaryOwner": "Phillip Yan"
@@ -2808,8 +2948,8 @@
       "symbolCount": 8,
       "lineCount": 290,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
       "summary": "Test module action-generator.test defining OperationStep, Operation, StrategicLedger.",
       "primaryOwner": "hiden500"
@@ -2819,13 +2959,13 @@
       "type": "file",
       "filePath": "src/brain/action-generator.ts",
       "language": "typescript",
-      "symbolCount": 7,
-      "lineCount": 202,
+      "symbolCount": 2,
+      "lineCount": 109,
       "complexity": "moderate",
-      "pagerank": 0.003672,
-      "communityId": 0,
+      "pagerank": 0.003244,
+      "communityId": 2,
       "tags": [],
-      "summary": "Application module action-generator defining mergeLedger, pruneLedger, writeLedger.",
+      "summary": "Application module action-generator defining generateActions, main.",
       "primaryOwner": "Phillip Yan"
     },
     {
@@ -2834,10 +2974,10 @@
       "filePath": "src/brain/context-assembler.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 251,
+      "lineCount": 254,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
       "summary": "Test module context-assembler.test.",
       "primaryOwner": "hiden500"
@@ -2848,10 +2988,10 @@
       "filePath": "src/brain/context-assembler.ts",
       "language": "typescript",
       "symbolCount": 4,
-      "lineCount": 229,
+      "lineCount": 225,
       "complexity": "moderate",
-      "pagerank": 0.005508,
-      "communityId": 0,
+      "pagerank": 0.005053,
+      "communityId": 2,
       "tags": [],
       "summary": "Application module context-assembler defining BrainContext, readJson, assembleContext.",
       "primaryOwner": "Phillip Yan"
@@ -2862,13 +3002,27 @@
       "filePath": "src/brain/index.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 11,
+      "lineCount": 14,
       "complexity": "simple",
-      "pagerank": 0.003389,
+      "pagerank": 0.00311,
       "communityId": 2,
       "tags": ["barrel"],
       "summary": "Re-export barrel for brain/.",
-      "primaryOwner": "Phillip Yan"
+      "primaryOwner": "hiden500"
+    },
+    {
+      "id": "file:src/brain/ledger-manager.ts",
+      "type": "file",
+      "filePath": "src/brain/ledger-manager.ts",
+      "language": "typescript",
+      "symbolCount": 3,
+      "lineCount": 64,
+      "complexity": "simple",
+      "pagerank": 0.003588,
+      "communityId": 2,
+      "tags": [],
+      "summary": "Application module ledger-manager defining mergeLedger, pruneLedger, writeLedger.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/brain/llm-client.ts",
@@ -2876,13 +3030,13 @@
       "filePath": "src/brain/llm-client.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 72,
+      "lineCount": 75,
       "complexity": "moderate",
-      "pagerank": 0.004961,
-      "communityId": 2,
+      "pagerank": 0.004925,
+      "communityId": 4,
       "tags": [],
-      "summary": "Application module llm-client defining getProvider, buildConfig, callGemini.",
-      "primaryOwner": "Phillip Yan"
+      "summary": "Application module llm-client defining getProvider, buildConfig, callLLM.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/brain/providers/gemini-provider.ts",
@@ -2890,12 +3044,13 @@
       "filePath": "src/brain/providers/gemini-provider.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 98,
+      "lineCount": 97,
       "complexity": "moderate",
-      "pagerank": 0.004264,
-      "communityId": 2,
+      "pagerank": 0.003982,
+      "communityId": 4,
       "tags": [],
-      "summary": "Application module gemini-provider defining GeminiProvider, constructor, generate."
+      "summary": "Application module gemini-provider defining GeminiProvider, constructor, generate.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/brain/providers/groq-provider.ts",
@@ -2903,12 +3058,13 @@
       "filePath": "src/brain/providers/groq-provider.ts",
       "language": "typescript",
       "symbolCount": 4,
-      "lineCount": 55,
+      "lineCount": 54,
       "complexity": "moderate",
-      "pagerank": 0.004264,
-      "communityId": 2,
+      "pagerank": 0.003982,
+      "communityId": 4,
       "tags": [],
-      "summary": "Application module groq-provider defining GroqProvider, constructor, generate."
+      "summary": "Application module groq-provider defining GroqProvider, constructor, generate.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/brain/providers/openai-provider.ts",
@@ -2916,12 +3072,13 @@
       "filePath": "src/brain/providers/openai-provider.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 124,
+      "lineCount": 122,
       "complexity": "moderate",
-      "pagerank": 0.004264,
-      "communityId": 2,
+      "pagerank": 0.003982,
+      "communityId": 4,
       "tags": [],
-      "summary": "Application module openai-provider defining OpenAIProvider, constructor, generate."
+      "summary": "Application module openai-provider defining OpenAIProvider, constructor, generate.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/brain/providers/provider.ts",
@@ -2929,12 +3086,13 @@
       "filePath": "src/brain/providers/provider.ts",
       "language": "typescript",
       "symbolCount": 3,
-      "lineCount": 31,
+      "lineCount": 30,
       "complexity": "simple",
-      "pagerank": 0.013899,
-      "communityId": 2,
+      "pagerank": 0.012821,
+      "communityId": 4,
       "tags": [],
-      "summary": "Application module provider defining ResponseSchema, ProviderConfig, LLMProvider."
+      "summary": "Application module provider defining ResponseSchema, ProviderConfig, LLMProvider.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/brain/providers/registry.ts",
@@ -2942,12 +3100,27 @@
       "filePath": "src/brain/providers/registry.ts",
       "language": "typescript",
       "symbolCount": 6,
-      "lineCount": 106,
+      "lineCount": 102,
       "complexity": "moderate",
-      "pagerank": 0.004375,
+      "pagerank": 0.003941,
+      "communityId": 4,
+      "tags": [],
+      "summary": "Application module registry defining validateProviderEnv, createProvider, sleep.",
+      "primaryOwner": "hiden500"
+    },
+    {
+      "id": "file:src/brain/response-parser.ts",
+      "type": "file",
+      "filePath": "src/brain/response-parser.ts",
+      "language": "typescript",
+      "symbolCount": 3,
+      "lineCount": 29,
+      "complexity": "simple",
+      "pagerank": 0.003588,
       "communityId": 2,
       "tags": [],
-      "summary": "Application module registry defining validateProviderEnv, createProvider, sleep."
+      "summary": "Application module response-parser defining normalizeStatuses, parseLLMResponse.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/campaign/builder.ts",
@@ -2955,12 +3128,13 @@
       "filePath": "src/campaign/builder.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 148,
+      "lineCount": 144,
       "complexity": "moderate",
-      "pagerank": 0.00392,
+      "pagerank": 0.003627,
       "communityId": 3,
       "tags": [],
-      "summary": "Application module builder defining BuildResult, buildCampaignFromDescription, suggestCampaignPivot."
+      "summary": "Application module builder defining BuildResult, buildCampaignFromDescription, suggestCampaignPivot.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/campaign/index.ts",
@@ -2970,10 +3144,11 @@
       "symbolCount": 0,
       "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.003876,
+      "pagerank": 0.003582,
       "communityId": 3,
       "tags": ["barrel"],
-      "summary": "Re-export barrel for campaign/."
+      "summary": "Re-export barrel for campaign/.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/campaign/loader.ts",
@@ -2981,12 +3156,13 @@
       "filePath": "src/campaign/loader.ts",
       "language": "typescript",
       "symbolCount": 6,
-      "lineCount": 100,
+      "lineCount": 104,
       "complexity": "moderate",
-      "pagerank": 0.004396,
+      "pagerank": 0.004067,
       "communityId": 3,
       "tags": [],
-      "summary": "Application module loader defining invalidateCache, loadAllCampaigns, findCampaign."
+      "summary": "Application module loader defining invalidateCache, loadAllCampaigns, findCampaign.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/campaign/types.ts",
@@ -2994,12 +3170,13 @@
       "filePath": "src/campaign/types.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 48,
+      "lineCount": 46,
       "complexity": "moderate",
-      "pagerank": 0.010633,
+      "pagerank": 0.010269,
       "communityId": 3,
       "tags": [],
-      "summary": "Application module types defining VictoryCondition, Priority, Constraint."
+      "summary": "Application module types defining VictoryCondition, Priority, Constraint.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/campaign/validator.test.ts",
@@ -3007,12 +3184,13 @@
       "filePath": "src/campaign/validator.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 97,
+      "lineCount": 94,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
-      "summary": "Test module validator.test."
+      "summary": "Test module validator.test.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/campaign/validator.ts",
@@ -3020,12 +3198,13 @@
       "filePath": "src/campaign/validator.ts",
       "language": "typescript",
       "symbolCount": 2,
-      "lineCount": 109,
+      "lineCount": 106,
       "complexity": "moderate",
-      "pagerank": 0.006459,
+      "pagerank": 0.00621,
       "communityId": 3,
       "tags": [],
-      "summary": "Application module validator defining validateCampaign, isValidCampaign."
+      "summary": "Application module validator defining validateCampaign, isValidCampaign.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/hand/actions.ts",
@@ -3035,7 +3214,7 @@
       "symbolCount": 20,
       "lineCount": 363,
       "complexity": "complex",
-      "pagerank": 0.005365,
+      "pagerank": 0.004956,
       "communityId": 1,
       "tags": [],
       "summary": "Application module actions defining dismissGamePopups, typeText, ensureActionsPanelOpen.",
@@ -3049,7 +3228,7 @@
       "symbolCount": 0,
       "lineCount": 7,
       "complexity": "simple",
-      "pagerank": 0.003827,
+      "pagerank": 0.003516,
       "communityId": 1,
       "tags": ["barrel"],
       "summary": "Re-export barrel for hand/.",
@@ -3063,7 +3242,7 @@
       "symbolCount": 4,
       "lineCount": 86,
       "complexity": "moderate",
-      "pagerank": 0.00418,
+      "pagerank": 0.003862,
       "communityId": 1,
       "tags": [],
       "summary": "Application module navigate defining clickButton, openPresetAndSelectWW2.",
@@ -3077,7 +3256,7 @@
       "symbolCount": 2,
       "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.007644,
+      "pagerank": 0.007062,
       "communityId": 1,
       "tags": [],
       "summary": "Application module selectors (2 symbols).",
@@ -3089,10 +3268,10 @@
       "filePath": "src/index.integration.test.ts",
       "language": "typescript",
       "symbolCount": 1,
-      "lineCount": 191,
+      "lineCount": 194,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
       "summary": "Test module index.integration.test defining cleanWarRoom.",
       "primaryOwner": "hiden500"
@@ -3103,9 +3282,9 @@
       "filePath": "src/index.ts",
       "language": "typescript",
       "symbolCount": 18,
-      "lineCount": 330,
+      "lineCount": 318,
       "complexity": "complex",
-      "pagerank": 0.003096,
+      "pagerank": 0.002866,
       "communityId": 1,
       "tags": ["entry_point"],
       "summary": "Application module index defining getAdvisorQueryForTurn, printStartupBanner, ensureAuthState.",
@@ -3119,7 +3298,7 @@
       "symbolCount": 5,
       "lineCount": 112,
       "complexity": "moderate",
-      "pagerank": 0.003096,
+      "pagerank": 0.002866,
       "communityId": 1,
       "tags": [],
       "summary": "Application module interactor defining ensureAuthState, main.",
@@ -3133,10 +3312,11 @@
       "symbolCount": 0,
       "lineCount": 11,
       "complexity": "simple",
-      "pagerank": 0.004169,
-      "communityId": 5,
+      "pagerank": 0.003825,
+      "communityId": 6,
       "tags": ["barrel"],
-      "summary": "Re-export barrel for memory/."
+      "summary": "Re-export barrel for memory/.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/memory/loader.ts",
@@ -3144,12 +3324,13 @@
       "filePath": "src/memory/loader.ts",
       "language": "typescript",
       "symbolCount": 8,
-      "lineCount": 137,
+      "lineCount": 133,
       "complexity": "moderate",
-      "pagerank": 0.004935,
-      "communityId": 5,
+      "pagerank": 0.004559,
+      "communityId": 6,
       "tags": [],
-      "summary": "Application module loader defining emptySummary, emptyMemory, readJsonFile."
+      "summary": "Application module loader defining emptySummary, emptyMemory, readJsonFile.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/memory/types.ts",
@@ -3157,12 +3338,13 @@
       "filePath": "src/memory/types.ts",
       "language": "typescript",
       "symbolCount": 7,
-      "lineCount": 65,
+      "lineCount": 63,
       "complexity": "moderate",
-      "pagerank": 0.007423,
-      "communityId": 5,
+      "pagerank": 0.006855,
+      "communityId": 6,
       "tags": [],
-      "summary": "Application module types defining StrategicSummaryEntry, StrategicSummary, RivalProfile."
+      "summary": "Application module types defining StrategicSummaryEntry, StrategicSummary, RivalProfile.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/memory/updater.test.ts",
@@ -3170,12 +3352,13 @@
       "filePath": "src/memory/updater.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 77,
+      "lineCount": 79,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
-      "summary": "Test module updater.test."
+      "summary": "Test module updater.test.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/memory/updater.ts",
@@ -3183,12 +3366,13 @@
       "filePath": "src/memory/updater.ts",
       "language": "typescript",
       "symbolCount": 4,
-      "lineCount": 153,
+      "lineCount": 151,
       "complexity": "moderate",
-      "pagerank": 0.004935,
-      "communityId": 5,
+      "pagerank": 0.004559,
+      "communityId": 6,
       "tags": [],
-      "summary": "Application module updater defining extractEntriesFromReasoning, updateRivalProfiles, updateMemoryAfterTurn."
+      "summary": "Application module updater defining extractEntriesFromReasoning, updateRivalProfiles, updateMemoryAfterTurn.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/shared/config.ts",
@@ -3196,9 +3380,9 @@
       "filePath": "src/shared/config.ts",
       "language": "typescript",
       "symbolCount": 7,
-      "lineCount": 70,
+      "lineCount": 72,
       "complexity": "moderate",
-      "pagerank": 0.009732,
+      "pagerank": 0.014873,
       "communityId": 3,
       "tags": [],
       "summary": "Utility module config (7 symbols).",
@@ -3210,10 +3394,10 @@
       "filePath": "src/shared/index.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 7,
+      "lineCount": 8,
       "complexity": "simple",
-      "pagerank": 0.008565,
-      "communityId": 0,
+      "pagerank": 0.011934,
+      "communityId": 2,
       "tags": ["barrel"],
       "summary": "Re-export barrel for shared/.",
       "primaryOwner": "Phillip Yan"
@@ -3226,8 +3410,8 @@
       "symbolCount": 1,
       "lineCount": 20,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 7,
+      "pagerank": 0.002866,
+      "communityId": 9,
       "tags": [],
       "summary": "Utility module logger (1 symbols).",
       "primaryOwner": "hiden500"
@@ -3240,8 +3424,8 @@
       "symbolCount": 0,
       "lineCount": 187,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
       "summary": "Test module schemas.test.",
       "primaryOwner": "hiden500"
@@ -3254,11 +3438,25 @@
       "symbolCount": 6,
       "lineCount": 60,
       "complexity": "moderate",
-      "pagerank": 0.012132,
-      "communityId": 0,
+      "pagerank": 0.009502,
+      "communityId": 2,
       "tags": [],
       "summary": "Utility module schemas (6 symbols).",
       "primaryOwner": "Phillip Yan"
+    },
+    {
+      "id": "file:src/shared/session.ts",
+      "type": "file",
+      "filePath": "src/shared/session.ts",
+      "language": "typescript",
+      "symbolCount": 3,
+      "lineCount": 28,
+      "complexity": "simple",
+      "pagerank": 0.012321,
+      "communityId": 0,
+      "tags": [],
+      "summary": "Utility module session defining getActiveCampaignName, setActiveCampaignName, getSessionDir.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/spy/capture.ts",
@@ -3268,7 +3466,7 @@
       "symbolCount": 2,
       "lineCount": 19,
       "complexity": "simple",
-      "pagerank": 0.004722,
+      "pagerank": 0.00436,
       "communityId": 1,
       "tags": [],
       "summary": "Application module capture defining captureNextSimpleChatRequestBody.",
@@ -3282,7 +3480,7 @@
       "symbolCount": 0,
       "lineCount": 3,
       "complexity": "simple",
-      "pagerank": 0.003827,
+      "pagerank": 0.003516,
       "communityId": 1,
       "tags": ["barrel"],
       "summary": "Re-export barrel for spy/.",
@@ -3294,10 +3492,10 @@
       "filePath": "src/spy/ownership-parser.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 143,
+      "lineCount": 144,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
       "summary": "Test module ownership-parser.test.",
       "primaryOwner": "hiden500"
@@ -3308,9 +3506,9 @@
       "filePath": "src/spy/ownership-parser.ts",
       "language": "typescript",
       "symbolCount": 3,
-      "lineCount": 69,
+      "lineCount": 70,
       "complexity": "simple",
-      "pagerank": 0.00499,
+      "pagerank": 0.004527,
       "communityId": 0,
       "tags": [],
       "summary": "Application module ownership-parser defining parseOwnershipFromStateText, writeOwnershipSnapshot.",
@@ -3322,10 +3520,10 @@
       "filePath": "src/spy/state-writer.test.ts",
       "language": "typescript",
       "symbolCount": 1,
-      "lineCount": 140,
+      "lineCount": 144,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
       "summary": "Test module state-writer.test defining cleanFiles.",
       "primaryOwner": "hiden500"
@@ -3336,9 +3534,9 @@
       "filePath": "src/spy/state-writer.ts",
       "language": "typescript",
       "symbolCount": 3,
-      "lineCount": 107,
+      "lineCount": 105,
       "complexity": "moderate",
-      "pagerank": 0.005819,
+      "pagerank": 0.005114,
       "communityId": 0,
       "tags": [],
       "summary": "Application module state-writer defining stripAdvisorOnlyContent, writeGameStateFromPayload, writeAdvisorResponse.",
@@ -3352,10 +3550,11 @@
       "symbolCount": 0,
       "lineCount": 7,
       "complexity": "simple",
-      "pagerank": 0.003876,
-      "communityId": 0,
+      "pagerank": 0.003582,
+      "communityId": 8,
       "tags": ["barrel"],
-      "summary": "Re-export barrel for strategy/."
+      "summary": "Re-export barrel for strategy/.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/strategy/planner.test.ts",
@@ -3363,12 +3562,13 @@
       "filePath": "src/strategy/planner.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 131,
+      "lineCount": 138,
       "complexity": "moderate",
-      "pagerank": 0.003096,
-      "communityId": 204,
+      "pagerank": 0.002866,
+      "communityId": 212,
       "tags": [],
-      "summary": "Test module planner.test."
+      "summary": "Test module planner.test.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/strategy/planner.ts",
@@ -3376,12 +3576,13 @@
       "filePath": "src/strategy/planner.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 222,
+      "lineCount": 218,
       "complexity": "moderate",
-      "pagerank": 0.005401,
-      "communityId": 0,
+      "pagerank": 0.004997,
+      "communityId": 8,
       "tags": [],
-      "summary": "Application module planner defining defaultStrategyPlan, loadStrategyPlan, saveStrategyPlan."
+      "summary": "Application module planner defining defaultStrategyPlan, loadStrategyPlan, saveStrategyPlan.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/strategy/types.ts",
@@ -3389,12 +3590,13 @@
       "filePath": "src/strategy/types.ts",
       "language": "typescript",
       "symbolCount": 3,
-      "lineCount": 37,
+      "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.006549,
-      "communityId": 0,
+      "pagerank": 0.006059,
+      "communityId": 8,
       "tags": [],
-      "summary": "Application module types defining StrategicPhase, StrategyPlan, PhaseAnalysis."
+      "summary": "Application module types defining StrategicPhase, StrategyPlan, PhaseAnalysis.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:test-results/.last-run.json",
@@ -3404,9 +3606,9 @@
       "symbolCount": 0,
       "lineCount": 1,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 208,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 216,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: .last-run.json."
     },
     {
@@ -3417,8 +3619,8 @@
       "symbolCount": 0,
       "lineCount": 11,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 209,
+      "pagerank": 0.002866,
+      "communityId": 217,
       "tags": ["config"],
       "summary": "TypeScript compiler configuration."
     },
@@ -3430,11 +3632,50 @@
       "symbolCount": 0,
       "lineCount": 9,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 210,
+      "pagerank": 0.002866,
+      "communityId": 218,
       "tags": [],
       "summary": "Application module vitest.config.",
       "primaryOwner": "hiden500"
+    },
+    {
+      "id": "file:war-room/campaigns/RussianTest.json",
+      "type": "config",
+      "filePath": "war-room/campaigns/RussianTest.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 275,
+      "complexity": "moderate",
+      "pagerank": 0.002866,
+      "communityId": 219,
+      "tags": ["config", "low_signal_summary"],
+      "summary": "Configuration file: RussianTest.json."
+    },
+    {
+      "id": "file:war-room/campaigns/RussianTest.md",
+      "type": "document",
+      "filePath": "war-room/campaigns/RussianTest.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 289,
+      "complexity": "moderate",
+      "pagerank": 0.002866,
+      "communityId": 220,
+      "tags": ["low_signal_summary"],
+      "summary": "Documentation: RussianTest.md."
+    },
+    {
+      "id": "file:war-room/campaigns/TEMPLATE.md",
+      "type": "document",
+      "filePath": "war-room/campaigns/TEMPLATE.md",
+      "language": "markdown",
+      "symbolCount": 0,
+      "lineCount": 31,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 221,
+      "tags": ["low_signal_summary"],
+      "summary": "Documentation: TEMPLATE.md."
     },
     {
       "id": "file:war-room/campaigns/new-rus-2075.json",
@@ -3442,11 +3683,11 @@
       "filePath": "war-room/campaigns/new-rus-2075.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 67,
+      "lineCount": 65,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 211,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 222,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: new-rus-2075.json."
     },
     {
@@ -3457,23 +3698,49 @@
       "symbolCount": 0,
       "lineCount": 0,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 212,
-      "tags": [],
+      "pagerank": 0.002866,
+      "communityId": 223,
+      "tags": ["low_signal_summary"],
       "summary": "Documentation: constitution.md."
     },
     {
-      "id": "file:war-room/current_state.json",
+      "id": "file:war-room/sessions/default/current_state.json",
       "type": "config",
-      "filePath": "war-room/current_state.json",
+      "filePath": "war-room/sessions/default/current_state.json",
       "language": "json",
       "symbolCount": 0,
       "lineCount": 2,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 213,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 224,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: current_state.json."
+    },
+    {
+      "id": "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
+      "type": "config",
+      "filePath": "war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 225,
+      "tags": ["config", "low_signal_summary"],
+      "summary": "Configuration file: current_state.json."
+    },
+    {
+      "id": "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
+      "type": "config",
+      "filePath": "war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002866,
+      "communityId": 226,
+      "tags": ["config", "low_signal_summary"],
+      "summary": "Configuration file: strategic_ledger.json."
     },
     {
       "id": "file:war-room/strategy/strategy-plan.json",
@@ -3481,11 +3748,11 @@
       "filePath": "war-room/strategy/strategy-plan.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 52,
+      "lineCount": 44,
       "complexity": "simple",
-      "pagerank": 0.003096,
-      "communityId": 214,
-      "tags": ["config"],
+      "pagerank": 0.002866,
+      "communityId": 227,
+      "tags": ["config", "low_signal_summary"],
       "summary": "Configuration file: strategy-plan.json."
     },
     {
@@ -4515,6 +4782,33 @@
       "summary": ""
     },
     {
+      "id": "function:scripts/init-campaign.ts:main",
+      "type": "function",
+      "filePath": "scripts/init-campaign.ts",
+      "name": "main",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:scripts/manual-llm-test.ts:main",
+      "type": "function",
+      "filePath": "scripts/manual-llm-test.ts",
+      "name": "main",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:scripts/switch-campaign.ts:main",
+      "type": "function",
+      "filePath": "scripts/switch-campaign.ts",
+      "name": "main",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "function:scripts/test-llm-guardrails.ts:buildSystemPrompt",
       "type": "function",
       "filePath": "scripts/test-llm-guardrails.ts",
@@ -4641,42 +4935,6 @@
       "summary": ""
     },
     {
-      "id": "function:src/brain/action-generator.ts:mergeLedger",
-      "type": "function",
-      "filePath": "src/brain/action-generator.ts",
-      "name": "mergeLedger",
-      "language": "typescript",
-      "tags": [],
-      "summary": ""
-    },
-    {
-      "id": "function:src/brain/action-generator.ts:normalizeStatuses",
-      "type": "function",
-      "filePath": "src/brain/action-generator.ts",
-      "name": "normalizeStatuses",
-      "language": "typescript",
-      "tags": [],
-      "summary": ""
-    },
-    {
-      "id": "function:src/brain/action-generator.ts:pruneLedger",
-      "type": "function",
-      "filePath": "src/brain/action-generator.ts",
-      "name": "pruneLedger",
-      "language": "typescript",
-      "tags": [],
-      "summary": ""
-    },
-    {
-      "id": "function:src/brain/action-generator.ts:writeLedger",
-      "type": "function",
-      "filePath": "src/brain/action-generator.ts",
-      "name": "writeLedger",
-      "language": "typescript",
-      "tags": [],
-      "summary": ""
-    },
-    {
       "id": "function:src/brain/context-assembler.ts:assembleContext",
       "type": "function",
       "filePath": "src/brain/context-assembler.ts",
@@ -4704,6 +4962,33 @@
       "summary": ""
     },
     {
+      "id": "function:src/brain/ledger-manager.ts:mergeLedger",
+      "type": "function",
+      "filePath": "src/brain/ledger-manager.ts",
+      "name": "mergeLedger",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/brain/ledger-manager.ts:pruneLedger",
+      "type": "function",
+      "filePath": "src/brain/ledger-manager.ts",
+      "name": "pruneLedger",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/brain/ledger-manager.ts:writeLedger",
+      "type": "function",
+      "filePath": "src/brain/ledger-manager.ts",
+      "name": "writeLedger",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "function:src/brain/llm-client.ts:buildConfig",
       "type": "function",
       "filePath": "src/brain/llm-client.ts",
@@ -4713,10 +4998,10 @@
       "summary": ""
     },
     {
-      "id": "function:src/brain/llm-client.ts:callGemini",
+      "id": "function:src/brain/llm-client.ts:callLLM",
       "type": "function",
       "filePath": "src/brain/llm-client.ts",
-      "name": "callGemini",
+      "name": "callLLM",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -4861,6 +5146,24 @@
       "type": "function",
       "filePath": "src/brain/providers/registry.ts",
       "name": "validateProviderEnv",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/brain/response-parser.ts:normalizeStatuses",
+      "type": "function",
+      "filePath": "src/brain/response-parser.ts",
+      "name": "normalizeStatuses",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/brain/response-parser.ts:parseLLMResponse",
+      "type": "function",
+      "filePath": "src/brain/response-parser.ts",
+      "name": "parseLLMResponse",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -5311,6 +5614,33 @@
       "type": "function",
       "filePath": "src/memory/updater.ts",
       "name": "updateRivalProfiles",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/session.ts:getActiveCampaignName",
+      "type": "function",
+      "filePath": "src/shared/session.ts",
+      "name": "getActiveCampaignName",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/session.ts:getSessionDir",
+      "type": "function",
+      "filePath": "src/shared/session.ts",
+      "name": "getSessionDir",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/session.ts:setActiveCampaignName",
+      "type": "function",
+      "filePath": "src/shared/session.ts",
+      "name": "setActiveCampaignName",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -6819,6 +7149,160 @@
       "weight": 1.0
     },
     {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "file:external:fs",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "file:external:path",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "file:src/brain/llm-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "file:src/campaign/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "file:src/campaign/validator.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/init-campaign.ts",
+      "target": "function:scripts/init-campaign.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:external:fs",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:external:path",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:external:readline",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:src/brain/context-assembler.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:src/brain/llm-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:src/shared/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:src/spy/ownership-parser.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "function:scripts/manual-llm-test.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/switch-campaign.ts",
+      "target": "file:external:fs",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/switch-campaign.ts",
+      "target": "file:external:path",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/switch-campaign.ts",
+      "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/switch-campaign.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/switch-campaign.ts",
+      "target": "function:scripts/switch-campaign.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
       "source": "file:scripts/test-llm-guardrails.ts",
       "target": "file:external:dotenv",
       "type": "imports",
@@ -6960,7 +7444,21 @@
     },
     {
       "source": "file:src/brain/action-generator.ts",
+      "target": "file:src/brain/ledger-manager.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/action-generator.ts",
       "target": "file:src/brain/llm-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/action-generator.ts",
+      "target": "file:src/brain/response-parser.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -6989,34 +7487,6 @@
     {
       "source": "file:src/brain/action-generator.ts",
       "target": "function:src/brain/action-generator.ts:main",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:src/brain/action-generator.ts",
-      "target": "function:src/brain/action-generator.ts:mergeLedger",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:src/brain/action-generator.ts",
-      "target": "function:src/brain/action-generator.ts:normalizeStatuses",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:src/brain/action-generator.ts",
-      "target": "function:src/brain/action-generator.ts:pruneLedger",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:src/brain/action-generator.ts",
-      "target": "function:src/brain/action-generator.ts:writeLedger",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -7121,6 +7591,13 @@
     },
     {
       "source": "file:src/brain/index.ts",
+      "target": "file:src/brain/ledger-manager.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/index.ts",
       "target": "file:src/brain/llm-client.ts",
       "type": "imports",
       "direction": "forward",
@@ -7137,6 +7614,62 @@
       "source": "file:src/brain/index.ts",
       "target": "file:src/brain/providers/registry.ts",
       "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/index.ts",
+      "target": "file:src/brain/response-parser.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/ledger-manager.ts",
+      "target": "file:external:fs",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/ledger-manager.ts",
+      "target": "file:external:path",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/ledger-manager.ts",
+      "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/ledger-manager.ts",
+      "target": "file:src/shared/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/ledger-manager.ts",
+      "target": "function:src/brain/ledger-manager.ts:mergeLedger",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/ledger-manager.ts",
+      "target": "function:src/brain/ledger-manager.ts:pruneLedger",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/ledger-manager.ts",
+      "target": "function:src/brain/ledger-manager.ts:writeLedger",
+      "type": "contains",
       "direction": "forward",
       "weight": 1.0
     },
@@ -7191,7 +7724,7 @@
     },
     {
       "source": "file:src/brain/llm-client.ts",
-      "target": "function:src/brain/llm-client.ts:callGemini",
+      "target": "function:src/brain/llm-client.ts:callLLM",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -7463,6 +7996,27 @@
       "weight": 1.0
     },
     {
+      "source": "file:src/brain/response-parser.ts",
+      "target": "file:src/shared/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/response-parser.ts",
+      "target": "function:src/brain/response-parser.ts:normalizeStatuses",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/response-parser.ts",
+      "target": "function:src/brain/response-parser.ts:parseLLMResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
       "source": "file:src/campaign/builder.ts",
       "target": "file:external:fs",
       "type": "imports",
@@ -7591,6 +8145,13 @@
     {
       "source": "file:src/campaign/loader.ts",
       "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/campaign/loader.ts",
+      "target": "file:src/shared/index.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -7856,6 +8417,13 @@
     },
     {
       "source": "file:src/index.integration.test.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.integration.test.ts",
       "target": "file:src/spy/state-writer.ts",
       "type": "imports",
       "direction": "forward",
@@ -7920,6 +8488,13 @@
     {
       "source": "file:src/index.ts",
       "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
+      "target": "file:src/shared/session.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -8247,6 +8822,13 @@
       "weight": 1.0
     },
     {
+      "source": "file:src/shared/index.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
       "source": "file:src/shared/logger.ts",
       "target": "file:external:pino",
       "type": "imports",
@@ -8271,6 +8853,48 @@
       "source": "file:src/shared/schemas.ts",
       "target": "file:external:zod",
       "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "file:external:fs",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "file:external:path",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "function:src/shared/session.ts:getActiveCampaignName",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "function:src/shared/session.ts:getSessionDir",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "function:src/shared/session.ts:setActiveCampaignName",
+      "type": "contains",
       "direction": "forward",
       "weight": 1.0
     },
@@ -8325,6 +8949,13 @@
     },
     {
       "source": "file:src/spy/ownership-parser.test.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/spy/ownership-parser.test.ts",
       "target": "file:src/spy/ownership-parser.ts",
       "type": "imports",
       "direction": "forward",
@@ -8346,7 +8977,21 @@
     },
     {
       "source": "file:src/spy/ownership-parser.ts",
+      "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/spy/ownership-parser.ts",
       "target": "file:src/shared/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/spy/ownership-parser.ts",
+      "target": "file:src/shared/session.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -8388,6 +9033,20 @@
     },
     {
       "source": "file:src/spy/state-writer.test.ts",
+      "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/spy/state-writer.test.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/spy/state-writer.test.ts",
       "target": "file:src/spy/state-writer.ts",
       "type": "imports",
       "direction": "forward",
@@ -8417,6 +9076,13 @@
     {
       "source": "file:src/spy/state-writer.ts",
       "target": "file:src/shared/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/spy/state-writer.ts",
+      "target": "file:src/shared/session.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -8565,8 +9231,8 @@
   "layers": [
     {
       "id": "layer:application",
-      "name": "Application",
-      "description": "",
+      "name": "Core Agent Logic",
+      "description": "Orchestrates the primary cognitive processes, decision-making strategies, and state management for the agentic system.",
       "nodeIds": [
         "file:.eslintrc.json",
         "file:.mcp.json",
@@ -8576,12 +9242,14 @@
         "file:src/brain/action-generator.ts",
         "file:src/brain/context-assembler.ts",
         "file:src/brain/index.ts",
+        "file:src/brain/ledger-manager.ts",
         "file:src/brain/llm-client.ts",
         "file:src/brain/providers/gemini-provider.ts",
         "file:src/brain/providers/groq-provider.ts",
         "file:src/brain/providers/openai-provider.ts",
         "file:src/brain/providers/provider.ts",
         "file:src/brain/providers/registry.ts",
+        "file:src/brain/response-parser.ts",
         "file:src/campaign/builder.ts",
         "file:src/campaign/index.ts",
         "file:src/campaign/loader.ts",
@@ -8607,9 +9275,14 @@
         "file:test-results/.last-run.json",
         "file:tsconfig.json",
         "file:vitest.config.ts",
+        "file:war-room/campaigns/RussianTest.json",
+        "file:war-room/campaigns/RussianTest.md",
+        "file:war-room/campaigns/TEMPLATE.md",
         "file:war-room/campaigns/new-rus-2075.json",
         "file:war-room/constitution.md",
-        "file:war-room/current_state.json",
+        "file:war-room/sessions/default/current_state.json",
+        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
+        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
         "file:war-room/strategy/strategy-plan.json"
       ],
       "display_order": 0,
@@ -8617,8 +9290,8 @@
     },
     {
       "id": "layer:config",
-      "name": "Config",
-      "description": "",
+      "name": "Agent Persona Definitions",
+      "description": "Contains specialized behavioral configurations and role-based instructions for various autonomous worker agents.",
       "nodeIds": [
         "file:.agents/agents/business/workers/lead-research-assistant.md",
         "file:.agents/agents/database/workers/api-builder.md",
@@ -9018,32 +9691,42 @@
     },
     {
       "id": "layer:utility",
-      "name": "Utility",
-      "description": "",
+      "name": "Shared System Foundations",
+      "description": "Provides common infrastructure for configuration management, logging, and data validation across the application.",
       "nodeIds": [
         "file:src/shared/config.ts",
         "file:src/shared/index.ts",
         "file:src/shared/logger.ts",
-        "file:src/shared/schemas.ts"
+        "file:src/shared/schemas.ts",
+        "file:src/shared/session.ts"
       ],
       "display_order": 2,
       "order_basis": "imports"
     },
     {
       "id": "layer:docs-tooling",
-      "name": "Docs & Tooling",
-      "description": "",
+      "name": "Project Documentation",
+      "description": "Maintains the technical specifications, architectural decisions, and roadmap for the development lifecycle.",
       "nodeIds": [
         "file:docs/PRD.md",
+        "file:docs/api.md",
         "file:docs/architecture.md",
         "file:docs/changelog.md",
+        "file:docs/database.md",
+        "file:docs/decisions.md",
+        "file:docs/deployment.md",
         "file:docs/pax-historia-research.md",
         "file:docs/roadmap.md",
+        "file:docs/security.md",
+        "file:docs/testing.md",
         "file:docs/todo.md",
         "file:scripts/capture-auth-state.ts",
         "file:scripts/combine-videos.sh",
         "file:scripts/demo-auth-state.ts",
+        "file:scripts/init-campaign.ts",
+        "file:scripts/manual-llm-test.ts",
         "file:scripts/scaffold.sh",
+        "file:scripts/switch-campaign.ts",
         "file:scripts/test-llm-guardrails.ts"
       ],
       "display_order": 3,
@@ -9051,8 +9734,8 @@
     },
     {
       "id": "layer:test",
-      "name": "Test",
-      "description": "",
+      "name": "Verification Suite",
+      "description": "Validates core system functionality and logic through integration and unit testing.",
       "nodeIds": [
         "file:src/brain/action-generator.test.ts",
         "file:src/brain/context-assembler.test.ts",
@@ -9101,6 +9784,16 @@
     },
     {
       "order": 4,
+      "target_path": "src/shared/session.ts",
+      "page_type": "file_page",
+      "title": "session.ts",
+      "depth": 1,
+      "kind": "code",
+      "reason": "Directly used by the entry points above; a core collaborator.",
+      "layer_id": "layer:utility"
+    },
+    {
+      "order": 5,
       "target_path": "src/brain/llm-client.ts",
       "page_type": "file_page",
       "title": "llm-client.ts",
@@ -9110,7 +9803,7 @@
       "layer_id": "layer:application"
     },
     {
-      "order": 5,
+      "order": 6,
       "target_path": "src/memory/index.ts",
       "page_type": "file_page",
       "title": "index.ts",
@@ -9120,7 +9813,7 @@
       "layer_id": "layer:application"
     },
     {
-      "order": 6,
+      "order": 7,
       "target_path": "src/brain/providers/provider.ts",
       "page_type": "file_page",
       "title": "provider.ts",
@@ -9130,20 +9823,10 @@
       "layer_id": "layer:application"
     },
     {
-      "order": 7,
+      "order": 8,
       "target_path": "src/hand/selectors.ts",
       "page_type": "file_page",
       "title": "selectors.ts",
-      "depth": 2,
-      "kind": "code",
-      "reason": "Reached 2 imports deep \u2014 a supporting building block.",
-      "layer_id": "layer:application"
-    },
-    {
-      "order": 8,
-      "target_path": "src/memory/types.ts",
-      "page_type": "file_page",
-      "title": "types.ts",
       "depth": 2,
       "kind": "code",
       "reason": "Reached 2 imports deep \u2014 a supporting building block.",
@@ -9185,12 +9868,14 @@
         "file:src/brain/action-generator.ts",
         "file:src/brain/context-assembler.ts",
         "file:src/brain/index.ts",
+        "file:src/brain/ledger-manager.ts",
         "file:src/brain/llm-client.ts",
         "file:src/brain/providers/gemini-provider.ts",
         "file:src/brain/providers/groq-provider.ts",
         "file:src/brain/providers/openai-provider.ts",
         "file:src/brain/providers/provider.ts",
         "file:src/brain/providers/registry.ts",
+        "file:src/brain/response-parser.ts",
         "file:src/campaign/builder.ts",
         "file:src/campaign/index.ts",
         "file:src/campaign/loader.ts",
@@ -9216,9 +9901,14 @@
         "file:test-results/.last-run.json",
         "file:tsconfig.json",
         "file:vitest.config.ts",
+        "file:war-room/campaigns/RussianTest.json",
+        "file:war-room/campaigns/RussianTest.md",
+        "file:war-room/campaigns/TEMPLATE.md",
         "file:war-room/campaigns/new-rus-2075.json",
         "file:war-room/constitution.md",
-        "file:war-room/current_state.json",
+        "file:war-room/sessions/default/current_state.json",
+        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
+        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
         "file:war-room/strategy/strategy-plan.json"
       ],
       "wholeLayer": true,
@@ -9447,7 +10137,8 @@
         "file:src/shared/config.ts",
         "file:src/shared/index.ts",
         "file:src/shared/logger.ts",
-        "file:src/shared/schemas.ts"
+        "file:src/shared/schemas.ts",
+        "file:src/shared/session.ts"
       ],
       "wholeLayer": true,
       "language": "typescript"
@@ -9459,15 +10150,24 @@
       "layerId": "layer:docs-tooling",
       "nodeIds": [
         "file:docs/PRD.md",
+        "file:docs/api.md",
         "file:docs/architecture.md",
         "file:docs/changelog.md",
+        "file:docs/database.md",
+        "file:docs/decisions.md",
+        "file:docs/deployment.md",
         "file:docs/pax-historia-research.md",
         "file:docs/roadmap.md",
+        "file:docs/security.md",
+        "file:docs/testing.md",
         "file:docs/todo.md",
         "file:scripts/capture-auth-state.ts",
         "file:scripts/combine-videos.sh",
         "file:scripts/demo-auth-state.ts",
+        "file:scripts/init-campaign.ts",
+        "file:scripts/manual-llm-test.ts",
         "file:scripts/scaffold.sh",
+        "file:scripts/switch-campaign.ts",
         "file:scripts/test-llm-guardrails.ts"
       ],
       "wholeLayer": true,

@@ -5,6 +5,7 @@ import { validateCampaign } from "../src/campaign/validator";
 import type { Campaign } from "../src/campaign/types";
 import { setActiveCampaignName, getSessionDir } from "../src/shared/session";
 import { PATHS } from "../src/shared/config";
+import { buildStrategyPlanFromCampaign } from "../src/strategy/builder";
 
 async function main() {
   const mdFile = process.argv[2];
@@ -73,6 +74,10 @@ Return ONLY valid JSON without any markdown formatting like \`\`\`json.`;
 
   const sessionDir = getSessionDir();
   console.log(`Initialized session directory: ${sessionDir}`);
+
+  console.log(`Generating Strategy Plan...`);
+  await buildStrategyPlanFromCampaign(campaign);
+  console.log(`Strategy Plan generated and saved to session.`);
 }
 
 main().catch((err) => {

@@ -68,8 +68,6 @@ describe("assembleContext", () => {
     const ctx = assembleContext();
 
     expect(ctx.gameState.current_state).toBe("Map data with regions");
-    expect(ctx.constitution).toBe("Our goal is world domination.");
-    expect(ctx.handbook).toBe("When invaded, mobilize all forces.");
     expect(ctx.ledger.active_operations).toEqual([]);
     expect(ctx.advisorResponse).toBe("Consider invading Japan.");
     expect(ctx.ownership).toEqual({ our_nation: "USA", regions_we_own: ["Alaska"] });
@@ -198,8 +196,6 @@ describe("assembleContext", () => {
 describe("buildPrompt", () => {
   const baseContext: BrainContext = {
     gameState: { current_state: "Map: Europe in 2025" },
-    constitution: "Expand territory.",
-    handbook: "Use economic pressure first.",
     ledger: { active_operations: [] },
     advisorResponse: "Japan is weak.",
     ownership: null,
@@ -237,8 +233,6 @@ describe("buildPrompt", () => {
     const { system, user } = buildPrompt(baseContext);
 
     expect(system).toContain("strategic AI brain");
-    expect(system).toContain("Expand territory.");
-    expect(system).toContain("Use economic pressure first.");
     expect(user).toContain("Map: Europe in 2025");
     expect(user).toContain("Japan is weak.");
   });

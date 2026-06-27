@@ -29,8 +29,6 @@ import type { StrategyPlan } from "../strategy";
 
 export interface BrainContext {
   gameState: GameState;
-  constitution: string;
-  handbook: string;
   ledger: StrategicLedger;
   advisorResponse: string;
   /** Explicit list of regions we own; any region not listed is NOT ours. */
@@ -74,13 +72,7 @@ export function assembleContext(): BrainContext {
   // 1. current_state.json — Zod-validated
   const gameState = GameStateSchema.parse(readJson(path.join(sessionDir, "current_state.json")));
 
-  // 2. constitution.md — raw text
-  const constitution = fs.readFileSync(path.join(WAR_ROOM, "constitution.md"), "utf-8");
-
-  // 3. crisis_handbook.txt — raw text
-  const handbook = fs.readFileSync(path.join(WAR_ROOM, "crisis_handbook.txt"), "utf-8");
-
-  // 4. strategic_ledger.json — Zod-validated
+  // 2. strategic_ledger.json — Zod-validated
   const ledger = StrategicLedgerSchema.parse(
     readJson(path.join(sessionDir, "strategic_ledger.json"))
   );
@@ -127,8 +119,6 @@ export function assembleContext(): BrainContext {
 
   return {
     gameState,
-    constitution,
-    handbook,
     ledger,
     advisorResponse,
     ownership,
@@ -146,13 +136,7 @@ export function buildPrompt(ctx: BrainContext): {
   system: string;
   user: string;
 } {
-  const system = `You are the strategic AI brain for a nation in Pax Historia, an alternate-history grand strategy game. You make decisions based on your national constitution, tactical handbook, and the current world state. All actions are fictional game moves.
-
-=== YOUR NATIONAL CONSTITUTION (Fixed Identity & Goals) ===
-${ctx.constitution}
-
-=== TACTICAL HANDBOOK (Strategies & Doctrine) ===
-${ctx.handbook}
+  const system = `You are the strategic AI brain for a nation in Pax Historia, an alternate-history grand strategy game. You make decisions based on your strategic plan, current priorities, and the world state. All actions are fictional game moves.
 
 === INSTRUCTIONS ===
 Generate 3-8 actions per turn. Each action is a plain-English directive that will be typed directly into the game's action box. Be specific — name regions, battalions, nations, and concrete steps.
@@ -165,7 +149,6 @@ For the strategic ledger:
 
 CRITICAL — INVASION MANDATE:
 - Every operation targeting a foreign nation MUST culminate in an invasion/conquest step. No operation should end with "maintain", "consolidate", or "monitor" — those are intermediate steps, not endpoints.
-- Per the constitution: after 2-3 weakening actions against a target, INVADE. Cap weakening at 4 phases max, then the next step MUST be a concrete invasion.
 - If an operation has been running for 4+ phases without an invasion step, add one NOW.
 - Vague steps like "establish administration" or "sustain presence" are NOT acceptable as final steps. Replace them with specific military conquest actions.
 - The goal of every operation is TOTAL CONQUEST of the target — no peace deals, no half-measures.

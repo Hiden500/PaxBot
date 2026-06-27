@@ -9,14 +9,11 @@
 import * as fs from "fs";
 import * as path from "path";
 import type { StrategyPlan, PhaseAnalysis } from "./types";
-import { PATHS } from "../shared/config";
+import { getSessionDir } from "../shared/session";
 
-// ---------------------------------------------------------------------------
-// Constants
-// ---------------------------------------------------------------------------
-
-const STRATEGY_DIR = path.join(process.cwd(), PATHS.WAR_ROOM, "strategy");
-const STRATEGY_PLAN_PATH = path.join(STRATEGY_DIR, "strategy-plan.json");
+function getStrategyPlanPath(): string {
+  return path.join(getSessionDir(), "strategy", "strategy-plan.json");
+}
 
 // ---------------------------------------------------------------------------
 // Default strategy plan
@@ -77,14 +74,15 @@ function defaultStrategyPlan(country = "Unknown"): StrategyPlan {
  * Load the strategy plan from disk. Creates default if not found.
  */
 export function loadStrategyPlan(country?: string): StrategyPlan {
+  const planPath = getStrategyPlanPath();
   try {
-    if (!fs.existsSync(STRATEGY_PLAN_PATH)) {
+    if (!fs.existsSync(planPath)) {
       console.log("[Strategy] No strategy-plan.json found, creating default");
       const plan = defaultStrategyPlan(country);
       saveStrategyPlan(plan);
       return plan;
     }
-    const raw = fs.readFileSync(STRATEGY_PLAN_PATH, "utf-8").trim();
+    const raw = fs.readFileSync(planPath, "utf-8").trim();
     if (!raw) {
       return defaultStrategyPlan(country);
     }
@@ -109,11 +107,13 @@ export function loadStrategyPlan(country?: string): StrategyPlan {
  * Save the strategy plan to disk.
  */
 export function saveStrategyPlan(plan: StrategyPlan): void {
+  const planPath = getStrategyPlanPath();
+  const dir = path.dirname(planPath);
   try {
-    if (!fs.existsSync(STRATEGY_DIR)) {
-      fs.mkdirSync(STRATEGY_DIR, { recursive: true });
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
     }
-    fs.writeFileSync(STRATEGY_PLAN_PATH, JSON.stringify(plan, null, 2), "utf-8");
+    fs.writeFileSync(planPath, JSON.stringify(plan, null, 2), "utf-8");
     console.log(`[Strategy] Plan saved: "${plan.name}"`);
   } catch (err) {
     console.error(`[Strategy] Failed to save plan: ${(err as Error).message}`);

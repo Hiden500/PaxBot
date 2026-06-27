@@ -8,17 +8,21 @@
 import * as fs from "fs";
 import * as path from "path";
 import type { StrategicMemory, StrategicSummary, RivalProfile, LearnedLesson } from "./types";
-import { PATHS } from "../shared/config";
+import { getSessionDir } from "../shared/session";
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const MEMORY_DIR = path.join(process.cwd(), PATHS.WAR_ROOM, "memory");
-
-const SUMMARY_PATH = path.join(MEMORY_DIR, "strategic_summary.json");
-const RIVAL_PROFILES_PATH = path.join(MEMORY_DIR, "rival_profiles.json");
-const LESSONS_PATH = path.join(MEMORY_DIR, "lessons_learned.json");
+function getMemoryPaths() {
+  const memoryDir = path.join(getSessionDir(), "memory");
+  return {
+    dir: memoryDir,
+    summary: path.join(memoryDir, "strategic_summary.json"),
+    rivalProfiles: path.join(memoryDir, "rival_profiles.json"),
+    lessons: path.join(memoryDir, "lessons_learned.json"),
+  };
+}
 
 // ---------------------------------------------------------------------------
 // Default empty state
@@ -64,8 +68,9 @@ function readJsonFile<T>(filePath: string, defaultValue: T): T {
 
 function writeJsonFile(filePath: string, data: unknown): void {
   try {
-    if (!fs.existsSync(MEMORY_DIR)) {
-      fs.mkdirSync(MEMORY_DIR, { recursive: true });
+    const memoryDir = getMemoryPaths().dir;
+    if (!fs.existsSync(memoryDir)) {
+      fs.mkdirSync(memoryDir, { recursive: true });
     }
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
   } catch (err) {
@@ -82,9 +87,10 @@ function writeJsonFile(filePath: string, data: unknown): void {
  * Returns default empty memory if files don't exist.
  */
 export function loadMemory(): StrategicMemory {
-  const summary = readJsonFile<StrategicSummary>(SUMMARY_PATH, emptySummary());
-  const rivalProfiles = readJsonFile<RivalProfile[]>(RIVAL_PROFILES_PATH, []);
-  const lessonsLearned = readJsonFile<LearnedLesson[]>(LESSONS_PATH, []);
+  const paths = getMemoryPaths();
+  const summary = readJsonFile<StrategicSummary>(paths.summary, emptySummary());
+  const rivalProfiles = readJsonFile<RivalProfile[]>(paths.rivalProfiles, []);
+  const lessonsLearned = readJsonFile<LearnedLesson[]>(paths.lessons, []);
 
   return { summary, rivalProfiles, lessonsLearned };
 }
@@ -93,9 +99,10 @@ export function loadMemory(): StrategicMemory {
  * Save the full strategic memory to disk.
  */
 export function saveMemory(memory: StrategicMemory): void {
-  writeJsonFile(SUMMARY_PATH, memory.summary);
-  writeJsonFile(RIVAL_PROFILES_PATH, memory.rivalProfiles);
-  writeJsonFile(LESSONS_PATH, memory.lessonsLearned);
+  const paths = getMemoryPaths();
+  writeJsonFile(paths.summary, memory.summary);
+  writeJsonFile(paths.rivalProfiles, memory.rivalProfiles);
+  writeJsonFile(paths.lessons, memory.lessonsLearned);
 }
 
 /**
@@ -143,8 +150,8 @@ export function formatMemoryForPrompt(memory: StrategicMemory): string {
     }
   }
 
-  // Lessons learned (only relevant ones)
-  const relevantLessons = memory.lessonsLearned.filter((l) => l.relevant);
+  // Lessons learned (only relevant ones, limited to last 10 to avoid bloating)
+  const relevantLessons = memory.lessonsLearned.filter((l) => l.relevant).slice(-10);
   if (relevantLessons.length > 0) {
     lines.push(`\nLessons Learned (${relevantLessons.length}):`);
     for (const l of relevantLessons) {
