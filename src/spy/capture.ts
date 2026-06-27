@@ -16,9 +16,16 @@ export async function captureNextSimpleChatRequestBody(
   page: Page,
   timeoutMs: number = 20000
 ): Promise<string | null> {
-  const request = await page.waitForRequest(
-    (req) => req.url().includes(SIMPLE_CHAT_URL),
-    { timeout: timeoutMs }
-  );
-  return request.postData();
+  try {
+    const request = await page.waitForRequest((req) => req.url().includes(SIMPLE_CHAT_URL), {
+      timeout: timeoutMs,
+    });
+    return request.postData();
+  } catch (err) {
+    console.warn(
+      `[Spy] Timeout waiting for simple-chat request (${timeoutMs}ms):`,
+      (err as Error).message
+    );
+    return null;
+  }
 }

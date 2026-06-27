@@ -13,17 +13,17 @@ export const SELECTORS = {
   /** Button to open the actions panel (⚡). */
   actionsPanelButton: 'button[aria-label="Actions"]',
   /** Submit button next to the action textarea (send icon). */
-  actionSubmitButton: 'button:has(svg.feather-send-message)',
+  actionSubmitButton: "button:has(svg.feather-send-message)",
 
   /** Clickable div that opens the advisor tab (USA flag in bottom-right, 12×12). Not a <button>. */
-  advisorPanelTrigger: 'div.pwa-safe-bottom div.cursor-pointer.h-12.w-12:has(img[alt="USA flag"])',
+  advisorPanelTrigger: "div.pwa-safe-bottom div.cursor-pointer.h-12.w-12:has(img)",
 
   /** Advisor response text lives inside this (markdown rendered). */
-  advisorResponseContent: 'div.markdown-content',
+  advisorResponseContent: "div.markdown-content",
 
   // Time jump (next turn) — top right
   /** Button that opens the time-jump picker (jump-forward icon). */
-  nextTurnButton: 'button:has(svg.feather-jump-forward)',
+  nextTurnButton: "button:has(svg.feather-jump-forward)",
 
   // Home / presets navigation (after login)
   choosePresetButton: 'a[href="/presets"]',
