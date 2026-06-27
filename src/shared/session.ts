@@ -90,3 +90,25 @@ export function getSessionDir(): string {
 
   return sessionDir;
 }
+
+/**
+ * Get the saved GAME_URL for the active campaign.
+ * Returns empty string if not found.
+ */
+export function getCampaignUrl(): string {
+  const sessionDir = getSessionDir();
+  const urlPath = path.join(sessionDir, "game_url.txt");
+  if (fs.existsSync(urlPath)) {
+    return fs.readFileSync(urlPath, "utf-8").trim();
+  }
+  return "";
+}
+
+/**
+ * Save the GAME_URL for the active campaign.
+ */
+export function setCampaignUrl(url: string): void {
+  const sessionDir = getSessionDir();
+  const urlPath = path.join(sessionDir, "game_url.txt");
+  fs.writeFileSync(urlPath, url.trim(), "utf-8");
+}

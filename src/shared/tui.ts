@@ -159,6 +159,18 @@ export class TUIDashboard {
     return TUIDashboard.instance!;
   }
 
+  private truncate(text: string, length: number): string {
+    if (!text || text.length <= length) {
+      return text;
+    }
+    // Find the last space before the limit
+    const lastSpaceIndex = text.lastIndexOf(" ", length - 3);
+    if (lastSpaceIndex > 0) {
+      return text.substring(0, lastSpaceIndex) + "...";
+    }
+    return text.substring(0, length - 3) + "...";
+  }
+
   setCampaign(name: string) {
     this.campaign = name;
     this.render();
@@ -261,13 +273,8 @@ export class TUIDashboard {
         if (opRow >= mainHeight + 1) {
           break;
         }
-        grid.drawString(
-          2,
-          opRow,
-          `[${op.operation_id}] ${op.goal.slice(0, leftWidth - 12)}`,
-          this.COLOR_CYAN,
-          true
-        );
+        const safeGoal = this.truncate(op.goal, leftWidth - 12);
+        grid.drawString(2, opRow, `[${op.operation_id}] ${safeGoal}`, this.COLOR_CYAN, true);
         opRow++;
         for (const step of op.steps || []) {
           if (opRow >= mainHeight + 2) {
@@ -281,12 +288,8 @@ export class TUIDashboard {
               : step.status === "FAILED"
                 ? this.COLOR_RED
                 : this.COLOR_YELLOW;
-          grid.drawString(
-            4,
-            opRow,
-            `${statusChar} Ph ${step.phase}: ${step.action.slice(0, leftWidth - 16)}`,
-            statusColor
-          );
+          const safeAction = this.truncate(step.action, leftWidth - 16);
+          grid.drawString(4, opRow, `${statusChar} Ph ${step.phase}: ${safeAction}`, statusColor);
           opRow++;
         }
         opRow++;
@@ -345,12 +348,8 @@ export class TUIDashboard {
             : mc.status === "FAILED"
               ? this.COLOR_RED
               : this.COLOR_YELLOW;
-        grid.drawString(
-          leftWidth + 2,
-          mRow,
-          `${checkChar} ${mc.milestone.slice(0, halfRightWidth - 6)}`,
-          checkColor
-        );
+        const safeMilestone = this.truncate(mc.milestone, halfRightWidth - 6);
+        grid.drawString(leftWidth + 2, mRow, `${checkChar} ${safeMilestone}`, checkColor);
         mRow++;
       }
     }
@@ -373,12 +372,8 @@ export class TUIDashboard {
       );
     } else {
       for (const risk of this.immediateRisks.slice(0, milestonesHeight - 3)) {
-        grid.drawString(
-          leftWidth + halfRightWidth + 2,
-          rRow,
-          `⚠ ${risk.slice(0, halfRightWidth - 6)}`,
-          this.COLOR_YELLOW
-        );
+        const safeRisk = this.truncate(risk, halfRightWidth - 6);
+        grid.drawString(leftWidth + halfRightWidth + 2, rRow, `⚠ ${safeRisk}`, this.COLOR_YELLOW);
         rRow++;
       }
     }
@@ -406,12 +401,8 @@ export class TUIDashboard {
       );
       logStartRow++;
       for (let i = 0; i < Math.min(this.actions.length, 3); i++) {
-        grid.drawString(
-          4 + leftWidth,
-          logStartRow,
-          `${i + 1}. ${this.actions[i].slice(0, rightWidth - 8)}`,
-          this.COLOR_GREEN
-        );
+        const safeAction = this.truncate(this.actions[i], rightWidth - 8);
+        grid.drawString(4 + leftWidth, logStartRow, `${i + 1}. ${safeAction}`, this.COLOR_GREEN);
         logStartRow++;
       }
       if (this.actions.length > 3) {
@@ -433,7 +424,8 @@ export class TUIDashboard {
       if (r >= logsY + logsHeight - 1) {
         break;
       }
-      grid.drawString(leftWidth + 2, r, logLine.slice(0, rightWidth - 4), this.COLOR_WHITE);
+      const safeLog = this.truncate(logLine, rightWidth - 4);
+      grid.drawString(leftWidth + 2, r, safeLog, this.COLOR_WHITE);
       r++;
     }
 

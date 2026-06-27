@@ -17,7 +17,6 @@ import {
   dismissGamePopups,
   firstFewSentences,
   getLastAdvisorResponseText,
-  openPresetAndSelectWW2,
   SELECTORS,
 } from "./hand";
 import {
@@ -28,9 +27,19 @@ import {
 import { generateActions } from "./brain";
 import { validateEnv } from "./brain/llm-client";
 import { BROWSER_CONFIG, PATHS } from "./shared/config";
-import { getSessionDir, tui, TUIDashboard } from "./shared";
+import {
+  getSessionDir,
+  tui,
+  TUIDashboard,
+  getActiveCampaignName,
+  setActiveCampaignName,
+  getCampaignUrl,
+  setCampaignUrl,
+} from "./shared";
 import { loadMemory, saveMemory, updateMemoryAfterTurn } from "./memory";
 import { getPrimaryCampaign } from "./campaign";
+import { loadAllCampaigns } from "./campaign/loader";
+import { select, input } from "@inquirer/prompts";
 
 // ---------------------------------------------------------------------------
 // Config
@@ -39,7 +48,6 @@ import { getPrimaryCampaign } from "./campaign";
 const AUTH_DIR = path.join(process.cwd(), PATHS.AUTH_DIR);
 const STATE_PATH = path.join(AUTH_DIR, PATHS.AUTH_STATE);
 const BASE_URL = "https://www.paxhistoria.co";
-const GAME_PAGE_URL = process.env.GAME_URL ?? "";
 
 const BROWSER_WIDTH = Math.round((BROWSER_CONFIG.SCREEN_WIDTH * 7) / 10);
 const BROWSER_HEIGHT = BROWSER_CONFIG.SCREEN_HEIGHT;
@@ -83,6 +91,64 @@ Ingests game state, plans, then executes autonomously.
 
 function printStartupBanner(): void {
   console.log(STARTUP_BANNER);
+}
+
+// ---------------------------------------------------------------------------
+// Menu
+// ---------------------------------------------------------------------------
+
+async function runInteractiveMenu(): Promise<void> {
+  if (process.argv.includes("--continue")) {
+    return;
+  }
+
+  let activeCampaign = getActiveCampaignName();
+  let currentUrl = getCampaignUrl() || process.env.GAME_URL || "";
+
+  let exit = false;
+  while (!exit) {
+    const action = await select({
+      message: "PaxBot Main Menu",
+      choices: [
+        { name: `🚀 Continue (${activeCampaign})`, value: "continue" },
+        { name: "📁 Select Campaign", value: "select_campaign" },
+        { name: `🌐 Change GAME_URL (current: ${currentUrl || "None"})`, value: "change_url" },
+        { name: "❌ Exit", value: "exit" },
+      ],
+    });
+
+    if (action === "continue") {
+      if (!currentUrl) {
+        console.log("⚠️ GAME_URL is not set. Please set it first.");
+        continue;
+      }
+      exit = true;
+    } else if (action === "select_campaign") {
+      const campaigns = loadAllCampaigns();
+      if (campaigns.length === 0) {
+        console.log("No campaigns found.");
+        continue;
+      }
+      const selected = await select({
+        message: "Select a campaign:",
+        choices: campaigns.map((c) => ({ name: c.name, value: c.name })),
+      });
+      setActiveCampaignName(selected);
+      activeCampaign = selected;
+      currentUrl = getCampaignUrl() || process.env.GAME_URL || "";
+    } else if (action === "change_url") {
+      const newUrl = await input({
+        message: "Enter GAME_URL:",
+        default: currentUrl,
+      });
+      if (newUrl.trim()) {
+        setCampaignUrl(newUrl.trim());
+        currentUrl = newUrl.trim();
+      }
+    } else if (action === "exit") {
+      process.exit(0);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -174,9 +240,19 @@ async function boot() {
   });
   const page = await context.newPage();
 
-  tui.setStatus("Navigating to Pax Historia...");
-  tui.log(`Navigating to ${BASE_URL}...`);
-  await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
+  const currentUrl = getCampaignUrl() || process.env.GAME_URL;
+  if (currentUrl) {
+    tui.setStatus("Navigating to game URL...");
+    tui.log(`Navigating to game: ${currentUrl}...`);
+    await page.goto(currentUrl, {
+      waitUntil: "domcontentloaded",
+      timeout: 25000,
+    });
+  } else {
+    tui.setStatus("Navigating to Pax Historia...");
+    tui.log(`Navigating to ${BASE_URL}...`);
+    await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
+  }
 
   // When TUI is active, we don't want a blocking stdin pause that blocks redraws,
   // but if we do, we should notify the user via status.
@@ -185,17 +261,6 @@ async function boot() {
   await new Promise<void>((resolve) => {
     process.stdin.once("data", () => resolve());
   });
-
-  tui.setStatus("Selecting WW2 Preset...");
-  if (GAME_PAGE_URL) {
-    tui.log(`Navigating to game: ${GAME_PAGE_URL}...`);
-    await page.goto(GAME_PAGE_URL, {
-      waitUntil: "domcontentloaded",
-      timeout: 20000,
-    });
-  } else {
-    await openPresetAndSelectWW2(page);
-  }
 
   // Brief wait for game UI to finish rendering (navigation already waited 2.5s)
   await page.waitForTimeout(1000);
@@ -322,14 +387,18 @@ function saveLedgerSnapshot(turnNumber: number): void {
 }
 
 async function main(): Promise<void> {
-  if (process.stdout.isTTY) {
-    TUIDashboard.active = true;
-    process.stdout.write("\x1b[2J\x1b[H"); // Clear screen
-  }
   printStartupBanner();
 
   // Validate environment before doing anything else
   validateEnv();
+
+  // Run interactive menu first before clearing TUI
+  await runInteractiveMenu();
+
+  if (process.stdout.isTTY) {
+    TUIDashboard.active = true;
+    process.stdout.write("\x1b[2J\x1b[H"); // Clear screen
+  }
 
   const { browser, page } = await boot();
 
