@@ -23,14 +23,14 @@ async function main() {
   console.log(`Analyzing campaign description from ${path.basename(filePath)}...`);
 
   const systemPrompt = `You are a strategic AI parser. Parse the user's natural language campaign description into a strict JSON object that matches the Campaign schema.
-The JSON must have:
+The JSON must NOT be wrapped in any top-level key like "campaign". The root object must directly contain these fields:
 - name: string (generate a cool unique name if none is explicitly provided, e.g. 'Project Vanguard')
 - country: string
 - superGoal: string
 - timeHorizon: number
-- priorities: array of { area: string, weight: 1-5, description: string }
+- priorities: array of { area: string, weight: number (1-5), description: string }
 - constraints: array of { rule: string, severity: "hard"|"soft" }
-- victoryConditions: array of { description: string, target?: number, current?: number }
+- victoryConditions: array of { id: string, description: string, metric: string, target: number, current: number }
 
 Return ONLY valid JSON without any markdown formatting like \`\`\`json.`;
 
@@ -39,6 +39,9 @@ Return ONLY valid JSON without any markdown formatting like \`\`\`json.`;
   let parsed: any;
   try {
     parsed = JSON.parse(rawResponse.replace(/```json\n?|```/g, "").trim());
+    if (parsed.campaign && typeof parsed.campaign === "object") {
+      parsed = parsed.campaign;
+    }
   } catch (err) {
     console.error("Failed to parse LLM response as JSON:");
     console.error(rawResponse);
@@ -49,6 +52,8 @@ Return ONLY valid JSON without any markdown formatting like \`\`\`json.`;
   if (validation.errors.length > 0) {
     console.error("Validation failed:");
     validation.errors.forEach((e) => console.error(`- ${e}`));
+    console.error("\nRaw JSON received:");
+    console.error(JSON.stringify(parsed, null, 2));
     process.exit(1);
   }
 
