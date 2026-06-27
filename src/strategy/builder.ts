@@ -41,9 +41,17 @@ export async function buildStrategyPlanFromCampaign(
 
     let parsed: any;
     try {
-      parsed = JSON.parse(rawResponse.replace(/```json\n?|```/g, "").trim());
+      let jsonString = rawResponse;
+      const match = rawResponse.match(/\{[\s\S]*\}/);
+      if (match) {
+        jsonString = match[0];
+      } else {
+        jsonString = rawResponse.replace(/```json\n?|```/g, "").trim();
+      }
+      parsed = JSON.parse(jsonString);
     } catch {
-      console.error("[Strategy Builder] Failed to parse LLM response as JSON");
+      console.error("[Strategy Builder] Failed to parse LLM response as JSON. Raw response:");
+      console.error(rawResponse);
       return null;
     }
 
