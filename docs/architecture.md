@@ -48,20 +48,20 @@ PaxBot построена по принципу **Cognitive Loop** (когнит
 
 **Файлы:**
 
-| Файл                                    | Назначение                                      |
-| --------------------------------------- | ----------------------------------------------- |
-| Файл/Папка                              | Назначение                                      |
-| -------------------------------         | ----------------------------------------------- |
-| `constitution.md`                       | Долгосрочные цели (неизменяемый документ)       |
-| `crisis_handbook.txt`                   | Тактические доктрины и процедуры                |
-| `next_advisor_query.txt`                | Очередной запрос к советнику                    |
-| `advisor_response.txt`                  | Ответ советника                                 |
-| `campaigns/`                            | Структурированные кампании (JSON/MD)            |
-| `sessions/<id>/current_state.json`      | Текущее состояние игры (карта, армии, события)  |
-| `sessions/<id>/strategic_ledger.json`   | Долговременная память: активные планы, операции |
-| `sessions/<id>/ownership_snapshot.json` | Снэпшот владения территориями                   |
-| `sessions/<id>/memory/`                 | Долговременная стратегическая память (v3.0)     |
-| `sessions/<id>/strategy/`               | Стратегические фазы и план развития (v3.0)      |
+| Файл/Папка                              | Назначение                                                         | Статус        |
+| --------------------------------------- | ------------------------------------------------------------------ | ------------- |
+| `active-campaign.txt`                   | Имя активной кампании                                              | ✅ Актуально  |
+| `campaigns/*.json`                      | Структурированные кампании (Campaign JSON)                         | ✅ Актуально  |
+| `campaigns/*.md`                        | Markdown-описание кампаний (человекочитаемый ввод)                 | ✅ Актуально  |
+| `sessions/<id>/current_state.json`      | Текущее состояние игры (карта, армии, события)                     | ✅ Актуально  |
+| `sessions/<id>/strategic_ledger.json`   | Долговременная память: активные планы, операции                    | ✅ Актуально  |
+| `sessions/<id>/ownership_snapshot.json` | Снэпшот владения территориями                                      | ✅ Актуально  |
+| `sessions/<id>/advisor_response.txt`    | Ответ советника (перезаписывается каждый ход)                      | ✅ Актуально  |
+| `strategy/strategy-plan.json`           | Стратегические фазы — **глобальный, не изолирован** (tech debt)    | ⚠️ v3.2       |
+| `memory/`                               | Стратегическая память — **глобальная, не изолирована** (tech debt) | ⚠️ v3.2       |
+| `next_advisor_query.txt`                | Очередной запрос к советнику — **глобальный** (bug, v3.2)          | 🔴 Баг        |
+| `constitution.md`                       | Legacy: цели (сейчас заглушка, заменяется Campaign)                | ⚠️ Deprecated |
+| `crisis_handbook.txt`                   | Legacy: тактика (сейчас заглушка, заменяется Campaign)             | ⚠️ Deprecated |
 
 ### 2.3 Brain — Мышление (LLM Logic)
 
@@ -241,13 +241,13 @@ index.ts
        │
 3. Brain собирает контекст:                            [brain/context-assembler.ts]
    ├── current_state.json
-   ├── constitution.md
-   ├── crisis_handbook.txt
+   ├── constitution.md ⚠️ (заглушка — deprecated в v3.2)
+   ├── crisis_handbook.txt ⚠️ (заглушка — deprecated в v3.2)
    ├── strategic_ledger.json
    ├── advisor_response.txt
-   ├── campaign (war-room/campaigns/)              — v2.0
-   ├── memory (war-room/memory/)                   — v3.0
-   └── strategy (war-room/strategy/)               — v3.0
+   ├── campaign (war-room/campaigns/)              — v2.0 (основной источник идентичности)
+   ├── memory (war-room/memory/) ⚠️               — v3.0 (глобальная, не изолирована — баг)
+   └── strategy (war-room/strategy/) ⚠️           — v3.0 (глобальная, не изолирована — баг)
        │
 4. LLM генерирует JSON-действия                      [brain/action-generator.ts]
    (Gemini / Groq / OpenAI — переключаемо)
@@ -287,6 +287,20 @@ index.ts
 | Нет стратегического планирования | v3.0     | ✅ Strategic Phases           |
 
 ## 7. Текущие ограничения архитектуры
+
+### Архитектурный долг (tech debt)
+
+| Проблема                                                                                                                                        | Где                        | Severity  | Версия фикса |
+| ----------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------- | ------------ |
+| `next_advisor_query.txt` записывается в корень (`war-room/`), а читается из сессии (`getSessionDir()`) — бот каждый ход задаёт дефолтный вопрос | `action-generator.ts`      | 🔴 P0 Bug | v3.2         |
+| `strategy/planner.ts` — глобальный путь, не изолирован по сессиям                                                                               | `src/strategy/planner.ts`  | 🟡 P1     | v3.2         |
+| `memory/loader.ts` — глобальный путь, не изолирован по сессиям                                                                                  | `src/memory/loader.ts`     | 🟡 P1     | v3.2         |
+| `constitution.md` и `crisis_handbook.txt` — пустые заглушки в system prompt                                                                     | `war-room/`                | 🟡 P2     | v3.2         |
+| Кириллические имена папок сессий (`Россия 2050`) — encoding риски                                                                               | `shared/session.ts`        | 🟡 P2     | v3.2         |
+| Strategy Plan не генерируется из Campaign при `init-campaign`                                                                                   | `scripts/init-campaign.ts` | 🟡 P2     | v3.2         |
+| Memory в промпте не лимитирована — риск token bloat                                                                                             | `memory/loader.ts`         | 🟢 P3     | v4.0         |
+
+### Single-agent ограничения
 
 - **Single-agent:** Весь цикл выполняется одним модулем Brain, нет разделения на Planner/Critic/Executor
 - **Нет метрик:** Отсутствует система объективной оценки прогресса (KPI)
