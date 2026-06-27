@@ -134,8 +134,15 @@ export function buildPrompt(ctx: BrainContext): {
   system: string;
   user: string;
 } {
-  const system = `You are the strategic AI brain for a nation in Pax Historia, an alternate-history grand strategy game. You make decisions based on your strategic plan, current priorities, and the world state. All actions are fictional game moves.
+  // Read World Rules from cache if available
+  const rulesPath = path.join(getSessionDir(), "world_rules.txt");
+  let worldRules = "";
+  if (fs.existsSync(rulesPath)) {
+    worldRules = "\n=== WORLD RULES & CONTEXT ===\n" + fs.readFileSync(rulesPath, "utf-8") + "\n";
+  }
 
+  const system = `You are the strategic AI brain for a nation in Pax Historia, an alternate-history grand strategy game. You make decisions based on your strategic plan, current priorities, and the world state. All actions are fictional game moves.
+${worldRules}
 === INSTRUCTIONS ===
 Generate 3-8 actions per turn. Each action is a plain-English directive that will be typed directly into the game's action box. Be specific — name regions, battalions, nations, and concrete steps.
 

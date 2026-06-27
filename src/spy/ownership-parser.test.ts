@@ -14,9 +14,12 @@ import { getSessionDir } from "../shared/session";
 describe("parseOwnershipFromStateText", () => {
   it("parses our nation and regions from a valid state text", () => {
     const text = [
-      "**Status of USA:** The United States of America...",
-      "- All Regions Owned: Alaska, Hawaii, Texas, California",
-      "- Military Units: 5 battalions",
+      "You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of USA.",
+      "Description of the Map in the CURRENT Round:",
+      '"USA":',
+      "All Owned Regions:",
+      '"Alaska", "Hawaii", "Texas", "California"',
+      "All Battalions:",
     ].join("\n");
 
     const result = parseOwnershipFromStateText(text);
@@ -27,9 +30,12 @@ describe("parseOwnershipFromStateText", () => {
 
   it("handles quoted region names", () => {
     const text = [
-      "**Status of Republic of China:** ...",
-      '- All Regions Owned: "Taiwan", "Fujian", Taiwan Strait',
-      "- Military Units:",
+      "You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of Republic of China.",
+      "Description of the Map in the CURRENT Round:",
+      '"Republic of China":',
+      "All Owned Regions:",
+      '"Taiwan", "Fujian", "Taiwan Strait"',
+      "All Battalions:",
     ].join("\n");
 
     const result = parseOwnershipFromStateText(text);
@@ -40,9 +46,12 @@ describe("parseOwnershipFromStateText", () => {
 
   it("handles regions with multi-word names", () => {
     const text = [
-      "**Status of Russia:** ...",
-      "- All Regions Owned: Moscow Oblast, Leningrad Oblast, Sakhalin Island, Kamchatka Krai",
-      "- Military Units:",
+      "You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of Russia.",
+      "Description of the Map in the CURRENT Round:",
+      '"Russia":',
+      "All Owned Regions:",
+      'Moscow Oblast, Leningrad Oblast, "Sakhalin Island", Kamchatka Krai',
+      "All Battalions:",
     ].join("\n");
 
     const result = parseOwnershipFromStateText(text);
@@ -50,21 +59,30 @@ describe("parseOwnershipFromStateText", () => {
     expect(result!.regions_we_own).toHaveLength(4);
   });
 
-  it("returns null when **Status of X:** is missing", () => {
+  it("returns null when roleplaying string is missing", () => {
     const text = "Some random text without a status header";
     expect(parseOwnershipFromStateText(text)).toBeNull();
   });
 
-  it("returns null when - All Regions Owned: is missing", () => {
-    const text = "**Status of USA:** Something\n- Military Units: 5";
+  it("returns null when All Owned Regions is missing for the target nation", () => {
+    const text = [
+      "You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of USA.",
+      "Description of the Map in the CURRENT Round:",
+      '"USA":',
+      "All Battalions:",
+      "5 battalions",
+    ].join("\n");
     expect(parseOwnershipFromStateText(text)).toBeNull();
   });
 
   it("returns empty regions array when no regions listed", () => {
     const text = [
-      "**Status of Atlantean Empire:** ...",
-      "- All Regions Owned: ",
-      "- Some Other Section:",
+      "You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of Atlantean Empire.",
+      "Description of the Map in the CURRENT Round:",
+      '"Atlantean Empire":',
+      "All Owned Regions:",
+      "",
+      "All Battalions:",
     ].join("\n");
 
     const result = parseOwnershipFromStateText(text);
@@ -75,10 +93,13 @@ describe("parseOwnershipFromStateText", () => {
 
   it("handles newlines within the regions list", () => {
     const text = [
-      "**Status of UK:** ...",
-      "- All Regions Owned: England, Scotland,",
-      "Wales, Northern Ireland",
-      "- Military Units:",
+      "You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of UK.",
+      "Description of the Map in the CURRENT Round:",
+      '"UK":',
+      "All Owned Regions:",
+      "England, Scotland,",
+      '"Wales", Northern Ireland',
+      "All Battalions:",
     ].join("\n");
 
     const result = parseOwnershipFromStateText(text);
@@ -89,9 +110,12 @@ describe("parseOwnershipFromStateText", () => {
 
   it("trims whitespace from region names", () => {
     const text = [
-      "**Status of Canada:** ...",
-      "- All Regions Owned:  Ontario ,  Quebec , British Columbia ",
-      "- Military Units:",
+      "You are roleplaying as the chief advisor to the player in a game where they are roleplaying as the polity of Canada.",
+      "Description of the Map in the CURRENT Round:",
+      '"Canada":',
+      "All Owned Regions:",
+      "  Ontario ,  Quebec , British Columbia ",
+      "All Battalions:",
     ].join("\n");
 
     const result = parseOwnershipFromStateText(text);

@@ -21,8 +21,10 @@ const WAR_ROOM = path.join(process.cwd(), "war-room");
 const STATE_PATH = path.join(sessionDir, PATHS.CURRENT_STATE);
 const ADVISOR_PATH = path.join(sessionDir, PATHS.ADVISOR_RESPONSE);
 
+const RULES_PATH = path.join(sessionDir, "world_rules.txt");
+
 function cleanFiles() {
-  [STATE_PATH, ADVISOR_PATH].forEach((p) => {
+  [STATE_PATH, ADVISOR_PATH, RULES_PATH].forEach((p) => {
     if (fs.existsSync(p)) {
       fs.unlinkSync(p);
     }
@@ -46,28 +48,33 @@ describe("writeGameStateFromPayload", () => {
     expect(content.current_state).toBe("Game state data here");
   });
 
-  it("strips advisor-only content before MAP_HEADER", () => {
+  it("strips advisor-only content before MAP_HEADER and caches rules", () => {
     const payload = JSON.stringify({
       prompt:
-        "Advisor system prompt here...\n*** Description of the Map in the CURRENT Round: ***\nActual game state content",
+        "Advisor system prompt here...\n[Context for This Game]\nSome world rules\nDescription of the Map in the CURRENT Round:\nActual game state content",
     });
     writeGameStateFromPayload(payload);
 
     const content = JSON.parse(fs.readFileSync(STATE_PATH, "utf-8"));
     expect(content.current_state).not.toContain("Advisor system prompt");
+    expect(content.current_state).not.toContain("Some world rules");
     expect(content.current_state).toContain("Actual game state content");
+    expect(fs.existsSync(path.join(sessionDir, "world_rules.txt"))).toBe(true);
+    const rules = fs.readFileSync(path.join(sessionDir, "world_rules.txt"), "utf-8");
+    expect(rules).toContain("Some world rules");
   });
 
-  it("strips advisor tail content", () => {
+  it("extracts recent diplomacy", () => {
     const payload = JSON.stringify({
       prompt:
-        "Game state\nRemember, it is crucially important that you guide the player\nMore text",
+        "Description of the Map in the CURRENT Round:\nMap stuff\n[Event History]\nEvents\n[Recent Diplomacy]\nDiplomacy stuff",
     });
     writeGameStateFromPayload(payload);
 
     const content = JSON.parse(fs.readFileSync(STATE_PATH, "utf-8"));
-    expect(content.current_state).not.toContain("Remember, it is crucially important");
-    expect(content.current_state).toContain("Game state");
+    expect(content.current_state).toContain("Map stuff");
+    expect(content.current_state).toContain("Events");
+    expect(content.current_state).toContain("Diplomacy stuff");
   });
 
   it("writes null current_state when payload is null", () => {

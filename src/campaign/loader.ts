@@ -116,8 +116,15 @@ export function formatCampaignForPrompt(campaign: Campaign): string {
     `Priorities:`,
   ];
 
-  for (const p of campaign.priorities) {
+  // Only include top priorities (weight >= 4) to save tokens
+  const topPriorities = campaign.priorities.filter((p) => p.weight >= 4);
+  for (const p of topPriorities) {
     lines.push(`  [${"★".repeat(p.weight)}] ${p.area}: ${p.description}`);
+  }
+  if (campaign.priorities.length > topPriorities.length) {
+    lines.push(
+      `  ... and ${campaign.priorities.length - topPriorities.length} minor priorities omitted.`
+    );
   }
 
   if (campaign.constraints.length > 0) {
