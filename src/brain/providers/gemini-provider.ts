@@ -47,13 +47,14 @@ export class GeminiProvider implements LLMProvider {
 export function buildGeminiConfig(
   model: string,
   systemInstruction: string,
-  maxOutputTokens: number
+  maxOutputTokens: number,
+  options?: { disableSchema?: boolean }
 ): ProviderConfig {
   return {
     model,
     systemInstruction,
     responseMimeType: "application/json",
-    responseSchema: GEMINI_RESPONSE_SCHEMA,
+    responseSchema: options?.disableSchema ? undefined : GEMINI_RESPONSE_SCHEMA,
     maxOutputTokens,
   };
 }

@@ -71,12 +71,13 @@ export class GroqProvider implements LLMProvider {
 export function buildGroqConfig(
   model: string,
   systemInstruction: string,
-  maxOutputTokens: number
+  maxOutputTokens: number,
+  options?: { disableSchema?: boolean }
 ): ProviderConfig {
   return {
     model,
     systemInstruction,
-    responseMimeType: "application/json",
+    responseMimeType: options?.disableSchema ? undefined : "application/json",
     maxOutputTokens,
   };
 }

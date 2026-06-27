@@ -82,13 +82,14 @@ export class OpenAIProvider implements LLMProvider {
 export function buildOpenAIConfig(
   model: string,
   systemInstruction: string,
-  maxOutputTokens: number
+  maxOutputTokens: number,
+  options?: { disableSchema?: boolean }
 ): ProviderConfig {
   return {
     model,
     systemInstruction,
     responseMimeType: "application/json",
-    responseSchema: OPENAI_RESPONSE_SCHEMA,
+    responseSchema: options?.disableSchema ? undefined : OPENAI_RESPONSE_SCHEMA,
     maxOutputTokens,
   };
 }

@@ -34,7 +34,7 @@ The JSON must NOT be wrapped in any top-level key like "campaign". The root obje
 
 Return ONLY valid JSON without any markdown formatting like \`\`\`json.`;
 
-  const rawResponse = await callLLM(systemPrompt, content);
+  const rawResponse = await callLLM(systemPrompt, content, { disableSchema: true });
 
   let parsed: any;
   try {
