@@ -12,5 +12,9 @@ export {
 } from "./loader";
 export { validateCampaign, isValidCampaign } from "./validator";
 export type { Campaign, VictoryCondition, Priority, Constraint, ValidationResult } from "./types";
-export { buildCampaignFromDescription, suggestCampaignPivot } from "./builder";
+export {
+  buildCampaignFromDescription,
+  suggestCampaignPivot,
+  initializeCampaignFromMarkdown,
+} from "./builder";
 export type { BuildResult } from "./builder";

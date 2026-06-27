@@ -12,6 +12,8 @@ import { validateCampaign } from "./validator";
 import { callLLM } from "../brain/llm-client";
 import { PATHS } from "../shared/config";
 import { getPrimaryCampaign, invalidateCache } from "./loader";
+import { setActiveCampaignName, getSessionDir } from "../shared/session";
+import { buildStrategyPlanFromCampaign } from "../strategy/builder";
 
 // ---------------------------------------------------------------------------
 // Prompt for the LLM
@@ -124,6 +126,81 @@ export async function buildCampaignFromDescription(description: string): Promise
       error: `Campaign builder error: ${(err as Error).message}`,
     };
   }
+}
+
+/**
+ * Parses markdown description of a campaign, validates it, saves the JSON,
+ * sets it as active, and builds the strategy plan.
+ */
+export async function initializeCampaignFromMarkdown(filePath: string): Promise<Campaign> {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+
+  const content = fs.readFileSync(filePath, "utf-8");
+  console.log(
+    `[Campaign Builder] Analyzing campaign description from ${path.basename(filePath)}...`
+  );
+
+  const systemPrompt = `You are a strategic AI parser. Parse the user's natural language campaign description into a strict JSON object that matches the Campaign schema.
+The JSON must NOT be wrapped in any top-level key like "campaign". The root object must directly contain these fields:
+- name: string (generate a cool unique name if none is explicitly provided, e.g. 'Project Vanguard')
+- country: string
+- superGoal: string
+- timeHorizon: number
+- priorities: array of { area: string, weight: number (1-5), description: string }
+- constraints: array of { rule: string, severity: "hard"|"soft" }
+- victoryConditions: array of { id: string, description: string, metric: string, target: number, current: number }
+
+Return ONLY valid JSON without any markdown formatting like \`\`\`json.`;
+
+  const rawResponse = await callLLM(systemPrompt, content, { disableSchema: true });
+
+  let parsed: any;
+  try {
+    let jsonString = rawResponse;
+    const match = rawResponse.match(/\{[\s\S]*\}/);
+    if (match) {
+      jsonString = match[0];
+    } else {
+      jsonString = rawResponse.replace(/```json\n?|```/g, "").trim();
+    }
+    parsed = JSON.parse(jsonString);
+    if (parsed.campaign && typeof parsed.campaign === "object") {
+      parsed = parsed.campaign;
+    }
+  } catch (err) {
+    throw new Error(`Failed to parse LLM response as JSON: ${rawResponse.slice(0, 200)}`);
+  }
+
+  const validation = validateCampaign(parsed);
+  if (validation.errors.length > 0) {
+    throw new Error(`Validation failed: ${validation.errors.join("; ")}`);
+  }
+
+  const campaign = parsed as Campaign;
+
+  // Save the generated JSON
+  const jsonName = path.basename(filePath, ".md") + ".json";
+  const jsonPath = path.join(process.cwd(), PATHS.WAR_ROOM, "campaigns", jsonName);
+
+  fs.mkdirSync(path.dirname(jsonPath), { recursive: true });
+  fs.writeFileSync(jsonPath, JSON.stringify(campaign, null, 2), "utf-8");
+  console.log(`[Campaign Builder] Campaign JSON saved to ${jsonPath}`);
+
+  // Invalidate cache
+  invalidateCache();
+
+  // Set active
+  setActiveCampaignName(campaign.name);
+
+  // Initialize session
+  getSessionDir();
+
+  // Strategy plan
+  await buildStrategyPlanFromCampaign(campaign);
+
+  return campaign;
 }
 
 /**
