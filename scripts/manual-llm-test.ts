@@ -112,6 +112,25 @@ async function main() {
     });
     console.log("\n=== NEXT ADVISOR QUERY ===");
     console.log(batch.next_advisor_query);
+
+    // Update files (ledger and advisor query) for semi-manual play
+    const { mergeLedger, writeLedger } = require("../src/brain/ledger-manager");
+    const { PATHS } = require("../src/shared/config");
+
+    if (batch.ledger_updates.length > 0) {
+      const merged = mergeLedger(ctx.ledger, batch.ledger_updates);
+      writeLedger(merged);
+      console.log(
+        `\n✅ Обновлён стратегический реестр (операций: ${merged.active_operations.length})`
+      );
+    }
+
+    const nextQuery = batch.next_advisor_query?.trim() ?? "";
+    if (nextQuery) {
+      const nextQueryPath = path.join(sessionDir, PATHS.NEXT_ADVISOR_QUERY);
+      fs.writeFileSync(nextQueryPath, nextQuery, "utf-8");
+      console.log(`✅ Вопрос советнику сохранён в сессию`);
+    }
   } catch (err) {
     console.error("\n❌ Ошибка валидации схемы ActionBatch:");
     console.error(err);
