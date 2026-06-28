@@ -109,7 +109,7 @@ const OPENAI_RESPONSE_SCHEMA = {
       type: "array",
       items: {
         type: "string",
-        description: "A plain-English directive to type into the game action box",
+        description: "A plain-text directive to type into the game action box",
       },
       description: "List of 3-8 game actions to execute this turn",
     },
