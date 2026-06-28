@@ -9,3 +9,4 @@ export {
   dismissGamePopups,
 } from "./actions";
 export { openPresetAndSelectWW2 } from "./navigate";
+export { startPopupWatcher, stopPopupWatcher } from "./popup-watcher";

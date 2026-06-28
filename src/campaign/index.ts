@@ -18,3 +18,4 @@ export {
   initializeCampaignFromMarkdown,
 } from "./builder";
 export type { BuildResult } from "./builder";
+export { runInteractiveMenu } from "./menu";
