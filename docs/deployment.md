@@ -30,6 +30,9 @@
 # Выбор провайдера (gemini, groq, openai)
 LLM_PROVIDER=gemini
 
+# Язык бота (опционально, по умолчанию English)
+AGENT_LANGUAGE=Russian
+
 # API Ключи
 GROQ_API_KEY=gsk_...
 GOOGLE_API_KEY=AIza...
