@@ -128,6 +128,15 @@ _Технический долг, выявленный при ревью `war-ro
 
 ---
 
+## Версия 3.4 — Локализация и Очистка здоровья кода (завершён)
+
+- [x] **Локализация LLM**: Поддержка Agent Language (Russian/English) в промптах и ответах.
+- [x] **Рефакторинг `index.ts`**: Вынесение CLI-меню в `src/campaign/menu.ts` и `PopupWatcher` в `src/hand/popup-watcher.ts`.
+- [x] **Чистка зависимостей**: Удаление неиспользуемых `groq`, `@anthropic-ai/sdk` и `@typescript-eslint/eslint-plugin`.
+- [x] **Тестирование**: Добавление 11 unit-тестов для `src/shared/config.ts` и `src/shared/session.ts`.
+
+---
+
 ## Версия 4.0 — Оценка и контроль
 
 - [ ] **Phase 6 (P1):** KPI System
