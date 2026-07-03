@@ -17,7 +17,9 @@ export async function dismissGamePopups(page: Page): Promise<void> {
       console.log("[Hand] Dismissed 'Help Improve AI Models' popup.");
       await page.waitForTimeout(500);
     }
-  } catch { /* not present */ }
+  } catch {
+    /* not present */
+  }
 
   // 2. "Get more tokens" / any dialog with an aria-label="Close" X button.
   //    HTML: <section role="dialog"> ... <button aria-label="Close"> (the X)
@@ -30,7 +32,9 @@ export async function dismissGamePopups(page: Page): Promise<void> {
       await page.waitForTimeout(500);
       return; // done
     }
-  } catch { /* not present */ }
+  } catch {
+    /* not present */
+  }
 
   // 3. Fallback: any visible aria-label="Dismiss" button (hidden screen-reader dismiss buttons)
   try {
@@ -41,7 +45,9 @@ export async function dismissGamePopups(page: Page): Promise<void> {
       await page.waitForTimeout(500);
       return;
     }
-  } catch { /* not present */ }
+  } catch {
+    /* not present */
+  }
 }
 
 /** Type text character-by-character with a fast typing effect. */
@@ -60,9 +66,13 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
 
   for (let attempt = 0; attempt < ACTION_PANEL_RETRIES; attempt++) {
     // Quick check: already visible?
-    if (await box.isVisible()) return;
+    if (await box.isVisible()) {
+      return;
+    }
 
-    console.log(`[Hand] Action panel not visible (attempt ${attempt + 1}/${ACTION_PANEL_RETRIES}), opening...`);
+    console.log(
+      `[Hand] Action panel not visible (attempt ${attempt + 1}/${ACTION_PANEL_RETRIES}), opening...`
+    );
 
     // Clear popups that may be covering the panel
     await dismissGamePopups(page);
@@ -79,7 +89,9 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
       await box.waitFor({ state: "visible", timeout: 2000 });
       console.log("[Hand] Action panel opened.");
       return;
-    } catch { /* didn't work */ }
+    } catch {
+      /* didn't work */
+    }
 
     // Heavier recovery: Escape + stale buttons
     await page.keyboard.press("Escape");
@@ -92,7 +104,9 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
           console.log(`[Hand] Dismissed stale "${name}" button`);
           await page.waitForTimeout(300);
         }
-      } catch { /* not present */ }
+      } catch {
+        /* not present */
+      }
     }
   }
 
@@ -111,7 +125,9 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
       await startBtn.click();
       console.log("[Hand] Clicked 'Start Playing!' after reload.");
       await page.waitForTimeout(3000);
-    } catch { /* might already be on the game page */ }
+    } catch {
+      /* might already be on the game page */
+    }
 
     await dismissGamePopups(page);
     await box.waitFor({ state: "visible", timeout: 10000 });
@@ -129,9 +145,11 @@ export async function enterAction(page: Page, text: string): Promise<void> {
   await page.locator(SELECTORS.actionSubmitButton).first().click();
   console.log("[Action] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
   // Scroll the actions scroll container to the bottom so the user can see the submitted action
-  await page.locator("div.min-h-0.flex-1.overflow-y-auto").first().evaluate(
-    (el) => el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
-  ).catch(() => {});
+  await page
+    .locator("div.min-h-0.flex-1.overflow-y-auto")
+    .first()
+    .evaluate((el) => el.scrollTo({ top: el.scrollHeight, behavior: "smooth" }))
+    .catch(() => {});
 }
 
 /** Open the advisor panel (flag icon in bottom-right) if the advisor textarea is not visible. */
@@ -146,7 +164,9 @@ async function ensureAdvisorPanelOpen(page: Page): Promise<void> {
     try {
       await box.waitFor({ state: "visible", timeout: 2000 });
       return;
-    } catch { /* still not visible, click the trigger */ }
+    } catch {
+      /* still not visible, click the trigger */
+    }
 
     await page.locator(SELECTORS.advisorPanelTrigger).click();
     await box.waitFor({ state: "visible", timeout: 10000 });
@@ -161,12 +181,16 @@ export async function enterAdvisorQuery(page: Page, text: string): Promise<void>
   await page.getByRole("button", { name: "Send message" }).click();
   console.log("[Advisor] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
   // Scroll the advisor chat container to the bottom
-  await page.locator("div.flex.grow.flex-col.gap-3").first().evaluate(
-    (el) => {
+  await page
+    .locator("div.flex.grow.flex-col.gap-3")
+    .first()
+    .evaluate((el) => {
       const scrollParent = el.closest(".overflow-y-auto") ?? el.parentElement;
-      if (scrollParent) scrollParent.scrollTo({ top: scrollParent.scrollHeight, behavior: "smooth" });
-    }
-  ).catch(() => {});
+      if (scrollParent) {
+        scrollParent.scrollTo({ top: scrollParent.scrollHeight, behavior: "smooth" });
+      }
+    })
+    .catch(() => {});
 }
 
 /** Poll interval and how long we wait for the advisor response to stop changing (streaming). */
@@ -190,7 +214,9 @@ export async function getLastAdvisorResponseText(
       const parts: string[] = [];
       for (let i = 0; i < count; i++) {
         const text = (await locator.nth(i).innerText()).trim();
-        if (text) parts.push(text);
+        if (text) {
+          parts.push(text);
+        }
       }
       const full = parts.join("\n\n").trim();
       if (full.length > 80) {
@@ -198,7 +224,9 @@ export async function getLastAdvisorResponseText(
           lastText = full;
           lastChangeTime = Date.now();
         }
-        if (Date.now() - lastChangeTime >= ADVISOR_STABLE_MS) return lastText;
+        if (Date.now() - lastChangeTime >= ADVISOR_STABLE_MS) {
+          return lastText;
+        }
       }
     } catch {
       // no element or empty yet
@@ -230,12 +258,14 @@ async function closePanelOverlays(page: Page): Promise<void> {
         console.log(`[Hand] Closed panel overlay (X button ${i + 1}/${count}).`);
         await page.waitForTimeout(300);
       }
-    } catch { /* button disappeared or not interactive */ }
+    } catch {
+      /* button disappeared or not interactive */
+    }
   }
 }
 
 /**
- * Click the next-turn control (top right), then click the "1 week" button to advance.
+ * Click the next-turn control (top right), then click the "3 months" button to advance.
  * Then repeatedly click "Next Event" until no more event popups (or timeout).
  * Call after actions/advisor are submitted.
  */
@@ -246,9 +276,9 @@ export async function clickNextTurn(page: Page): Promise<void> {
   await closePanelOverlays(page);
   await page.locator(SELECTORS.nextTurnButton).first().click();
   await page.waitForTimeout(1500);
-  // Button shows date + "1 week" (e.g. "12/8/1935" and "1 week"); match by text.
-  await page.getByRole("button", { name: /1 week/i }).click();
-  console.log("[Hand] Clicked next turn (1 week).");
+  // Button shows date + "3 months" (e.g. "12/8/1935" and "3 months"); match by text.
+  await page.getByRole("button", { name: /3 months/i }).click();
+  console.log("[Hand] Clicked next turn (3 months).");
   await dismissNextEvents(page);
 
   // Reopen the advisor panel after news so it's ready for the next turn cycle
@@ -288,7 +318,9 @@ export async function dismissNextEvents(page: Page): Promise<void> {
 
   while (clicks < NEXT_EVENT_MAX_CLICKS && Date.now() - start < timeoutMs) {
     const waitMs = clicks === 0 ? NEXT_EVENT_FIRST_TIMEOUT_MS : NEXT_EVENT_LATER_TIMEOUT_MS;
-    if (clicks === 0) console.log("[Hand] Waiting for first event (loading/LLM may take a while)…");
+    if (clicks === 0) {
+      console.log("[Hand] Waiting for first event (loading/LLM may take a while)…");
+    }
 
     // Always check "Next Event" first — it takes priority over "Proceed".
     // Only break when Next Event is genuinely gone.
@@ -302,12 +334,16 @@ export async function dismissNextEvents(page: Page): Promise<void> {
     // "Next Event" is visible — click it
     await nextEventBtn.click();
     clicks++;
-    if (clicks % 10 === 0) console.log("[Hand] Dismissed", clicks, "events…");
+    if (clicks % 10 === 0) {
+      console.log("[Hand] Dismissed", clicks, "events…");
+    }
     // Wait for the new event content to render before scrolling
     await page.waitForTimeout(2000);
     // Scroll the latest bold event headline into view so the user can read it
-    await page.locator("div.min-h-0.flex-1.overflow-y-auto").first().evaluate(
-      (container) => {
+    await page
+      .locator("div.min-h-0.flex-1.overflow-y-auto")
+      .first()
+      .evaluate((container) => {
         const headlines = container.querySelectorAll(".font-bold.uppercase");
         const last = headlines[headlines.length - 1];
         if (last) {
@@ -315,12 +351,14 @@ export async function dismissNextEvents(page: Page): Promise<void> {
         } else {
           container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
         }
-      }
-    ).catch(() => {});
+      })
+      .catch(() => {});
     await page.waitForTimeout(NEXT_EVENT_PAUSE_AFTER_CLICK_MS);
   }
 
-  if (clicks > 0) console.log("[Hand] Done dismissing events. Total:", clicks);
+  if (clicks > 0) {
+    console.log("[Hand] Done dismissing events. Total:", clicks);
+  }
 
   // Click Proceed to close the timeline
   try {
@@ -338,7 +376,9 @@ export async function dismissNextEvents(page: Page): Promise<void> {
 /** Move cursor to the center of the viewport and scroll to zoom the map all the way out. */
 async function zoomOutMap(page: Page): Promise<void> {
   const vp = page.viewportSize();
-  if (!vp) return;
+  if (!vp) {
+    return;
+  }
   await page.mouse.move(vp.width / 2, vp.height / 2);
   await page.waitForTimeout(500);
   for (let i = 0; i < 12; i++) {

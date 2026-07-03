@@ -333,7 +333,7 @@ async function main(): Promise<void> {
         await runTurn(page, turnNumber);
       } catch (err) {
         console.error(
-          `\n[Turn ${turnNumber}] ERROR — skipping to next week:`,
+          `\n[Turn ${turnNumber}] ERROR — skipping to next turn:`,
           (err as Error).message?.slice(0, 120)
         );
       }
