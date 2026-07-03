@@ -160,8 +160,15 @@ async function boot() {
   // but if we do, we should notify the user via status.
   tui.setStatus("Press ENTER in the terminal to start the game loop...");
   tui.log("Waiting for user confirmation to start loop (Press ENTER in terminal)");
+  if (process.stdin.isTTY) {
+    process.stdin.setRawMode(false);
+  }
+  process.stdin.resume();
   await new Promise<void>((resolve) => {
-    process.stdin.once("data", () => resolve());
+    process.stdin.once("data", () => {
+      process.stdin.pause();
+      resolve();
+    });
   });
 
   // Brief wait for game UI to finish rendering (navigation already waited 2.5s)
