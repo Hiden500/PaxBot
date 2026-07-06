@@ -2,71 +2,38 @@
  * Brain: Groq LLM Provider
  *
  * Implementation of LLMProvider for Groq (via OpenAI-compatible API).
- * Uses function calling / structured output via response_format.
+ * Uses GenericOpenAIProvider under the hood, but without strict schema support.
  */
 
 import type { LLMProvider, ProviderConfig } from "./provider";
+import { GenericOpenAIProvider, buildGenericOpenAIConfig } from "./generic-openai-provider";
 
 /**
  * Groq provider implementation.
- * Uses OpenAI-compatible chat completions endpoint.
+ * Uses OpenAI-compatible chat completions endpoint but does not support json_schema strict mode.
  */
 export class GroqProvider implements LLMProvider {
   readonly name = "groq";
-
-  private apiKey: string;
-  private baseUrl: string;
+  private genericProvider: GenericOpenAIProvider;
 
   constructor(apiKey: string, baseUrl = "https://api.groq.com/openai/v1") {
-    this.apiKey = apiKey;
-    this.baseUrl = baseUrl;
+    this.genericProvider = new GenericOpenAIProvider({
+      name: "groq",
+      apiKey,
+      baseUrl,
+      supportsStrictSchema: false,
+    });
   }
 
   async generate(prompt: string, config: ProviderConfig): Promise<string> {
-    const response = await fetch(`${this.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: config.model,
-        messages: [
-          {
-            role: "system",
-            content: config.systemInstruction ?? "",
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        max_tokens: config.maxOutputTokens,
-        response_format:
-          config.responseMimeType === "application/json" ? { type: "json_object" } : undefined,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => "Unknown error");
-      throw new Error(`Groq API error (${response.status}): ${errorText.slice(0, 200)}`);
-    }
-
-    const data = (await response.json()) as {
-      choices: Array<{ message: { content: string | null } }>;
-    };
-
-    const text = data.choices?.[0]?.message?.content;
-    if (!text) {
-      throw new Error("Groq returned an empty response.");
-    }
-
-    return text;
+    return this.genericProvider.generate(prompt, config);
   }
 }
 
 /**
  * Build Groq-specific config.
+ * Groq doesn't use the JSON schema definition in the request itself,
+ * it relies on system prompt instructions and type: "json_object".
  */
 export function buildGroqConfig(
   model: string,
@@ -74,10 +41,5 @@ export function buildGroqConfig(
   maxOutputTokens: number,
   options?: { disableSchema?: boolean }
 ): ProviderConfig {
-  return {
-    model,
-    systemInstruction,
-    responseMimeType: options?.disableSchema ? undefined : "application/json",
-    maxOutputTokens,
-  };
+  return buildGenericOpenAIConfig(model, systemInstruction, maxOutputTokens, options);
 }

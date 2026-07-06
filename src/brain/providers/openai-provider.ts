@@ -2,82 +2,35 @@
  * Brain: OpenAI LLM Provider
  *
  * Implementation of LLMProvider for OpenAI (chat completions API).
- * Supports structured JSON output via response_format: json_schema.
+ * Uses GenericOpenAIProvider under the hood.
  */
 
 import type { LLMProvider, ProviderConfig } from "./provider";
+import { GenericOpenAIProvider, buildGenericOpenAIConfig } from "./generic-openai-provider";
 
 /**
  * OpenAI provider implementation.
  */
 export class OpenAIProvider implements LLMProvider {
   readonly name = "openai";
-
-  private apiKey: string;
-  private baseUrl: string;
+  private genericProvider: GenericOpenAIProvider;
 
   constructor(apiKey: string, baseUrl = "https://api.openai.com/v1") {
-    this.apiKey = apiKey;
-    this.baseUrl = baseUrl;
+    this.genericProvider = new GenericOpenAIProvider({
+      name: "openai",
+      apiKey,
+      baseUrl,
+      supportsStrictSchema: true,
+    });
   }
 
   async generate(prompt: string, config: ProviderConfig): Promise<string> {
-    const response = await fetch(`${this.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: config.model,
-        messages: [
-          {
-            role: "system",
-            content: config.systemInstruction ?? "",
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        max_tokens: config.maxOutputTokens,
-        response_format:
-          config.responseMimeType === "application/json" && config.responseSchema
-            ? {
-                type: "json_schema",
-                json_schema: {
-                  name: "action_batch",
-                  strict: true,
-                  schema: config.responseSchema,
-                },
-              }
-            : config.responseMimeType === "application/json"
-              ? { type: "json_object" }
-              : undefined,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => "Unknown error");
-      throw new Error(`OpenAI API error (${response.status}): ${errorText.slice(0, 200)}`);
-    }
-
-    const data = (await response.json()) as {
-      choices: Array<{ message: { content: string | null } }>;
-    };
-
-    const text = data.choices?.[0]?.message?.content;
-    if (!text) {
-      throw new Error("OpenAI returned an empty response.");
-    }
-
-    return text;
+    return this.genericProvider.generate(prompt, config);
   }
 }
 
 /**
  * Build OpenAI-compatible config.
- * Converts Gemini-style responseSchema to JSON Schema for OpenAI's json_schema mode.
  */
 export function buildOpenAIConfig(
   model: string,
@@ -85,112 +38,5 @@ export function buildOpenAIConfig(
   maxOutputTokens: number,
   options?: { disableSchema?: boolean }
 ): ProviderConfig {
-  return {
-    model,
-    systemInstruction,
-    responseMimeType: "application/json",
-    responseSchema: options?.disableSchema ? undefined : OPENAI_RESPONSE_SCHEMA,
-    maxOutputTokens,
-  };
+  return buildGenericOpenAIConfig(model, systemInstruction, maxOutputTokens, options);
 }
-
-// ---------------------------------------------------------------------------
-// OpenAI response schema (JSON Schema format for json_schema mode)
-// ---------------------------------------------------------------------------
-
-const OPENAI_RESPONSE_SCHEMA = {
-  type: "object",
-  properties: {
-    reasoning: {
-      type: "string",
-      description: "Brief explanation of strategic thinking for this turn's decisions",
-    },
-    actions: {
-      type: "array",
-      items: {
-        type: "string",
-        description: "A plain-text directive to type into the game action box",
-      },
-      description: "List of 3-8 game actions to execute this turn",
-    },
-    ledger_updates: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          operation_id: {
-            type: "string",
-            description: "Unique ID for this operation (e.g. OP_001)",
-          },
-          goal: {
-            type: "string",
-            description: "What this multi-turn operation aims to achieve",
-          },
-          current_phase: {
-            type: "number",
-            description: "Current phase number of the operation",
-          },
-          steps: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                phase: { type: "number", description: "Step phase number" },
-                action: {
-                  type: "string",
-                  description: "What this step does",
-                },
-                status: {
-                  type: "string",
-                  description: "COMPLETE, PENDING, or FAILED",
-                },
-              },
-              required: ["phase", "action", "status"],
-            },
-            description: "Ordered list of steps in this operation",
-          },
-        },
-        required: ["operation_id", "goal", "current_phase", "steps"],
-      },
-      description: "Updated or new operations to save in the strategic ledger",
-    },
-    next_advisor_query: {
-      type: "string",
-      description:
-        "One short question to ask the in-game advisor on the NEXT turn (e.g. about a specific front, nation, or decision). Keep under 100 words.",
-    },
-    milestone_checks: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          milestone: {
-            type: "string",
-            description: "The campaign objective or priority checked",
-          },
-          status: {
-            type: "string",
-            enum: ["ACHIEVED", "NOT_ACHIEVED", "FAILED"],
-            description: "ACHIEVED, NOT_ACHIEVED, or FAILED",
-          },
-          evidence: {
-            type: "string",
-            description: "Direct text evidence from the game state",
-          },
-        },
-        required: ["milestone", "status", "evidence"],
-        additionalProperties: false,
-      },
-      description: "Evaluation of our progress against current campaign milestones/priorities",
-    },
-    immediate_risks: {
-      type: "array",
-      items: {
-        type: "string",
-      },
-      description: "Brief list of immediate direct threats observed in current state",
-    },
-  },
-  required: ["reasoning", "actions", "ledger_updates", "milestone_checks", "immediate_risks"],
-  additionalProperties: false,
-};
