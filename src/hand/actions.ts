@@ -5,6 +5,15 @@
 
 import type { Locator, Page } from "playwright";
 import { SELECTORS } from "./selectors";
+import {
+  tryOpenActionPanel,
+  dismissStaleButtons,
+  reloadGamePageToRecover,
+  scrollActionPanelToBottom,
+  scrollAdvisorPanelToBottom,
+  scrollLatestEventHeadlineIntoView,
+  clickProceedButton,
+} from "./actions-ui-helpers";
 
 /** Dismiss game popups ("Help Improve AI Models", "Get more tokens", etc.) if visible.
  *  Called before every major UI interaction as a safety net. */
@@ -83,55 +92,17 @@ async function ensureActionsPanelOpen(page: Page): Promise<void> {
       return;
     }
 
-    // Try clicking the panel button to open it
-    try {
-      await panelBtn.click();
-      await box.waitFor({ state: "visible", timeout: 2000 });
-      console.log("[Hand] Action panel opened.");
+    if (await tryOpenActionPanel(page, panelBtn, box)) {
       return;
-    } catch {
-      /* didn't work */
     }
 
     // Heavier recovery: Escape + stale buttons
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(300);
-    for (const name of ["Maybe later", "Next Event", "Proceed", "Close", "OK", "Continue"]) {
-      try {
-        const stale = page.getByRole("button", { name }).first();
-        if (await stale.isVisible()) {
-          await stale.click();
-          console.log(`[Hand] Dismissed stale "${name}" button`);
-          await page.waitForTimeout(300);
-        }
-      } catch {
-        /* not present */
-      }
-    }
+    await dismissStaleButtons(page);
   }
 
   // Last resort: reload the game page without query params and click "Start Playing!"
-  console.log("[Hand] Action panel stuck — reloading game page to recover...");
   try {
-    const currentUrl = new URL(page.url());
-    currentUrl.search = ""; // strip ?round=N etc.
-    await page.goto(currentUrl.toString(), { waitUntil: "domcontentloaded", timeout: 20000 });
-    await page.waitForTimeout(3000);
-
-    // Click "Start Playing!" if it appears (re-entering an in-progress game)
-    const startBtn = page.getByRole("button", { name: "Start Playing!" }).first();
-    try {
-      await startBtn.waitFor({ state: "visible", timeout: 8000 });
-      await startBtn.click();
-      console.log("[Hand] Clicked 'Start Playing!' after reload.");
-      await page.waitForTimeout(3000);
-    } catch {
-      /* might already be on the game page */
-    }
-
-    await dismissGamePopups(page);
-    await box.waitFor({ state: "visible", timeout: 10000 });
-    console.log("[Hand] Action panel recovered after page reload.");
+    await reloadGamePageToRecover(page, box);
     return;
   } catch {
     throw new Error("Could not open actions panel — reload recovery also failed");
@@ -144,12 +115,7 @@ export async function enterAction(page: Page, text: string): Promise<void> {
   await typeText(box, text);
   await page.locator(SELECTORS.actionSubmitButton).first().click();
   console.log("[Action] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
-  // Scroll the actions scroll container to the bottom so the user can see the submitted action
-  await page
-    .locator("div.min-h-0.flex-1.overflow-y-auto")
-    .first()
-    .evaluate((el) => el.scrollTo({ top: el.scrollHeight, behavior: "smooth" }))
-    .catch(() => {});
+  await scrollActionPanelToBottom(page);
 }
 
 /** Open the advisor panel (flag icon in bottom-right) if the advisor textarea is not visible. */
@@ -180,17 +146,7 @@ export async function enterAdvisorQuery(page: Page, text: string): Promise<void>
   await typeText(box, text);
   await page.getByRole("button", { name: "Send message" }).click();
   console.log("[Advisor] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
-  // Scroll the advisor chat container to the bottom
-  await page
-    .locator("div.flex.grow.flex-col.gap-3")
-    .first()
-    .evaluate((el) => {
-      const scrollParent = el.closest(".overflow-y-auto") ?? el.parentElement;
-      if (scrollParent) {
-        scrollParent.scrollTo({ top: scrollParent.scrollHeight, behavior: "smooth" });
-      }
-    })
-    .catch(() => {});
+  await scrollAdvisorPanelToBottom(page);
 }
 
 /** Poll interval and how long we wait for the advisor response to stop changing (streaming). */
@@ -339,20 +295,7 @@ export async function dismissNextEvents(page: Page): Promise<void> {
     }
     // Wait for the new event content to render before scrolling
     await page.waitForTimeout(2000);
-    // Scroll the latest bold event headline into view so the user can read it
-    await page
-      .locator("div.min-h-0.flex-1.overflow-y-auto")
-      .first()
-      .evaluate((container) => {
-        const headlines = container.querySelectorAll(".font-bold.uppercase");
-        const last = headlines[headlines.length - 1];
-        if (last) {
-          last.scrollIntoView({ behavior: "smooth", block: "start" });
-        } else {
-          container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
-        }
-      })
-      .catch(() => {});
+    await scrollLatestEventHeadlineIntoView(page);
     await page.waitForTimeout(NEXT_EVENT_PAUSE_AFTER_CLICK_MS);
   }
 
@@ -360,14 +303,7 @@ export async function dismissNextEvents(page: Page): Promise<void> {
     console.log("[Hand] Done dismissing events. Total:", clicks);
   }
 
-  // Click Proceed to close the timeline
-  try {
-    await proceedBtn.waitFor({ state: "visible", timeout: 3000 });
-    await proceedBtn.click();
-    console.log("[Hand] Clicked Proceed (timeline closed).");
-  } catch {
-    // No Proceed button; timeline may already be closed
-  }
+  await clickProceedButton(page);
 
   // Zoom out the map: move cursor to center of viewport and scroll out
   await zoomOutMap(page);
