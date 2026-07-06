@@ -118,12 +118,17 @@ const SIDEBAR_SCRIPT = (serverUrl: string) => `
       
       // Actions
       if (el('pax-actions') && state.actions && state.actions.length > 0) {
-        el('pax-actions').innerHTML = state.actions.map((a, i) => '<div><b style="color:#4ade80">' + (i+1) + '.</b> ' + a.replace(/</g,'<') + '</div>').join('');
+        el('pax-actions').innerHTML = state.actions.map((a, i) => '<div><b style="color:#4ade80">' + (i+1) + '.</b> ' + a.replace(/&/g, '&').replace(/</g,'<').replace(/>/g, '>') + '</div>').join('');
       }
       
       // Logs (last 5)
       if (el('pax-logs') && state.logs && state.logs.length > 0) {
-        el('pax-logs').innerHTML = state.logs.slice(-5).map(l => '<div>' + l.replace(/</g,'<') + '</div>').join('');
+        el('pax-logs').innerHTML = state.logs.slice(-5).map(l => '<div>' + l.replace(/&/g, '&').replace(/</g,'<').replace(/>/g, '>') + '</div>').join('');
+      }
+      
+      // Update semi-auto checkbox state from server
+      if (el('pax-semiauto')) {
+        el('pax-semiauto').checked = state.isSemiAuto;
       }
     });
     

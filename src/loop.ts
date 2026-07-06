@@ -154,15 +154,16 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
   let turnNumber = 1;
   let stopping = false;
 
-  // Graceful shutdown on Ctrl+C
-  process.on("SIGINT", () => {
+  // Graceful shutdown on Ctrl+C or STOP command
+  const handleSigint = () => {
     if (stopping) {
       process.exit(1);
     }
     stopping = true;
-    console.log("\nCtrl+C received — saving state then shutting down...");
+    console.log("\nCtrl+C / STOP command received — saving state then shutting down...");
     saveLedgerSnapshot(turnNumber);
-  });
+  };
+  process.on("SIGINT", handleSigint);
 
   try {
     while (!stopping) {
@@ -179,8 +180,13 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
         break;
       }
 
+      // Check stopping before next turn wait
+      if (tui.getState().isStopping) {
+        stopping = true;
+      }
+
       // Semi-Auto Mode Wait
-      if (tui.getState().isSemiAuto) {
+      if (tui.getState().isSemiAuto && !stopping) {
         tui.setStatus(`[Turn ${turnNumber}] Ожидание команды "Следующий ход"...`);
         tui.log("[Semi-Auto] Ожидание команды пользователя для продолжения...");
         tui.setPaused(true);
@@ -206,6 +212,8 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
   } catch (err) {
     tui.log(`${t("err.fatal")} ${(err as Error).message}`);
   } finally {
+    // Remove listener to prevent memory leak on multiple restarts
+    process.off("SIGINT", handleSigint);
     saveLedgerSnapshot(turnNumber);
   }
 }

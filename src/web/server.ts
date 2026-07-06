@@ -25,8 +25,9 @@ io.on("connection", (socket) => {
   socket.on("command:stop", () => {
     console.log("[Web] Received command: STOP");
     tui.setStopping(true);
-    // Send immediate interrupt signal if possible, or let the loop pick it up
-    process.kill(process.pid, "SIGINT"); 
+    // We send standard SIGINT, but we can also set the state stopping to true to make loop break
+    tui.setStatus("Остановка бота...");
+    process.emit("SIGINT");
   });
 
   socket.on("command:toggle_semiauto", (enabled: boolean) => {
