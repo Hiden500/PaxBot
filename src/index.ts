@@ -7,17 +7,11 @@
  * Optional: GAME_URL=<url> npm start — skip preset flow, go directly to an in-progress game.
  */
 
-import { validateEnv } from "./brain/llm-client";
-import { tui, TUIDashboard } from "./shared";
-import { runInteractiveMenu } from "./campaign";
-import { bootBrowser, printStartupBanner } from "./boot";
-import { runCognitiveLoop } from "./loop";
-import { startPopupWatcher, stopPopupWatcher } from "./hand";
-import { startWebServer, stopWebServer } from "./web/server";
-import { t } from "./shared/i18n";
+import { validateEnv } from "./brain/providers/registry";
+import { startWebServer } from "./web/server";
 
 async function main(): Promise<void> {
-  printStartupBanner();
+  console.log("PaxBot Web UI Server is starting...");
 
   // Validate environment before doing anything else
   validateEnv();
@@ -25,28 +19,7 @@ async function main(): Promise<void> {
   // Start the Local Web UI server
   await startWebServer();
 
-  // Run interactive menu first before clearing TUI
-  await runInteractiveMenu();
-
-  if (process.stdout.isTTY) {
-    TUIDashboard.active = true;
-    process.stdout.write("\x1b[2J\x1b[H"); // Clear screen
-  }
-
-  const { browser, page } = await bootBrowser();
-
-  // Start background popup watcher — catches "Get more tokens", "Help Improve AI Models", etc.
-  startPopupWatcher(page);
-
-  try {
-    await runCognitiveLoop(page);
-  } finally {
-    stopPopupWatcher();
-    stopWebServer();
-    await browser.close();
-    tui.setStatus(t("menu.exit"));
-    tui.log("Browser closed. Goodbye.");
-  }
+  console.log("[Web] Server initialized. Please manage the bot execution from the Web dashboard.");
 }
 
 main().catch((err) => {
