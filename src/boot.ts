@@ -1,4 +1,4 @@
-import { chromium, type Browser, type Page } from "playwright";
+import { chromium, type BrowserContext, type Page } from "playwright";
 import * as fs from "fs";
 import * as path from "path";
 import { BROWSER_CONFIG, PATHS } from "./shared/config";
@@ -9,7 +9,7 @@ import { t } from "./shared/i18n";
 import { injectGameOverlay } from "./web/overlay";
 
 const AUTH_DIR = path.join(process.cwd(), PATHS.AUTH_DIR);
-const STATE_PATH = path.join(AUTH_DIR, PATHS.AUTH_STATE);
+const PROFILE_DIR = path.join(AUTH_DIR, "profile");
 const BASE_URL = "https://www.paxhistoria.co";
 
 const BROWSER_WIDTH = Math.round((BROWSER_CONFIG.SCREEN_WIDTH * 7) / 10);
@@ -33,13 +33,6 @@ export function printStartupBanner(): void {
   console.log(STARTUP_BANNER);
 }
 
-function ensureAuthState(): void {
-  if (!fs.existsSync(STATE_PATH)) {
-    console.error("No auth state. Run: npm run capture-auth");
-    process.exit(1);
-  }
-}
-
 export function resetWarRoom(): void {
   const sessionDir = getSessionDir();
 
@@ -57,8 +50,7 @@ export function resetWarRoom(): void {
   console.log(`[Boot] War Room session reset (ledger, state, advisor) in ${sessionDir}.`);
 }
 
-export async function bootBrowser(): Promise<{ browser: Browser; page: Page }> {
-  ensureAuthState();
+export async function bootBrowser(): Promise<{ browser: BrowserContext; page: Page }> {
   resetWarRoom();
 
   const campaign = getPrimaryCampaign();
@@ -68,15 +60,21 @@ export async function bootBrowser(): Promise<{ browser: Browser; page: Page }> {
 
   tui.setStatus(t("log.launching"));
   tui.log(t("log.launching"));
-  const browser = await chromium.launch({
+  tui.log("[Boot] Using persistent Chrome profile folder. If prompted, please log in manually.");
+  
+  // Launch persistent context with Chrome channel for ultimate safety and Google Login compatibility
+  const browser = await chromium.launchPersistentContext(PROFILE_DIR, {
     headless: false,
-    args: [`--window-position=0,25`, `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`],
-  });
-  const context = await browser.newContext({
-    storageState: STATE_PATH,
+    channel: "chrome",
     viewport: { width: BROWSER_WIDTH, height: BROWSER_HEIGHT },
+    args: [
+      `--window-position=0,25`,
+      `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`,
+      "--disable-blink-features=AutomationControlled",
+    ],
   });
-  const page = await context.newPage();
+  
+  const page = browser.pages()[0] || (await browser.newPage());
 
   const currentUrl = getCampaignUrl() || process.env.GAME_URL;
   if (currentUrl) {
