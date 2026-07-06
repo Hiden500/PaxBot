@@ -275,9 +275,31 @@
     socket.on('setup:info', (info) => {
       // Populate Campaign Select
       const select = document.getElementById('lobby-campaign-select');
-      select.innerHTML = info.campaigns.map(name => 
-        `<option value="${name}" ${name === info.activeCampaign ? 'selected' : ''}>${name}</option>`
-      ).join('');
+      
+      // Clear existing options
+      select.innerHTML = '';
+      
+      if (info.campaigns && info.campaigns.length > 0) {
+        info.campaigns.forEach(name => {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          if (name === info.activeCampaign) {
+            opt.selected = true;
+          }
+          select.appendChild(opt);
+        });
+        
+        // Force sync the select value
+        if (info.activeCampaign) {
+          select.value = info.activeCampaign;
+        }
+      } else {
+        const opt = document.createElement('option');
+        opt.value = "";
+        opt.textContent = "Кампании не найдены";
+        select.appendChild(opt);
+      }
 
       // Populate game URL
       document.getElementById('lobby-game-url').value = info.gameUrl || "";
