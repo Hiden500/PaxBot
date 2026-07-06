@@ -5,6 +5,7 @@ import { BROWSER_CONFIG, PATHS } from "./shared/config";
 import { getSessionDir, tui, getCampaignUrl } from "./shared";
 import { getPrimaryCampaign } from "./campaign";
 import { SELECTORS } from "./hand";
+import { t } from "./shared/i18n";
 
 const AUTH_DIR = path.join(process.cwd(), PATHS.AUTH_DIR);
 const STATE_PATH = path.join(AUTH_DIR, PATHS.AUTH_STATE);
@@ -64,8 +65,8 @@ export async function bootBrowser(): Promise<{ browser: Browser; page: Page }> {
     tui.setCampaign(campaign.name);
   }
 
-  tui.setStatus("Launching browser...");
-  tui.log("Launching browser with auth state...");
+  tui.setStatus(t("log.launching"));
+  tui.log(t("log.launching"));
   const browser = await chromium.launch({
     headless: false,
     args: [`--window-position=0,25`, `--window-size=${BROWSER_WIDTH},${BROWSER_HEIGHT}`],
@@ -78,20 +79,20 @@ export async function bootBrowser(): Promise<{ browser: Browser; page: Page }> {
 
   const currentUrl = getCampaignUrl() || process.env.GAME_URL;
   if (currentUrl) {
-    tui.setStatus("Navigating to game URL...");
-    tui.log(`Navigating to game: ${currentUrl}...`);
+    tui.setStatus(`${t("log.navigating_game")}...`);
+    tui.log(`${t("log.navigating_game")}: ${currentUrl}...`);
     await page.goto(currentUrl, {
       waitUntil: "domcontentloaded",
       timeout: 25000,
     });
   } else {
-    tui.setStatus("Navigating to Pax Historia...");
-    tui.log(`Navigating to ${BASE_URL}...`);
+    tui.setStatus(t("log.navigating_base"));
+    tui.log(`${t("log.navigating_base")} ${BASE_URL}...`);
     await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
   }
 
-  tui.setStatus("Press ENTER in the terminal to start the game loop...");
-  tui.log("Waiting for user confirmation to start loop (Press ENTER in terminal)");
+  tui.setStatus(t("log.waiting_enter"));
+  tui.log(t("log.waiting_enter"));
   if (process.stdin.isTTY) {
     process.stdin.setRawMode(false);
   }
@@ -117,9 +118,9 @@ export async function bootBrowser(): Promise<{ browser: Browser; page: Page }> {
 
   try {
     await page.locator(SELECTORS.actionBox).waitFor({ state: "visible", timeout: 5000 });
-    console.log("[Boot] Game UI visible. Ready to start cognitive loop.\n");
+    tui.log(t("log.boot_ready"));
   } catch {
-    console.log("[Boot] Action box not visible yet. Continuing — may need manual navigation.");
+    tui.log(t("log.boot_stuck"));
   }
 
   return { browser, page };

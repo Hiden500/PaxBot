@@ -20,6 +20,14 @@ export class TUIDashboard {
     this.state = new TUIStateStore(() => this.render());
   }
 
+  addRenderListener(cb: () => void) {
+    this.state.addListener(cb);
+  }
+
+  getState() {
+    return this.state.getState();
+  }
+
   static getInstance(): TUIDashboard {
     if (!TUIDashboard.instance) {
       new TUIDashboard();

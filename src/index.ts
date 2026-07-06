@@ -13,12 +13,17 @@ import { runInteractiveMenu } from "./campaign";
 import { bootBrowser, printStartupBanner } from "./boot";
 import { runCognitiveLoop } from "./loop";
 import { startPopupWatcher, stopPopupWatcher } from "./hand";
+import { startWebServer, stopWebServer } from "./web/server";
+import { t } from "./shared/i18n";
 
 async function main(): Promise<void> {
   printStartupBanner();
 
   // Validate environment before doing anything else
   validateEnv();
+
+  // Start the Local Web UI server
+  startWebServer();
 
   // Run interactive menu first before clearing TUI
   await runInteractiveMenu();
@@ -37,8 +42,9 @@ async function main(): Promise<void> {
     await runCognitiveLoop(page);
   } finally {
     stopPopupWatcher();
+    stopWebServer();
     await browser.close();
-    tui.setStatus("Stopped");
+    tui.setStatus(t("menu.exit"));
     tui.log("Browser closed. Goodbye.");
   }
 }

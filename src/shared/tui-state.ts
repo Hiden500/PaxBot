@@ -14,74 +14,102 @@ export class TUIStateStore {
   milestoneChecks: MilestoneCheck[] = [];
   immediateRisks: string[] = [];
 
-  private renderCallback: () => void;
+  private renderCallbacks: Array<() => void> = [];
 
-  constructor(renderCallback: () => void) {
-    this.renderCallback = renderCallback;
+  constructor(defaultRenderCallback: () => void) {
+    this.renderCallbacks.push(defaultRenderCallback);
+  }
+
+  addListener(callback: () => void) {
+    this.renderCallbacks.push(callback);
+  }
+
+  private notify() {
+    for (const cb of this.renderCallbacks) {
+      cb();
+    }
+  }
+
+  getState() {
+    return {
+      campaign: this.campaign,
+      turn: this.turn,
+      lessonsCount: this.lessonsCount,
+      activeOperations: this.activeOperations,
+      reasoning: this.reasoning,
+      logs: this.logs,
+      currentStatus: this.currentStatus,
+      lastAdvisorQuery: this.lastAdvisorQuery,
+      lastAdvisorResponse: this.lastAdvisorResponse,
+      actions: this.actions,
+      milestoneChecks: this.milestoneChecks,
+      immediateRisks: this.immediateRisks,
+    };
   }
 
   setCampaign(name: string) {
     this.campaign = name;
-    this.renderCallback();
+    this.notify();
   }
 
   setTurn(turn: number) {
     this.turn = turn;
-    this.renderCallback();
+    this.notify();
   }
 
   setLessons(count: number) {
     this.lessonsCount = count;
-    this.renderCallback();
+    this.notify();
   }
 
   setOperations(ops: any[]) {
     this.activeOperations = ops;
-    this.renderCallback();
+    this.notify();
   }
 
   setReasoning(text: string) {
     this.reasoning = text;
-    this.renderCallback();
+    this.notify();
   }
 
   setStatus(status: string) {
     this.currentStatus = status;
-    this.renderCallback();
+    this.notify();
   }
 
   setAdvisorQuery(q: string) {
     this.lastAdvisorQuery = q;
-    this.renderCallback();
+    this.notify();
   }
 
   setAdvisorResponse(r: string) {
     this.lastAdvisorResponse = r;
-    this.renderCallback();
+    this.notify();
   }
 
   setActions(actions: string[]) {
     this.actions = actions;
-    this.renderCallback();
+    this.notify();
   }
 
   setMilestoneChecks(checks: MilestoneCheck[]) {
     this.milestoneChecks = checks;
-    this.renderCallback();
+    this.notify();
   }
 
   setImmediateRisks(risks: string[]) {
     this.immediateRisks = risks;
-    this.renderCallback();
+    this.notify();
   }
 
   log(msg: string) {
     // eslint-disable-next-line no-control-regex
     const cleanMsg = msg.replace(/\x1b\[[0-9;]*m/g, "");
     this.logs.push(cleanMsg);
-    if (this.logs.length > 15) {
+    if (this.logs.length > 50) {
+      // Increased log history for Web UI
       this.logs.shift();
     }
-    this.renderCallback();
+    this.notify();
   }
 }

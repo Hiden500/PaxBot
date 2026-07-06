@@ -17,6 +17,7 @@ import {
   writeGameStateFromPayload,
 } from "./spy";
 import { generateActions } from "./brain";
+import { t } from "./shared/i18n";
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -73,13 +74,13 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   tui.setLessons(memory.lessonsLearned.length);
 
   // ── Phase 1: Perception ──────────────────────────────────────────────
-  tui.setStatus(`[Turn ${turnNumber}] Querying advisor & capturing state...`);
+  tui.setStatus(`[Turn ${turnNumber}] ${t("phase1.start")}`);
 
   // Start Spy capture BEFORE triggering the advisor query
   const bodyPromise = captureNextSimpleChatRequestBody(page);
   const advisorQuery = getAdvisorQueryForTurn();
   if (advisorQuery !== DEFAULT_ADVISOR_QUERY) {
-    tui.log(`[Phase 1] Advisor query: ${advisorQuery.slice(0, 70)}...`);
+    tui.log(`[Phase 1] ${t("phase1.advisor")}: ${advisorQuery.slice(0, 70)}...`);
   }
   await enterAdvisorQuery(page, advisorQuery);
 
@@ -92,12 +93,12 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   writeAdvisorResponse(advisorText);
   if (advisorText) {
     tui.setAdvisorResponse(advisorText);
-    tui.log(`[Phase 1] Advisor says: ${firstFewSentences(advisorText)}`);
+    tui.log(`[Phase 1] ${t("phase1.advisor_says")}: ${firstFewSentences(advisorText)}`);
   }
 
   // ── Phase 2+3: Brain ────────────────────────────────────────────────
-  tui.setStatus(`[Turn ${turnNumber}] Running Brain (LLM)...`);
-  tui.log("[Phase 2+3] Running Brain (LLM reasoning)...");
+  tui.setStatus(`[Turn ${turnNumber}] ${t("phase2.start")}`);
+  tui.log(`[Phase 2+3] ${t("phase2.start")}`);
   const batch = await generateActions();
 
   tui.setReasoning(batch.reasoning);
@@ -106,8 +107,10 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   tui.setImmediateRisks(batch.immediate_risks || []);
 
   // ── Phase 4: Execution ──────────────────────────────────────────────
-  tui.setStatus(`[Turn ${turnNumber}] Submitting ${batch.actions.length} actions...`);
-  tui.log(`[Phase 4] Submitting ${batch.actions.length} actions...`);
+  tui.setStatus(
+    `[Turn ${turnNumber}] ${t("phase4.submitting")} ${batch.actions.length} ${t("phase4.actions")}`
+  );
+  tui.log(`[Phase 4] ${t("phase4.submitting")} ${batch.actions.length} ${t("phase4.actions")}`);
   let submitted = 0;
   for (let i = 0; i < batch.actions.length; i++) {
     try {
@@ -115,14 +118,14 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
       submitted++;
     } catch (err) {
       tui.log(
-        `[Phase 4] SKIPPED action ${i + 1} (panel blocked): ${(err as Error).message?.slice(0, 80)}`
+        `[Phase 4] ${t("phase4.skipped")} ${i + 1} (panel blocked): ${(err as Error).message?.slice(0, 80)}`
       );
     }
     if (i < batch.actions.length - 1) {
       await sleep(BROWSER_CONFIG.ACTION_DELAY_MS);
     }
   }
-  tui.log(`[Phase 4] Done — ${submitted}/${batch.actions.length} actions submitted.`);
+  tui.log(`[Phase 4] ${t("phase4.done")} — ${submitted}/${batch.actions.length}`);
 
   // ── Phase 5: Memory update ─────────────────────────────────────────
   try {
@@ -130,10 +133,10 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
     saveMemory(updatedMemory);
     tui.setLessons(updatedMemory.lessonsLearned.length);
     tui.log(
-      `[Phase 5] Memory updated (${updatedMemory.summary.achievements.length} achievements, ${updatedMemory.rivalProfiles.length} profiles)`
+      `[Phase 5] ${t("phase5.memory")} (${updatedMemory.summary.achievements.length} ${t("phase5.achievements")}, ${updatedMemory.rivalProfiles.length} ${t("phase5.profiles")})`
     );
   } catch (err) {
-    tui.log(`[Phase 5] Memory update failed: ${(err as Error).message}`);
+    tui.log(`[Phase 5] ${t("phase5.failed")}: ${(err as Error).message}`);
   }
 }
 
@@ -176,7 +179,7 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
       turnNumber++;
     }
   } catch (err) {
-    tui.log(`Fatal loop error: ${(err as Error).message}`);
+    tui.log(`${t("err.fatal")} ${(err as Error).message}`);
   } finally {
     saveLedgerSnapshot(turnNumber);
   }
