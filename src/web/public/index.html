@@ -8,175 +8,227 @@
   <script src="/socket.io/socket.io.js"></script>
   <style>
     body { background-color: #0f172a; color: #f3f4f6; }
-    .log-container {
-      max-height: 250px;
-      overflow-y: auto;
-      font-family: monospace;
-    }
-    .panel {
-      background-color: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    }
+    .panel { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1rem; }
+    pre.json-debug { font-size: 0.7rem; line-height: 1.3; white-space: pre-wrap; word-break: break-all; }
   </style>
 </head>
-<body class="p-6 h-screen flex flex-col gap-4 font-sans antialiased">
+<body class="p-4 h-screen flex flex-col gap-3 font-sans antialiased overflow-hidden">
   
   <!-- Header -->
-  <header class="flex justify-between items-center bg-slate-800 p-4 rounded-lg border border-slate-700 shadow-md">
-    <div class="flex items-center gap-4">
-      <div class="text-3xl">🤖</div>
+  <header class="flex justify-between items-center bg-slate-800 px-4 py-2.5 rounded-lg border border-slate-700 shrink-0">
+    <div class="flex items-center gap-3">
+      <div class="text-2xl">🤖</div>
       <div>
-        <h1 class="text-xl font-bold text-slate-100">PaxBot Панель Управления</h1>
-        <p class="text-sm text-slate-400">Кампания: <span id="campaign-name" class="font-semibold text-cyan-400">Загрузка...</span></p>
+        <h1 class="text-base font-bold text-slate-100">PaxBot Панель Управления</h1>
+        <p class="text-xs text-slate-400">Кампания: <span id="campaign-name" class="font-semibold text-cyan-400">Загрузка...</span></p>
       </div>
     </div>
-    <div class="flex gap-6 text-sm">
-      <div class="bg-slate-700 px-4 py-2 rounded-md">
-        <span class="text-slate-400">Ход:</span>
-        <span id="turn-count" class="font-bold text-green-400 text-lg ml-2">0</span>
+    <div class="flex items-center gap-4 text-sm">
+      <div class="bg-slate-700 px-3 py-1.5 rounded-md">
+        <span class="text-slate-400 text-xs">Ход:</span>
+        <span id="turn-count" class="font-bold text-green-400 ml-1">0</span>
       </div>
-      <div class="bg-slate-700 px-4 py-2 rounded-md">
-        <span class="text-slate-400">Уроков Изучено:</span>
-        <span id="lessons-count" class="font-bold text-yellow-400 text-lg ml-2">0</span>
+      <div class="bg-slate-700 px-3 py-1.5 rounded-md">
+        <span class="text-slate-400 text-xs">Уроков:</span>
+        <span id="lessons-count" class="font-bold text-yellow-400 ml-1">0</span>
       </div>
     </div>
   </header>
 
+  <!-- CONTROL PANEL -->
+  <div class="panel shrink-0 flex items-center gap-4 py-2.5">
+    <h2 class="text-sm font-semibold text-slate-400 pr-4 border-r border-slate-700">⚙️ Управление</h2>
+    
+    <!-- Stop Button -->
+    <button id="btn-stop" onclick="sendCommand('stop')"
+      class="px-3 py-1.5 text-xs font-semibold rounded bg-red-700 hover:bg-red-600 text-white transition-colors flex items-center gap-1.5">
+      🛑 Остановить бота
+    </button>
+    
+    <!-- Semi-Auto Toggle -->
+    <div class="flex items-center gap-2">
+      <label class="text-xs text-slate-300 cursor-pointer" for="toggle-semiauto">⏸️ Полу-ручной режим</label>
+      <button id="toggle-semiauto" role="switch" 
+        onclick="toggleSemiAuto()"
+        class="relative w-10 h-5 rounded-full bg-slate-600 transition-colors focus:outline-none"
+        aria-checked="false">
+        <span id="toggle-thumb" class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform"></span>
+      </button>
+    </div>
+    
+    <!-- Next Turn Button (only visible in semi-auto mode) -->
+    <button id="btn-next-turn" onclick="sendCommand('next_turn')"
+      class="hidden px-3 py-1.5 text-xs font-semibold rounded bg-green-700 hover:bg-green-600 text-white transition-colors flex items-center gap-1.5">
+      ▶️ Следующий Ход
+    </button>
+    
+    <!-- Status -->
+    <div class="ml-auto flex items-center gap-2">
+      <span id="pause-indicator" class="hidden text-xs bg-yellow-900/50 text-yellow-400 border border-yellow-700 rounded px-2 py-1">⏸ Пауза</span>
+      <span class="text-slate-400 text-xs">Статус:</span>
+      <span id="current-status" class="font-medium text-yellow-400 text-xs max-w-xs truncate">Инициализация...</span>
+    </div>
+  </div>
+
   <!-- Main Grid -->
-  <div class="grid grid-cols-12 gap-4 flex-1 overflow-hidden">
+  <div class="grid grid-cols-12 gap-3 flex-1 overflow-hidden min-h-0">
     
     <!-- Left Column (Ledger) -->
-    <div class="col-span-4 flex flex-col gap-4 overflow-hidden h-full">
+    <div class="col-span-3 flex flex-col overflow-hidden">
       <div class="panel flex-1 overflow-y-auto flex flex-col">
-        <h2 class="text-lg font-semibold text-slate-300 mb-4 flex items-center gap-2">
-          <span>📋</span> Стратегический Журнал
-        </h2>
-        <div id="ledger-container" class="flex flex-col gap-4">
+        <h2 class="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-1.5">📋 Журнал Операций</h2>
+        <div id="ledger-container" class="flex flex-col gap-3 text-xs">
           <p class="text-slate-500 italic">Нет активных операций.</p>
         </div>
       </div>
     </div>
 
-    <!-- Right Column -->
-    <div class="col-span-8 flex flex-col gap-4 overflow-hidden h-full">
+    <!-- Center Column (Reasoning + Actions) -->
+    <div class="col-span-5 flex flex-col gap-3 overflow-hidden">
       
-      <!-- Reasoning & Advisor Row -->
-      <div class="grid grid-cols-2 gap-4 h-1/3">
-        <div class="panel flex flex-col overflow-hidden">
-          <h2 class="text-lg font-semibold text-slate-300 mb-2 flex items-center gap-2">
-            <span>🧠</span> Мышление ИИ
-          </h2>
-          <div id="reasoning-text" class="flex-1 overflow-y-auto text-sm text-slate-200 whitespace-pre-wrap pr-2">
-            Ожидание следующей фазы...
-          </div>
-        </div>
-        
-        <div class="panel flex flex-col overflow-hidden border-indigo-900 bg-slate-800/80">
-          <h2 class="text-lg font-semibold text-indigo-300 mb-2 flex items-center gap-2">
-            <span>💬</span> Ответ Советника
-          </h2>
-          <div id="advisor-query" class="text-xs text-indigo-200/70 italic mb-2 pb-2 border-b border-indigo-900/50">
-            Вопрос: -
-          </div>
-          <div id="advisor-response" class="flex-1 overflow-y-auto text-sm text-indigo-100 whitespace-pre-wrap pr-2">
-            Ожидание...
-          </div>
+      <!-- Reasoning -->
+      <div class="panel flex flex-col overflow-hidden h-1/2">
+        <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5">🧠 Мышление ИИ</h2>
+        <div id="reasoning-text" class="flex-1 overflow-y-auto text-xs text-slate-200 whitespace-pre-wrap pr-1">
+          Ожидание следующей фазы...
         </div>
       </div>
 
-      <!-- Actions & Milestones Row -->
-      <div class="grid grid-cols-2 gap-4 h-1/3">
-        <div class="panel flex flex-col overflow-hidden border-green-900 bg-slate-800/80">
-          <h2 class="text-lg font-semibold text-green-400 mb-2 flex items-center gap-2">
-            <span>⚡</span> Предложенные Действия
-          </h2>
-          <ul id="actions-list" class="flex-1 overflow-y-auto text-sm space-y-2 pr-2 text-slate-200">
+      <!-- Actions + Milestones/Risks -->
+      <div class="flex gap-3 overflow-hidden flex-1">
+        <!-- Actions -->
+        <div class="panel flex flex-col overflow-hidden flex-1">
+          <h2 class="text-sm font-semibold text-green-400 mb-2 flex items-center gap-1.5">⚡ Действия</h2>
+          <ul id="actions-list" class="flex-1 overflow-y-auto text-xs space-y-1.5 text-slate-200">
             <li class="text-slate-500 italic">Ожидание...</li>
           </ul>
         </div>
-
-        <div class="panel flex flex-col overflow-hidden">
-          <div class="flex gap-4 h-full">
-            <div class="flex-1 flex flex-col border-r border-slate-700 pr-4">
-              <h2 class="text-md font-semibold text-cyan-400 mb-2">🎯 Цели Кампании</h2>
-              <ul id="milestones-list" class="overflow-y-auto text-xs space-y-2">
-                <li class="text-slate-500">Нет оценок.</li>
-              </ul>
-            </div>
-            <div class="flex-1 flex flex-col pl-2">
-              <h2 class="text-md font-semibold text-red-400 mb-2">⚠️ Риски</h2>
-              <ul id="risks-list" class="overflow-y-auto text-xs space-y-2">
-                <li class="text-green-500">Прямых угроз нет.</li>
-              </ul>
-            </div>
+        
+        <!-- Milestones + Risks -->
+        <div class="panel flex flex-col overflow-hidden flex-1">
+          <div class="flex-1 overflow-y-auto">
+            <h3 class="text-xs font-semibold text-cyan-400 mb-1.5">🎯 Цели</h3>
+            <ul id="milestones-list" class="text-xs space-y-1 mb-3">
+              <li class="text-slate-500">Нет оценок.</li>
+            </ul>
+            <h3 class="text-xs font-semibold text-red-400 mb-1.5">⚠️ Риски</h3>
+            <ul id="risks-list" class="text-xs space-y-1">
+              <li class="text-green-500">Угроз нет.</li>
+            </ul>
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- Right Column (Logs + JSON Debug) -->
+    <div class="col-span-4 flex flex-col gap-3 overflow-hidden">
+      
       <!-- System Logs -->
-      <div class="panel flex flex-col flex-1 overflow-hidden">
-        <h2 class="text-lg font-semibold text-slate-300 mb-2 flex items-center gap-2">
-          <span>⚙️</span> Системные Логи
-        </h2>
-        <div id="logs-container" class="log-container flex-1 bg-slate-900 p-3 rounded text-xs text-slate-300">
+      <div class="panel flex flex-col overflow-hidden h-1/2">
+        <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5">⚙️ Системные Логи</h2>
+        <div id="logs-container" class="flex-1 bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-y-auto">
         </div>
       </div>
 
+      <!-- JSON Debug Panel -->
+      <div class="panel flex flex-col overflow-hidden flex-1">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-semibold text-purple-400 flex items-center gap-1.5">🔬 JSON Ответ Игры (Отладка)</h2>
+          <button onclick="copyJson()" class="text-xs text-slate-400 hover:text-slate-200 px-2 py-0.5 rounded border border-slate-700 hover:border-slate-500 transition-colors">📋 Копировать</button>
+        </div>
+        <div class="flex-1 bg-slate-900 rounded overflow-hidden">
+          <pre id="json-debug-content" class="json-debug text-green-400 h-full overflow-y-auto p-2 overflow-x-hidden">
+Ожидание данных игры...
+          </pre>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Footer Status -->
-  <footer class="bg-slate-800 p-3 rounded-lg border border-slate-700 flex justify-between items-center text-sm shadow-md mt-2">
-    <div class="flex items-center gap-2">
-      <span class="relative flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-      </span>
-      <span class="text-slate-400">Статус:</span>
-      <span id="current-status" class="font-medium text-yellow-400">Инициализация...</span>
-    </div>
-    <div class="text-slate-500 text-xs">
-      PaxBot автономный режим активен.
-    </div>
-  </footer>
-
   <script>
     const socket = io();
+    let isSemiAutoEnabled = false;
+    let lastJsonState = "";
 
-    function updateDOM(id, value, isHTML = false) {
-      const el = document.getElementById(id);
-      if (el) {
-        if (isHTML) el.innerHTML = value;
-        else el.textContent = value;
-      }
+    function sendCommand(cmd) {
+      if (cmd === 'stop' && !confirm("Остановить бота? Прогресс хода будет сохранён.")) return;
+      socket.emit('command:' + cmd);
     }
 
-    function escapeHtml(unsafe) {
-      return (unsafe || "").replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+    function toggleSemiAuto() {
+      isSemiAutoEnabled = !isSemiAutoEnabled;
+      const btn = document.getElementById('toggle-semiauto');
+      const thumb = document.getElementById('toggle-thumb');
+      const nextTurnBtn = document.getElementById('btn-next-turn');
+
+      if (isSemiAutoEnabled) {
+        btn.classList.remove('bg-slate-600');
+        btn.classList.add('bg-blue-600');
+        thumb.classList.add('translate-x-5');
+        nextTurnBtn.classList.remove('hidden');
+      } else {
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-slate-600');
+        thumb.classList.remove('translate-x-5');
+        nextTurnBtn.classList.add('hidden');
+      }
+      
+      socket.emit('command:toggle_semiauto', isSemiAutoEnabled);
+    }
+
+    function copyJson() {
+      navigator.clipboard.writeText(lastJsonState).then(() => {
+        const btn = event.target;
+        btn.textContent = '✅ Скопировано';
+        setTimeout(() => btn.textContent = '📋 Копировать', 2000);
+      });
+    }
+
+    function esc(s) {
+      return (s || "").replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+    }
+
+    function dom(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
     }
 
     socket.on('state', (state) => {
       // Header
-      updateDOM('campaign-name', state.campaign);
-      updateDOM('turn-count', state.turn);
-      updateDOM('lessons-count', state.lessonsCount);
-      updateDOM('current-status', state.currentStatus);
+      dom('campaign-name', state.campaign);
+      dom('turn-count', state.turn);
+      dom('lessons-count', state.lessonsCount);
+      dom('current-status', state.currentStatus);
+
+      // Control panel state
+      const pauseEl = document.getElementById('pause-indicator');
+      if (pauseEl) pauseEl.classList.toggle('hidden', !state.isPaused);
+
+      // Sync semi-auto toggle if state differs
+      if (state.isSemiAuto !== isSemiAutoEnabled) {
+        isSemiAutoEnabled = state.isSemiAuto;
+        const btn = document.getElementById('toggle-semiauto');
+        const thumb = document.getElementById('toggle-thumb');
+        const nextTurnBtn = document.getElementById('btn-next-turn');
+        if (isSemiAutoEnabled) {
+          btn.classList.replace('bg-slate-600', 'bg-blue-600');
+          thumb.classList.add('translate-x-5');
+          nextTurnBtn.classList.remove('hidden');
+        } else {
+          btn.classList.replace('bg-blue-600', 'bg-slate-600');
+          thumb.classList.remove('translate-x-5');
+          nextTurnBtn.classList.add('hidden');
+        }
+      }
 
       // Reasoning
-      updateDOM('reasoning-text', state.reasoning || "Ожидание следующей фазы...");
-      
-      // Advisor
-      updateDOM('advisor-query', `Вопрос: ${state.lastAdvisorQuery || "-"}`);
-      updateDOM('advisor-response', state.lastAdvisorResponse || "Ожидание ответа...");
+      dom('reasoning-text', state.reasoning || "Ожидание следующей фазы...");
 
       // Actions
       const actionsList = document.getElementById('actions-list');
       if (state.actions && state.actions.length > 0) {
         actionsList.innerHTML = state.actions.map((act, i) => 
-          `<li class="flex gap-2 items-start"><span class="text-green-500 font-bold">${i+1}.</span> <span>${escapeHtml(act)}</span></li>`
+          `<li class="flex gap-1.5 items-start"><span class="text-green-500 font-bold shrink-0">${i+1}.</span> <span>${esc(act)}</span></li>`
         ).join('');
       } else {
         actionsList.innerHTML = '<li class="text-slate-500 italic">Ожидание...</li>';
@@ -188,7 +240,7 @@
         mList.innerHTML = state.milestoneChecks.map(m => {
           const icon = m.status === 'ACHIEVED' ? '✅' : m.status === 'FAILED' ? '❌' : '⏳';
           const color = m.status === 'ACHIEVED' ? 'text-green-400' : m.status === 'FAILED' ? 'text-red-400' : 'text-yellow-400';
-          return `<li class="flex gap-1.5"><span class="shrink-0">${icon}</span> <span class="${color}">${escapeHtml(m.milestone)}</span></li>`;
+          return `<li class="flex gap-1"><span>${icon}</span> <span class="${color}">${esc(m.milestone)}</span></li>`;
         }).join('');
       }
 
@@ -196,16 +248,22 @@
       const rList = document.getElementById('risks-list');
       if (state.immediateRisks && state.immediateRisks.length > 0) {
         rList.innerHTML = state.immediateRisks.map(r => 
-          `<li class="flex gap-1.5 text-red-300"><span class="shrink-0">⚠️</span> <span>${escapeHtml(r)}</span></li>`
+          `<li class="flex gap-1 text-red-300"><span>⚠️</span> <span>${esc(r)}</span></li>`
         ).join('');
       } else {
-        rList.innerHTML = '<li class="text-green-500">Прямых угроз нет.</li>';
+        rList.innerHTML = '<li class="text-green-500">Угроз нет.</li>';
       }
 
       // Logs
       const logsContainer = document.getElementById('logs-container');
-      logsContainer.innerHTML = state.logs.map(l => `<div>${escapeHtml(l)}</div>`).join('');
+      logsContainer.innerHTML = state.logs.map(l => `<div class="border-b border-slate-800 py-0.5">${esc(l)}</div>`).join('');
       logsContainer.scrollTop = logsContainer.scrollHeight;
+
+      // JSON Debug
+      if (state.rawGameState && state.rawGameState !== lastJsonState) {
+        lastJsonState = state.rawGameState;
+        document.getElementById('json-debug-content').textContent = state.rawGameState;
+      }
 
       // Ledger Operations
       const ledgerContainer = document.getElementById('ledger-container');
@@ -214,29 +272,26 @@
           const stepsHtml = (op.steps || []).map(step => {
             const sIcon = step.status === 'COMPLETE' ? '✓' : step.status === 'FAILED' ? '✗' : '⏳';
             const sColor = step.status === 'COMPLETE' ? 'text-green-400' : step.status === 'FAILED' ? 'text-red-400' : 'text-yellow-400';
-            return `<div class="text-xs pl-4 py-0.5 flex gap-2 ${sColor}">
-              <span class="w-4">${sIcon}</span>
-              <span class="font-mono text-slate-500 shrink-0">Ph ${step.phase}:</span>
-              <span>${escapeHtml(step.action)}</span>
+            return `<div class="pl-3 py-0.5 flex gap-1.5 ${sColor}">
+              <span class="w-3 shrink-0">${sIcon}</span>
+              <span class="text-slate-500 shrink-0">Ph${step.phase}:</span>
+              <span class="truncate">${esc(step.action)}</span>
             </div>`;
           }).join('');
 
           return `
             <div class="bg-slate-800 rounded border border-slate-700 overflow-hidden">
-              <div class="bg-slate-700/50 px-3 py-2 border-b border-slate-700 flex gap-2 items-center">
-                <span class="text-xs font-mono bg-cyan-900/50 text-cyan-400 px-1.5 py-0.5 rounded border border-cyan-800">${op.operation_id}</span>
-                <span class="text-sm font-semibold text-slate-200 truncate" title="${escapeHtml(op.goal)}">${escapeHtml(op.goal)}</span>
+              <div class="bg-slate-700/50 px-2 py-1.5 flex gap-1.5 items-center">
+                <span class="font-mono bg-cyan-900/50 text-cyan-400 px-1 rounded text-xs border border-cyan-800">${esc(op.operation_id)}</span>
+                <span class="font-semibold text-slate-200 truncate" title="${esc(op.goal)}">${esc(op.goal)}</span>
               </div>
-              <div class="p-2 space-y-1">
-                ${stepsHtml}
-              </div>
+              <div class="p-1">${stepsHtml}</div>
             </div>
           `;
         }).join('');
       } else {
-        ledgerContainer.innerHTML = '<p class="text-slate-500 italic p-2">Нет активных операций.</p>';
+        ledgerContainer.innerHTML = '<p class="text-slate-500 italic">Нет активных операций.</p>';
       }
-
     });
   </script>
 </body>

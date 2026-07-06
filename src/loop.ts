@@ -87,6 +87,13 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   // Await the intercepted request body
   const requestBody = await bodyPromise;
   writeGameStateFromPayload(requestBody);
+  
+  try {
+    const parsedState = JSON.parse(requestBody || "{}");
+    tui.setRawGameState(JSON.stringify(parsedState, null, 2));
+  } catch {
+    tui.setRawGameState(requestBody || "{}");
+  }
 
   // Poll for the advisor's response text
   const advisorText = await getLastAdvisorResponseText(page);
@@ -166,6 +173,24 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
           `\n[Turn ${turnNumber}] ERROR — skipping to next turn:`,
           (err as Error).message?.slice(0, 120)
         );
+      }
+
+      if (stopping) {
+        break;
+      }
+
+      // Semi-Auto Mode Wait
+      if (tui.getState().isSemiAuto) {
+        tui.setStatus(`[Turn ${turnNumber}] Ожидание команды "Следующий ход"...`);
+        tui.log("[Semi-Auto] Ожидание команды пользователя для продолжения...");
+        tui.setPaused(true);
+        while (tui.getState().isPaused && !stopping) {
+          await sleep(500);
+          // Update stopping flag safely
+          if (tui.getState().isStopping) {
+             stopping = true;
+          }
+        }
       }
 
       if (stopping) {

@@ -23,7 +23,7 @@ async function main(): Promise<void> {
   validateEnv();
 
   // Start the Local Web UI server
-  startWebServer();
+  await startWebServer();
 
   // Run interactive menu first before clearing TUI
   await runInteractiveMenu();

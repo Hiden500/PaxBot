@@ -13,6 +13,12 @@ export class TUIStateStore {
   actions: string[] = [];
   milestoneChecks: MilestoneCheck[] = [];
   immediateRisks: string[] = [];
+  
+  // New properties for Semi-Auto / Web UI debugging
+  rawGameState = "";
+  isSemiAuto = false;
+  isPaused = false;
+  isStopping = false;
 
   private renderCallbacks: Array<() => void> = [];
 
@@ -44,6 +50,10 @@ export class TUIStateStore {
       actions: this.actions,
       milestoneChecks: this.milestoneChecks,
       immediateRisks: this.immediateRisks,
+      rawGameState: this.rawGameState,
+      isSemiAuto: this.isSemiAuto,
+      isPaused: this.isPaused,
+      isStopping: this.isStopping,
     };
   }
 
@@ -102,12 +112,31 @@ export class TUIStateStore {
     this.notify();
   }
 
+  setRawGameState(state: string) {
+    this.rawGameState = state;
+    this.notify();
+  }
+
+  setSemiAuto(enabled: boolean) {
+    this.isSemiAuto = enabled;
+    this.notify();
+  }
+
+  setPaused(paused: boolean) {
+    this.isPaused = paused;
+    this.notify();
+  }
+
+  setStopping(stopping: boolean) {
+    this.isStopping = stopping;
+    this.notify();
+  }
+
   log(msg: string) {
     // eslint-disable-next-line no-control-regex
     const cleanMsg = msg.replace(/\x1b\[[0-9;]*m/g, "");
     this.logs.push(cleanMsg);
     if (this.logs.length > 50) {
-      // Increased log history for Web UI
       this.logs.shift();
     }
     this.notify();

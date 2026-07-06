@@ -6,6 +6,7 @@ import { getSessionDir, tui, getCampaignUrl } from "./shared";
 import { getPrimaryCampaign } from "./campaign";
 import { SELECTORS } from "./hand";
 import { t } from "./shared/i18n";
+import { injectGameOverlay } from "./web/overlay";
 
 const AUTH_DIR = path.join(process.cwd(), PATHS.AUTH_DIR);
 const STATE_PATH = path.join(AUTH_DIR, PATHS.AUTH_STATE);
@@ -122,6 +123,9 @@ export async function bootBrowser(): Promise<{ browser: Browser; page: Page }> {
   } catch {
     tui.log(t("log.boot_stuck"));
   }
+
+  // Inject in-game sidebar overlay (Variant 1)
+  await injectGameOverlay(page);
 
   return { browser, page };
 }

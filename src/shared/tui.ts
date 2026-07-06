@@ -81,6 +81,22 @@ export class TUIDashboard {
     this.state.setImmediateRisks(risks);
   }
 
+  setRawGameState(state: string) {
+    this.state.setRawGameState(state);
+  }
+
+  setSemiAuto(enabled: boolean) {
+    this.state.setSemiAuto(enabled);
+  }
+
+  setPaused(paused: boolean) {
+    this.state.setPaused(paused);
+  }
+
+  setStopping(stopping: boolean) {
+    this.state.setStopping(stopping);
+  }
+
   log(msg: string) {
     this.state.log(msg);
   }
