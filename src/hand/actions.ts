@@ -144,7 +144,7 @@ export async function enterAdvisorQuery(page: Page, text: string): Promise<void>
   await ensureAdvisorPanelOpen(page);
   const box = page.locator(SELECTORS.advisorBox);
   await typeText(box, text);
-  await page.getByRole("button", { name: "Send message" }).click();
+  await page.locator('button:has-text("Send message"), button:has-text("Отправить"), button:has(svg.feather-send-message)').first().click();
   console.log("[Advisor] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
   await scrollAdvisorPanelToBottom(page);
 }
@@ -233,7 +233,7 @@ export async function clickNextTurn(page: Page): Promise<void> {
   await page.locator(SELECTORS.nextTurnButton).first().click();
   await page.waitForTimeout(1500);
   // Button shows date + "3 months" (e.g. "12/8/1935" and "3 months"); match by text.
-  await page.getByRole("button", { name: /3 months/i }).click();
+  await page.getByRole("button", { name: /3\s*(month|месяц|мес)/i }).click();
   console.log("[Hand] Clicked next turn (3 months).");
   await dismissNextEvents(page);
 
@@ -269,8 +269,8 @@ export async function dismissNextEvents(page: Page): Promise<void> {
   const start = Date.now();
   const timeoutMs = 180_000;
 
-  const nextEventBtn = page.getByRole("button", { name: "Next Event" }).first();
-  const proceedBtn = page.getByRole("button", { name: /Proceed\s+\d/i }).first();
+  const nextEventBtn = page.getByRole("button", { name: /Next Event|Следующее событие/i }).first();
+  const proceedBtn = page.getByRole("button", { name: /(Proceed|Продолжить)\s+\d/i }).first();
 
   while (clicks < NEXT_EVENT_MAX_CLICKS && Date.now() - start < timeoutMs) {
     const waitMs = clicks === 0 ? NEXT_EVENT_FIRST_TIMEOUT_MS : NEXT_EVENT_LATER_TIMEOUT_MS;

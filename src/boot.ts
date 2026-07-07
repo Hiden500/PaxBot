@@ -59,7 +59,7 @@ export async function bootBrowser(): Promise<{ browser: BrowserContext; page: Pa
 
   tui.setStatus(t("log.launching"));
   tui.log(t("log.launching"));
-  tui.log("[Boot] Using persistent Chrome profile folder. If prompted, please log in manually.");
+  tui.log(t("log.using_chrome_profile"));
   
   // Launch persistent context with Chrome channel for ultimate safety and Google Login compatibility
   const browser = await chromium.launchPersistentContext(PROFILE_DIR, {
@@ -73,24 +73,35 @@ export async function bootBrowser(): Promise<{ browser: BrowserContext; page: Pa
     ],
   });
   
-  const page = browser.pages()[0] || (await browser.newPage());
-
   const currentUrl = getCampaignUrl() || process.env.GAME_URL;
-  if (currentUrl) {
-    tui.setStatus(`${t("log.navigating_game")}...`);
-    tui.log(`${t("log.navigating_game")}: ${currentUrl}...`);
-    await page.goto(currentUrl, {
-      waitUntil: "domcontentloaded",
-      timeout: 25000,
-    });
-  } else {
-    tui.setStatus(t("log.navigating_base"));
-    tui.log(`${t("log.navigating_base")} ${BASE_URL}...`);
-    await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
+  const targetUrl = currentUrl || BASE_URL;
+
+  const pages = browser.pages();
+  // Find a tab that is already on Pax Historia
+  let page = pages.find(p => p.url().includes("paxhistoria.co"));
+  
+  if (!page) {
+    page = pages[0] || (await browser.newPage());
   }
 
-  tui.setStatus("Ожидание загрузки интерфейса игры...");
-  tui.log("[Boot] Waiting for the game UI elements to become visible. Please log in if prompted in the browser.");
+  tui.setStatus(`${t("log.navigating_game")}...`);
+  tui.log(`${t("log.navigating_game")}: ${targetUrl}...`);
+  
+  // Navigate the chosen page to our targetUrl
+  await page.goto(targetUrl, {
+    waitUntil: "domcontentloaded",
+    timeout: 25000,
+  });
+
+  // Close all other pages to prevent tab duplication
+  for (const p of pages) {
+    if (p !== page) {
+      await p.close().catch(() => {});
+    }
+  }
+
+  tui.setStatus(t("log.waiting_game_ui"));
+  tui.log(t("log.waiting_game_ui_log"));
 
   let isReady = false;
   while (!isReady) {
@@ -109,7 +120,7 @@ export async function bootBrowser(): Promise<{ browser: BrowserContext; page: Pa
     await page.waitForTimeout(1500);
   }
 
-  tui.log("[Boot] Game UI detected! Applying page scale...");
+  tui.log(t("log.game_ui_detected"));
 
   await page.evaluate(
     ({ sx, sy }: { sx: number; sy: number }) => {

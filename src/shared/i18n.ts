@@ -51,6 +51,10 @@ const dictionaries: Record<string, Dictionary> = {
     "log.boot_ready": "[Boot] Game UI visible. Ready to start cognitive loop.",
     "log.boot_stuck": "[Boot] Action box not visible yet. Continuing — may need manual navigation.",
     "log.reset_session": "War Room session reset (ledger, state, advisor)",
+    "log.using_chrome_profile": "[Boot] Using persistent Chrome profile folder. If prompted, please log in manually.",
+    "log.waiting_game_ui": "Waiting for game UI to load...",
+    "log.waiting_game_ui_log": "[Boot] Waiting for the game UI elements to become visible. Please log in if prompted in the browser.",
+    "log.game_ui_detected": "[Boot] Game UI detected! Applying page scale...",
 
     // Phases
     "phase1.start": "Querying advisor & capturing state...",
@@ -114,6 +118,10 @@ const dictionaries: Record<string, Dictionary> = {
     "log.boot_stuck":
       "[Boot] Поле ввода не найдено. Продолжаем (возможно, нужна ручная навигация).",
     "log.reset_session": "Сессия очищена (журнал, состояние, советы)",
+    "log.using_chrome_profile": "[Boot] Использование постоянного профиля Chrome. Если потребуется, войдите в аккаунт вручную.",
+    "log.waiting_game_ui": "Ожидание загрузки интерфейса игры...",
+    "log.waiting_game_ui_log": "[Boot] Ожидание появления элементов интерфейса игры. Пожалуйста, войдите в аккаунт в браузере, если потребуется.",
+    "log.game_ui_detected": "[Boot] Интерфейс игры обнаружен! Применение масштаба страницы...",
 
     // Phases
     "phase1.start": "Опрос советника и захват карты...",

@@ -25,12 +25,20 @@ export async function tryOpenActionPanel(
 export async function dismissStaleButtons(page: Page): Promise<void> {
   await page.keyboard.press("Escape");
   await page.waitForTimeout(300);
-  for (const name of ["Maybe later", "Next Event", "Proceed", "Close", "OK", "Continue"]) {
+  const staleButtons = [
+    /Maybe later|Позже|Может позже/i,
+    /Next Event|Следующее событие/i,
+    /Proceed|Продолжить/i,
+    /Close|Закрыть/i,
+    /OK/i,
+    /Continue|Продолжить/i
+  ];
+  for (const rx of staleButtons) {
     try {
-      const stale = page.getByRole("button", { name }).first();
+      const stale = page.getByRole("button", { name: rx }).first();
       if (await stale.isVisible()) {
         await stale.click();
-        console.log(`[Hand] Dismissed stale "${name}" button`);
+        console.log(`[Hand] Dismissed stale "${rx.source}" button`);
         await page.waitForTimeout(300);
       }
     } catch {
@@ -47,7 +55,7 @@ export async function reloadGamePageToRecover(page: Page, box: Locator): Promise
   await page.goto(currentUrl.toString(), { waitUntil: "domcontentloaded", timeout: 20000 });
   await page.waitForTimeout(3000);
 
-  const startBtn = page.getByRole("button", { name: "Start Playing!" }).first();
+  const startBtn = page.getByRole("button", { name: /Start Playing!|Начать игру!/i }).first();
   try {
     await startBtn.waitFor({ state: "visible", timeout: 8000 });
     await startBtn.click();
@@ -104,7 +112,7 @@ export async function scrollLatestEventHeadlineIntoView(page: Page): Promise<voi
 
 /** Close timeline by clicking Proceed */
 export async function clickProceedButton(page: Page): Promise<void> {
-  const proceedBtn = page.getByRole("button", { name: /Proceed\s+\d/i }).first();
+  const proceedBtn = page.getByRole("button", { name: /(Proceed|Продолжить)\s+\d/i }).first();
   try {
     await proceedBtn.waitFor({ state: "visible", timeout: 3000 });
     await proceedBtn.click();

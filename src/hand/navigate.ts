@@ -37,7 +37,7 @@ async function clickButton(
  */
 export async function openPresetAndSelectWW2(page: Page): Promise<void> {
   console.log("[Navigate] Waiting for Choose Preset button...");
-  const choosePreset = page.getByRole("button", { name: "Choose Preset" });
+  const choosePreset = page.getByRole("button", { name: /Choose Preset|Выбрать пресет/i });
   await choosePreset.waitFor({ state: "visible", timeout: 20000 });
   await page.waitForTimeout(STEP_DELAY_MS);
   console.log("[Navigate] Clicking Choose Preset...");
@@ -51,13 +51,13 @@ export async function openPresetAndSelectWW2(page: Page): Promise<void> {
   await page.waitForTimeout(STEP_DELAY_MS);
 
   console.log("[Navigate] Clicking Play Now...");
-  await page.getByRole("button", { name: "Play Now" }).click();
+  await page.getByRole("button", { name: /Play Now|Играть сейчас|Играть/i }).click();
   await page.waitForLoadState("domcontentloaded");
   await page.waitForTimeout(STEP_DELAY_MS);
 
   // Sometimes the game shows "Sign in with Google" even when already logged in (their glitch).
   // Click it so auth state re-applies; then redo the Play Now → nation select flow.
-  const signInWithGoogle = page.getByRole("button", { name: "Sign In With Google" });
+  const signInWithGoogle = page.getByRole("button", { name: /Sign In With Google|Войти с помощью Google/i });
   let needsReAuth = false;
   try {
     await signInWithGoogle.waitFor({ state: "visible", timeout: 5000 });
@@ -71,14 +71,14 @@ export async function openPresetAndSelectWW2(page: Page): Promise<void> {
     await page.waitForTimeout(STEP_DELAY_MS);
 
     // Re-auth lands back on the preset/Play Now page — redo Play Now.
-    await clickButton(page, "Play Now", "Play Now (post re-auth)");
+    await clickButton(page, /Play Now|Играть сейчас|Играть/i, "Play Now (post re-auth)");
   }
 
   // USA → Play as USA → Start Game → Start Playing!
   await clickButton(page, /USA/, "USA");
-  await clickButton(page, "Play as USA", "Play as USA");
-  await clickButton(page, "Start Game", "Start Game");
-  await clickButton(page, "Start Playing!", "Start Playing!");
+  await clickButton(page, /Play as USA|Играть за США/i, "Play as USA");
+  await clickButton(page, /Start Game|Начать игру|Запустить игру/i, "Start Game");
+  await clickButton(page, /Start Playing!|Начать играть!/i, "Start Playing!");
 
   console.log("[Navigate] WW2 game with USA loaded.");
 }

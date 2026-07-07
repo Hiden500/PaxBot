@@ -24,8 +24,10 @@ function sleep(ms: number): Promise<void> {
 }
 
 /** Default advisor question when no dynamic suggestion exists yet (e.g. turn 1). */
-const DEFAULT_ADVISOR_QUERY =
+const DEFAULT_ADVISOR_QUERY_EN =
   "What is our current position and what do you advise for our next actions?";
+const DEFAULT_ADVISOR_QUERY_RU =
+  "Каково наше текущее положение и что вы посоветуете для наших следующих действий?";
 
 /** Advisor query for this turn: dynamic (from last Brain suggestion) or default. */
 export function getAdvisorQueryForTurn(): string {
@@ -40,7 +42,8 @@ export function getAdvisorQueryForTurn(): string {
   } catch {
     // ignore read errors, fall back to default
   }
-  return DEFAULT_ADVISOR_QUERY;
+  const agentLang = (process.env.AGENT_LANGUAGE || "Russian").toLowerCase();
+  return agentLang === "russian" ? DEFAULT_ADVISOR_QUERY_RU : DEFAULT_ADVISOR_QUERY_EN;
 }
 
 /** Save ledger and state to timestamped snapshots for recovery. */
@@ -79,7 +82,9 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   // Start Spy capture BEFORE triggering the advisor query
   const bodyPromise = captureNextSimpleChatRequestBody(page);
   const advisorQuery = getAdvisorQueryForTurn();
-  if (advisorQuery !== DEFAULT_ADVISOR_QUERY) {
+  const agentLang = (process.env.AGENT_LANGUAGE || "Russian").toLowerCase();
+  const defaultQuery = agentLang === "russian" ? DEFAULT_ADVISOR_QUERY_RU : DEFAULT_ADVISOR_QUERY_EN;
+  if (advisorQuery !== defaultQuery) {
     tui.log(`[Phase 1] ${t("phase1.advisor")}: ${advisorQuery.slice(0, 70)}...`);
   }
   await enterAdvisorQuery(page, advisorQuery);
