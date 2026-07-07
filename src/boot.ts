@@ -89,20 +89,27 @@ export async function bootBrowser(): Promise<{ browser: BrowserContext; page: Pa
     await page.goto(BASE_URL, { waitUntil: "load", timeout: 25000 });
   }
 
-  tui.setStatus(t("log.waiting_enter"));
-  tui.log(t("log.waiting_enter"));
-  if (process.stdin.isTTY) {
-    process.stdin.setRawMode(false);
-  }
-  process.stdin.resume();
-  await new Promise<void>((resolve) => {
-    process.stdin.once("data", () => {
-      process.stdin.pause();
-      resolve();
-    });
-  });
+  tui.setStatus("Ожидание загрузки интерфейса игры...");
+  tui.log("[Boot] Waiting for the game UI elements to become visible. Please log in if prompted in the browser.");
 
-  await page.waitForTimeout(1000);
+  let isReady = false;
+  while (!isReady) {
+    try {
+      const actionBoxVisible = await page.locator(SELECTORS.actionBox).isVisible();
+      const triggerVisible = await page.locator(SELECTORS.advisorPanelTrigger).isVisible();
+      const nextTurnVisible = await page.locator(SELECTORS.nextTurnButton).isVisible();
+
+      if (actionBoxVisible || triggerVisible || nextTurnVisible) {
+        isReady = true;
+        break;
+      }
+    } catch {
+      // Ignore playwright errors during loading/redirects
+    }
+    await page.waitForTimeout(1500);
+  }
+
+  tui.log("[Boot] Game UI detected! Applying page scale...");
 
   await page.evaluate(
     ({ sx, sy }: { sx: number; sy: number }) => {
@@ -114,12 +121,7 @@ export async function bootBrowser(): Promise<{ browser: BrowserContext; page: Pa
     { sx: BROWSER_CONFIG.PAGE_ZOOM_X, sy: BROWSER_CONFIG.PAGE_ZOOM_Y }
   );
 
-  try {
-    await page.locator(SELECTORS.actionBox).waitFor({ state: "visible", timeout: 5000 });
-    tui.log(t("log.boot_ready"));
-  } catch {
-    tui.log(t("log.boot_stuck"));
-  }
+  tui.log(t("log.boot_ready"));
 
   return { browser, page };
 }
