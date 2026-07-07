@@ -55,6 +55,10 @@ const dictionaries: Record<string, Dictionary> = {
     "log.waiting_game_ui": "Waiting for game UI to load...",
     "log.waiting_game_ui_log": "[Boot] Waiting for the game UI elements to become visible. Please log in if prompted in the browser.",
     "log.game_ui_detected": "[Boot] Game UI detected! Applying page scale...",
+    "log.semi_auto_wait": "[Semi-Auto] Awaiting user command to proceed...",
+    "log.semi_auto_status": "[Turn {turn}] Awaiting \"Next Turn\" command...",
+    "log.advancing_status": "[Turn {turn}] Advancing turn...",
+    "log.advancing_log": "[Turn Advance] Advancing to next turn (Turn {nextTurn})...",
 
     // Phases
     "phase1.start": "Querying advisor & capturing state...",
@@ -122,6 +126,10 @@ const dictionaries: Record<string, Dictionary> = {
     "log.waiting_game_ui": "Ожидание загрузки интерфейса игры...",
     "log.waiting_game_ui_log": "[Boot] Ожидание появления элементов интерфейса игры. Пожалуйста, войдите в аккаунт в браузере, если потребуется.",
     "log.game_ui_detected": "[Boot] Интерфейс игры обнаружен! Применение масштаба страницы...",
+    "log.semi_auto_wait": "[Semi-Auto] Ожидание команды пользователя для продолжения...",
+    "log.semi_auto_status": "[Ход {turn}] Ожидание команды \"Следующий ход\"...",
+    "log.advancing_status": "[Ход {turn}] Продвижение хода...",
+    "log.advancing_log": "[Переход хода] Переход к следующему ходу (Ход {nextTurn})...",
 
     // Phases
     "phase1.start": "Опрос советника и захват карты...",

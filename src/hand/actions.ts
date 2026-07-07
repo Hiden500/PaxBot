@@ -144,7 +144,7 @@ export async function enterAdvisorQuery(page: Page, text: string): Promise<void>
   await ensureAdvisorPanelOpen(page);
   const box = page.locator(SELECTORS.advisorBox);
   await typeText(box, text);
-  await page.locator('button:has-text("Send message"), button:has-text("Отправить"), button:has(svg.feather-send-message)').first().click();
+  await page.getByRole("button", { name: /Send message|Отправить/i }).first().click();
   console.log("[Advisor] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
   await scrollAdvisorPanelToBottom(page);
 }

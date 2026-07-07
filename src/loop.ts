@@ -192,8 +192,8 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
 
       // Semi-Auto Mode Wait
       if (tui.getState().isSemiAuto && !stopping) {
-        tui.setStatus(`[Turn ${turnNumber}] Ожидание команды "Следующий ход"...`);
-        tui.log("[Semi-Auto] Ожидание команды пользователя для продолжения...");
+        tui.setStatus(t("log.semi_auto_status").replace("{turn}", String(turnNumber)));
+        tui.log(t("log.semi_auto_wait"));
         tui.setPaused(true);
         while (tui.getState().isPaused && !stopping) {
           await sleep(500);
@@ -209,8 +209,12 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
       }
 
       // Auto-advance to next turn
-      tui.setStatus(`[Turn ${turnNumber}] Advancing turn...`);
-      tui.log(`[Turn Advance] Advancing to next turn (Turn ${turnNumber + 1})...`);
+      tui.setStatus(t("log.advancing_status").replace("{turn}", String(turnNumber)));
+      tui.log(
+        t("log.advancing_log")
+          .replace("{turn}", String(turnNumber))
+          .replace("{nextTurn}", String(turnNumber + 1))
+      );
       await clickNextTurn(page);
       turnNumber++;
     }
