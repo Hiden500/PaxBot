@@ -7,14 +7,10 @@
  * Optional: GAME_URL=<url> npm start — skip preset flow, go directly to an in-progress game.
  */
 
-import { validateEnv } from "./brain/providers/registry";
 import { startWebServer } from "./web/server";
 
 async function main(): Promise<void> {
   console.log("PaxBot Web UI Server is starting...");
-
-  // Validate environment before doing anything else
-  validateEnv();
 
   // Start the Local Web UI server
   await startWebServer();
