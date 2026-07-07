@@ -32,7 +32,7 @@
           
           <div class="flex flex-col gap-1.5">
             <label class="text-xs text-slate-300 font-medium">Выбрать кампанию:</label>
-            <select id="lobby-campaign-select" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
+            <select id="lobby-campaign-select" onchange="onCampaignChange()" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
               <option value="">Загрузка кампаний...</option>
             </select>
           </div>
@@ -280,11 +280,11 @@
       select.innerHTML = '';
       
       if (info.campaigns && info.campaigns.length > 0) {
-        info.campaigns.forEach(name => {
+        info.campaigns.forEach(c => {
           const opt = document.createElement('option');
-          opt.value = name;
-          opt.textContent = name;
-          if (name === info.activeCampaign) {
+          opt.value = c.filename;
+          opt.textContent = c.name;
+          if (c.filename === info.activeCampaign) {
             opt.selected = true;
           }
           select.appendChild(opt);
@@ -319,6 +319,11 @@
         showLobby();
       }
     });
+
+    function onCampaignChange() {
+      const campaign = document.getElementById('lobby-campaign-select').value;
+      socket.emit('setup:change_campaign', campaign);
+    }
 
     function onProviderChange() {
       const provider = document.getElementById('lobby-provider-select').value;

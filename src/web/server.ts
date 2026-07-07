@@ -35,16 +35,57 @@ let loopPromise: Promise<void> | null = null;
 
 // Read helper to get config state
 function getLobbyInfo() {
-  const campaignsList = loadAllCampaigns().map(c => c.name);
-  // Scan war-room/campaigns for markdown files if they are template MDs
+  const campaignsList: { filename: string; name: string }[] = [];
   const campaignsDir = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR);
+  
   if (fs.existsSync(campaignsDir)) {
     const files = fs.readdirSync(campaignsDir);
+    
+    // First, add all campaigns that compile cleanly from JSON
+    const loadedCampaigns = loadAllCampaigns();
+    const loadedNames = new Set<string>();
+
+    for (const c of loadedCampaigns) {
+      // Find the JSON file that corresponds to this campaign name
+      const fileMatch = files.find(f => {
+        if (!f.endsWith(".json")) {
+          return false;
+        }
+        try {
+          const raw = fs.readFileSync(path.join(campaignsDir, f), "utf-8");
+          const parsed = JSON.parse(raw);
+          return parsed.name === c.name;
+        } catch {
+          return false;
+        }
+      });
+      const filename = fileMatch ? fileMatch.replace(".json", "") : c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      campaignsList.push({
+        filename: filename,
+        name: c.name
+      });
+      loadedNames.add(filename);
+    }
+
+    // Then, add any remaining .json files that weren't successfully loaded/cached
     for (const f of files) {
       if (f.endsWith(".json")) {
-        const name = f.replace(".json", "");
-        if (!campaignsList.includes(name)) {
-          campaignsList.push(name);
+        const filename = f.replace(".json", "");
+        if (!loadedNames.has(filename)) {
+          try {
+            const raw = fs.readFileSync(path.join(campaignsDir, f), "utf-8");
+            const parsed = JSON.parse(raw);
+            campaignsList.push({
+              filename: filename,
+              name: parsed.name || filename
+            });
+          } catch {
+            campaignsList.push({
+              filename: filename,
+              name: filename
+            });
+          }
+          loadedNames.add(filename);
         }
       }
     }
@@ -99,6 +140,11 @@ io.on("connection", (socket) => {
 
   // Lobby queries
   socket.on("setup:get_info", () => {
+    socket.emit("setup:info", getLobbyInfo());
+  });
+
+  socket.on("setup:change_campaign", (campaignName: string) => {
+    setActiveCampaignName(campaignName);
     socket.emit("setup:info", getLobbyInfo());
   });
 
