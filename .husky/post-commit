@@ -1,1 +1,1 @@
-repowise update --quiet || exit 0
+repowise update || exit 0
