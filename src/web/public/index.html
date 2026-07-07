@@ -235,14 +235,14 @@
       <!-- Right Column (Logs + JSON Debug) -->
       <div class="col-span-4 flex flex-col gap-3 overflow-hidden h-full">
         <!-- System Logs -->
-        <div class="panel flex flex-col overflow-hidden h-[48%]">
+        <div class="panel flex flex-col overflow-hidden flex-1">
           <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5">⚙️ Системные Логи</h2>
           <div id="logs-container" class="flex-1 bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-y-auto">
           </div>
         </div>
 
         <!-- JSON Debug Panel -->
-        <div class="panel flex flex-col overflow-hidden h-[48%]">
+        <div class="panel flex flex-col overflow-hidden flex-1">
           <div class="flex items-center justify-between mb-2">
             <h2 class="text-sm font-semibold text-purple-400 flex items-center gap-1.5">🔬 JSON Ответ Игры (Отладка)</h2>
             <button onclick="copyJson()" class="text-xs text-slate-400 hover:text-slate-200 px-2 py-0.5 rounded border border-slate-700 hover:border-slate-500 transition-colors">📋 Копировать</button>
@@ -676,7 +676,13 @@
       // JSON Debug
       if (state.rawGameState && state.rawGameState !== lastJsonState) {
         lastJsonState = state.rawGameState;
-        document.getElementById('json-debug-content').textContent = state.rawGameState;
+        try {
+          // Format raw game state cleanly without \n strings or raw escaping
+          const parsed = JSON.parse(state.rawGameState);
+          document.getElementById('json-debug-content').textContent = JSON.stringify(parsed, null, 2);
+        } catch {
+          document.getElementById('json-debug-content').textContent = state.rawGameState;
+        }
       }
 
       // Ledger Operations

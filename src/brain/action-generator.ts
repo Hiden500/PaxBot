@@ -24,31 +24,33 @@ import { parseLLMResponse } from "./response-parser";
 
 export async function generateActions(): Promise<ActionBatch> {
   // Phase 2: Context Assembly
-  tui.setStatus("Brain: Assembling context...");
-  tui.log("[Brain] Phase 2: Assembling context from War Room files...");
+  tui.setStatus("Мозг: Сбор контекста...");
+  tui.log("[Мозг] Фаза 2: Сбор контекста из файлов War Room...");
   const ctx = assembleContext();
   tui.log(
-    `[Brain] Context loaded — game state: ${ctx.gameState.current_state.length} chars, ` +
-      `operations: ${ctx.ledger.active_operations.length}`
+    `[Мозг] Контекст загружен — состояние игры: ${ctx.gameState.current_state.length} симв., ` +
+      `операций в журнале: ${ctx.ledger.active_operations.length}`
   );
   tui.setOperations(ctx.ledger.active_operations);
 
   // Phase 3: Reasoning
-  tui.setStatus("Brain: Building prompt...");
-  tui.log("[Brain] Phase 3: Building prompt...");
+  tui.setStatus("Мозг: Сборка промпта...");
+  tui.log("[Мозг] Фаза 3: Сборка промпта...");
   const { system, user } = buildPrompt(ctx);
-  tui.log(`[Brain] Prompt built — system: ${system.length} chars, user: ${user.length} chars`);
+  tui.log(
+    `[Мозг] Промпт собран — системный: ${system.length} симв., пользовательский: ${user.length} симв.`
+  );
 
-  tui.setStatus("Brain: Waiting for LLM...");
-  tui.log("[Brain] Querying LLM (Strategic planning)...");
+  tui.setStatus("Мозг: Ожидание ответа LLM...");
+  tui.log("[Мозг] Запрос к LLM (Стратегическое планирование)...");
   const rawResponse = await callLLM(system, user);
-  tui.log(`[Brain] LLM responded — ${rawResponse.length} chars`);
+  tui.log(`[Мозг] LLM ответила — ${rawResponse.length} симв.`);
 
   // Parse + normalize + validate
-  tui.setStatus("Brain: Parsing response...");
+  tui.setStatus("Мозг: Анализ ответа...");
   const batch = parseLLMResponse(rawResponse);
   tui.log(
-    `[Brain] Validated — ${batch.actions.length} actions, ${batch.ledger_updates.length} ledger updates`
+    `[Мозг] Ответ валидирован — действий: ${batch.actions.length}, обновлений леджера: ${batch.ledger_updates.length}`
   );
 
   // Phase 3, step 5: Pre-execution ledger write
@@ -56,7 +58,7 @@ export async function generateActions(): Promise<ActionBatch> {
     const merged = mergeLedger(ctx.ledger, batch.ledger_updates);
     writeLedger(merged);
     tui.setOperations(merged.active_operations);
-    tui.log(`[Brain] Ledger updated — ${merged.active_operations.length} total operations`);
+    tui.log(`[Мозг] Леджер обновлен — всего операций: ${merged.active_operations.length}`);
   }
 
   // Persist dynamic advisor query for next turn (no extra API call)
@@ -66,7 +68,7 @@ export async function generateActions(): Promise<ActionBatch> {
     fs.writeFileSync(nextQueryPath, nextQuery, "utf-8");
     tui.setAdvisorQuery(nextQuery);
     tui.log(
-      `[Brain] Next advisor query set: "${nextQuery.length > 55 ? nextQuery.slice(0, 55) + "..." : nextQuery}"`
+      `[Мозг] Установлен следующий вопрос советнику: "${nextQuery.length > 55 ? nextQuery.slice(0, 55) + "..." : nextQuery}"`
     );
   }
 

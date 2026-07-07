@@ -190,9 +190,14 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
         await runTurn(page, turnNumber);
       } catch (err) {
         console.error(
-          `\n[Turn ${turnNumber}] ERROR — skipping to next turn:`,
-          (err as Error).message?.slice(0, 120)
+          `\n[Turn ${turnNumber}] ERROR — pausing execution due to error:`,
+          (err as Error).message?.slice(0, 250)
         );
+        tui.log(`[Ошибка] Ошибка хода ${turnNumber}: ${(err as Error).message}`);
+        // Pause bot immediately on any fatal action generation/validation error
+        tui.setPaused(true);
+        // Do not advance to next turn - let the user handle or restart
+        continue;
       }
 
       if (stopping) {
