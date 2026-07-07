@@ -235,20 +235,20 @@
       <!-- Right Column (Logs + JSON Debug) -->
       <div class="col-span-4 flex flex-col gap-3 overflow-hidden h-full">
         <!-- System Logs -->
-        <div class="panel flex flex-col overflow-hidden flex-1">
-          <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5">⚙️ Системные Логи</h2>
-          <div id="logs-container" class="flex-1 bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-y-auto">
+        <div class="panel flex-1 overflow-hidden flex flex-col min-h-0">
+          <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5 shrink-0">⚙️ Системные Логи</h2>
+          <div id="logs-container" class="flex-1 bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-y-auto min-h-0">
           </div>
         </div>
 
         <!-- JSON Debug Panel -->
-        <div class="panel flex flex-col overflow-hidden flex-1">
-          <div class="flex items-center justify-between mb-2">
+        <div class="panel flex-1 overflow-hidden flex flex-col min-h-0">
+          <div class="flex items-center justify-between mb-2 shrink-0">
             <h2 class="text-sm font-semibold text-purple-400 flex items-center gap-1.5">🔬 JSON Ответ Игры (Отладка)</h2>
             <button onclick="copyJson()" class="text-xs text-slate-400 hover:text-slate-200 px-2 py-0.5 rounded border border-slate-700 hover:border-slate-500 transition-colors">📋 Копировать</button>
           </div>
-          <div class="flex-1 bg-slate-900 rounded overflow-hidden">
-            <pre id="json-debug-content" class="json-debug text-green-400 h-full overflow-y-auto p-2 overflow-x-hidden">
+          <div class="flex-1 bg-slate-900 rounded overflow-hidden flex flex-col min-h-0">
+            <pre id="json-debug-content" class="json-debug text-green-400 flex-1 overflow-y-auto p-2 overflow-x-hidden min-h-0">
 Ожидание данных игры...
             </pre>
           </div>
