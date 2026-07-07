@@ -29,3 +29,25 @@ export async function captureNextSimpleChatRequestBody(
     return null;
   }
 }
+
+/**
+ * Waits for the next response from /api/simple-chat and returns its JSON response body.
+ * Captures game events and response payload for debugging.
+ */
+export async function captureNextSimpleChatResponse(
+  page: Page,
+  timeoutMs: number = 30000
+): Promise<string | null> {
+  try {
+    const response = await page.waitForResponse((res) => res.url().includes(SIMPLE_CHAT_URL), {
+      timeout: timeoutMs,
+    });
+    return await response.text();
+  } catch (err) {
+    console.warn(
+      `[Spy] Timeout waiting for simple-chat response (${timeoutMs}ms):`,
+      (err as Error).message
+    );
+    return null;
+  }
+}

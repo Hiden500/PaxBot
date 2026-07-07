@@ -20,7 +20,7 @@ export class OpenAICompatProvider implements LLMProvider {
       name: "openaicompat",
       apiKey,
       baseUrl,
-      supportsStrictSchema: false, // Fallback to standard json_object for wide compatibility
+      supportsStrictSchema: true, // Enable JSON Schema strict mode for structured outputs
     });
   }
 

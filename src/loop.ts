@@ -13,6 +13,7 @@ import {
 } from "./hand";
 import {
   captureNextSimpleChatRequestBody,
+  captureNextSimpleChatResponse,
   writeAdvisorResponse,
   writeGameStateFromPayload,
 } from "./spy";
@@ -81,6 +82,7 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
 
   // Start Spy capture BEFORE triggering the advisor query
   const bodyPromise = captureNextSimpleChatRequestBody(page);
+  const responsePromise = captureNextSimpleChatResponse(page);
   const advisorQuery = getAdvisorQueryForTurn();
   const agentLang = (process.env.AGENT_LANGUAGE || "Russian").toLowerCase();
   const defaultQuery =
@@ -90,15 +92,27 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   }
   await enterAdvisorQuery(page, advisorQuery);
 
-  // Await the intercepted request body
+  // Await the intercepted request body (Request Payload for building game state)
   const requestBody = await bodyPromise;
   writeGameStateFromPayload(requestBody);
 
-  try {
-    const parsedState = JSON.parse(requestBody || "{}");
-    tui.setRawGameState(JSON.stringify(parsedState, null, 2));
-  } catch {
-    tui.setRawGameState(requestBody || "{}");
+  // Await the intercepted response body (Game response payload containing mapChanges/events)
+  const responseBody = await responsePromise;
+  if (responseBody) {
+    try {
+      const parsedResponse = JSON.parse(responseBody);
+      tui.setRawGameState(JSON.stringify(parsedResponse, null, 2));
+    } catch {
+      tui.setRawGameState(responseBody);
+    }
+  } else {
+    // Fallback to request body if response wasn't captured
+    try {
+      const parsedState = JSON.parse(requestBody || "{}");
+      tui.setRawGameState(JSON.stringify(parsedState, null, 2));
+    } catch {
+      tui.setRawGameState(requestBody || "{}");
+    }
   }
 
   // Poll for the advisor's response text

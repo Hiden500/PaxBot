@@ -26,8 +26,24 @@ import { getSessionDir } from "../shared/session";
 
 export function parseLLMResponse(rawResponse: string): ActionBatch {
   let parsed: Record<string, unknown>;
+  let cleanedResponse = rawResponse.trim();
+
+  // Extract JSON from Markdown code blocks (```json ... ```)
+  const jsonBlockRegex = /```json\s*([\s\S]*?)\s*```/;
+  const match = cleanedResponse.match(jsonBlockRegex);
+  if (match && match[1]) {
+    cleanedResponse = match[1].trim();
+  } else {
+    // Fallback: extract substring between first '{' and last '}'
+    const firstBrace = cleanedResponse.indexOf("{");
+    const lastBrace = cleanedResponse.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      cleanedResponse = cleanedResponse.slice(firstBrace, lastBrace + 1).trim();
+    }
+  }
+
   try {
-    parsed = JSON.parse(rawResponse) as Record<string, unknown>;
+    parsed = JSON.parse(cleanedResponse) as Record<string, unknown>;
   } catch (err) {
     // Write full failed LLM response to file for debugging
     try {
@@ -41,7 +57,7 @@ export function parseLLMResponse(rawResponse: string): ActionBatch {
     }
 
     throw new Error(
-      `Не удалось распарсить JSON ответ от LLM (${rawResponse.length} симв., начинается с: "${rawResponse.slice(0, 150)}"): ${(err as Error).message}`
+      `Не удалось распарсить JSON ответ от LLM (очищено: ${cleanedResponse.length} симв., сырое начинается с: "${rawResponse.slice(0, 150)}"): ${(err as Error).message}`
     );
   }
   normalizeStatuses(parsed);
