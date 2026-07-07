@@ -39,7 +39,7 @@
 
           <div class="flex flex-col gap-1.5">
             <label class="text-xs text-slate-300 font-medium">GAME_URL (Ссылка на партию):</label>
-            <input type="text" id="lobby-game-url" placeholder="https://www.paxhistoria.co/game/..." 
+            <input type="text" id="lobby-game-url" onchange="onGameUrlChange()" placeholder="https://www.paxhistoria.co/game/..." 
               class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
           </div>
 
@@ -59,7 +59,7 @@
 
           <div class="flex flex-col gap-1.5">
             <label class="text-xs text-slate-300 font-medium">Провайдер LLM (LLM_PROVIDER):</label>
-            <select id="lobby-provider-select" onchange="onProviderChange()" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
+            <select id="lobby-provider-select" onchange="onProviderSelectChange()" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
               <option value="gemini">Google Gemini (по умолчанию)</option>
               <option value="groq">Groq API</option>
               <option value="openai">OpenAI GPT</option>
@@ -69,27 +69,27 @@
 
           <div id="key-input-container" class="flex flex-col gap-1.5">
             <label id="key-label" class="text-xs text-slate-300 font-medium">API Ключ:</label>
-            <input type="password" id="lobby-api-key" placeholder="Вставьте ваш ключ API" 
+            <input type="password" id="lobby-api-key" onchange="onApiKeyChange()" placeholder="Вставьте ваш ключ API" 
               class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
           </div>
 
           <div id="base-url-container" class="hidden flex flex-col gap-1.5">
             <label class="text-xs text-slate-300 font-medium">Base URL эндпоинта:</label>
-            <input type="text" id="lobby-base-url" placeholder="https://api.deepseek.com/v1" 
+            <input type="text" id="lobby-base-url" onchange="onBaseUrlChange()" placeholder="https://api.deepseek.com/v1" 
               class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
           </div>
 
           <div class="grid grid-cols-2 gap-2">
             <div class="flex flex-col gap-1.5">
               <label class="text-xs text-slate-300 font-medium">Язык ИИ:</label>
-              <select id="lobby-agent-lang" class="bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 focus:outline-none">
+              <select id="lobby-agent-lang" onchange="onAgentLangChange()" class="bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 focus:outline-none">
                 <option value="Russian">Русский</option>
                 <option value="English">English</option>
               </select>
             </div>
             <div class="flex flex-col gap-1.5">
               <label class="text-xs text-slate-300 font-medium">Язык UI:</label>
-              <select id="lobby-ui-lang" class="bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 focus:outline-none">
+              <select id="lobby-ui-lang" onchange="onUiLangChange()" class="bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 focus:outline-none">
                 <option value="ru">Русский</option>
                 <option value="en">English</option>
               </select>
@@ -325,6 +325,17 @@
       socket.emit('setup:change_campaign', campaign);
     }
 
+    function onGameUrlChange() {
+      const url = document.getElementById('lobby-game-url').value;
+      socket.emit('setup:update_config', { gameUrl: url });
+    }
+
+    function onProviderSelectChange() {
+      onProviderChange();
+      const provider = document.getElementById('lobby-provider-select').value;
+      socket.emit('setup:update_config', { provider: provider });
+    }
+
     function onProviderChange() {
       const provider = document.getElementById('lobby-provider-select').value;
       const keyLabel = document.getElementById('key-label');
@@ -347,6 +358,27 @@
         keyInput.placeholder = "Ваш API ключ...";
         baseUrlContainer.classList.remove('hidden');
       }
+    }
+
+    function onAgentLangChange() {
+      const lang = document.getElementById('lobby-agent-lang').value;
+      socket.emit('setup:update_config', { agentLang: lang });
+    }
+
+    function onUiLangChange() {
+      const lang = document.getElementById('lobby-ui-lang').value;
+      socket.emit('setup:update_config', { uiLang: lang });
+    }
+
+    function onApiKeyChange() {
+      const key = document.getElementById('lobby-api-key').value;
+      const provider = document.getElementById('lobby-provider-select').value;
+      socket.emit('setup:update_config', { provider: provider, apiKey: key });
+    }
+
+    function onBaseUrlChange() {
+      const url = document.getElementById('lobby-base-url').value;
+      socket.emit('setup:update_config', { baseUrl: url });
     }
 
     function createNewCampaign() {
@@ -409,7 +441,6 @@
     function showLobby() {
       document.getElementById('dashboard-screen').classList.add('hidden');
       document.getElementById('lobby-screen').classList.remove('hidden');
-      socket.emit('setup:get_info'); // Refresh
     }
 
     function sendCommand(cmd) {

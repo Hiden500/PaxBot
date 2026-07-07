@@ -34,7 +34,7 @@ let isBotRunning = false;
 let loopPromise: Promise<void> | null = null;
 
 // Read helper to get config state
-function getLobbyInfo() {
+export function getLobbyInfo() {
   const campaignsList: { filename: string; name: string }[] = [];
   const campaignsDir = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR);
   
@@ -106,7 +106,7 @@ function getLobbyInfo() {
 }
 
 // Function to dynamically update/write .env file
-function updateEnvFile(config: Record<string, string>) {
+export function updateEnvFile(config: Record<string, string>) {
   const envPath = path.join(process.cwd(), ".env");
   let envContent = "";
   if (fs.existsSync(envPath)) {
@@ -146,6 +146,45 @@ io.on("connection", (socket) => {
   socket.on("setup:change_campaign", (campaignName: string) => {
     setActiveCampaignName(campaignName);
     socket.emit("setup:info", getLobbyInfo());
+  });
+
+  socket.on("setup:update_config", (config: Record<string, string>) => {
+    const envUpdates: Record<string, string> = {};
+    if (config.provider) {
+      envUpdates.LLM_PROVIDER = config.provider;
+    }
+    if (config.agentLang) {
+      envUpdates.AGENT_LANGUAGE = config.agentLang;
+    }
+    if (config.uiLang) {
+      envUpdates.UI_LANGUAGE = config.uiLang;
+    }
+    if (config.baseUrl !== undefined) {
+      envUpdates.OPENAI_COMPATIBLE_BASE_URL = config.baseUrl;
+    }
+    
+    if (config.apiKey !== undefined && config.apiKey !== "") {
+      const provider = config.provider || process.env.LLM_PROVIDER || "gemini";
+      if (provider === "gemini") {
+        envUpdates.GOOGLE_API_KEY = config.apiKey;
+      } else if (provider === "groq") {
+        envUpdates.GROQ_API_KEY = config.apiKey;
+      } else if (provider === "openai") {
+        envUpdates.OPENAI_API_KEY = config.apiKey;
+      } else if (provider === "openaicompat") {
+        envUpdates.OPENAI_COMPATIBLE_API_KEY = config.apiKey;
+      }
+    }
+    
+    if (Object.keys(envUpdates).length > 0) {
+      updateEnvFile(envUpdates);
+    }
+    
+    if (config.gameUrl !== undefined) {
+      setCampaignUrl(config.gameUrl);
+    }
+    
+    io.emit("setup:info", getLobbyInfo());
   });
 
   socket.on("setup:create_campaign", async (name: string) => {
