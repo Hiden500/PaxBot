@@ -1,5 +1,5 @@
 {
-  "last_sync_commit": "157c8401574d65a7fb5b39bfa87938c20695a22f",
+  "last_sync_commit": "83e84eff7c15dcd0f5608862f06c949aa8cb5e92",
   "docs_enabled": true,
   "run_mode": "standard",
   "git_tier": "full",
@@ -36,7 +36,7 @@
   "config_fingerprint": "8a3c631638feb35f3717a5c02b88757c1a37398801f7116e7061d53e6a7aad73",
   "store_format_version": 1,
   "written_by_version": "0.24.0",
-  "total_pages": 73,
+  "total_pages": 95,
   "provider": "gemini",
   "model": "gemini-3.1-flash-lite-preview",
   "total_tokens": 190367

@@ -11,6 +11,7 @@ import { createProvider, callProviderWithRetry, validateEnv } from "./providers/
 import { buildGeminiConfig } from "./providers/gemini-provider";
 import { buildGroqConfig } from "./providers/groq-provider";
 import { buildOpenAIConfig } from "./providers/openai-provider";
+import { buildOpenAICompatConfig } from "./providers/openaicompat-provider";
 import { LLM_CONFIG, DEFAULT_LLM_PROVIDER, PROVIDER_MODELS } from "../shared/config";
 import type { ProviderType } from "./providers/registry";
 
@@ -46,6 +47,8 @@ function buildConfig(system: string, options?: { disableSchema?: boolean }): Pro
       return buildGroqConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
     case "openai":
       return buildOpenAIConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
+    case "openaicompat":
+      return buildOpenAICompatConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
     default:
       return buildGeminiConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
   }

@@ -4,7 +4,9 @@
     "name": "Pax-Automata",
     "is_monorepo": false,
     "total_files": 284,
-    "entry_points": ["src/index.ts"],
+    "entry_points": [
+      "src/index.ts"
+    ],
     "tech_stack": [
       {
         "name": "Node.js",
@@ -17,7 +19,9 @@
         "category": "language"
       }
     ],
-    "entry_candidates": ["src/index.ts"],
+    "entry_candidates": [
+      "src/index.ts"
+    ],
     "graph_mode": "flow"
   },
   "nodes": [
@@ -184,7 +188,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 9,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: lead-research-assistant.md."
     },
     {
@@ -197,7 +203,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 10,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: api-builder.md."
     },
     {
@@ -210,7 +218,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 11,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: database-architect.md."
     },
     {
@@ -223,7 +233,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 12,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-auditor.md."
     },
     {
@@ -236,7 +248,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 13,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-fixer.md."
     },
     {
@@ -249,7 +263,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 14,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-realtime-optimizer.md."
     },
     {
@@ -262,7 +278,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 15,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-storage-optimizer.md."
     },
     {
@@ -275,7 +293,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 16,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: code-reviewer.md."
     },
     {
@@ -288,7 +308,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 17,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: code-structure-refactorer.md."
     },
     {
@@ -301,7 +323,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 18,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: cost-calculator-specialist.md."
     },
     {
@@ -314,7 +338,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 19,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: judge-specialist.md."
     },
     {
@@ -327,7 +353,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 20,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: langgraph-specialist.md."
     },
     {
@@ -340,7 +368,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 21,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: llm-service-specialist.md."
     },
     {
@@ -353,7 +383,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 22,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: skill-builder-v2.md."
     },
     {
@@ -366,7 +398,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 23,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: stage-pipeline-specialist.md."
     },
     {
@@ -379,7 +413,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 24,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: typescript-types-specialist.md."
     },
     {
@@ -392,7 +428,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 25,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: utility-builder.md."
     },
     {
@@ -405,7 +443,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 26,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: technical-writer.md."
     },
     {
@@ -418,7 +458,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 27,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: fullstack-nextjs-specialist.md."
     },
     {
@@ -431,7 +473,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 28,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: nextjs-ui-designer.md."
     },
     {
@@ -444,7 +488,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 29,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: visual-effects-creator.md."
     },
     {
@@ -457,7 +503,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 30,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: bug-fixer.md."
     },
     {
@@ -470,7 +518,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 31,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: bug-hunter.md."
     },
     {
@@ -483,7 +533,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 32,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dead-code-hunter.md."
     },
     {
@@ -496,7 +548,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 33,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dead-code-remover.md."
     },
     {
@@ -509,7 +563,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 34,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dependency-auditor.md."
     },
     {
@@ -522,7 +578,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 35,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dependency-updater.md."
     },
     {
@@ -535,7 +593,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 36,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: reuse-fixer.md."
     },
     {
@@ -548,7 +608,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 37,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: reuse-hunter.md."
     },
     {
@@ -561,7 +623,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 38,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: security-scanner.md."
     },
     {
@@ -574,7 +638,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 39,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: vulnerability-fixer.md."
     },
     {
@@ -587,7 +653,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 40,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: bullmq-worker-specialist.md."
     },
     {
@@ -600,7 +668,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 41,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: deployment-engineer.md."
     },
     {
@@ -613,7 +683,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 42,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: infrastructure-specialist.md."
     },
     {
@@ -626,7 +698,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 43,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: orchestration-logic-specialist.md."
     },
     {
@@ -639,7 +713,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 44,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: qdrant-specialist.md."
     },
     {
@@ -652,7 +728,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 45,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: quality-validator-specialist.md."
     },
     {
@@ -665,7 +743,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 46,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: rag-specialist.md."
     },
     {
@@ -678,7 +758,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 47,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: server-hardening-specialist.md."
     },
     {
@@ -691,7 +773,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 48,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: lms-integration-specialist.md."
     },
     {
@@ -704,7 +788,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 49,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: meta-agent-v3.md."
     },
     {
@@ -717,7 +803,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 50,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: problem-investigator.md."
     },
     {
@@ -730,7 +818,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 51,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: research-specialist.md."
     },
     {
@@ -743,7 +833,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 52,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: accessibility-tester.md."
     },
     {
@@ -756,7 +848,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 53,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: integration-tester.md."
     },
     {
@@ -769,7 +863,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 54,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: mobile-fixes-implementer.md."
     },
     {
@@ -782,7 +878,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 55,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: mobile-responsiveness-tester.md."
     },
     {
@@ -795,7 +893,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 56,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: performance-optimizer.md."
     },
     {
@@ -808,7 +908,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 57,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-writer.md."
     },
     {
@@ -821,7 +923,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 58,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: beads-init.md."
     },
     {
@@ -834,7 +938,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 59,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-bugs.md."
     },
     {
@@ -847,7 +953,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 60,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-cleanup.md."
     },
     {
@@ -860,7 +968,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 61,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-deps.md."
     },
     {
@@ -873,7 +983,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 62,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-metrics.md."
     },
     {
@@ -886,7 +998,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 63,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-reuse.md."
     },
     {
@@ -899,7 +1013,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 64,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-security.md."
     },
     {
@@ -912,7 +1028,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 65,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: onboard.md."
     },
     {
@@ -925,7 +1043,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 66,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: process-logs.md."
     },
     {
@@ -938,7 +1058,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 67,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: push.md."
     },
     {
@@ -951,7 +1073,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 68,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.analyze.md."
     },
     {
@@ -964,7 +1088,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 69,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.checklist.md."
     },
     {
@@ -977,7 +1103,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 70,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.clarify.md."
     },
     {
@@ -990,7 +1118,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 71,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.constitution.md."
     },
     {
@@ -1003,7 +1133,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 72,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.implement.md."
     },
     {
@@ -1016,7 +1148,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 73,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.plan.md."
     },
     {
@@ -1029,7 +1163,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 74,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.specify.md."
     },
     {
@@ -1042,7 +1178,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 75,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.tasks.md."
     },
     {
@@ -1055,7 +1193,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 76,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.taskstoissues.md."
     },
     {
@@ -1068,7 +1208,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 77,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.tobeads.md."
     },
     {
@@ -1081,7 +1223,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 78,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: status.md."
     },
     {
@@ -1094,7 +1238,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 79,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-performance-optimizer.md."
     },
     {
@@ -1107,7 +1253,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 80,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: translate-doc.md."
     },
     {
@@ -1120,7 +1268,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 81,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: ultra-think.md."
     },
     {
@@ -1133,7 +1283,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 82,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: upgrade.md."
     },
     {
@@ -1146,7 +1298,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 83,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: work.md."
     },
     {
@@ -1159,7 +1313,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 84,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: worktree.md."
     },
     {
@@ -1172,7 +1328,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 85,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1185,7 +1343,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 86,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1212,7 +1372,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 88,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1253,7 +1415,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 91,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1266,7 +1430,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 92,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: COMMANDS_QUICKREF.md."
     },
     {
@@ -1279,7 +1445,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 93,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: DECISION_MATRIX.md."
     },
     {
@@ -1292,7 +1460,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 94,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SPECKIT_BRIDGE.md."
     },
     {
@@ -1305,7 +1475,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 95,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: WORKFLOWS.md."
     },
     {
@@ -1318,7 +1490,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 96,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1331,7 +1505,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 97,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: scoring-matrix.json."
     },
     {
@@ -1344,7 +1521,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 98,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1357,7 +1536,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 99,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1370,7 +1551,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 100,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1383,7 +1566,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 101,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1396,7 +1581,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 102,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1409,7 +1596,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 103,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1422,7 +1611,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 104,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1435,7 +1626,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 105,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1448,7 +1641,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 106,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: template.md."
     },
     {
@@ -1461,7 +1656,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 107,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1474,7 +1671,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 108,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: examples.md."
     },
     {
@@ -1487,7 +1686,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 109,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1500,7 +1701,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 110,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: template.json."
     },
     {
@@ -1513,7 +1717,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 111,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1526,7 +1732,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 112,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1539,7 +1747,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 113,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: commit-mapping.json."
     },
     {
@@ -1552,7 +1763,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 114,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1565,7 +1778,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 115,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: template.md."
     },
     {
@@ -1578,7 +1793,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 116,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1591,7 +1808,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 117,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1604,7 +1823,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 118,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: worker-prompts.md."
     },
     {
@@ -1617,7 +1838,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 119,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1630,7 +1853,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 120,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1643,7 +1868,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 121,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: patterns.json."
     },
     {
@@ -1656,7 +1884,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 122,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1669,7 +1899,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 123,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1682,7 +1914,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 124,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -1695,7 +1930,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 125,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1708,7 +1945,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 126,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1721,7 +1960,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 127,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1734,7 +1975,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 128,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1747,7 +1990,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 129,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1760,7 +2005,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 130,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: changes-log-schema.json."
     },
     {
@@ -1773,7 +2021,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 131,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1786,7 +2036,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 132,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: gate-mappings.json."
     },
     {
@@ -1799,7 +2052,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 133,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1812,7 +2067,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 134,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1825,7 +2082,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 135,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: architecture_patterns.md."
     },
     {
@@ -1838,7 +2097,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 136,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: system_design_workflows.md."
     },
     {
@@ -1851,7 +2112,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 137,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: tech_decision_guide.md."
     },
     {
@@ -1906,7 +2169,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 141,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1919,7 +2184,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 142,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: cicd_pipeline_guide.md."
     },
     {
@@ -1932,7 +2199,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 143,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: deployment_strategies.md."
     },
     {
@@ -1945,7 +2214,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 144,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: infrastructure_as_code.md."
     },
     {
@@ -2000,7 +2271,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 148,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2013,7 +2286,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 149,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: agentic_system_design.md."
     },
     {
@@ -2026,7 +2301,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 150,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: llm_evaluation_frameworks.md."
     },
     {
@@ -2039,7 +2316,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 151,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: prompt_engineering_patterns.md."
     },
     {
@@ -2094,7 +2373,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 155,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2107,7 +2388,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 156,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: CREATION-LOG.md."
     },
     {
@@ -2120,7 +2403,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 157,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2147,7 +2432,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 158,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: condition-based-waiting.md."
     },
     {
@@ -2160,7 +2447,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 159,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: defense-in-depth.md."
     },
     {
@@ -2187,7 +2476,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 161,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: root-cause-tracing.md."
     },
     {
@@ -2200,7 +2491,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 162,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-academic.md."
     },
     {
@@ -2213,7 +2506,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 163,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-pressure-1.md."
     },
     {
@@ -2226,7 +2521,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 164,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-pressure-2.md."
     },
     {
@@ -2239,7 +2536,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 165,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-pressure-3.md."
     },
     {
@@ -2252,7 +2551,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 166,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2265,7 +2566,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 167,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: arctic-frost.md."
     },
     {
@@ -2278,7 +2581,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 168,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: botanical-garden.md."
     },
     {
@@ -2291,7 +2596,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 169,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: desert-rose.md."
     },
     {
@@ -2304,7 +2611,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 170,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: forest-canopy.md."
     },
     {
@@ -2317,7 +2626,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 171,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: golden-hour.md."
     },
     {
@@ -2330,7 +2641,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 172,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: midnight-galaxy.md."
     },
     {
@@ -2343,7 +2656,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 173,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: modern-minimalist.md."
     },
     {
@@ -2356,7 +2671,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 174,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: ocean-depths.md."
     },
     {
@@ -2369,7 +2686,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 175,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: sunset-boulevard.md."
     },
     {
@@ -2382,7 +2701,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 176,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: tech-innovation.md."
     },
     {
@@ -2395,7 +2716,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 177,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2422,7 +2745,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 179,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2449,7 +2774,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 181,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2462,7 +2789,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 182,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -2475,7 +2805,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 183,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2488,7 +2820,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 184,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -2501,7 +2836,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 185,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2583,7 +2920,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 191,
-      "tags": ["config"],
+      "tags": [
+        "config"
+      ],
       "summary": "ESLint linting rules."
     },
     {
@@ -2596,7 +2935,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 192,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: .mcp.json."
     },
     {
@@ -2609,7 +2951,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 193,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: config.yaml."
     },
     {
@@ -2622,7 +2967,10 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 194,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: 40bf0008-3097-462d-aa27-cd78c652ae5b.json."
     },
     {
@@ -2635,7 +2983,10 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 195,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: knowledge-graph.json."
     },
     {
@@ -2648,7 +2999,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 236,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: latest_version_hint.json."
     },
     {
@@ -2661,7 +3015,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 236,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: latest_version_hint.json."
     },
     {
@@ -2674,7 +3031,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 196,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: mcp.json."
     },
     {
@@ -2687,7 +3047,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 197,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: state.json."
     },
     {
@@ -2700,7 +3063,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 198,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: Agents.md."
     },
     {
@@ -2726,7 +3091,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 200,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: PRD.md."
     },
     {
@@ -2739,7 +3106,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 201,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: api.md."
     },
     {
@@ -2752,7 +3121,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 202,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: architecture.md."
     },
     {
@@ -2778,7 +3149,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 204,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: database.md."
     },
     {
@@ -2791,7 +3164,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 205,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: decisions.md."
     },
     {
@@ -2804,7 +3179,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 206,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: deployment.md."
     },
     {
@@ -2817,7 +3194,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 207,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: pax-historia-research.md."
     },
     {
@@ -2830,7 +3209,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 208,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: roadmap.md."
     },
     {
@@ -2856,7 +3237,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 210,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: testing.md."
     },
     {
@@ -2869,7 +3252,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 211,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: todo.md."
     },
     {
@@ -2882,7 +3267,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 213,
-      "tags": ["config"],
+      "tags": [
+        "config"
+      ],
       "summary": "Node package manifest: dependencies, scripts, and metadata."
     },
     {
@@ -3063,7 +3450,9 @@
       "complexity": "simple",
       "pagerank": 0.002899,
       "communityId": 1,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for brain/.",
       "primaryOwner": "hiden500"
     },
@@ -3203,7 +3592,9 @@
       "complexity": "simple",
       "pagerank": 0.003564,
       "communityId": 3,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for campaign/.",
       "primaryOwner": "hiden500"
     },
@@ -3287,7 +3678,9 @@
       "complexity": "simple",
       "pagerank": 0.003285,
       "communityId": 2,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for hand/.",
       "primaryOwner": "Phillip Yan"
     },
@@ -3343,7 +3736,9 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 2,
-      "tags": ["entry_point"],
+      "tags": [
+        "entry_point"
+      ],
       "summary": "Application module index defining getAdvisorQueryForTurn, printStartupBanner, createNewCampaignFlow.",
       "primaryOwner": "hiden500"
     },
@@ -3371,7 +3766,9 @@
       "complexity": "simple",
       "pagerank": 0.003564,
       "communityId": 6,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for memory/.",
       "primaryOwner": "hiden500"
     },
@@ -3455,7 +3852,9 @@
       "complexity": "simple",
       "pagerank": 0.011413,
       "communityId": 1,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for shared/.",
       "primaryOwner": "Phillip Yan"
     },
@@ -3553,7 +3952,9 @@
       "complexity": "simple",
       "pagerank": 0.003285,
       "communityId": 2,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for spy/.",
       "primaryOwner": "Phillip Yan"
     },
@@ -3637,7 +4038,9 @@
       "complexity": "simple",
       "pagerank": 0.003386,
       "communityId": 3,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for strategy/.",
       "primaryOwner": "hiden500"
     },
@@ -3693,7 +4096,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 216,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: .last-run.json."
     },
     {
@@ -3706,7 +4112,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 217,
-      "tags": ["config"],
+      "tags": [
+        "config"
+      ],
       "summary": "TypeScript compiler configuration."
     },
     {
@@ -3733,7 +4141,10 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 219,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: RussianTest.json."
     },
     {
@@ -3746,7 +4157,9 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 220,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: RussianTest.md."
     },
     {
@@ -3759,7 +4172,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 221,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: TEMPLATE.md."
     },
     {
@@ -3772,7 +4187,9 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 222,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: constitution.md."
     },
     {
@@ -3785,7 +4202,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 223,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: current_state.json."
     },
     {
@@ -3798,7 +4218,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 224,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: ledger_snapshot_turn_1.json."
     },
     {
@@ -3811,7 +4234,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 225,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: ledger_snapshot_turn_2.json."
     },
     {
@@ -3824,7 +4250,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 226,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: ledger_snapshot_turn_3.json."
     },
     {
@@ -3837,7 +4266,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 227,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: lessons_learned.json."
     },
     {
@@ -3850,7 +4282,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 228,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: rival_profiles.json."
     },
     {
@@ -3863,7 +4298,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 229,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: strategic_summary.json."
     },
     {
@@ -3876,7 +4314,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 230,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: state_snapshot_turn_1.json."
     },
     {
@@ -3889,7 +4330,10 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 231,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: state_snapshot_turn_2.json."
     },
     {
@@ -3902,7 +4346,10 @@
       "complexity": "complex",
       "pagerank": 0.002721,
       "communityId": 232,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: state_snapshot_turn_3.json."
     },
     {
@@ -3915,7 +4362,10 @@
       "complexity": "moderate",
       "pagerank": 0.002721,
       "communityId": 233,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: strategy-plan.json."
     },
     {
@@ -3928,7 +4378,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 234,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: current_state.json."
     },
     {
@@ -3941,7 +4394,10 @@
       "complexity": "simple",
       "pagerank": 0.002721,
       "communityId": 235,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: strategy-plan.json."
     },
     {
@@ -10649,7 +11105,9 @@
         {
           "id": "layer:config:claude",
           "name": ".claude",
-          "nodeIds": ["file:.claude/CLAUDE.md"]
+          "nodeIds": [
+            "file:.claude/CLAUDE.md"
+          ]
         },
         {
           "id": "layer:config:repowise",
@@ -10738,7 +11196,8 @@
       "depth": 0,
       "kind": "overview",
       "reason": "Start here for the end-to-end picture before diving into the code.",
-      "layer_id": "layer:application"
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 2,
@@ -10748,7 +11207,8 @@
       "depth": 0,
       "kind": "code",
       "reason": "An entry point \u2014 execution and imports fan out from here.",
-      "layer_id": "layer:application"
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 3,
@@ -10758,7 +11218,8 @@
       "depth": 1,
       "kind": "code",
       "reason": "Directly used by the entry points above; a core collaborator.",
-      "layer_id": "layer:utility"
+      "layer_id": "layer:utility",
+      "wikiPageIds": []
     },
     {
       "order": 4,
@@ -10768,7 +11229,8 @@
       "depth": 1,
       "kind": "code",
       "reason": "A re-export hub \u2014 the package's public surface fans out from here.",
-      "layer_id": "layer:utility"
+      "layer_id": "layer:utility",
+      "wikiPageIds": []
     },
     {
       "order": 5,
@@ -10778,7 +11240,8 @@
       "depth": 1,
       "kind": "code",
       "reason": "Directly used by the entry points above; a core collaborator.",
-      "layer_id": "layer:application"
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 6,
@@ -10788,7 +11251,8 @@
       "depth": 1,
       "kind": "code",
       "reason": "Directly used by the entry points above; a core collaborator.",
-      "layer_id": "layer:application"
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 7,
@@ -10798,7 +11262,8 @@
       "depth": 2,
       "kind": "code",
       "reason": "The Docs & Tooling layer's anchor \u2014 its most depended-on file.",
-      "layer_id": "layer:docs-tooling"
+      "layer_id": "layer:docs-tooling",
+      "wikiPageIds": []
     },
     {
       "order": 8,
@@ -10808,7 +11273,8 @@
       "depth": 3,
       "kind": "code",
       "reason": "The test suite \u2014 how the system's behavior is verified.",
-      "layer_id": "layer:test"
+      "layer_id": "layer:test",
+      "wikiPageIds": []
     }
   ],
   "modules": [

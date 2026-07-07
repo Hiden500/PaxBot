@@ -83,7 +83,8 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   const bodyPromise = captureNextSimpleChatRequestBody(page);
   const advisorQuery = getAdvisorQueryForTurn();
   const agentLang = (process.env.AGENT_LANGUAGE || "Russian").toLowerCase();
-  const defaultQuery = agentLang === "russian" ? DEFAULT_ADVISOR_QUERY_RU : DEFAULT_ADVISOR_QUERY_EN;
+  const defaultQuery =
+    agentLang === "russian" ? DEFAULT_ADVISOR_QUERY_RU : DEFAULT_ADVISOR_QUERY_EN;
   if (advisorQuery !== defaultQuery) {
     tui.log(`[Phase 1] ${t("phase1.advisor")}: ${advisorQuery.slice(0, 70)}...`);
   }
@@ -92,7 +93,7 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
   // Await the intercepted request body
   const requestBody = await bodyPromise;
   writeGameStateFromPayload(requestBody);
-  
+
   try {
     const parsedState = JSON.parse(requestBody || "{}");
     tui.setRawGameState(JSON.stringify(parsedState, null, 2));
@@ -172,6 +173,19 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
 
   try {
     while (!stopping) {
+      // Global Pause check at start of turn
+      while (tui.getState().isPaused && !stopping) {
+        tui.setStatus(t("log.paused_status") || "Paused");
+        await sleep(500);
+        if (tui.getState().isStopping) {
+          stopping = true;
+        }
+      }
+
+      if (stopping) {
+        break;
+      }
+
       try {
         await runTurn(page, turnNumber);
       } catch (err) {
@@ -199,7 +213,7 @@ export async function runCognitiveLoop(page: Page): Promise<void> {
           await sleep(500);
           // Update stopping flag safely
           if (tui.getState().isStopping) {
-             stopping = true;
+            stopping = true;
           }
         }
       }

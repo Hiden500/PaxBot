@@ -4,14 +4,14 @@ import { Server as SocketIOServer } from "socket.io";
 import path from "path";
 import * as fs from "fs";
 import dotenv from "dotenv";
-import { 
-  tui, 
-  getActiveCampaignName, 
-  setActiveCampaignName, 
-  getCampaignUrl, 
+import {
+  tui,
+  getActiveCampaignName,
+  setActiveCampaignName,
+  getCampaignUrl,
   setCampaignUrl,
   getSessionDir,
-  PATHS 
+  PATHS,
 } from "../shared";
 import { loadAllCampaigns } from "../campaign/loader";
 import { initializeCampaignFromMarkdown } from "../campaign/builder";
@@ -34,7 +34,11 @@ let isBotRunning = false;
 let loopPromise: Promise<void> | null = null;
 
 // Helper to fetch available models for a provider using dynamic API requests
-async function fetchModelsForProvider(provider: string, apiKey?: string, baseUrl?: string): Promise<string[]> {
+async function fetchModelsForProvider(
+  provider: string,
+  apiKey?: string,
+  baseUrl?: string
+): Promise<string[]> {
   let finalApiKey = apiKey;
   if (!finalApiKey) {
     if (provider === "gemini") {
@@ -53,7 +57,12 @@ async function fetchModelsForProvider(provider: string, apiKey?: string, baseUrl
     gemini: ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-1.5-flash", "gemini-1.5-pro"],
     groq: ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"],
     openai: ["gpt-4o-mini", "gpt-4o", "o1-mini", "gpt-3.5-turbo"],
-    openaicompat: ["gpt-4o-mini", "gpt-4o"],
+    openaicompat: [
+      "deepseek-chat",
+      "deepseek-reasoner",
+      "qwen-2.5-72b-instruct",
+      "llama-3.1-8b-instruct",
+    ],
   };
 
   try {
@@ -69,7 +78,10 @@ async function fetchModelsForProvider(provider: string, apiKey?: string, baseUrl
             .sort();
         }
       }
-    } else if ((provider === "openai" || provider === "openaicompat" || provider === "groq") && finalApiKey) {
+    } else if (
+      (provider === "openai" || provider === "openaicompat" || provider === "groq") &&
+      finalApiKey
+    ) {
       const url =
         provider === "openai"
           ? "https://api.openai.com/v1/models"
@@ -100,13 +112,13 @@ async function fetchModelsForProvider(provider: string, apiKey?: string, baseUrl
 export function getLobbyInfo() {
   const campaignsList: { filename: string; name: string; hasJson: boolean }[] = [];
   const campaignsDir = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR);
-  
+
   if (fs.existsSync(campaignsDir)) {
     const files = fs.readdirSync(campaignsDir);
-    
+
     // Scan for all .md files to know which templates exist
-    const mdFiles = files.filter(f => f.endsWith(".md") && f !== "TEMPLATE.md");
-    const jsonFiles = files.filter(f => f.endsWith(".json"));
+    const mdFiles = files.filter((f) => f.endsWith(".md") && f !== "TEMPLATE.md");
+    const jsonFiles = files.filter((f) => f.endsWith(".json"));
 
     // First, add all campaigns that compile cleanly from JSON
     const loadedCampaigns = loadAllCampaigns();
@@ -114,7 +126,7 @@ export function getLobbyInfo() {
 
     for (const c of loadedCampaigns) {
       // Find the JSON file that corresponds to this campaign name
-      const fileMatch = files.find(f => {
+      const fileMatch = files.find((f) => {
         if (!f.endsWith(".json")) {
           return false;
         }
@@ -126,11 +138,13 @@ export function getLobbyInfo() {
           return false;
         }
       });
-      const filename = fileMatch ? fileMatch.replace(".json", "") : c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const filename = fileMatch
+        ? fileMatch.replace(".json", "")
+        : c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       campaignsList.push({
         filename: filename,
         name: c.name,
-        hasJson: true
+        hasJson: true,
       });
       loadedNames.add(filename);
     }
@@ -146,13 +160,13 @@ export function getLobbyInfo() {
             campaignsList.push({
               filename: filename,
               name: parsed.name || filename,
-              hasJson: true
+              hasJson: true,
             });
           } catch {
             campaignsList.push({
               filename: filename,
               name: filename,
-              hasJson: true
+              hasJson: true,
             });
           }
           loadedNames.add(filename);
@@ -167,14 +181,14 @@ export function getLobbyInfo() {
         campaignsList.push({
           filename: filename,
           name: `${filename} (Не скомпилирован, требуется MD)`,
-          hasJson: false
+          hasJson: false,
         });
       }
     }
   }
 
   const provider = process.env.LLM_PROVIDER || "gemini";
-  
+
   return {
     campaigns: campaignsList,
     activeCampaign: getActiveCampaignName(),
@@ -198,9 +212,9 @@ export function updateEnvFile(config: Record<string, string>) {
 
   const lines = envContent.split("\n");
   const configKeys = Object.keys(config);
-  
+
   for (const key of configKeys) {
-    const index = lines.findIndex(line => line.trim().startsWith(`${key}=`));
+    const index = lines.findIndex((line) => line.trim().startsWith(`${key}=`));
     if (index !== -1) {
       lines[index] = `${key}=${config[key]}`;
     } else {
@@ -218,7 +232,7 @@ export function updateEnvFile(config: Record<string, string>) {
 
 io.on("connection", (socket) => {
   console.log("[Web] Client connected to dashboard");
-  
+
   socket.emit("state", tui.getState());
 
   // Lobby queries
@@ -231,19 +245,27 @@ io.on("connection", (socket) => {
     socket.emit("setup:info", getLobbyInfo());
   });
 
-  socket.on("setup:get_models", async (data: { provider: string; apiKey?: string; baseUrl?: string }) => {
-    const models = await fetchModelsForProvider(data.provider, data.apiKey, data.baseUrl);
-    socket.emit("setup:models", { provider: data.provider, models });
-  });
+  socket.on(
+    "setup:get_models",
+    async (data: { provider: string; apiKey?: string; baseUrl?: string }) => {
+      const models = await fetchModelsForProvider(data.provider, data.apiKey, data.baseUrl);
+      socket.emit("setup:models", { provider: data.provider, models });
+    }
+  );
 
   socket.on("setup:compile_campaign", async (campaignName: string) => {
     try {
-      const mdPath = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR, `${campaignName}.md`);
+      const mdPath = path.join(
+        process.cwd(),
+        PATHS.WAR_ROOM,
+        PATHS.CAMPAIGNS_DIR,
+        `${campaignName}.md`
+      );
       if (!fs.existsSync(mdPath)) {
         socket.emit("setup:error", `Файл Markdown не найден: ${campaignName}.md`);
         return;
       }
-      
+
       await initializeCampaignFromMarkdown(mdPath);
       socket.emit("setup:campaign_compiled", campaignName);
     } catch (e) {
@@ -269,7 +291,7 @@ io.on("connection", (socket) => {
     if (config.baseUrl !== undefined) {
       envUpdates.OPENAI_COMPATIBLE_BASE_URL = config.baseUrl;
     }
-    
+
     if (config.apiKey !== undefined && config.apiKey !== "") {
       const provider = config.provider || process.env.LLM_PROVIDER || "gemini";
       if (provider === "gemini") {
@@ -282,15 +304,15 @@ io.on("connection", (socket) => {
         envUpdates.OPENAI_COMPATIBLE_API_KEY = config.apiKey;
       }
     }
-    
+
     if (Object.keys(envUpdates).length > 0) {
       updateEnvFile(envUpdates);
     }
-    
+
     if (config.gameUrl !== undefined) {
       setCampaignUrl(config.gameUrl);
     }
-    
+
     io.emit("setup:info", getLobbyInfo());
   });
 
@@ -299,7 +321,12 @@ io.on("connection", (socket) => {
       const filename = name.replace(/[^a-zA-Z0-9_-]/g, "-").toLowerCase();
       const mdName = `${filename}.md`;
       const mdPath = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR, mdName);
-      const templatePath = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR, "TEMPLATE.md");
+      const templatePath = path.join(
+        process.cwd(),
+        PATHS.WAR_ROOM,
+        PATHS.CAMPAIGNS_DIR,
+        "TEMPLATE.md"
+      );
 
       if (fs.existsSync(mdPath)) {
         socket.emit("setup:error", `Кампания с именем ${mdName} уже существует.`);
@@ -343,11 +370,11 @@ io.on("connection", (socket) => {
 
     try {
       console.log("[Web] Starting bot autopilot cycle...");
-      
+
       // 1. Update config
       setActiveCampaignName(config.campaign);
       setCampaignUrl(config.gameUrl);
-      
+
       const envUpdates: Record<string, string> = {
         LLM_PROVIDER: config.provider,
         AGENT_LANGUAGE: config.agentLang,
@@ -365,7 +392,7 @@ io.on("connection", (socket) => {
           envUpdates.OPENAI_COMPATIBLE_API_KEY = config.apiKey;
         }
       }
-      
+
       if (config.baseUrl) {
         envUpdates.OPENAI_COMPATIBLE_BASE_URL = config.baseUrl;
       }
@@ -375,7 +402,7 @@ io.on("connection", (socket) => {
       // 2. Clear state settings
       tui.setStopping(false);
       tui.setPaused(false);
-      
+
       // 3. Launch browser
       const { browser, page } = await bootBrowser();
       activeBrowser = browser;
@@ -384,22 +411,24 @@ io.on("connection", (socket) => {
       startPopupWatcher(page);
 
       // 4. Start loop
-      loopPromise = runCognitiveLoop(page).then(() => {
-        console.log("[Web] Autopilot loop finished.");
-      }).catch(err => {
-        console.error("[Web] Autopilot loop error:", err);
-      }).finally(async () => {
-        stopPopupWatcher();
-        if (activeBrowser) {
-          await activeBrowser.close();
-          activeBrowser = null;
-        }
-        isBotRunning = false;
-        tui.setPaused(false);
-        tui.setStopping(false);
-        io.emit("setup:info", getLobbyInfo());
-      });
-
+      loopPromise = runCognitiveLoop(page)
+        .then(() => {
+          console.log("[Web] Autopilot loop finished.");
+        })
+        .catch((err) => {
+          console.error("[Web] Autopilot loop error:", err);
+        })
+        .finally(async () => {
+          stopPopupWatcher();
+          if (activeBrowser) {
+            await activeBrowser.close();
+            activeBrowser = null;
+          }
+          isBotRunning = false;
+          tui.setPaused(false);
+          tui.setStopping(false);
+          io.emit("setup:info", getLobbyInfo());
+        });
     } catch (err) {
       console.error("[Web] Start bot error:", err);
       socket.emit("setup:error", `Ошибка запуска: ${(err as Error).message}`);
@@ -438,7 +467,7 @@ io.on("connection", (socket) => {
 export async function startWebServer(): Promise<void> {
   httpServer.listen(PORT, async () => {
     console.log(`[Web] Dashboard running at http://localhost:${PORT}`);
-    
+
     // Auto-open browser
     try {
       await open(`http://localhost:${PORT}`);

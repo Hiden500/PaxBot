@@ -18,13 +18,7 @@ import {
 /** Dismiss game popups ("Help Improve AI Models", "Get more tokens", etc.) if visible.
  *  Called before every major UI interaction as a safety net. */
 export async function dismissGamePopups(page: Page): Promise<void> {
-  // 0. Try escaping any simple dialogs
-  try {
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(200);
-  } catch {
-    /* ignore */
-  }
+  // 0. Try escaping any simple dialogs — REMOVED aggressive Escape as it closes user overlays in manual/semi-auto modes
 
   // 1. "Help Improve AI Models" → click "Maybe later" (Russian/English)
   try {
@@ -40,7 +34,11 @@ export async function dismissGamePopups(page: Page): Promise<void> {
 
   // 2. "Get more tokens" / any dialog with an Close X button (Russian/English)
   try {
-    const closeBtn = page.locator('section[role="dialog"] button[aria-label*="Close"i], section[role="dialog"] button[aria-label*="Закрыть"i]').first();
+    const closeBtn = page
+      .locator(
+        'section[role="dialog"] button[aria-label*="Close"i], section[role="dialog"] button[aria-label*="Закрыть"i]'
+      )
+      .first();
     if (await closeBtn.isVisible()) {
       console.log("[Hand] Dialog popup detected (Get more tokens, etc.) — clicking Close...");
       await closeBtn.click({ timeout: 1500 });
@@ -54,7 +52,9 @@ export async function dismissGamePopups(page: Page): Promise<void> {
 
   // 3. Fallback: any visible Dismiss/Close button
   try {
-    const dismissBtn = page.locator('button[aria-label*="Dismiss"i], button[aria-label*="Закрыть"i]').first();
+    const dismissBtn = page
+      .locator('button[aria-label*="Dismiss"i], button[aria-label*="Закрыть"i]')
+      .first();
     if (await dismissBtn.isVisible()) {
       await dismissBtn.click({ timeout: 1500 });
       console.log("[Hand] Dismissed dialog via Dismiss button.");
@@ -151,7 +151,10 @@ export async function enterAdvisorQuery(page: Page, text: string): Promise<void>
   await ensureAdvisorPanelOpen(page);
   const box = page.locator(SELECTORS.advisorBox);
   await typeText(box, text);
-  await page.getByRole("button", { name: /Send message|Отправить/i }).first().click();
+  await page
+    .getByRole("button", { name: /Send message|Отправить/i })
+    .first()
+    .click();
   console.log("[Advisor] submitted:", text.slice(0, 50) + (text.length > 50 ? "..." : ""));
   await scrollAdvisorPanelToBottom(page);
 }
