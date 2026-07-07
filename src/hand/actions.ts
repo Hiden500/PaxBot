@@ -18,44 +18,51 @@ import {
 /** Dismiss game popups ("Help Improve AI Models", "Get more tokens", etc.) if visible.
  *  Called before every major UI interaction as a safety net. */
 export async function dismissGamePopups(page: Page): Promise<void> {
-  // 1. "Help Improve AI Models" → click "Maybe later"
+  // 0. Try escaping any simple dialogs
   try {
-    const maybeLater = page.getByRole("button", { name: "Maybe later" }).first();
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(200);
+  } catch {
+    /* ignore */
+  }
+
+  // 1. "Help Improve AI Models" → click "Maybe later" (Russian/English)
+  try {
+    const maybeLater = page.getByRole("button", { name: /Maybe later|Позже|Может позже/i }).first();
     if (await maybeLater.isVisible()) {
-      await maybeLater.click();
+      await maybeLater.click({ timeout: 1500 });
       console.log("[Hand] Dismissed 'Help Improve AI Models' popup.");
       await page.waitForTimeout(500);
     }
   } catch {
-    /* not present */
+    /* not present or click timeout */
   }
 
-  // 2. "Get more tokens" / any dialog with an aria-label="Close" X button.
-  //    HTML: <section role="dialog"> ... <button aria-label="Close"> (the X)
+  // 2. "Get more tokens" / any dialog with an Close X button (Russian/English)
   try {
-    const closeBtn = page.locator('section[role="dialog"] button[aria-label="Close"]').first();
+    const closeBtn = page.locator('section[role="dialog"] button[aria-label*="Close"i], section[role="dialog"] button[aria-label*="Закрыть"i]').first();
     if (await closeBtn.isVisible()) {
       console.log("[Hand] Dialog popup detected (Get more tokens, etc.) — clicking Close...");
-      await closeBtn.click();
+      await closeBtn.click({ timeout: 1500 });
       console.log("[Hand] Dismissed dialog popup.");
       await page.waitForTimeout(500);
       return; // done
     }
   } catch {
-    /* not present */
+    /* not present or click timeout */
   }
 
-  // 3. Fallback: any visible aria-label="Dismiss" button (hidden screen-reader dismiss buttons)
+  // 3. Fallback: any visible Dismiss/Close button
   try {
-    const dismissBtn = page.locator('button[aria-label="Dismiss"]').first();
+    const dismissBtn = page.locator('button[aria-label*="Dismiss"i], button[aria-label*="Закрыть"i]').first();
     if (await dismissBtn.isVisible()) {
-      await dismissBtn.click();
+      await dismissBtn.click({ timeout: 1500 });
       console.log("[Hand] Dismissed dialog via Dismiss button.");
       await page.waitForTimeout(500);
       return;
     }
   } catch {
-    /* not present */
+    /* not present or click timeout */
   }
 }
 

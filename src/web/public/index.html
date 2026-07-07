@@ -67,6 +67,13 @@
             </select>
           </div>
 
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs text-slate-300 font-medium">Модель ИИ (LLM_MODEL):</label>
+            <select id="lobby-model-select" onchange="onModelChange()" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
+              <option value="">Загрузка моделей...</option>
+            </select>
+          </div>
+
           <div id="key-input-container" class="flex flex-col gap-1.5">
             <label id="key-label" class="text-xs text-slate-300 font-medium">API Ключ:</label>
             <input type="password" id="lobby-api-key" onchange="onApiKeyChange()" placeholder="Вставьте ваш ключ API" 
@@ -103,6 +110,10 @@
         <button id="btn-start-game" onclick="startGameCycle()"
           class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm px-6 py-2.5 rounded shadow transition-all flex items-center gap-2">
           🚀 Запустить игру и авто-пилот
+        </button>
+        <button id="btn-compile-campaign" onclick="compileCampaign()"
+          class="hidden bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm px-6 py-2.5 rounded shadow transition-all flex items-center gap-2">
+          ⚙️ Скомпилировать кампанию из MD
         </button>
       </div>
     </div>
@@ -222,16 +233,16 @@
       </div>
 
       <!-- Right Column (Logs + JSON Debug) -->
-      <div class="col-span-4 flex flex-col gap-3 overflow-hidden">
+      <div class="col-span-4 flex flex-col gap-3 overflow-hidden h-full">
         <!-- System Logs -->
-        <div class="panel flex flex-col overflow-hidden h-2/5">
+        <div class="panel flex flex-col overflow-hidden h-[48%]">
           <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5">⚙️ Системные Логи</h2>
           <div id="logs-container" class="flex-1 bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-y-auto">
           </div>
         </div>
 
         <!-- JSON Debug Panel -->
-        <div class="panel flex flex-col overflow-hidden flex-grow">
+        <div class="panel flex flex-col overflow-hidden h-[48%]">
           <div class="flex items-center justify-between mb-2">
             <h2 class="text-sm font-semibold text-purple-400 flex items-center gap-1.5">🔬 JSON Ответ Игры (Отладка)</h2>
             <button onclick="copyJson()" class="text-xs text-slate-400 hover:text-slate-200 px-2 py-0.5 rounded border border-slate-700 hover:border-slate-500 transition-colors">📋 Копировать</button>
@@ -266,6 +277,8 @@
     let isSemiAutoEnabled = false;
     let isClientPaused = false;
     let lastJsonState = "";
+    let availableCampaigns = [];
+    let lastLobbyInfo = null;
 
     // Fetch setup details from server when connected
     socket.on('connect', () => {
@@ -273,6 +286,9 @@
     });
 
     socket.on('setup:info', (info) => {
+      lastLobbyInfo = info;
+      availableCampaigns = info.campaigns || [];
+      
       // Populate Campaign Select
       const select = document.getElementById('lobby-campaign-select');
       
@@ -311,6 +327,8 @@
       document.getElementById('lobby-base-url').value = info.baseUrl || "";
       
       onProviderChange();
+      requestModels();
+      updateLobbyButtons(info.activeCampaign);
 
       // Check if bot is already running
       if (info.isRunning) {
@@ -319,6 +337,22 @@
         showLobby();
       }
     });
+
+    function updateLobbyButtons(activeFilename) {
+      const current = availableCampaigns.find(c => c.filename === activeFilename);
+      const startBtn = document.getElementById('btn-start-game');
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      
+      if (!startBtn || !compileBtn) return;
+
+      if (current && !current.hasJson) {
+        startBtn.classList.add('hidden');
+        compileBtn.classList.remove('hidden');
+      } else {
+        startBtn.classList.remove('hidden');
+        compileBtn.classList.add('hidden');
+      }
+    }
 
     function onCampaignChange() {
       const campaign = document.getElementById('lobby-campaign-select').value;
@@ -334,6 +368,7 @@
       onProviderChange();
       const provider = document.getElementById('lobby-provider-select').value;
       socket.emit('setup:update_config', { provider: provider });
+      requestModels();
     }
 
     function onProviderChange() {
@@ -360,6 +395,18 @@
       }
     }
 
+    function requestModels() {
+      const provider = document.getElementById('lobby-provider-select').value;
+      const apiKey = document.getElementById('lobby-api-key').value;
+      const baseUrl = document.getElementById('lobby-base-url').value;
+      socket.emit('setup:get_models', { provider, apiKey, baseUrl });
+    }
+
+    function onModelChange() {
+      const model = document.getElementById('lobby-model-select').value;
+      socket.emit('setup:update_config', { model: model });
+    }
+
     function onAgentLangChange() {
       const lang = document.getElementById('lobby-agent-lang').value;
       socket.emit('setup:update_config', { agentLang: lang });
@@ -374,11 +421,25 @@
       const key = document.getElementById('lobby-api-key').value;
       const provider = document.getElementById('lobby-provider-select').value;
       socket.emit('setup:update_config', { provider: provider, apiKey: key });
+      requestModels();
     }
 
     function onBaseUrlChange() {
       const url = document.getElementById('lobby-base-url').value;
       socket.emit('setup:update_config', { baseUrl: url });
+      requestModels();
+    }
+
+    function compileCampaign() {
+      const campaign = document.getElementById('lobby-campaign-select').value;
+      if (!campaign) return;
+      showError("Компиляция кампании с помощью LLM... Пожалуйста, подождите.");
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      if (compileBtn) {
+        compileBtn.disabled = true;
+        compileBtn.textContent = "⚙️ Компиляция...";
+      }
+      socket.emit('setup:compile_campaign', campaign);
     }
 
     function createNewCampaign() {
@@ -472,12 +533,56 @@
     // Command Response Error notifications
     socket.on('setup:error', (msg) => {
       showError(msg);
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      if (compileBtn) {
+        compileBtn.disabled = false;
+        compileBtn.textContent = "⚙️ Скомпилировать кампанию из MD";
+      }
       showLobby();
     });
 
     socket.on('setup:campaign_created', (name) => {
       alert("Шаблон новой кампании " + name + ".md создан в папке war-room/campaigns/! Заполните его и выберите в лобби.");
       socket.emit('setup:get_info');
+    });
+
+    socket.on('setup:campaign_compiled', (name) => {
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      if (compileBtn) {
+        compileBtn.disabled = false;
+        compileBtn.textContent = "⚙️ Скомпилировать кампанию из MD";
+      }
+      showError("");
+      alert("Кампания " + name + " успешно скомпилирована из Markdown! Теперь её можно запустить.");
+      socket.emit('setup:get_info');
+    });
+
+    socket.on('setup:models', (data) => {
+      const select = document.getElementById('lobby-model-select');
+      select.innerHTML = '';
+      
+      if (data.models && data.models.length > 0) {
+        data.models.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          select.appendChild(opt);
+        });
+        
+        if (lastLobbyInfo && lastLobbyInfo.model) {
+          select.value = lastLobbyInfo.model;
+        }
+        
+        if (!select.value && select.options.length > 0) {
+          select.value = select.options[0].value;
+          onModelChange();
+        }
+      } else {
+        const opt = document.createElement('option');
+        opt.value = "";
+        opt.textContent = "Модели не найдены";
+        select.appendChild(opt);
+      }
     });
 
     socket.on('setup:session_reset_done', () => {

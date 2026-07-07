@@ -37,7 +37,7 @@ function getProvider(): LLMProvider {
  */
 function buildConfig(system: string, options?: { disableSchema?: boolean }): ProviderConfig {
   const type = (process.env.LLM_PROVIDER as ProviderType) ?? DEFAULT_LLM_PROVIDER;
-  const model = PROVIDER_MODELS[type] ?? LLM_CONFIG.MODEL;
+  const model = process.env.LLM_MODEL || PROVIDER_MODELS[type] || LLM_CONFIG.MODEL;
 
   switch (type) {
     case "gemini":

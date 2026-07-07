@@ -33,14 +33,81 @@ let activeBrowser: BrowserContext | null = null;
 let isBotRunning = false;
 let loopPromise: Promise<void> | null = null;
 
+// Helper to fetch available models for a provider using dynamic API requests
+async function fetchModelsForProvider(provider: string, apiKey?: string, baseUrl?: string): Promise<string[]> {
+  let finalApiKey = apiKey;
+  if (!finalApiKey) {
+    if (provider === "gemini") {
+      finalApiKey = process.env.GOOGLE_API_KEY;
+    } else if (provider === "groq") {
+      finalApiKey = process.env.GROQ_API_KEY;
+    } else if (provider === "openai") {
+      finalApiKey = process.env.OPENAI_API_KEY;
+    } else if (provider === "openaicompat") {
+      finalApiKey = process.env.OPENAI_COMPATIBLE_API_KEY;
+    }
+  }
+
+  // Fallback lists in case APIs fail or keys are missing
+  const fallbacks: Record<string, string[]> = {
+    gemini: ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-1.5-flash", "gemini-1.5-pro"],
+    groq: ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"],
+    openai: ["gpt-4o-mini", "gpt-4o", "o1-mini", "gpt-3.5-turbo"],
+    openaicompat: ["gpt-4o-mini", "gpt-4o"],
+  };
+
+  try {
+    if (provider === "gemini" && finalApiKey) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${finalApiKey}`;
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = (await response.json()) as { models: { name: string }[] };
+        if (data && Array.isArray(data.models)) {
+          return data.models
+            .map((m) => m.name.replace("models/", ""))
+            .filter((name) => name.startsWith("gemini-"))
+            .sort();
+        }
+      }
+    } else if ((provider === "openai" || provider === "openaicompat" || provider === "groq") && finalApiKey) {
+      const url =
+        provider === "openai"
+          ? "https://api.openai.com/v1/models"
+          : provider === "groq"
+            ? "https://api.groq.com/openai/v1/models"
+            : `${baseUrl || "https://api.openai.com/v1"}/models`;
+
+      const headers: Record<string, string> = {
+        Authorization: `Bearer ${finalApiKey}`,
+      };
+
+      const response = await fetch(url, { headers });
+      if (response.ok) {
+        const data = (await response.json()) as { data: { id: string }[] };
+        if (data && Array.isArray(data.data)) {
+          return data.data.map((m) => m.id).sort();
+        }
+      }
+    }
+  } catch (err) {
+    console.error("[Web] Failed to fetch models dynamically:", (err as Error).message);
+  }
+
+  return fallbacks[provider] || [];
+}
+
 // Read helper to get config state
 export function getLobbyInfo() {
-  const campaignsList: { filename: string; name: string }[] = [];
+  const campaignsList: { filename: string; name: string; hasJson: boolean }[] = [];
   const campaignsDir = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR);
   
   if (fs.existsSync(campaignsDir)) {
     const files = fs.readdirSync(campaignsDir);
     
+    // Scan for all .md files to know which templates exist
+    const mdFiles = files.filter(f => f.endsWith(".md") && f !== "TEMPLATE.md");
+    const jsonFiles = files.filter(f => f.endsWith(".json"));
+
     // First, add all campaigns that compile cleanly from JSON
     const loadedCampaigns = loadAllCampaigns();
     const loadedNames = new Set<string>();
@@ -62,7 +129,8 @@ export function getLobbyInfo() {
       const filename = fileMatch ? fileMatch.replace(".json", "") : c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
       campaignsList.push({
         filename: filename,
-        name: c.name
+        name: c.name,
+        hasJson: true
       });
       loadedNames.add(filename);
     }
@@ -77,16 +145,30 @@ export function getLobbyInfo() {
             const parsed = JSON.parse(raw);
             campaignsList.push({
               filename: filename,
-              name: parsed.name || filename
+              name: parsed.name || filename,
+              hasJson: true
             });
           } catch {
             campaignsList.push({
               filename: filename,
-              name: filename
+              name: filename,
+              hasJson: true
             });
           }
           loadedNames.add(filename);
         }
+      }
+    }
+
+    // Finally, add uncompiled Markdown template campaigns
+    for (const mdf of mdFiles) {
+      const filename = mdf.replace(".md", "");
+      if (!loadedNames.has(filename) && !jsonFiles.includes(filename + ".json")) {
+        campaignsList.push({
+          filename: filename,
+          name: `${filename} (Не скомпилирован, требуется MD)`,
+          hasJson: false
+        });
       }
     }
   }
@@ -98,6 +180,7 @@ export function getLobbyInfo() {
     activeCampaign: getActiveCampaignName(),
     gameUrl: getCampaignUrl() || process.env.GAME_URL || "",
     provider: provider,
+    model: process.env.LLM_MODEL || "",
     agentLang: process.env.AGENT_LANGUAGE || "Russian",
     uiLang: process.env.UI_LANGUAGE || "ru",
     baseUrl: process.env.OPENAI_COMPATIBLE_BASE_URL || "",
@@ -148,10 +231,34 @@ io.on("connection", (socket) => {
     socket.emit("setup:info", getLobbyInfo());
   });
 
+  socket.on("setup:get_models", async (data: { provider: string; apiKey?: string; baseUrl?: string }) => {
+    const models = await fetchModelsForProvider(data.provider, data.apiKey, data.baseUrl);
+    socket.emit("setup:models", { provider: data.provider, models });
+  });
+
+  socket.on("setup:compile_campaign", async (campaignName: string) => {
+    try {
+      const mdPath = path.join(process.cwd(), PATHS.WAR_ROOM, PATHS.CAMPAIGNS_DIR, `${campaignName}.md`);
+      if (!fs.existsSync(mdPath)) {
+        socket.emit("setup:error", `Файл Markdown не найден: ${campaignName}.md`);
+        return;
+      }
+      
+      await initializeCampaignFromMarkdown(mdPath);
+      socket.emit("setup:campaign_compiled", campaignName);
+    } catch (e) {
+      console.error("[Web] Campaign compilation error:", e);
+      socket.emit("setup:error", `Ошибка компиляции LLM: ${(e as Error).message}`);
+    }
+  });
+
   socket.on("setup:update_config", (config: Record<string, string>) => {
     const envUpdates: Record<string, string> = {};
     if (config.provider) {
       envUpdates.LLM_PROVIDER = config.provider;
+    }
+    if (config.model) {
+      envUpdates.LLM_MODEL = config.model;
     }
     if (config.agentLang) {
       envUpdates.AGENT_LANGUAGE = config.agentLang;
