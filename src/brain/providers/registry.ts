@@ -7,7 +7,7 @@
 
 import { existsSync } from "fs";
 import { resolve } from "path";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import type { LLMProvider, ProviderConfig } from "./provider";
 import { GeminiProvider } from "./gemini-provider";
 import { GroqProvider } from "./groq-provider";

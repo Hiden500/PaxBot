@@ -12,7 +12,7 @@ export async function tryOpenActionPanel(
   box: Locator
 ): Promise<boolean> {
   try {
-    await panelBtn.click();
+    await panelBtn.click({ timeout: 3000 });
     await box.waitFor({ state: "visible", timeout: 2000 });
     console.log("[Hand] Action panel opened.");
     return true;
@@ -31,7 +31,7 @@ export async function dismissStaleButtons(page: Page): Promise<void> {
     /Proceed|Продолжить/i,
     /Close|Закрыть/i,
     /OK/i,
-    /Continue|Продолжить/i
+    /Continue|Продолжить/i,
   ];
   for (const rx of staleButtons) {
     try {

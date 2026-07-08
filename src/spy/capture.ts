@@ -20,7 +20,9 @@ export async function captureNextSimpleChatRequestBody(
     const request = await page.waitForRequest((req) => req.url().includes(SIMPLE_CHAT_URL), {
       timeout: timeoutMs,
     });
-    return request.postData();
+    // Decode from buffer to avoid UTF-8 mangling (Mojibake)
+    const buffer = request.postDataBuffer();
+    return buffer ? buffer.toString("utf-8") : null;
   } catch (err) {
     console.warn(
       `[Spy] Timeout waiting for simple-chat request (${timeoutMs}ms):`,

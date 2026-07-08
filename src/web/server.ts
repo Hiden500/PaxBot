@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server as SocketIOServer } from "socket.io";
 import path from "path";
 import * as fs from "fs";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import {
   tui,
   getActiveCampaignName,
