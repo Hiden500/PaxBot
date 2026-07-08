@@ -38,5 +38,48 @@ export function buildOpenAICompatConfig(
   maxOutputTokens: number,
   options?: { disableSchema?: boolean }
 ): ProviderConfig {
-  return buildGenericOpenAIConfig(model, systemInstruction, maxOutputTokens, options);
+  const schemaInstructions = options?.disableSchema
+    ? ""
+    : `
+
+CRITICAL: You MUST respond with a valid JSON object matching exactly this schema structure.
+Do NOT wrap the response in markdown or chat greetings. Output ONLY the JSON object.
+
+JSON Schema structure:
+{
+  "reasoning": "Brief explanation of strategic thinking for this turn's decisions",
+  "actions": ["A plain-text directive to type into the game action box"],
+  "ledger_updates": [
+    {
+      "operation_id": "Unique ID (e.g. OP_001)",
+      "goal": "What this multi-turn operation aims to achieve",
+      "current_phase": 1, // Number
+      "steps": [
+        {
+          "phase": 1, // Number
+          "action": "What this step does",
+          "status": "COMPLETE, PENDING, or FAILED"
+        }
+      ]
+    }
+  ],
+  "next_advisor_query": "One short question to ask the in-game advisor on the NEXT turn",
+  "milestone_checks": [
+    {
+      "milestone": "The campaign objective or priority checked",
+      "status": "ACHIEVED, NOT_ACHIEVED, or FAILED",
+      "evidence": "Direct text evidence from the game state"
+    }
+  ],
+  "immediate_risks": ["Brief list of immediate direct threats observed in current state"]
+}
+
+Ensure that all JSON keys are present in the root object, even if they are empty arrays.`;
+
+  return buildGenericOpenAIConfig(
+    model,
+    systemInstruction + schemaInstructions,
+    maxOutputTokens,
+    options
+  );
 }

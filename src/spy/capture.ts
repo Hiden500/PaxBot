@@ -42,7 +42,9 @@ export async function captureNextSimpleChatResponse(
     const response = await page.waitForResponse((res) => res.url().includes(SIMPLE_CHAT_URL), {
       timeout: timeoutMs,
     });
-    return await response.text();
+    // Use raw body buffer and manually decode to UTF-8 to prevent encoding issues ("krakozyabry")
+    const buffer = await response.body();
+    return buffer.toString("utf-8");
   } catch (err) {
     console.warn(
       `[Spy] Timeout waiting for simple-chat response (${timeoutMs}ms):`,
