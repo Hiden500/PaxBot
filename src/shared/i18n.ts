@@ -2,14 +2,9 @@
  * Localization strings for UI and Logs
  */
 
-import { existsSync } from "fs";
-import { resolve } from "path";
-import * as dotenv from "dotenv";
+import { loadEnv } from "./env-loader";
 
-const envPath = existsSync(resolve(process.cwd(), ".env"))
-  ? resolve(process.cwd(), ".env")
-  : resolve(process.cwd(), ".env.example");
-dotenv.config({ path: envPath });
+loadEnv();
 
 export const UI_LANGUAGE = (process.env.UI_LANGUAGE || "ru").toLowerCase();
 

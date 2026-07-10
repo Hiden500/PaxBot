@@ -22,7 +22,11 @@ export async function captureNextSimpleChatRequestBody(
     });
     // Decode from buffer to avoid UTF-8 mangling (Mojibake)
     const buffer = request.postDataBuffer();
-    return buffer ? buffer.toString("utf-8") : null;
+    if (!buffer) {
+      return null;
+    }
+    const decoder = new TextDecoder("utf-8");
+    return decoder.decode(buffer);
   } catch (err) {
     console.warn(
       `[Spy] Timeout waiting for simple-chat request (${timeoutMs}ms):`,
@@ -46,7 +50,8 @@ export async function captureNextSimpleChatResponse(
     });
     // Use raw body buffer and manually decode to UTF-8 to prevent encoding issues ("krakozyabry")
     const buffer = await response.body();
-    return buffer.toString("utf-8");
+    const decoder = new TextDecoder("utf-8");
+    return decoder.decode(buffer);
   } catch (err) {
     console.warn(
       `[Spy] Timeout waiting for simple-chat response (${timeoutMs}ms):`,

@@ -148,20 +148,20 @@ Avoid superficial comparisons.
 
 # FOREIGN OPERATIONS POLICY
 
-Every operation targeting a foreign nation must culminate in military conquest.
+Every operation must align with the active campaign's priorities and constraints, as well as the current strategy plan phase.
 
 Rules:
 
-- Operations may include diplomacy, logistics, espionage, or preparation.
-- The final operational objective must be conquest.
-- Operations lasting four or more phases without an invasion step must receive one this turn.
-- Do not end operations with:
-  - monitor
-  - consolidate
-  - maintain presence
-  - establish administration
-
-Those are intermediate phases only.
+- Operations may pursue diverse strategic objectives, such as:
+  - **Military Expansion**: Invading and capturing hostile regions.
+  - **Diplomatic Alliance**: Establishing pacts, signing peace treaties, or forming coalitions.
+  - **Soft Power & Ideological Influence**: Spreading cultural/ideological influence, funding proxy factions, and building alliances.
+  - **Economic Pressure**: Implementing trade embargoes, blockades, or resource monopolies.
+  - **Containment & Defense**: Safeguarding borders, positioning deterrent forces, and monitoring rival expansion.
+  - **Subversion & Espionage**: Conducting covert actions, sabotage, or intelligence gathering.
+- Ensure that the final operational objective is a concrete, actionable milestone (e.g., "Establish Alliance", "Secure Border", "Annex Province", "Enforce Embargo", "Cultural Dominance").
+- Do not create operations without a clear, defined final state.
+- Intermediate phases (like "monitor", "prepare", "assess", "transit") must eventually lead to the defined goal of the operation.
 
 ---
 

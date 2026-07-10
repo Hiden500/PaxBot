@@ -164,7 +164,7 @@ All Battalions:
 
     // Build prompt should not crash
     const { system, user } = buildPrompt(ctx);
-    expect(system).toContain("strategic AI brain");
+    expect(system).toContain("Strategic AI");
     expect(user).toContain("Map data");
   });
 

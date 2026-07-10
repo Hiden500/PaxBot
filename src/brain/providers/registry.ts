@@ -5,9 +5,7 @@
  * Handles provider selection, initialization, and retry logic.
  */
 
-import { existsSync } from "fs";
-import { resolve } from "path";
-import * as dotenv from "dotenv";
+import { loadEnv } from "../../shared/env-loader";
 import type { LLMProvider, ProviderConfig } from "./provider";
 import { GeminiProvider } from "./gemini-provider";
 import { GroqProvider } from "./groq-provider";
@@ -16,10 +14,7 @@ import { OpenAICompatProvider } from "./openaicompat-provider";
 import { LLM_CONFIG } from "../../shared/config";
 
 // Load .env
-const envPath = existsSync(resolve(process.cwd(), ".env"))
-  ? resolve(process.cwd(), ".env")
-  : resolve(process.cwd(), ".env.example");
-dotenv.config({ path: envPath });
+loadEnv();
 
 /**
  * Supported LLM provider types.

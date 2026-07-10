@@ -4,6 +4,7 @@
 
 import type { Locator, Page } from "playwright";
 import { dismissGamePopups } from "./actions";
+import { BROWSER_CONFIG } from "../shared/config";
 
 /** Try to open the actions panel by clicking the trigger button. */
 export async function tryOpenActionPanel(
@@ -12,8 +13,11 @@ export async function tryOpenActionPanel(
   box: Locator
 ): Promise<boolean> {
   try {
-    await panelBtn.click({ timeout: 3000 });
-    await box.waitFor({ state: "visible", timeout: 2000 });
+    await panelBtn.click({ timeout: BROWSER_CONFIG.ACTION_PANEL_OPEN_TIMEOUT_MS });
+    await box.waitFor({
+      state: "visible",
+      timeout: BROWSER_CONFIG.ACTION_PANEL_VISIBLE_TIMEOUT_MS,
+    });
     console.log("[Hand] Action panel opened.");
     return true;
   } catch {
@@ -24,7 +28,7 @@ export async function tryOpenActionPanel(
 /** Clear out stale modal buttons that might be blocking the UI by pressing Escape and clicking common buttons. */
 export async function dismissStaleButtons(page: Page): Promise<void> {
   await page.keyboard.press("Escape");
-  await page.waitForTimeout(300);
+  await page.waitForTimeout(BROWSER_CONFIG.KEYBOARD_WAIT_MS);
   const staleButtons = [
     /Maybe later|Позже|Может позже/i,
     /Next Event|Следующее событие/i,
@@ -39,7 +43,7 @@ export async function dismissStaleButtons(page: Page): Promise<void> {
       if (await stale.isVisible()) {
         await stale.click();
         console.log(`[Hand] Dismissed stale "${rx.source}" button`);
-        await page.waitForTimeout(300);
+        await page.waitForTimeout(BROWSER_CONFIG.KEYBOARD_WAIT_MS);
       }
     } catch {
       /* not present */
@@ -52,21 +56,27 @@ export async function reloadGamePageToRecover(page: Page, box: Locator): Promise
   console.log("[Hand] Action panel stuck — reloading game page to recover...");
   const currentUrl = new URL(page.url());
   currentUrl.search = ""; // strip ?round=N etc.
-  await page.goto(currentUrl.toString(), { waitUntil: "domcontentloaded", timeout: 20000 });
-  await page.waitForTimeout(3000);
+  await page.goto(currentUrl.toString(), {
+    waitUntil: "domcontentloaded",
+    timeout: BROWSER_CONFIG.PAGE_RELOAD_GOTO_TIMEOUT_MS,
+  });
+  await page.waitForTimeout(BROWSER_CONFIG.PAGE_RELOAD_WAIT_MS);
 
   const startBtn = page.getByRole("button", { name: /Start Playing!|Начать игру!/i }).first();
   try {
-    await startBtn.waitFor({ state: "visible", timeout: 8000 });
+    await startBtn.waitFor({
+      state: "visible",
+      timeout: BROWSER_CONFIG.START_PLAYING_WAIT_TIMEOUT_MS,
+    });
     await startBtn.click();
     console.log("[Hand] Clicked 'Start Playing!' after reload.");
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(BROWSER_CONFIG.PAGE_RELOAD_WAIT_MS);
   } catch {
     /* might already be on the game page */
   }
 
   await dismissGamePopups(page);
-  await box.waitFor({ state: "visible", timeout: 10000 });
+  await box.waitFor({ state: "visible", timeout: BROWSER_CONFIG.ACTION_PANEL_RECOVER_TIMEOUT_MS });
   console.log("[Hand] Action panel recovered after page reload.");
 }
 
@@ -114,7 +124,7 @@ export async function scrollLatestEventHeadlineIntoView(page: Page): Promise<voi
 export async function clickProceedButton(page: Page): Promise<void> {
   const proceedBtn = page.getByRole("button", { name: /(Proceed|Продолжить)\s+\d/i }).first();
   try {
-    await proceedBtn.waitFor({ state: "visible", timeout: 3000 });
+    await proceedBtn.waitFor({ state: "visible", timeout: BROWSER_CONFIG.PROCEED_WAIT_TIMEOUT_MS });
     await proceedBtn.click();
     console.log("[Hand] Clicked Proceed (timeline closed).");
   } catch {

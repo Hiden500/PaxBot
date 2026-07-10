@@ -155,7 +155,7 @@ Your responsibility is to produce strategic decisions for one game turn.
 # ACTION GENERATION
 Write actions in **{{LANGUAGE}}**.
 # FOREIGN OPERATIONS POLICY
-Every operation targeting a foreign nation must eventually culminate in military conquest.
+Every operation must align with active campaign priorities (conquest, diplomacy, soft power, or economic pressure).
 # NEXT ADVISOR QUESTION
 Produce one concise question in **{{LANGUAGE}}**.
 # OUTPUT FORMAT

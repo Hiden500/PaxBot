@@ -302,10 +302,10 @@ describe("buildPrompt", () => {
     expect(user).toContain("Invade");
   });
 
-  it("includes invasion mandate in system prompt", () => {
+  it("includes foreign operations policy in system prompt", () => {
     const { system } = buildPrompt(baseContext);
     expect(system).toContain("FOREIGN OPERATIONS POLICY");
-    expect(system).toContain("military conquest");
+    expect(system).toContain("soft power");
   });
 
   it("includes next_advisor_query instruction in system prompt", () => {

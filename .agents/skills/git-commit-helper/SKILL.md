@@ -209,3 +209,29 @@ git commit --amend --no-edit
 - [ ] Body explains WHY not just WHAT
 - [ ] Breaking changes are clearly marked
 - [ ] Related issue numbers are included
+
+---
+
+## Branch Maintenance
+
+### Clean up stale local branches
+
+After PRs are merged and remote branches are deleted, your local branch list fills with stale refs.
+
+```powershell
+# Update remote tracking info
+git --no-pager fetch --prune
+
+# List branches with [gone] status (remote deleted)
+git --no-pager branch -vv | Select-String "\[gone\]"
+
+# Delete all gone branches
+git --no-pager branch -vv | Select-String "\[gone\]" | ForEach-Object {
+    $branch = ($_ -split "\s+")[1]
+    git --no-pager branch -d $branch
+}
+```
+
+Use this after merging several PRs to keep the branch list tidy. Safe to run — only removes branches already deleted on the remote.
+
+**When to run**: After merging PRs, before starting a new feature, during regular maintenance.

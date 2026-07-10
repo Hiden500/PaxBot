@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server as SocketIOServer } from "socket.io";
 import path from "path";
 import * as fs from "fs";
-import * as dotenv from "dotenv";
+import { loadEnv } from "../shared/env-loader";
 import {
   tui,
   getActiveCampaignName,
@@ -24,6 +24,8 @@ import type { BrowserContext } from "playwright";
 const app = express();
 const httpServer = createServer(app);
 const io = new SocketIOServer(httpServer);
+
+loadEnv();
 
 const PORT = process.env.WEB_PORT || 3000;
 

@@ -8,17 +8,12 @@
  * Usage: npm run test-llm
  */
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import dotenv from "dotenv";
+import { loadEnv } from "../src/shared/env-loader";
 
-// Load .env if it exists, otherwise fall back to .env.example
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const envPath = existsSync(resolve(root, ".env"))
-  ? resolve(root, ".env")
-  : resolve(root, ".env.example");
-dotenv.config({ path: envPath });
+loadEnv();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
