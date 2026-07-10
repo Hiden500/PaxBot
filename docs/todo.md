@@ -180,7 +180,7 @@ _Технический долг, выявленный при ревью `war-ro
 - [x] **Critical:** Исправить проблему импорта `dotenv` в тестах Vitest (переход на `esModuleInterop` или корректировка импортов).
 - [ ] **Medium:** Заменить жестко закодированную кодировку `utf-8` при парсинге тела ответа в `src/spy/capture.ts` на использование `TextDecoder`.
 - [x] **Medium:** Устранить дублирование логики загрузки `.env` путем создания отдельного модуля `src/shared/env-loader.ts`.
-- [ ] **Low:** Вынести жестко закодированные таймауты (например, в `src/hand/actions-ui-helpers.ts` и `src/hand/navigate.ts`) в единый `BROWSER_CONFIG`.
+- [x] **Low:** Вынести жестко закодированные таймауты (например, в `src/hand/actions-ui-helpers.ts` и `src/hand/navigate.ts`) в единый `BROWSER_CONFIG`.
 - [x] **Improvement:** Вынести огромный системный промпт LLM из `src/brain/context-assembler.ts` в отдельный текстовый/markdown файл.
 
 ---
@@ -214,4 +214,4 @@ _Технический долг, выявленный при ревью `war-ro
 _(Задачи, требующие уточнения)_
 
 - [ ] **Improvement:** Ограничение и агрегация элементов Strategic Memory (achievements, lessonsLearned) для предотвращения token bloat (переполнения контекста LLM) с ростом числа ходов.
-- [ ] **Testing:** Добавление сквозных E2E тестов с Playwright для проверки нового веб-интерфейса и Socket.IO интеграции.
+- [x] **Testing:** Добавление сквозных E2E тестов с Playwright для проверки нового веб-интерфейса и Socket.IO интеграции.
