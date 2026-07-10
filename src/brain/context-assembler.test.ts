@@ -194,6 +194,15 @@ describe("assembleContext", () => {
 // ---------------------------------------------------------------------------
 
 describe("buildPrompt", () => {
+  beforeEach(() => {
+    (fs.existsSync as any).mockImplementation((filePath: string) => {
+      if (filePath.includes("system.md")) {
+        return false;
+      }
+      return false;
+    });
+  });
+
   const baseContext: BrainContext = {
     gameState: { current_state: "Map: Europe in 2025" },
     ledger: { active_operations: [] },
@@ -232,7 +241,7 @@ describe("buildPrompt", () => {
   it("returns system and user prompts", () => {
     const { system, user } = buildPrompt(baseContext);
 
-    expect(system).toContain("strategic AI brain");
+    expect(system).toContain("Strategic AI");
     expect(user).toContain("Map: Europe in 2025");
     expect(user).toContain("Japan is weak.");
   });
@@ -295,8 +304,8 @@ describe("buildPrompt", () => {
 
   it("includes invasion mandate in system prompt", () => {
     const { system } = buildPrompt(baseContext);
-    expect(system).toContain("INVASION MANDATE");
-    expect(system).toContain("TOTAL CONQUEST");
+    expect(system).toContain("FOREIGN OPERATIONS POLICY");
+    expect(system).toContain("military conquest");
   });
 
   it("includes next_advisor_query instruction in system prompt", () => {
