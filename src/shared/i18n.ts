@@ -82,6 +82,40 @@ const dictionaries: Record<string, Dictionary> = {
     "err.no_auth": "No auth state. Run: npm run capture-auth",
     "err.fatal": "Fatal loop error:",
     "err.skip": "ERROR — skipping to next turn:",
+
+    // Brain
+    "brain.collecting": "Brain: Collecting context...",
+    "brain.collecting_log": "[Brain] Phase 2: Collecting context from War Room files...",
+    "brain.collecting_details":
+      "[Brain] Context loaded — state: {stateLen} chars, active operations: {opCount}",
+    "brain.assembling": "Brain: Assembling prompt...",
+    "brain.assembling_log": "[Brain] Phase 3: Assembling prompt...",
+    "brain.prompt_details":
+      "[Brain] Prompt assembled — system: {sysLen} chars, user: {userLen} chars",
+    "brain.querying": "Brain: Awaiting LLM response...",
+    "brain.querying_log": "[Brain] Requesting LLM (Strategic Planning)...",
+    "brain.response_len": "[Brain] LLM responded — {len} chars.",
+    "brain.parsing": "Brain: Analyzing response...",
+    "brain.parsed_details":
+      "[Brain] Response validated — actions: {actionCount}, updates: {updateCount}",
+    "brain.ledger_updated": "[Brain] Ledger updated — total operations: {count}",
+    "brain.parse_error": "Brain: Failed to parse LLM response.",
+    "brain.write_failed": "Brain: Failed to write debug response.",
+    "brain.parse_json_err":
+      'Failed to parse JSON response from LLM (cleaned: {cleanedLen} chars, raw starts with: "{rawStart}"): {error}',
+    "brain.write_debug_err": "[Brain] Failed to write failed_llm_response.txt: {error}",
+    "brain.write_debug_saved": "[Brain] LLM parsing error. Full response saved to: {path}",
+    "brain.write_zod_saved": "[Brain] Zod schema error. Full response saved to: {path}",
+    "brain.next_query": '[Brain] Next advisor query set: "{query}"',
+
+    "log.turn_error": "[Error] Turn {turn} error: {error}",
+
+    // Web Dashboard Errors
+    "web.err.md_not_found": "Markdown file not found: {file}",
+    "web.err.compile_failed": "Campaign compilation error: {error}",
+    "web.err.campaign_exists": "Campaign with name {file} already exists.",
+    "web.err.create_failed": "Campaign creation error: {error}",
+    "web.err.start_failed": "Launch error: {error}",
   },
   ru: {
     // Menu & Setup
@@ -155,6 +189,40 @@ const dictionaries: Record<string, Dictionary> = {
     "err.no_auth": "Нет авторизации. Запустите: npm run capture-auth",
     "err.fatal": "Критическая ошибка:",
     "err.skip": "ОШИБКА — переходим к следующему ходу:",
+
+    // Brain
+    "brain.collecting": "Мозг: Сбор контекста...",
+    "brain.collecting_log": "[Мозг] Фаза 2: Сбор контекста из файлов War Room...",
+    "brain.collecting_details":
+      "[Мозг] Контекст загружен — состояние игры: {stateLen} симв., операций в журнале: {opCount}",
+    "brain.assembling": "Мозг: Сборка промпта...",
+    "brain.assembling_log": "[Мозг] Фаза 3: Сборка промпта...",
+    "brain.prompt_details":
+      "[Мозг] Промпт собран — системный: {sysLen} симв., пользовательский: {userLen} симв.",
+    "brain.querying": "Мозг: Ожидание ответа LLM...",
+    "brain.querying_log": "[Мозг] Запрос к LLM (Стратегическое планирование)...",
+    "brain.response_len": "[Мозг] LLM ответила — {len} симв.",
+    "brain.parsing": "Мозг: Анализ ответа...",
+    "brain.parsed_details":
+      "[Мозг] Ответ валидирован — действий: {actionCount}, обновлений леджера: {updateCount}",
+    "brain.ledger_updated": "[Мозг] Леджер обновлен — всего операций: {count}",
+    "brain.parse_error": "Мозг: Ошибка парсинга LLM.",
+    "brain.write_failed": "Мозг: Не удалось записать отладочный файл.",
+    "brain.parse_json_err":
+      'Не удалось распарсить JSON ответ от LLM (очищено: {cleanedLen} симв., сырое начинается с: "{rawStart}"): {error}',
+    "brain.write_debug_err": "[Мозг] Не удалось записать failed_llm_response.txt: {error}",
+    "brain.write_debug_saved": "[Мозг] Ошибка парсинга LLM. Полный ответ сохранен в: {path}",
+    "brain.write_zod_saved": "[Мозг] Ошибка схемы Zod. Полный ответ сохранен в: {path}",
+    "brain.next_query": '[Мозг] Установлен следующий вопрос советнику: "{query}"',
+
+    "log.turn_error": "[Ошибка] Ошибка хода {turn}: {error}",
+
+    // Web Dashboard Errors
+    "web.err.md_not_found": "Файл Markdown не найден: {file}",
+    "web.err.compile_failed": "Ошибка компиляции: {error}",
+    "web.err.campaign_exists": "Кампания с именем {file} уже существует.",
+    "web.err.create_failed": "Ошибка создания кампании: {error}",
+    "web.err.start_failed": "Ошибка запуска: {error}",
   },
 };
 

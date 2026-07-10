@@ -1,4 +1,4 @@
-import { ActionBatchSchema, type ActionBatch } from "../shared";
+import { ActionBatchSchema, type ActionBatch, t } from "../shared";
 
 export const VALID_STATUSES = new Set(["COMPLETE", "PENDING", "FAILED"]);
 
@@ -49,15 +49,16 @@ export function parseLLMResponse(rawResponse: string): ActionBatch {
     try {
       const failedPath = path.join(getSessionDir(), "failed_llm_response.txt");
       fs.writeFileSync(failedPath, rawResponse, "utf-8");
-      console.error(`[Мозг] Ошибка парсинга LLM. Полный ответ сохранен в: ${failedPath}`);
+      console.error(t("brain.write_debug_saved").replace("{path}", failedPath));
     } catch (writeErr) {
-      console.error(
-        `[Мозг] Не удалось записать failed_llm_response.txt: ${(writeErr as Error).message}`
-      );
+      console.error(t("brain.write_debug_err").replace("{error}", (writeErr as Error).message));
     }
 
     throw new Error(
-      `Не удалось распарсить JSON ответ от LLM (очищено: ${cleanedResponse.length} симв., сырое начинается с: "${rawResponse.slice(0, 150)}"): ${(err as Error).message}`
+      t("brain.parse_json_err")
+        .replace("{cleanedLen}", String(cleanedResponse.length))
+        .replace("{rawStart}", rawResponse.slice(0, 150))
+        .replace("{error}", (err as Error).message)
     );
   }
   normalizeStatuses(parsed);
@@ -68,7 +69,7 @@ export function parseLLMResponse(rawResponse: string): ActionBatch {
     try {
       const failedPath = path.join(getSessionDir(), "failed_llm_response.txt");
       fs.writeFileSync(failedPath, rawResponse, "utf-8");
-      console.error(`[Мозг] Ошибка схемы Zod. Полный ответ сохранен в: ${failedPath}`);
+      console.error(t("brain.write_zod_saved").replace("{path}", failedPath));
     } catch (writeErr) {
       /* ignore */
     }

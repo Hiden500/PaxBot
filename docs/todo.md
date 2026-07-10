@@ -177,9 +177,9 @@ _Технический долг, выявленный при ревью `war-ro
 
 ## Technical Debt & Code Review Issues (08.07.2026)
 
-- [ ] **Critical:** Исправить проблему импорта `dotenv` в тестах Vitest (переход на `esModuleInterop` или корректировка импортов).
+- [x] **Critical:** Исправить проблему импорта `dotenv` в тестах Vitest (переход на `esModuleInterop` или корректировка импортов).
 - [ ] **Medium:** Заменить жестко закодированную кодировку `utf-8` при парсинге тела ответа в `src/spy/capture.ts` на использование `TextDecoder`.
-- [ ] **Medium:** Устранить дублирование логики загрузки `.env` путем создания отдельного модуля `src/shared/env-loader.ts`.
+- [x] **Medium:** Устранить дублирование логики загрузки `.env` путем создания отдельного модуля `src/shared/env-loader.ts`.
 - [ ] **Low:** Вынести жестко закодированные таймауты (например, в `src/hand/actions-ui-helpers.ts` и `src/hand/navigate.ts`) в единый `BROWSER_CONFIG`.
 - [x] **Improvement:** Вынести огромный системный промпт LLM из `src/brain/context-assembler.ts` в отдельный текстовый/markdown файл.
 
@@ -188,9 +188,9 @@ _Технический долг, выявленный при ревью `war-ro
 ## Интернационализация (i18n)
 
 - [ ] **Medium:** Внедрить библиотеку i18next и настроить автоматический экстрактор ключей для выявления непереведенных строк на этапе CI.
-- [ ] **Medium:** Локализовать статические элементы веб-интерфейса в `src/web/public/index.html`.
-- [ ] **Medium:** Заменить захардкоженные строки сообщений в `src/web/server.ts` на вызовы функций локализации.
-- [ ] **Low:** Перевести оставшиеся русскоязычные логи `tui.log` и `tui.setStatus` в файлах `src/loop.ts`, `src/brain/action-generator.ts` и `src/brain/response-parser.ts`.
+- [x] **Medium:** Локализовать статические элементы веб-интерфейса в `src/web/public/index.html`.
+- [x] **Medium:** Заменить захардкоженные строки сообщений в `src/web/server.ts` на вызовы функций локализации.
+- [x] **Low:** Перевести оставшиеся русскоязычные логи `tui.log` и `tui.setStatus` в файлах `src/loop.ts`, `src/brain/action-generator.ts` и `src/brain/response-parser.ts`.
 
 ---
 

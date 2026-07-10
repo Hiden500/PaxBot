@@ -1,7 +1,7 @@
 import { existsSync } from "fs";
 import { resolve } from "path";
 import { logger } from "./logger";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 
 /**
  * Загружает переменные окружения из .env (или .env.example, если .env не найден)

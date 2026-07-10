@@ -12,6 +12,7 @@ import {
   setCampaignUrl,
   getSessionDir,
   PATHS,
+  t,
 } from "../shared";
 import { loadAllCampaigns } from "../campaign/loader";
 import { initializeCampaignFromMarkdown } from "../campaign/builder";
@@ -264,7 +265,10 @@ io.on("connection", (socket) => {
         `${campaignName}.md`
       );
       if (!fs.existsSync(mdPath)) {
-        socket.emit("setup:error", `Файл Markdown не найден: ${campaignName}.md`);
+        socket.emit(
+          "setup:error",
+          t("web.err.md_not_found").replace("{file}", `${campaignName}.md`)
+        );
         return;
       }
 
@@ -272,7 +276,10 @@ io.on("connection", (socket) => {
       socket.emit("setup:campaign_compiled", campaignName);
     } catch (e) {
       console.error("[Web] Campaign compilation error:", e);
-      socket.emit("setup:error", `Ошибка компиляции LLM: ${(e as Error).message}`);
+      socket.emit(
+        "setup:error",
+        t("web.err.compile_failed").replace("{error}", (e as Error).message)
+      );
     }
   });
 
@@ -331,7 +338,7 @@ io.on("connection", (socket) => {
       );
 
       if (fs.existsSync(mdPath)) {
-        socket.emit("setup:error", `Кампания с именем ${mdName} уже существует.`);
+        socket.emit("setup:error", t("web.err.campaign_exists").replace("{file}", mdName));
         return;
       }
 
@@ -343,7 +350,10 @@ io.on("connection", (socket) => {
 
       socket.emit("setup:campaign_created", filename);
     } catch (e) {
-      socket.emit("setup:error", `Ошибка создания кампании: ${(e as Error).message}`);
+      socket.emit(
+        "setup:error",
+        t("web.err.create_failed").replace("{error}", (e as Error).message)
+      );
     }
   });
 
@@ -433,7 +443,10 @@ io.on("connection", (socket) => {
         });
     } catch (err) {
       console.error("[Web] Start bot error:", err);
-      socket.emit("setup:error", `Ошибка запуска: ${(err as Error).message}`);
+      socket.emit(
+        "setup:error",
+        t("web.err.start_failed").replace("{error}", (err as Error).message)
+      );
     }
   });
 
