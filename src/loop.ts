@@ -4,6 +4,8 @@ import * as path from "path";
 import { BROWSER_CONFIG, PATHS } from "./shared/config";
 import { getSessionDir, tui } from "./shared";
 import { loadMemory, saveMemory, updateMemoryAfterTurn } from "./memory";
+import { loadStrategyPlan, saveStrategyPlan, analyzePhase } from "./strategy";
+import { getPrimaryCampaign } from "./campaign";
 import {
   clickNextTurn,
   enterAction,
@@ -164,6 +166,40 @@ export async function runTurn(page: Page, turnNumber: number): Promise<void> {
     );
   } catch (err) {
     tui.log(`[Phase 5] ${t("phase5.failed")}: ${(err as Error).message}`);
+  }
+
+  // ── Phase 6: Strategy updates and Phase Progression ─────────────────
+  try {
+    const campaign = getPrimaryCampaign() ?? null;
+    const plan = loadStrategyPlan(campaign?.country);
+    plan.turnsInCurrentPhase++;
+
+    // Load parsed gameState from current_state.json
+    const statePath = path.join(getSessionDir(), PATHS.CURRENT_STATE);
+    let stateText = "";
+    if (fs.existsSync(statePath)) {
+      try {
+        const stateJson = JSON.parse(fs.readFileSync(statePath, "utf-8"));
+        stateText = stateJson.current_state || "";
+      } catch {
+        // ignore
+      }
+    }
+
+    const analysis = analyzePhase(plan, stateText);
+    tui.log(`[Strategy] Phase progress analysis: ${analysis.reasoning}`);
+
+    if (analysis.shouldTransition) {
+      tui.log(
+        `[Strategy] Transitioning phase from index ${plan.currentPhaseIndex} to ${analysis.recommendedPhaseIndex}`
+      );
+      plan.currentPhaseIndex = analysis.recommendedPhaseIndex;
+      plan.turnsInCurrentPhase = 0;
+    }
+
+    saveStrategyPlan(plan);
+  } catch (err) {
+    tui.log(`[Strategy] Failed to update strategic phase progression: ${(err as Error).message}`);
   }
 }
 

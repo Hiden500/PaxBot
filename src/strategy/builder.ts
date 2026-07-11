@@ -3,8 +3,14 @@ import type { StrategyPlan } from "./types";
 import type { Campaign } from "../campaign/types";
 import { saveStrategyPlan } from "./planner";
 
-const SYSTEM_PROMPT = `You are a Strategic Planner for PaxBot. 
-Given a Campaign definition, you must generate a phased StrategyPlan in JSON format.
+const SYSTEM_PROMPT = `You are a Strategic Planner for PaxBot.
+Given a Campaign definition (which includes priorities, constraints, and victory conditions), you must generate a phased StrategyPlan in JSON format.
+
+The StrategyPlan must be tailored SPECIFICALLY to the priorities, constraints, and victory conditions defined in the campaign.
+- Ensure that the exitConditions of phases are measurable and relate directly to the victoryConditions and priorities.
+- Do NOT use generic placeholder phase names (like "Stabilization", "Economic Expansion"). Instead, name and align the phases with the campaign's specific objectives and constraints (e.g., for Russia 2050: "Технологический суверенитет и демография", "Евразийская интеграция", "Глобальный суверенный центр").
+- The JSON response must be in the same language as the Campaign's text fields (e.g., if the Campaign is in Russian, the phase names, descriptions, and conditions must be in Russian).
+
 The JSON must strictly follow this schema without markdown wrapping:
 {
   "name": "Name of the strategy plan",

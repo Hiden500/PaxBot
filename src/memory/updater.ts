@@ -9,69 +9,60 @@ import type { StrategicMemory, StrategicSummaryEntry, RivalProfile, LearnedLesso
 import type { ActionBatch } from "../shared";
 
 // ---------------------------------------------------------------------------
-// Achievement/Failure extraction from LLM reasoning
+// Achievement/Failure extraction from LLM ActionBatch structure (Language-independent)
 // ---------------------------------------------------------------------------
 
 /**
- * Extract potential achievements and failures from the LLM's reasoning text.
- * This is a simple heuristic — full KPI-based extraction comes in v4.0.
+ * Extract achievements and failures using structured fields from LLM response (Zod validated).
  */
-function extractEntriesFromReasoning(reasoning: string, turn: number): StrategicSummaryEntry[] {
+function extractEntriesFromBatch(batch: ActionBatch, turn: number): StrategicSummaryEntry[] {
   const entries: StrategicSummaryEntry[] = [];
-  const lower = reasoning.toLowerCase();
 
-  // Success indicators
-  const successPatterns = [
-    {
-      pattern: /successfully\s+(conquered|invaded|captured|annexed|took)\s+([^,.]+)/gi,
-      type: "achievement" as const,
-    },
-    { pattern: /(defeated|destroyed|eliminated)\s+([^,.]+)/gi, type: "achievement" as const },
-    {
-      pattern: /(gdp|economy|population|military)\s+(grew|improved|increased|ranked)/gi,
-      type: "milestone" as const,
-    },
-  ];
-
-  // Failure indicators
-  const failurePatterns = [
-    {
-      pattern: /(failed|lost|retreated|defeated|pushed\s+back)\s+([^,.]+)/gi,
-      type: "failure" as const,
-    },
-    { pattern: /(suffered|took)\s+(heavy\s+)?(casualties|losses)/gi, type: "failure" as const },
-  ];
-
-  for (const { pattern, type } of successPatterns) {
-    let match: RegExpExecArray | null;
-    while ((match = pattern.exec(lower)) !== null) {
-      const description = match[0].charAt(0).toUpperCase() + match[0].slice(1);
-      const tags = match[0].includes("gdp")
-        ? ["economy"]
-        : match[0].includes("military")
-          ? ["military"]
-          : ["military"];
-      entries.push({
-        id: `turn_${turn}_${type}_${entries.length}`,
-        description,
-        type,
-        turn,
-        tags,
-      });
+  // 1. Process steps in ledger_updates (operations)
+  if (batch.ledger_updates) {
+    for (const op of batch.ledger_updates) {
+      for (const step of op.steps) {
+        if (step.status === "COMPLETE") {
+          entries.push({
+            id: `turn_${turn}_ach_${entries.length}`,
+            description: `Operation [${op.operation_id}] "${op.goal}": ${step.action}`,
+            type: "achievement",
+            turn,
+            tags: ["operation", op.operation_id.toLowerCase()],
+          });
+        } else if (step.status === "FAILED") {
+          entries.push({
+            id: `turn_${turn}_fail_${entries.length}`,
+            description: `Operation [${op.operation_id}] "${op.goal}" FAILED on step: ${step.action}`,
+            type: "failure",
+            turn,
+            tags: ["operation", op.operation_id.toLowerCase()],
+          });
+        }
+      }
     }
   }
 
-  for (const { pattern, type } of failurePatterns) {
-    let match: RegExpExecArray | null;
-    while ((match = pattern.exec(lower)) !== null) {
-      const description = match[0].charAt(0).toUpperCase() + match[0].slice(1);
-      entries.push({
-        id: `turn_${turn}_${type}_${entries.length}`,
-        description,
-        type,
-        turn,
-        tags: ["military"],
-      });
+  // 2. Process milestone checks
+  if (batch.milestone_checks) {
+    for (const check of batch.milestone_checks) {
+      if (check.status === "ACHIEVED") {
+        entries.push({
+          id: `turn_${turn}_ach_${entries.length}`,
+          description: `Milestone achieved: "${check.milestone}". Evidence: ${check.evidence}`,
+          type: "milestone",
+          turn,
+          tags: ["milestone"],
+        });
+      } else if (check.status === "FAILED") {
+        entries.push({
+          id: `turn_${turn}_fail_${entries.length}`,
+          description: `Milestone FAILED: "${check.milestone}". Evidence: ${check.evidence}`,
+          type: "failure",
+          turn,
+          tags: ["milestone"],
+        });
+      }
     }
   }
 
@@ -79,11 +70,80 @@ function extractEntriesFromReasoning(reasoning: string, turn: number): Strategic
 }
 
 // ---------------------------------------------------------------------------
-// Rival profile updates
+// Rival profile updates (Unicode-compatible for Cyrillic/Russian and English)
 // ---------------------------------------------------------------------------
 
 /**
+ * Common Russian/English stopwords in geopolitics to avoid treating them as country names.
+ */
+const GEOPOLITICAL_STOPWORDS = new Set([
+  "the",
+  "our",
+  "their",
+  "this",
+  "that",
+  "these",
+  "those",
+  "наш",
+  "наша",
+  "наше",
+  "наши",
+  "этот",
+  "эта",
+  "это",
+  "эти",
+  "союз",
+  "союзник",
+  "соперник",
+  "враг",
+  "страна",
+  "государство",
+  "война",
+  "мир",
+  "договор",
+  "альянс",
+  "армия",
+  "флот",
+  "invade",
+  "attack",
+  "declare",
+  "sanction",
+  "ally",
+  "negotiate",
+  "send",
+  "build",
+  "mobilize",
+  "annex",
+  "support",
+  "with",
+  "divisions",
+  "war",
+  "peace",
+  "diplomats",
+  "to",
+  "вторгнуться",
+  "напасть",
+  "объявить",
+  "санкции",
+  "союзник",
+  "переговоры",
+  "отправить",
+  "послать",
+  "построить",
+  "мобилизовать",
+  "аннексировать",
+  "поддержать",
+  "войну",
+  "мир",
+  "дипломатов",
+  "в",
+  "на",
+  "для",
+]);
+
+/**
  * Update rival profiles based on actions taken this turn.
+ * Supports Cyrillic and Latin names using Unicode properties.
  */
 function updateRivalProfiles(
   profiles: RivalProfile[],
@@ -93,14 +153,20 @@ function updateRivalProfiles(
   const updated = [...profiles];
   const nationsMentioned = new Set<string>();
 
-  // Extract nation names from actions
+  // Regex using Unicode properties: match capitalized Latin or Cyrillic words
+  // supporting single capitalized word, title case word, or fully capitalized acronyms (like USA, КНР)
+  const nationRegex = /(?:^|[^0-9\p{L}])([\p{Lu}][\p{L}]+|[\p{Lu}]{2,})(?=[^0-9\p{L}]|$)/gu;
+
   for (const action of batch.actions) {
-    const nationMatch = action.match(
-      /\b(invade|attack|declare|sanction|ally|negotiate|send)\s+(the\s+)?([A-Z][a-z]+)/i
-    );
-    if (nationMatch) {
-      const nation = nationMatch[3];
-      nationsMentioned.add(nation);
+    let match: RegExpExecArray | null;
+    nationRegex.lastIndex = 0;
+    while ((match = nationRegex.exec(action)) !== null) {
+      const candidate = match[1].trim();
+      const lowerCandidate = candidate.toLowerCase();
+      // Skip if candidate is a stopword or too short
+      if (candidate.length >= 2 && !GEOPOLITICAL_STOPWORDS.has(lowerCandidate)) {
+        nationsMentioned.add(candidate);
+      }
     }
   }
 
@@ -144,8 +210,8 @@ export function updateMemoryAfterTurn(
   const updated = { ...memory };
   const summary = { ...memory.summary };
 
-  // Extract entries from reasoning
-  const newEntries = extractEntriesFromReasoning(batch.reasoning, turn);
+  // Extract entries from batch structure (Zod enums), language-agnostic
+  const newEntries = extractEntriesFromBatch(batch, turn);
 
   // Split into achievements and failures
   for (const entry of newEntries) {
@@ -161,12 +227,13 @@ export function updateMemoryAfterTurn(
     }
   }
 
-  // Update current priorities from reasoning keywords
-  const priorityKeywords = batch.reasoning.match(
-    /(prioritize|focus|concentrate|shift)\s+(on|to)?\s+([^.,]+)/gi
-  );
-  if (priorityKeywords) {
-    summary.currentPriorities = priorityKeywords.slice(0, 3).map((p) => p.trim());
+  // Update current priorities directly from ledger_updates goals
+  if (batch.ledger_updates && batch.ledger_updates.length > 0) {
+    summary.currentPriorities = batch.ledger_updates
+      .slice(0, 3)
+      .map((op) => `[OP: ${op.operation_id}] ${op.goal}`);
+  } else if (batch.immediate_risks && batch.immediate_risks.length > 0) {
+    summary.currentPriorities = batch.immediate_risks.slice(0, 3).map((r) => `[Risk] ${r}`);
   }
 
   // Update historical context

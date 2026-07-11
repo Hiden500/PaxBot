@@ -145,37 +145,78 @@ export function analyzePhase(plan: StrategyPlan, gameState: string): PhaseAnalys
     };
   }
 
-  // Check exit conditions via simple keyword match
+  // Check exit conditions (multi-language keyword and numeric matcher)
   const stateLower = gameState.toLowerCase();
   let conditionsMet = 0;
 
   for (const condition of currentPhase.exitConditions) {
     const conditionLower = condition.toLowerCase();
-    // Simple heuristic: check for rank improvements
-    if (conditionLower.includes("rank")) {
-      const rankMatch = conditionLower.match(/rank\s+(top\s+)?(\d+)/i);
-      if (rankMatch) {
-        // Check if game state mentions this rank
-        const targetRank = rankMatch[2];
-        const rankPattern = new RegExp(`(rank|#)\\s*${targetRank}[\\s,\\.]`, "i");
-        if (rankPattern.test(stateLower)) {
-          conditionsMet++;
-          continue;
+
+    // Check for rank indicator (e.g. "top 10", "топ 5", "ранг 3")
+    const rankMatch = conditionLower.match(/(?:rank|ранг|top|топ|#)\s*(\d+)/i);
+    if (rankMatch) {
+      const targetRank = parseInt(rankMatch[1], 10);
+      // Look for mentions of rank in the state
+      const rankPattern = new RegExp(`(?:rank|ранг|top|топ|#)\\s*(\\d+)`, "gi");
+      let m: RegExpExecArray | null;
+      let foundMatchingRank = false;
+      while ((m = rankPattern.exec(stateLower)) !== null) {
+        const currentRank = parseInt(m[1], 10);
+        if (currentRank <= targetRank) {
+          foundMatchingRank = true;
+          break;
         }
       }
+      if (foundMatchingRank) {
+        conditionsMet++;
+        continue;
+      }
     }
-    // Check for keywords
+
+    // Check for general large numbers (e.g. population, life expectancy)
+    // Extract target number from condition (e.g., "180", "82")
+    const numberMatch = conditionLower.match(
+      /\b(\d+(?:\.\d+)?)\s*(?:million|млн|years|лет|years old|лет)?\b/i
+    );
+    if (numberMatch) {
+      const targetNum = parseFloat(numberMatch[1]);
+      const numbersInState = stateLower.match(/\b(\d+(?:\.\d+)?)\s*(?:million|млн|years|лет)?\b/gi);
+      let foundMatchingNumeric = false;
+      if (numbersInState) {
+        for (const numStr of numbersInState) {
+          const numValue = parseFloat(numStr.replace(/[^0-9.]/g, ""));
+          // Heuristic matching depending on scale:
+          // If life expectancy (>50), target is lower-bounded (we want higher LE)
+          // If population (>100M), target is lower-bounded
+          if (targetNum >= 50 && numValue >= targetNum) {
+            foundMatchingNumeric = true;
+            break;
+          }
+        }
+      }
+      if (foundMatchingNumeric) {
+        conditionsMet++;
+        continue;
+      }
+    }
+
+    // General keyword match
+    // Filter out common short stopwords
     const keywords = conditionLower
-      .replace(/^(no|not|without)\s+/i, "")
-      .split(/\s+/)
+      .replace(/^(no|not|without|не|без)\s+/i, "")
+      .split(/[\s,.:;!?]+/)
       .filter((w) => w.length > 3);
-    const keywordMatch = keywords.some((kw) => stateLower.includes(kw));
-    if (keywordMatch) {
-      conditionsMet++;
+
+    if (keywords.length > 0) {
+      // If at least 50% of content words match, or any key topic is mentioned
+      const matchedKeywords = keywords.filter((kw) => stateLower.includes(kw));
+      if (matchedKeywords.length >= Math.ceil(keywords.length * 0.4)) {
+        conditionsMet++;
+      }
     }
   }
 
-  const threshold = Math.max(1, Math.ceil(currentPhase.exitConditions.length * 0.5));
+  const threshold = Math.max(1, Math.ceil(currentPhase.exitConditions.length * 0.4));
   const canTransition = conditionsMet >= threshold;
   const nextIndex = Math.min(plan.currentPhaseIndex + 1, plan.phases.length - 1);
 

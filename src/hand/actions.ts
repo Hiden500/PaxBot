@@ -175,16 +175,9 @@ export async function getLastAdvisorResponseText(
   while (Date.now() - start < timeoutMs) {
     const locator = page.locator(SELECTORS.advisorResponseContent);
     try {
-      await locator.first().waitFor({ state: "visible", timeout: 2000 });
-      const count = await locator.count();
-      const parts: string[] = [];
-      for (let i = 0; i < count; i++) {
-        const text = (await locator.nth(i).innerText()).trim();
-        if (text) {
-          parts.push(text);
-        }
-      }
-      const full = parts.join("\n\n").trim();
+      const lastElement = locator.last();
+      await lastElement.waitFor({ state: "visible", timeout: 2000 });
+      const full = (await lastElement.innerText()).trim();
       if (full.length > 80) {
         if (full !== lastText) {
           lastText = full;
