@@ -7,8 +7,8 @@ const SYSTEM_PROMPT = `You are a Strategic Planner for PaxBot.
 Given a Campaign definition (which includes priorities, constraints, and victory conditions), you must generate a phased StrategyPlan in JSON format.
 
 The StrategyPlan must be tailored SPECIFICALLY and comprehensively to the priorities, constraints, and victory conditions defined in the campaign:
-- Generate exactly 4 to 5 distinct phases to properly cover a wide array of priorities.
-- Every single campaign priority with weight 5 MUST be explicitly mapped to at least one phase's "focusAreas" (use the exact "area" names from the campaign).
+- Generate as many phases as logically required (typically between 5 to 8) to comprehensively cover ALL goals. Do not limit the number of phases artificially if it leads to skipping priorities.
+- EVERY SINGLE campaign priority (regardless of weight, e.g. weights 3, 4, and 5) MUST be mapped to at least one phase's "focusAreas". You MUST use the EXACT string values for "area" names as defined in the campaign priorities (e.g. use "Будущие чемпионы и технологии" instead of "Будущие чемпионы / технологии", and "Предотвращение геополитического дрейфа соседей" instead of "Предотвращение геополитического дрейфа ключевых соседей"). Absolutely NO priorities should be omitted or forgotten, and their names must match character-for-character.
 - Hard and soft constraints MUST be reflected in the phase descriptions, entryConditions, or exitConditions (e.g., avoiding critical foreign dependency, treating military force as a last resort, keeping debt levels sustainable).
 - Victory conditions must be directly integrated as measurable exit conditions of the appropriate medium-term or final phases.
 - Do NOT use generic placeholders like "Stabilization" or "Economic Expansion". Name and shape the phases based on the campaign's unique goals (e.g. "Технологический задел и суверенитет", "Политическая консолидация и Евразийское ядро").
@@ -33,10 +33,11 @@ The JSON must strictly follow this schema without markdown wrapping:
 }
 
 Rules:
-1. Generate exactly 4 to 5 phases that logically progress from the current state to the campaign's superGoal.
-2. The country must match the Campaign's country.
-3. Keep descriptions and conditions concise but measurable.
-4. Return ONLY valid JSON, no markdown formatting.`;
+1. Generate a logical sequence of phases (typically 5 to 8) that progress from the current state to the campaign's superGoal.
+2. Every campaign priority MUST be covered in at least one phase's focusAreas.
+3. The country must match the Campaign's country.
+4. Keep descriptions and conditions concise but measurable.
+5. Return ONLY valid JSON, no markdown formatting.`;
 
 export async function buildStrategyPlanFromCampaign(
   campaign: Campaign
