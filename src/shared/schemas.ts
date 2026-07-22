@@ -73,6 +73,10 @@ export const ActionBatchSchema = z.object({
   milestone_checks: z.array(MilestoneCheckSchema),
   /** Brief list of immediate threats observed in current game state (Phase 8 Risk Engine) */
   immediate_risks: z.array(z.string()),
+  /** Self-authored strategic direction — replaces static strategy-plan.json phases.
+   *  LLM writes its own understanding of current phase, focus, and next milestones.
+   *  Saved to strategic memory and fed back next turn. */
+  strategic_direction_update: z.string().max(2000).optional(),
 });
 
 export type ActionBatch = z.infer<typeof ActionBatchSchema>;

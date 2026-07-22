@@ -30,3 +30,7 @@ tempMedia/
 
 # repowise API keys (local)
 .repowise/.env
+
+# repowise local caches, lancedb, search indexes, wiki databases
+.repowise/*
+!.repowise/config.yaml

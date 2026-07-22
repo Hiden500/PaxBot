@@ -74,7 +74,7 @@ const GEMINI_RESPONSE_SCHEMA = {
       type: Type.ARRAY,
       items: {
         type: Type.STRING,
-        description: "A plain-English directive to type into the game action box",
+        description: "A plain-text directive to type into the game action box",
       },
       description: "List of 3-8 game actions to execute this turn",
     },

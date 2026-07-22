@@ -24,6 +24,17 @@ export interface StrategicSummaryEntry {
 }
 
 /**
+ * Strategic direction — LLM's own evolving strategic plan, stored in memory.
+ * Replaces the static strategy-plan.json and phase progression system.
+ */
+export interface StrategicDirection {
+  /** Narrative description of current strategic direction (LLM-written). */
+  narrative: string;
+  /** Turn this was last updated. */
+  lastUpdatedTurn: number;
+}
+
+/**
  * Strategic summary — overall progress snapshot.
  */
 export interface StrategicSummary {
@@ -35,6 +46,8 @@ export interface StrategicSummary {
   currentPriorities: string[];
   /** Historical context summary (auto-generated). */
   historicalContext: string;
+  /** Strategic direction — LLM's self-authored plan. */
+  strategicDirection: StrategicDirection;
   /** Last updated turn. */
   lastUpdatedTurn: number;
 }

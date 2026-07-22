@@ -5,73 +5,69 @@
  * and executed actions.
  */
 
+import * as fs from "fs";
+import * as path from "path";
 import type { StrategicMemory, StrategicSummaryEntry, RivalProfile, LearnedLesson } from "./types";
 import type { ActionBatch } from "../shared";
+import { extractNationNames } from "../brain/state-digest";
+import { getSessionDir } from "../shared/session";
+import { PATHS } from "../shared/config";
 
 // ---------------------------------------------------------------------------
-// Achievement/Failure extraction from LLM reasoning
+// Achievement/Failure extraction from LLM ActionBatch structure (Language-independent)
 // ---------------------------------------------------------------------------
 
 /**
- * Extract potential achievements and failures from the LLM's reasoning text.
- * This is a simple heuristic — full KPI-based extraction comes in v4.0.
+ * Extract achievements and failures using structured fields from LLM response (Zod validated).
  */
-function extractEntriesFromReasoning(reasoning: string, turn: number): StrategicSummaryEntry[] {
+function extractEntriesFromBatch(batch: ActionBatch, turn: number): StrategicSummaryEntry[] {
   const entries: StrategicSummaryEntry[] = [];
-  const lower = reasoning.toLowerCase();
 
-  // Success indicators
-  const successPatterns = [
-    {
-      pattern: /successfully\s+(conquered|invaded|captured|annexed|took)\s+([^,.]+)/gi,
-      type: "achievement" as const,
-    },
-    { pattern: /(defeated|destroyed|eliminated)\s+([^,.]+)/gi, type: "achievement" as const },
-    {
-      pattern: /(gdp|economy|population|military)\s+(grew|improved|increased|ranked)/gi,
-      type: "milestone" as const,
-    },
-  ];
-
-  // Failure indicators
-  const failurePatterns = [
-    {
-      pattern: /(failed|lost|retreated|defeated|pushed\s+back)\s+([^,.]+)/gi,
-      type: "failure" as const,
-    },
-    { pattern: /(suffered|took)\s+(heavy\s+)?(casualties|losses)/gi, type: "failure" as const },
-  ];
-
-  for (const { pattern, type } of successPatterns) {
-    let match: RegExpExecArray | null;
-    while ((match = pattern.exec(lower)) !== null) {
-      const description = match[0].charAt(0).toUpperCase() + match[0].slice(1);
-      const tags = match[0].includes("gdp")
-        ? ["economy"]
-        : match[0].includes("military")
-          ? ["military"]
-          : ["military"];
-      entries.push({
-        id: `turn_${turn}_${type}_${entries.length}`,
-        description,
-        type,
-        turn,
-        tags,
-      });
+  // 1. Process steps in ledger_updates (operations)
+  if (batch.ledger_updates) {
+    for (const op of batch.ledger_updates) {
+      for (const step of op.steps) {
+        if (step.status === "COMPLETE") {
+          entries.push({
+            id: `turn_${turn}_ach_${entries.length}`,
+            description: `Operation [${op.operation_id}] "${op.goal}": ${step.action}`,
+            type: "achievement",
+            turn,
+            tags: ["operation", op.operation_id.toLowerCase()],
+          });
+        } else if (step.status === "FAILED") {
+          entries.push({
+            id: `turn_${turn}_fail_${entries.length}`,
+            description: `Operation [${op.operation_id}] "${op.goal}" FAILED on step: ${step.action}`,
+            type: "failure",
+            turn,
+            tags: ["operation", op.operation_id.toLowerCase()],
+          });
+        }
+      }
     }
   }
 
-  for (const { pattern, type } of failurePatterns) {
-    let match: RegExpExecArray | null;
-    while ((match = pattern.exec(lower)) !== null) {
-      const description = match[0].charAt(0).toUpperCase() + match[0].slice(1);
-      entries.push({
-        id: `turn_${turn}_${type}_${entries.length}`,
-        description,
-        type,
-        turn,
-        tags: ["military"],
-      });
+  // 2. Process milestone checks
+  if (batch.milestone_checks) {
+    for (const check of batch.milestone_checks) {
+      if (check.status === "ACHIEVED") {
+        entries.push({
+          id: `turn_${turn}_ach_${entries.length}`,
+          description: `Milestone achieved: "${check.milestone}". Evidence: ${check.evidence}`,
+          type: "milestone",
+          turn,
+          tags: ["milestone"],
+        });
+      } else if (check.status === "FAILED") {
+        entries.push({
+          id: `turn_${turn}_fail_${entries.length}`,
+          description: `Milestone FAILED: "${check.milestone}". Evidence: ${check.evidence}`,
+          type: "failure",
+          turn,
+          tags: ["milestone"],
+        });
+      }
     }
   }
 
@@ -79,11 +75,56 @@ function extractEntriesFromReasoning(reasoning: string, turn: number): Strategic
 }
 
 // ---------------------------------------------------------------------------
-// Rival profile updates
+// Rival profile updates — uses known nations from game state
 // ---------------------------------------------------------------------------
 
 /**
+ * Fallback list of major nations for test/fallback scenarios when game state is unavailable.
+ */
+const FALLBACK_KNOWN_NATIONS = new Set([
+  "japan",
+  "кнр",
+  "china",
+  "germany",
+  "united states of america",
+  "russian federation",
+  "russia",
+  "belarus",
+  "kazakhstan",
+  "ukraine",
+  "france",
+  "united kingdom",
+  "turkey",
+  "iran",
+  "afghanistan",
+  "chechnya",
+]);
+
+/**
+ * Load known nation names from the current game state for validation.
+ * Falls back to a static list if game state is unavailable (e.g., in tests).
+ */
+function getKnownNations(): Set<string> {
+  const statePath = path.join(getSessionDir(), PATHS.CURRENT_STATE);
+  try {
+    if (fs.existsSync(statePath)) {
+      const raw = fs.readFileSync(statePath, "utf-8");
+      const parsed = JSON.parse(raw);
+      if (parsed.current_state) {
+        const names = extractNationNames(parsed.current_state);
+        return new Set(names.map((n) => n.toLowerCase()));
+      }
+    }
+  } catch {
+    // ignore
+  }
+  // Fallback: return major known nations for tests and edge cases
+  return FALLBACK_KNOWN_NATIONS;
+}
+
+/**
  * Update rival profiles based on actions taken this turn.
+ * Validates candidates against known nations from the game state.
  */
 function updateRivalProfiles(
   profiles: RivalProfile[],
@@ -91,20 +132,19 @@ function updateRivalProfiles(
   turn: number
 ): RivalProfile[] {
   const updated = [...profiles];
+  const knownNations = getKnownNations();
   const nationsMentioned = new Set<string>();
 
-  // Extract nation names from actions
   for (const action of batch.actions) {
-    const nationMatch = action.match(
-      /\b(invade|attack|declare|sanction|ally|negotiate|send)\s+(the\s+)?([A-Z][a-z]+)/i
-    );
-    if (nationMatch) {
-      const nation = nationMatch[3];
-      nationsMentioned.add(nation);
+    // Check each known nation: does the action mention it?
+    for (const knownName of knownNations) {
+      if (action.toLowerCase().includes(knownName)) {
+        nationsMentioned.add(knownName);
+      }
     }
   }
 
-  // Update or create profiles for mentioned nations
+  // Update or create profiles for found nations
   for (const nation of nationsMentioned) {
     const existing = updated.find((p) => p.nation.toLowerCase() === nation.toLowerCase());
     if (existing) {
@@ -144,8 +184,8 @@ export function updateMemoryAfterTurn(
   const updated = { ...memory };
   const summary = { ...memory.summary };
 
-  // Extract entries from reasoning
-  const newEntries = extractEntriesFromReasoning(batch.reasoning, turn);
+  // Extract entries from batch structure (Zod enums), language-agnostic
+  const newEntries = extractEntriesFromBatch(batch, turn);
 
   // Split into achievements and failures
   for (const entry of newEntries) {
@@ -161,18 +201,27 @@ export function updateMemoryAfterTurn(
     }
   }
 
-  // Update current priorities from reasoning keywords
-  const priorityKeywords = batch.reasoning.match(
-    /(prioritize|focus|concentrate|shift)\s+(on|to)?\s+([^.,]+)/gi
-  );
-  if (priorityKeywords) {
-    summary.currentPriorities = priorityKeywords.slice(0, 3).map((p) => p.trim());
+  // Update current priorities directly from ledger_updates goals
+  if (batch.ledger_updates && batch.ledger_updates.length > 0) {
+    summary.currentPriorities = batch.ledger_updates
+      .slice(0, 3)
+      .map((op) => `[OP: ${op.operation_id}] ${op.goal}`);
+  } else if (batch.immediate_risks && batch.immediate_risks.length > 0) {
+    summary.currentPriorities = batch.immediate_risks.slice(0, 3).map((r) => `[Risk] ${r}`);
   }
 
-  // Update historical context
+  // Update historical context — full text, no truncation
   if (batch.actions.length > 0) {
-    const recentAction = batch.actions[0].slice(0, 100);
-    summary.historicalContext = `Turn ${turn}: Executed ${batch.actions.length} action(s). Reasoning: ${batch.reasoning.slice(0, 200)}. First action: ${recentAction}...`;
+    const firstAction = batch.actions[0];
+    summary.historicalContext = `Turn ${turn}: Executed ${batch.actions.length} action(s). Reasoning: ${batch.reasoning}. First action: ${firstAction}`;
+  }
+
+  // Update strategic direction from LLM's self-authored plan
+  if (batch.strategic_direction_update?.trim()) {
+    summary.strategicDirection = {
+      narrative: batch.strategic_direction_update.trim(),
+      lastUpdatedTurn: turn,
+    };
   }
 
   summary.lastUpdatedTurn = turn;

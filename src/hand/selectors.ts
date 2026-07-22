@@ -8,10 +8,10 @@
 
 export const SELECTORS = {
   // In-game UI (action/advisor)
-  actionBox: 'textarea[placeholder="Enter your action..."]',
-  advisorBox: 'textarea[placeholder="Ask your advisor..."]',
+  actionBox: 'textarea[placeholder*="action"i], textarea[placeholder*="действ"i]',
+  advisorBox: 'textarea[placeholder*="advisor"i], textarea[placeholder*="советн"i]',
   /** Button to open the actions panel (⚡). */
-  actionsPanelButton: 'button[aria-label="Actions"]',
+  actionsPanelButton: 'button[aria-label="Actions"i], button[aria-label*="Действи"i]',
   /** Submit button next to the action textarea (send icon). */
   actionSubmitButton: "button:has(svg.feather-send-message)",
 

@@ -11,6 +11,7 @@ import { createProvider, callProviderWithRetry, validateEnv } from "./providers/
 import { buildGeminiConfig } from "./providers/gemini-provider";
 import { buildGroqConfig } from "./providers/groq-provider";
 import { buildOpenAIConfig } from "./providers/openai-provider";
+import { buildOpenAICompatConfig } from "./providers/openaicompat-provider";
 import { LLM_CONFIG, DEFAULT_LLM_PROVIDER, PROVIDER_MODELS } from "../shared/config";
 import type { ProviderType } from "./providers/registry";
 
@@ -37,7 +38,7 @@ function getProvider(): LLMProvider {
  */
 function buildConfig(system: string, options?: { disableSchema?: boolean }): ProviderConfig {
   const type = (process.env.LLM_PROVIDER as ProviderType) ?? DEFAULT_LLM_PROVIDER;
-  const model = PROVIDER_MODELS[type] ?? LLM_CONFIG.MODEL;
+  const model = process.env.LLM_MODEL || PROVIDER_MODELS[type] || LLM_CONFIG.MODEL;
 
   switch (type) {
     case "gemini":
@@ -46,6 +47,8 @@ function buildConfig(system: string, options?: { disableSchema?: boolean }): Pro
       return buildGroqConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
     case "openai":
       return buildOpenAIConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
+    case "openaicompat":
+      return buildOpenAICompatConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
     default:
       return buildGeminiConfig(model, system, LLM_CONFIG.MAX_OUTPUT_TOKENS, options);
   }

@@ -194,6 +194,15 @@ describe("assembleContext", () => {
 // ---------------------------------------------------------------------------
 
 describe("buildPrompt", () => {
+  beforeEach(() => {
+    (fs.existsSync as any).mockImplementation((filePath: string) => {
+      if (filePath.includes("system.md")) {
+        return false;
+      }
+      return false;
+    });
+  });
+
   const baseContext: BrainContext = {
     gameState: { current_state: "Map: Europe in 2025" },
     ledger: { active_operations: [] },
@@ -206,53 +215,48 @@ describe("buildPrompt", () => {
         failures: [],
         currentPriorities: [],
         historicalContext: "Test context.",
+        strategicDirection: {
+          narrative: "Focus on economy.",
+          lastUpdatedTurn: 0,
+        },
         lastUpdatedTurn: 0,
       },
       rivalProfiles: [],
       lessonsLearned: [],
-    },
-    strategy: {
-      name: "Test Strategy",
-      country: "Testland",
-      phases: [
-        {
-          name: "Test Phase",
-          description: "Testing",
-          entryConditions: ["start"],
-          exitConditions: ["done"],
-          focusAreas: ["test"],
-          minTurns: 1,
-        },
-      ],
-      currentPhaseIndex: 0,
-      turnsInCurrentPhase: 0,
     },
   };
 
   it("returns system and user prompts", () => {
     const { system, user } = buildPrompt(baseContext);
 
-    expect(system).toContain("strategic AI brain");
-    expect(user).toContain("Map: Europe in 2025");
+    expect(system).toContain("Strategic AI");
+    expect(user).toContain("STATE DIGEST");
     expect(user).toContain("Japan is weak.");
   });
 
   it("includes ownership block when ownership is provided", () => {
+    const stateText = `
+Player polity, USA, details:
+All Regions Owned:
+"Alaska"
+"Texas"
+Military Units:
+None
+`;
     const ctx: BrainContext = {
       ...baseContext,
+      gameState: { current_state: stateText },
       ownership: { our_nation: "USA", regions_we_own: ["Alaska", "Texas"] },
     };
 
     const { user } = buildPrompt(ctx);
-    expect(user).toContain("REGIONS WE OWN");
-    expect(user).toContain("We are USA");
-    expect(user).toContain("Alaska");
-    expect(user).toContain("Texas");
+    expect(user).toContain("Our Forces:");
+    expect(user).toContain("Regions owned: 2");
   });
 
   it("does not include ownership block when ownership is null", () => {
     const { user } = buildPrompt(baseContext);
-    expect(user).not.toContain("REGIONS WE OWN");
+    expect(user).toContain("STATE DIGEST");
   });
 
   it("uses default text when advisorResponse is empty", () => {
@@ -293,10 +297,10 @@ describe("buildPrompt", () => {
     expect(user).toContain("Invade");
   });
 
-  it("includes invasion mandate in system prompt", () => {
+  it("includes foreign operations policy in system prompt", () => {
     const { system } = buildPrompt(baseContext);
-    expect(system).toContain("INVASION MANDATE");
-    expect(system).toContain("TOTAL CONQUEST");
+    expect(system).toContain("FOREIGN OPERATIONS POLICY");
+    expect(system).toContain("Soft Power");
   });
 
   it("includes next_advisor_query instruction in system prompt", () => {

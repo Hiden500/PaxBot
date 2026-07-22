@@ -3,8 +3,10 @@
   "project": {
     "name": "Pax-Automata",
     "is_monorepo": false,
-    "total_files": 271,
-    "entry_points": ["src/index.ts"],
+    "total_files": 284,
+    "entry_points": [
+      "src/index.ts"
+    ],
     "tech_stack": [
       {
         "name": "Node.js",
@@ -17,7 +19,9 @@
         "category": "language"
       }
     ],
-    "entry_candidates": ["src/index.ts"],
+    "entry_candidates": [
+      "src/index.ts"
+    ],
     "graph_mode": "flow"
   },
   "nodes": [
@@ -157,6 +161,24 @@
       "summary": ""
     },
     {
+      "id": "class:src/shared/tui.ts:Grid",
+      "type": "class",
+      "filePath": "src/shared/tui.ts",
+      "name": "Grid",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "class:src/shared/tui.ts:TUIDashboard",
+      "type": "class",
+      "filePath": "src/shared/tui.ts",
+      "name": "TUIDashboard",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "file:.agents/agents/business/workers/lead-research-assistant.md",
       "type": "document",
       "filePath": ".agents/agents/business/workers/lead-research-assistant.md",
@@ -164,9 +186,11 @@
       "symbolCount": 0,
       "lineCount": 130,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 10,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 9,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: lead-research-assistant.md."
     },
     {
@@ -177,9 +201,11 @@
       "symbolCount": 0,
       "lineCount": 192,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 11,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 10,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: api-builder.md."
     },
     {
@@ -190,9 +216,11 @@
       "symbolCount": 0,
       "lineCount": 179,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 12,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 11,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: database-architect.md."
     },
     {
@@ -203,9 +231,11 @@
       "symbolCount": 0,
       "lineCount": 694,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 13,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 12,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-auditor.md."
     },
     {
@@ -216,9 +246,11 @@
       "symbolCount": 0,
       "lineCount": 530,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 14,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 13,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-fixer.md."
     },
     {
@@ -229,9 +261,11 @@
       "symbolCount": 0,
       "lineCount": 719,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 15,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 14,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-realtime-optimizer.md."
     },
     {
@@ -242,9 +276,11 @@
       "symbolCount": 0,
       "lineCount": 791,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 16,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 15,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-storage-optimizer.md."
     },
     {
@@ -255,9 +291,11 @@
       "symbolCount": 0,
       "lineCount": 109,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 17,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 16,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: code-reviewer.md."
     },
     {
@@ -268,9 +306,11 @@
       "symbolCount": 0,
       "lineCount": 518,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 18,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 17,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: code-structure-refactorer.md."
     },
     {
@@ -281,9 +321,11 @@
       "symbolCount": 0,
       "lineCount": 555,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 19,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 18,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: cost-calculator-specialist.md."
     },
     {
@@ -294,9 +336,11 @@
       "symbolCount": 0,
       "lineCount": 2270,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 20,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 19,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: judge-specialist.md."
     },
     {
@@ -307,9 +351,11 @@
       "symbolCount": 0,
       "lineCount": 904,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 21,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 20,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: langgraph-specialist.md."
     },
     {
@@ -320,9 +366,11 @@
       "symbolCount": 0,
       "lineCount": 708,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 22,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 21,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: llm-service-specialist.md."
     },
     {
@@ -333,9 +381,11 @@
       "symbolCount": 0,
       "lineCount": 255,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 23,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 22,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: skill-builder-v2.md."
     },
     {
@@ -346,9 +396,11 @@
       "symbolCount": 0,
       "lineCount": 831,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 24,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 23,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: stage-pipeline-specialist.md."
     },
     {
@@ -359,9 +411,11 @@
       "symbolCount": 0,
       "lineCount": 484,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 25,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 24,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: typescript-types-specialist.md."
     },
     {
@@ -372,9 +426,11 @@
       "symbolCount": 0,
       "lineCount": 428,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 26,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 25,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: utility-builder.md."
     },
     {
@@ -385,9 +441,11 @@
       "symbolCount": 0,
       "lineCount": 151,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 27,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 26,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: technical-writer.md."
     },
     {
@@ -398,9 +456,11 @@
       "symbolCount": 0,
       "lineCount": 222,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 28,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 27,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: fullstack-nextjs-specialist.md."
     },
     {
@@ -411,9 +471,11 @@
       "symbolCount": 0,
       "lineCount": 559,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 29,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 28,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: nextjs-ui-designer.md."
     },
     {
@@ -424,9 +486,11 @@
       "symbolCount": 0,
       "lineCount": 152,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 30,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 29,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: visual-effects-creator.md."
     },
     {
@@ -437,9 +501,11 @@
       "symbolCount": 0,
       "lineCount": 423,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 31,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 30,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: bug-fixer.md."
     },
     {
@@ -450,9 +516,11 @@
       "symbolCount": 0,
       "lineCount": 502,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 32,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 31,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: bug-hunter.md."
     },
     {
@@ -463,9 +531,11 @@
       "symbolCount": 0,
       "lineCount": 412,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 33,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 32,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dead-code-hunter.md."
     },
     {
@@ -476,9 +546,11 @@
       "symbolCount": 0,
       "lineCount": 465,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 34,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 33,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dead-code-remover.md."
     },
     {
@@ -489,9 +561,11 @@
       "symbolCount": 0,
       "lineCount": 370,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 35,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 34,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dependency-auditor.md."
     },
     {
@@ -502,9 +576,11 @@
       "symbolCount": 0,
       "lineCount": 294,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 36,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 35,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: dependency-updater.md."
     },
     {
@@ -515,9 +591,11 @@
       "symbolCount": 0,
       "lineCount": 408,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 37,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 36,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: reuse-fixer.md."
     },
     {
@@ -528,9 +606,11 @@
       "symbolCount": 0,
       "lineCount": 429,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 38,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 37,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: reuse-hunter.md."
     },
     {
@@ -541,9 +621,11 @@
       "symbolCount": 0,
       "lineCount": 546,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 39,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 38,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: security-scanner.md."
     },
     {
@@ -554,9 +636,11 @@
       "symbolCount": 0,
       "lineCount": 403,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 40,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 39,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: vulnerability-fixer.md."
     },
     {
@@ -567,9 +651,11 @@
       "symbolCount": 0,
       "lineCount": 476,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 41,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 40,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: bullmq-worker-specialist.md."
     },
     {
@@ -580,9 +666,11 @@
       "symbolCount": 0,
       "lineCount": 346,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 42,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 41,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: deployment-engineer.md."
     },
     {
@@ -593,9 +681,11 @@
       "symbolCount": 0,
       "lineCount": 152,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 43,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 42,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: infrastructure-specialist.md."
     },
     {
@@ -606,9 +696,11 @@
       "symbolCount": 0,
       "lineCount": 1030,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 44,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 43,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: orchestration-logic-specialist.md."
     },
     {
@@ -619,9 +711,11 @@
       "symbolCount": 0,
       "lineCount": 357,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 45,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 44,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: qdrant-specialist.md."
     },
     {
@@ -632,9 +726,11 @@
       "symbolCount": 0,
       "lineCount": 779,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 46,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 45,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: quality-validator-specialist.md."
     },
     {
@@ -645,9 +741,11 @@
       "symbolCount": 0,
       "lineCount": 508,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 47,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 46,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: rag-specialist.md."
     },
     {
@@ -658,9 +756,11 @@
       "symbolCount": 0,
       "lineCount": 761,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 48,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 47,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: server-hardening-specialist.md."
     },
     {
@@ -671,9 +771,11 @@
       "symbolCount": 0,
       "lineCount": 642,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 49,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 48,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: lms-integration-specialist.md."
     },
     {
@@ -684,9 +786,11 @@
       "symbolCount": 0,
       "lineCount": 389,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 50,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 49,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: meta-agent-v3.md."
     },
     {
@@ -697,9 +801,11 @@
       "symbolCount": 0,
       "lineCount": 424,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 51,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 50,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: problem-investigator.md."
     },
     {
@@ -710,9 +816,11 @@
       "symbolCount": 0,
       "lineCount": 333,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 52,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 51,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: research-specialist.md."
     },
     {
@@ -723,9 +831,11 @@
       "symbolCount": 0,
       "lineCount": 617,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 53,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 52,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: accessibility-tester.md."
     },
     {
@@ -736,9 +846,11 @@
       "symbolCount": 0,
       "lineCount": 176,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 54,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 53,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: integration-tester.md."
     },
     {
@@ -749,9 +861,11 @@
       "symbolCount": 0,
       "lineCount": 231,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 55,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 54,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: mobile-fixes-implementer.md."
     },
     {
@@ -762,9 +876,11 @@
       "symbolCount": 0,
       "lineCount": 162,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 56,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 55,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: mobile-responsiveness-tester.md."
     },
     {
@@ -775,9 +891,11 @@
       "symbolCount": 0,
       "lineCount": 242,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 57,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 56,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: performance-optimizer.md."
     },
     {
@@ -788,9 +906,11 @@
       "symbolCount": 0,
       "lineCount": 617,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 58,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 57,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-writer.md."
     },
     {
@@ -801,9 +921,11 @@
       "symbolCount": 0,
       "lineCount": 70,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 59,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 58,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: beads-init.md."
     },
     {
@@ -814,9 +936,11 @@
       "symbolCount": 0,
       "lineCount": 18,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 60,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 59,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-bugs.md."
     },
     {
@@ -827,9 +951,11 @@
       "symbolCount": 0,
       "lineCount": 19,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 61,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 60,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-cleanup.md."
     },
     {
@@ -840,9 +966,11 @@
       "symbolCount": 0,
       "lineCount": 19,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 62,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 61,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-deps.md."
     },
     {
@@ -853,9 +981,11 @@
       "symbolCount": 0,
       "lineCount": 67,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 63,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 62,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-metrics.md."
     },
     {
@@ -866,9 +996,11 @@
       "symbolCount": 0,
       "lineCount": 19,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 64,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 63,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-reuse.md."
     },
     {
@@ -879,9 +1011,11 @@
       "symbolCount": 0,
       "lineCount": 20,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 65,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 64,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: health-security.md."
     },
     {
@@ -892,9 +1026,11 @@
       "symbolCount": 0,
       "lineCount": 137,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 66,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 65,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: onboard.md."
     },
     {
@@ -905,9 +1041,11 @@
       "symbolCount": 0,
       "lineCount": 17,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 67,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 66,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: process-logs.md."
     },
     {
@@ -918,9 +1056,11 @@
       "symbolCount": 0,
       "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 68,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 67,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: push.md."
     },
     {
@@ -931,9 +1071,11 @@
       "symbolCount": 0,
       "lineCount": 186,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 69,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 68,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.analyze.md."
     },
     {
@@ -944,9 +1086,11 @@
       "symbolCount": 0,
       "lineCount": 423,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 70,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 69,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.checklist.md."
     },
     {
@@ -957,9 +1101,11 @@
       "symbolCount": 0,
       "lineCount": 297,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 71,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 70,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.clarify.md."
     },
     {
@@ -970,9 +1116,11 @@
       "symbolCount": 0,
       "lineCount": 131,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 72,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 71,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.constitution.md."
     },
     {
@@ -983,9 +1131,11 @@
       "symbolCount": 0,
       "lineCount": 303,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 73,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 72,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.implement.md."
     },
     {
@@ -996,9 +1146,11 @@
       "symbolCount": 0,
       "lineCount": 107,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 74,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 73,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.plan.md."
     },
     {
@@ -1009,9 +1161,11 @@
       "symbolCount": 0,
       "lineCount": 319,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 75,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 74,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.specify.md."
     },
     {
@@ -1022,9 +1176,11 @@
       "symbolCount": 0,
       "lineCount": 196,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 76,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 75,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.tasks.md."
     },
     {
@@ -1035,9 +1191,11 @@
       "symbolCount": 0,
       "lineCount": 87,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 77,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 76,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.taskstoissues.md."
     },
     {
@@ -1048,9 +1206,11 @@
       "symbolCount": 0,
       "lineCount": 83,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 78,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 77,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: speckit.tobeads.md."
     },
     {
@@ -1061,9 +1221,11 @@
       "symbolCount": 0,
       "lineCount": 22,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 79,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 78,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: status.md."
     },
     {
@@ -1074,9 +1236,11 @@
       "symbolCount": 0,
       "lineCount": 69,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 80,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 79,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: supabase-performance-optimizer.md."
     },
     {
@@ -1087,9 +1251,11 @@
       "symbolCount": 0,
       "lineCount": 64,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 81,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 80,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: translate-doc.md."
     },
     {
@@ -1100,9 +1266,11 @@
       "symbolCount": 0,
       "lineCount": 119,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 82,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 81,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: ultra-think.md."
     },
     {
@@ -1113,9 +1281,11 @@
       "symbolCount": 0,
       "lineCount": 79,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 83,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 82,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: upgrade.md."
     },
     {
@@ -1126,9 +1296,11 @@
       "symbolCount": 0,
       "lineCount": 65,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 84,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 83,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: work.md."
     },
     {
@@ -1139,9 +1311,11 @@
       "symbolCount": 0,
       "lineCount": 95,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 85,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 84,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: worktree.md."
     },
     {
@@ -1152,9 +1326,11 @@
       "symbolCount": 0,
       "lineCount": 5,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 86,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 85,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1165,9 +1341,11 @@
       "symbolCount": 0,
       "lineCount": 496,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 87,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 86,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1178,8 +1356,8 @@
       "symbolCount": 19,
       "lineCount": 191,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 88,
+      "pagerank": 0.002721,
+      "communityId": 87,
       "tags": [],
       "summary": "Config module generator_template defining initializeSeed, setup, draw.",
       "primaryOwner": "hiden500"
@@ -1192,9 +1370,11 @@
       "symbolCount": 0,
       "lineCount": 77,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 89,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 88,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1205,8 +1385,8 @@
       "symbolCount": 0,
       "lineCount": 39,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 90,
+      "pagerank": 0.002721,
+      "communityId": 89,
       "tags": [],
       "summary": "Config module bundle-artifact.",
       "primaryOwner": "hiden500"
@@ -1219,8 +1399,8 @@
       "symbolCount": 0,
       "lineCount": 256,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 91,
+      "pagerank": 0.002721,
+      "communityId": 90,
       "tags": [],
       "summary": "Config module init-artifact.",
       "primaryOwner": "hiden500"
@@ -1233,9 +1413,11 @@
       "symbolCount": 0,
       "lineCount": 65,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 92,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 91,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1246,9 +1428,11 @@
       "symbolCount": 0,
       "lineCount": 56,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 93,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 92,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: COMMANDS_QUICKREF.md."
     },
     {
@@ -1259,9 +1443,11 @@
       "symbolCount": 0,
       "lineCount": 70,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 94,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 93,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: DECISION_MATRIX.md."
     },
     {
@@ -1272,9 +1458,11 @@
       "symbolCount": 0,
       "lineCount": 56,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 95,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 94,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SPECKIT_BRIDGE.md."
     },
     {
@@ -1285,9 +1473,11 @@
       "symbolCount": 0,
       "lineCount": 60,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 96,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 95,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: WORKFLOWS.md."
     },
     {
@@ -1298,9 +1488,11 @@
       "symbolCount": 0,
       "lineCount": 103,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 97,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 96,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1311,9 +1503,12 @@
       "symbolCount": 0,
       "lineCount": 50,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 98,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 97,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: scoring-matrix.json."
     },
     {
@@ -1324,9 +1519,11 @@
       "symbolCount": 0,
       "lineCount": 298,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 99,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 98,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1337,9 +1534,11 @@
       "symbolCount": 0,
       "lineCount": 77,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 100,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 99,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1350,9 +1549,11 @@
       "symbolCount": 0,
       "lineCount": 197,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 101,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 100,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1363,9 +1564,11 @@
       "symbolCount": 0,
       "lineCount": 201,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 102,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 101,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1376,9 +1579,11 @@
       "symbolCount": 0,
       "lineCount": 352,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 103,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 102,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1389,9 +1594,11 @@
       "symbolCount": 0,
       "lineCount": 209,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 104,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 103,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1402,9 +1609,11 @@
       "symbolCount": 0,
       "lineCount": 102,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 105,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 104,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1415,9 +1624,11 @@
       "symbolCount": 0,
       "lineCount": 111,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 106,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 105,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1428,9 +1639,11 @@
       "symbolCount": 0,
       "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 107,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 106,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: template.md."
     },
     {
@@ -1441,9 +1654,11 @@
       "symbolCount": 0,
       "lineCount": 101,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 108,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 107,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1454,9 +1669,11 @@
       "symbolCount": 0,
       "lineCount": 48,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 109,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 108,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: examples.md."
     },
     {
@@ -1467,9 +1684,11 @@
       "symbolCount": 0,
       "lineCount": 114,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 110,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 109,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1480,9 +1699,12 @@
       "symbolCount": 0,
       "lineCount": 21,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 111,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 110,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: template.json."
     },
     {
@@ -1493,9 +1715,11 @@
       "symbolCount": 0,
       "lineCount": 80,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 112,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 111,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1506,9 +1730,11 @@
       "symbolCount": 0,
       "lineCount": 123,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 113,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 112,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1519,9 +1745,12 @@
       "symbolCount": 0,
       "lineCount": 22,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 114,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 113,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: commit-mapping.json."
     },
     {
@@ -1532,9 +1761,11 @@
       "symbolCount": 0,
       "lineCount": 119,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 115,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 114,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1545,9 +1776,11 @@
       "symbolCount": 0,
       "lineCount": 33,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 116,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 115,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: template.md."
     },
     {
@@ -1558,9 +1791,11 @@
       "symbolCount": 0,
       "lineCount": 109,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 117,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 116,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1571,9 +1806,11 @@
       "symbolCount": 0,
       "lineCount": 264,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 118,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 117,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1584,9 +1821,11 @@
       "symbolCount": 0,
       "lineCount": 93,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 119,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 118,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: worker-prompts.md."
     },
     {
@@ -1597,9 +1836,11 @@
       "symbolCount": 0,
       "lineCount": 163,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 120,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 119,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1610,9 +1851,11 @@
       "symbolCount": 0,
       "lineCount": 148,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 121,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 120,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1623,9 +1866,12 @@
       "symbolCount": 0,
       "lineCount": 18,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 122,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 121,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: patterns.json."
     },
     {
@@ -1636,9 +1882,11 @@
       "symbolCount": 0,
       "lineCount": 80,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 123,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 122,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1649,9 +1897,11 @@
       "symbolCount": 0,
       "lineCount": 81,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 124,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 123,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1662,9 +1912,12 @@
       "symbolCount": 0,
       "lineCount": 22,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 125,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 124,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -1675,9 +1928,11 @@
       "symbolCount": 0,
       "lineCount": 332,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 126,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 125,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1688,9 +1943,11 @@
       "symbolCount": 0,
       "lineCount": 469,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 127,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 126,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1701,9 +1958,11 @@
       "symbolCount": 0,
       "lineCount": 142,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 128,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 127,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1714,9 +1973,11 @@
       "symbolCount": 0,
       "lineCount": 220,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 129,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 128,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1727,9 +1988,11 @@
       "symbolCount": 0,
       "lineCount": 76,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 130,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 129,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1740,9 +2003,12 @@
       "symbolCount": 0,
       "lineCount": 78,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 131,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 130,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: changes-log-schema.json."
     },
     {
@@ -1753,9 +2019,11 @@
       "symbolCount": 0,
       "lineCount": 60,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 132,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 131,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1766,9 +2034,12 @@
       "symbolCount": 0,
       "lineCount": 56,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 133,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 132,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: gate-mappings.json."
     },
     {
@@ -1779,9 +2050,11 @@
       "symbolCount": 0,
       "lineCount": 207,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 134,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 133,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1792,9 +2065,11 @@
       "symbolCount": 0,
       "lineCount": 116,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 135,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 134,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1805,9 +2080,11 @@
       "symbolCount": 0,
       "lineCount": 450,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 136,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 135,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: architecture_patterns.md."
     },
     {
@@ -1818,9 +2095,11 @@
       "symbolCount": 0,
       "lineCount": 415,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 137,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 136,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: system_design_workflows.md."
     },
     {
@@ -1831,9 +2110,11 @@
       "symbolCount": 0,
       "lineCount": 507,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 138,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 137,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: tech_decision_guide.md."
     },
     {
@@ -1844,8 +2125,8 @@
       "symbolCount": 7,
       "lineCount": 82,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 139,
+      "pagerank": 0.002721,
+      "communityId": 138,
       "tags": [],
       "summary": "Config module architecture_diagram_generator defining ArchitectureDiagramGenerator, __init__, run.",
       "primaryOwner": "hiden500"
@@ -1858,8 +2139,8 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 140,
+      "pagerank": 0.002721,
+      "communityId": 139,
       "tags": [],
       "summary": "Config module dependency_analyzer defining DependencyAnalyzer, __init__, run.",
       "primaryOwner": "hiden500"
@@ -1872,8 +2153,8 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 141,
+      "pagerank": 0.002721,
+      "communityId": 140,
       "tags": [],
       "summary": "Config module project_architect defining ProjectArchitect, __init__, run.",
       "primaryOwner": "hiden500"
@@ -1886,9 +2167,11 @@
       "symbolCount": 0,
       "lineCount": 112,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 142,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 141,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1899,9 +2182,11 @@
       "symbolCount": 0,
       "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 143,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 142,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: cicd_pipeline_guide.md."
     },
     {
@@ -1912,9 +2197,11 @@
       "symbolCount": 0,
       "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 144,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 143,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: deployment_strategies.md."
     },
     {
@@ -1925,9 +2212,11 @@
       "symbolCount": 0,
       "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 145,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 144,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: infrastructure_as_code.md."
     },
     {
@@ -1938,8 +2227,8 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 146,
+      "pagerank": 0.002721,
+      "communityId": 145,
       "tags": [],
       "summary": "Config module deployment_manager defining DeploymentManager, __init__, run.",
       "primaryOwner": "hiden500"
@@ -1952,8 +2241,8 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 147,
+      "pagerank": 0.002721,
+      "communityId": 146,
       "tags": [],
       "summary": "Config module pipeline_generator defining PipelineGenerator, __init__, run.",
       "primaryOwner": "hiden500"
@@ -1966,8 +2255,8 @@
       "symbolCount": 7,
       "lineCount": 81,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 148,
+      "pagerank": 0.002721,
+      "communityId": 147,
       "tags": [],
       "summary": "Config module terraform_scaffolder defining TerraformScaffolder, __init__, run.",
       "primaryOwner": "hiden500"
@@ -1980,9 +2269,11 @@
       "symbolCount": 0,
       "lineCount": 138,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 149,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 148,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -1993,9 +2284,11 @@
       "symbolCount": 0,
       "lineCount": 35,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 150,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 149,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: agentic_system_design.md."
     },
     {
@@ -2006,9 +2299,11 @@
       "symbolCount": 0,
       "lineCount": 35,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 151,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 150,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: llm_evaluation_frameworks.md."
     },
     {
@@ -2019,9 +2314,11 @@
       "symbolCount": 0,
       "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 152,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 151,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: prompt_engineering_patterns.md."
     },
     {
@@ -2032,8 +2329,8 @@
       "symbolCount": 7,
       "lineCount": 72,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 153,
+      "pagerank": 0.002721,
+      "communityId": 152,
       "tags": [],
       "summary": "Config module agent_orchestrator defining AgentOrchestrator, __init__, validate_config.",
       "primaryOwner": "hiden500"
@@ -2046,8 +2343,8 @@
       "symbolCount": 7,
       "lineCount": 71,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 154,
+      "pagerank": 0.002721,
+      "communityId": 153,
       "tags": [],
       "summary": "Config module prompt_optimizer defining PromptOptimizer, __init__, validate_config.",
       "primaryOwner": "hiden500"
@@ -2060,8 +2357,8 @@
       "symbolCount": 7,
       "lineCount": 71,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 155,
+      "pagerank": 0.002721,
+      "communityId": 154,
       "tags": [],
       "summary": "Config module rag_evaluator defining RagEvaluator, __init__, validate_config.",
       "primaryOwner": "hiden500"
@@ -2074,9 +2371,11 @@
       "symbolCount": 0,
       "lineCount": 232,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 156,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 155,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2087,9 +2386,11 @@
       "symbolCount": 0,
       "lineCount": 107,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 157,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 156,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: CREATION-LOG.md."
     },
     {
@@ -2100,9 +2401,11 @@
       "symbolCount": 0,
       "lineCount": 262,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 158,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 157,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2113,7 +2416,7 @@
       "symbolCount": 3,
       "lineCount": 126,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 7,
       "tags": [],
       "summary": "Config module condition-based-waiting-example defining waitForEvent, waitForEventCount, waitForEventMatch.",
@@ -2127,9 +2430,11 @@
       "symbolCount": 0,
       "lineCount": 92,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 159,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 158,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: condition-based-waiting.md."
     },
     {
@@ -2140,9 +2445,11 @@
       "symbolCount": 0,
       "lineCount": 91,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 160,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 159,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: defense-in-depth.md."
     },
     {
@@ -2153,8 +2460,8 @@
       "symbolCount": 0,
       "lineCount": 39,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 161,
+      "pagerank": 0.002721,
+      "communityId": 160,
       "tags": [],
       "summary": "Config module find-polluter.",
       "primaryOwner": "hiden500"
@@ -2167,9 +2474,11 @@
       "symbolCount": 0,
       "lineCount": 133,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 162,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 161,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: root-cause-tracing.md."
     },
     {
@@ -2180,9 +2489,11 @@
       "symbolCount": 0,
       "lineCount": 16,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 163,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 162,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-academic.md."
     },
     {
@@ -2193,9 +2504,11 @@
       "symbolCount": 0,
       "lineCount": 47,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 164,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 163,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-pressure-1.md."
     },
     {
@@ -2206,9 +2519,11 @@
       "symbolCount": 0,
       "lineCount": 57,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 165,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 164,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-pressure-2.md."
     },
     {
@@ -2219,9 +2534,11 @@
       "symbolCount": 0,
       "lineCount": 67,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 166,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 165,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: test-pressure-3.md."
     },
     {
@@ -2232,9 +2549,11 @@
       "symbolCount": 0,
       "lineCount": 78,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 167,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 166,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2245,9 +2564,11 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 168,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 167,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: arctic-frost.md."
     },
     {
@@ -2258,9 +2579,11 @@
       "symbolCount": 0,
       "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 169,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 168,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: botanical-garden.md."
     },
     {
@@ -2271,9 +2594,11 @@
       "symbolCount": 0,
       "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 170,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 169,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: desert-rose.md."
     },
     {
@@ -2284,9 +2609,11 @@
       "symbolCount": 0,
       "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 171,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 170,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: forest-canopy.md."
     },
     {
@@ -2297,9 +2624,11 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 172,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 171,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: golden-hour.md."
     },
     {
@@ -2310,9 +2639,11 @@
       "symbolCount": 0,
       "lineCount": 12,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 173,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 172,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: midnight-galaxy.md."
     },
     {
@@ -2323,9 +2654,11 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 174,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 173,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: modern-minimalist.md."
     },
     {
@@ -2336,9 +2669,11 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 175,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 174,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: ocean-depths.md."
     },
     {
@@ -2349,9 +2684,11 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 176,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 175,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: sunset-boulevard.md."
     },
     {
@@ -2362,9 +2699,11 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 177,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 176,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: tech-innovation.md."
     },
     {
@@ -2375,9 +2714,11 @@
       "symbolCount": 0,
       "lineCount": 26,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 178,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 177,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2388,8 +2729,8 @@
       "symbolCount": 21,
       "lineCount": 455,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 179,
+      "pagerank": 0.002721,
+      "communityId": 178,
       "tags": [],
       "summary": "Config module design_token_generator defining DesignTokenGenerator, __init__, generate_complete_system.",
       "primaryOwner": "hiden500"
@@ -2402,9 +2743,11 @@
       "symbolCount": 0,
       "lineCount": 23,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 180,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 179,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2415,8 +2758,8 @@
       "symbolCount": 19,
       "lineCount": 533,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 181,
+      "pagerank": 0.002721,
+      "communityId": 180,
       "tags": [],
       "summary": "Config module persona_generator defining PersonaGenerator, __init__, generate_persona_from_data.",
       "primaryOwner": "hiden500"
@@ -2429,9 +2772,11 @@
       "symbolCount": 0,
       "lineCount": 237,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 182,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 181,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2442,9 +2787,12 @@
       "symbolCount": 0,
       "lineCount": 17,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 183,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 182,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -2455,9 +2803,11 @@
       "symbolCount": 0,
       "lineCount": 123,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 184,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 183,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2468,9 +2818,12 @@
       "symbolCount": 0,
       "lineCount": 40,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 185,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 184,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: schema.json."
     },
     {
@@ -2481,9 +2834,11 @@
       "symbolCount": 0,
       "lineCount": 97,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 186,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 185,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: SKILL.md."
     },
     {
@@ -2494,8 +2849,8 @@
       "symbolCount": 3,
       "lineCount": 26,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 187,
+      "pagerank": 0.002721,
+      "communityId": 186,
       "tags": [],
       "summary": "Config module console_logging defining handle_console_message.",
       "primaryOwner": "hiden500"
@@ -2508,8 +2863,8 @@
       "symbolCount": 0,
       "lineCount": 37,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 188,
+      "pagerank": 0.002721,
+      "communityId": 187,
       "tags": [],
       "summary": "Config module element_discovery.",
       "primaryOwner": "hiden500"
@@ -2522,8 +2877,8 @@
       "symbolCount": 2,
       "lineCount": 24,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 189,
+      "pagerank": 0.002721,
+      "communityId": 188,
       "tags": [],
       "summary": "Config module static_html_automation (2 symbols).",
       "primaryOwner": "hiden500"
@@ -2536,8 +2891,8 @@
       "symbolCount": 2,
       "lineCount": 94,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 190,
+      "pagerank": 0.002721,
+      "communityId": 189,
       "tags": [],
       "summary": "Config module with_server defining is_server_ready, main.",
       "primaryOwner": "hiden500"
@@ -2548,10 +2903,10 @@
       "filePath": ".claude/CLAUDE.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 305,
+      "lineCount": 366,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 191,
+      "pagerank": 0.002721,
+      "communityId": 190,
       "tags": [],
       "summary": "Repository instructions and context for AI coding agents."
     },
@@ -2563,9 +2918,11 @@
       "symbolCount": 0,
       "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 192,
-      "tags": ["config"],
+      "pagerank": 0.002721,
+      "communityId": 191,
+      "tags": [
+        "config"
+      ],
       "summary": "ESLint linting rules."
     },
     {
@@ -2576,9 +2933,12 @@
       "symbolCount": 0,
       "lineCount": 6,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 193,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 192,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: .mcp.json."
     },
     {
@@ -2587,12 +2947,31 @@
       "filePath": ".repowise/config.yaml",
       "language": "yaml",
       "symbolCount": 0,
-      "lineCount": 1,
+      "lineCount": 3,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 194,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 193,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: config.yaml."
+    },
+    {
+      "id": "file:.repowise/jobs/40bf0008-3097-462d-aa27-cd78c652ae5b.json",
+      "type": "config",
+      "filePath": ".repowise/jobs/40bf0008-3097-462d-aa27-cd78c652ae5b.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 118,
+      "complexity": "moderate",
+      "pagerank": 0.002721,
+      "communityId": 194,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: 40bf0008-3097-462d-aa27-cd78c652ae5b.json."
     },
     {
       "id": "file:.repowise/knowledge-graph.json",
@@ -2600,12 +2979,47 @@
       "filePath": ".repowise/knowledge-graph.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 8134,
+      "lineCount": 8752,
       "complexity": "complex",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 195,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: knowledge-graph.json."
+    },
+    {
+      "id": "file:.repowise/lancedb/__manifest/_versions/latest_version_hint.json",
+      "type": "config",
+      "filePath": ".repowise/lancedb/__manifest/_versions/latest_version_hint.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 236,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: latest_version_hint.json."
+    },
+    {
+      "id": "file:.repowise/lancedb/wiki_pages.lance/_versions/latest_version_hint.json",
+      "type": "config",
+      "filePath": ".repowise/lancedb/wiki_pages.lance/_versions/latest_version_hint.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 236,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: latest_version_hint.json."
     },
     {
       "id": "file:.repowise/mcp.json",
@@ -2615,9 +3029,12 @@
       "symbolCount": 0,
       "lineCount": 6,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 196,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: mcp.json."
     },
     {
@@ -2626,11 +3043,14 @@
       "filePath": ".repowise/state.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 25,
+      "lineCount": 29,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 197,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: state.json."
     },
     {
@@ -2639,11 +3059,13 @@
       "filePath": "Agents.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 508,
-      "complexity": "complex",
-      "pagerank": 0.002866,
+      "lineCount": 212,
+      "complexity": "moderate",
+      "pagerank": 0.002721,
       "communityId": 198,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: Agents.md."
     },
     {
@@ -2652,9 +3074,9 @@
       "filePath": "README.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 244,
+      "lineCount": 268,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 199,
       "tags": [],
       "summary": "Project overview and entry point for new readers."
@@ -2667,9 +3089,11 @@
       "symbolCount": 0,
       "lineCount": 132,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 200,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: PRD.md."
     },
     {
@@ -2680,9 +3104,11 @@
       "symbolCount": 0,
       "lineCount": 70,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 201,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: api.md."
     },
     {
@@ -2691,11 +3117,13 @@
       "filePath": "docs/architecture.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 447,
-      "complexity": "moderate",
-      "pagerank": 0.002866,
+      "lineCount": 527,
+      "complexity": "complex",
+      "pagerank": 0.002721,
       "communityId": 202,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: architecture.md."
     },
     {
@@ -2704,9 +3132,9 @@
       "filePath": "docs/changelog.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 188,
+      "lineCount": 247,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 203,
       "tags": [],
       "summary": "Release history and notable changes."
@@ -2719,9 +3147,11 @@
       "symbolCount": 0,
       "lineCount": 47,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 204,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: database.md."
     },
     {
@@ -2730,11 +3160,13 @@
       "filePath": "docs/decisions.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 66,
-      "complexity": "simple",
-      "pagerank": 0.002866,
+      "lineCount": 163,
+      "complexity": "moderate",
+      "pagerank": 0.002721,
       "communityId": 205,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: decisions.md."
     },
     {
@@ -2745,9 +3177,11 @@
       "symbolCount": 0,
       "lineCount": 41,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 206,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: deployment.md."
     },
     {
@@ -2758,9 +3192,11 @@
       "symbolCount": 0,
       "lineCount": 266,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 207,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: pax-historia-research.md."
     },
     {
@@ -2771,9 +3207,11 @@
       "symbolCount": 0,
       "lineCount": 335,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 208,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: roadmap.md."
     },
     {
@@ -2784,7 +3222,7 @@
       "symbolCount": 0,
       "lineCount": 37,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 209,
       "tags": [],
       "summary": "Security policy and vulnerability-reporting process."
@@ -2797,9 +3235,11 @@
       "symbolCount": 0,
       "lineCount": 31,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 210,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: testing.md."
     },
     {
@@ -2808,11 +3248,13 @@
       "filePath": "docs/todo.md",
       "language": "markdown",
       "symbolCount": 0,
-      "lineCount": 136,
+      "lineCount": 270,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 211,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: todo.md."
     },
     {
@@ -2821,11 +3263,13 @@
       "filePath": "package.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 43,
+      "lineCount": 45,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 213,
-      "tags": ["config"],
+      "tags": [
+        "config"
+      ],
       "summary": "Node package manifest: dependencies, scripts, and metadata."
     },
     {
@@ -2834,13 +3278,13 @@
       "filePath": "scripts/capture-auth-state.ts",
       "language": "typescript",
       "symbolCount": 2,
-      "lineCount": 58,
-      "complexity": "simple",
-      "pagerank": 0.002866,
+      "lineCount": 107,
+      "complexity": "moderate",
+      "pagerank": 0.002721,
       "communityId": 0,
       "tags": [],
       "summary": "Docs & Tooling module capture-auth-state defining main.",
-      "primaryOwner": "Phillip Yan"
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:scripts/combine-videos.sh",
@@ -2850,7 +3294,7 @@
       "symbolCount": 0,
       "lineCount": 57,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 214,
       "tags": [],
       "summary": "Docs & Tooling module combine-videos.",
@@ -2864,7 +3308,7 @@
       "symbolCount": 2,
       "lineCount": 39,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 0,
       "tags": [],
       "summary": "Docs & Tooling module demo-auth-state defining main.",
@@ -2876,10 +3320,10 @@
       "filePath": "scripts/init-campaign.ts",
       "language": "typescript",
       "symbolCount": 1,
-      "lineCount": 77,
+      "lineCount": 15,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 3,
+      "pagerank": 0.002721,
+      "communityId": 0,
       "tags": [],
       "summary": "Docs & Tooling module init-campaign defining main.",
       "primaryOwner": "hiden500"
@@ -2890,9 +3334,9 @@
       "filePath": "scripts/manual-llm-test.ts",
       "language": "typescript",
       "symbolCount": 1,
-      "lineCount": 109,
+      "lineCount": 137,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 0,
       "tags": [],
       "summary": "Docs & Tooling module manual-llm-test defining main.",
@@ -2906,7 +3350,7 @@
       "symbolCount": 0,
       "lineCount": 53,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 215,
       "tags": [],
       "summary": "Docs & Tooling module scaffold.",
@@ -2920,7 +3364,7 @@
       "symbolCount": 1,
       "lineCount": 39,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 0,
       "tags": [],
       "summary": "Docs & Tooling module switch-campaign defining main.",
@@ -2934,7 +3378,7 @@
       "symbolCount": 15,
       "lineCount": 299,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 5,
       "tags": [],
       "summary": "Docs & Tooling module test-llm-guardrails defining ModelConfig, TestPrompt, TestResult.",
@@ -2948,7 +3392,7 @@
       "symbolCount": 8,
       "lineCount": 290,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module action-generator.test defining OperationStep, Operation, StrategicLedger.",
@@ -2960,10 +3404,10 @@
       "filePath": "src/brain/action-generator.ts",
       "language": "typescript",
       "symbolCount": 2,
-      "lineCount": 109,
+      "lineCount": 100,
       "complexity": "moderate",
-      "pagerank": 0.003244,
-      "communityId": 2,
+      "pagerank": 0.003073,
+      "communityId": 1,
       "tags": [],
       "summary": "Application module action-generator defining generateActions, main.",
       "primaryOwner": "Phillip Yan"
@@ -2974,9 +3418,9 @@
       "filePath": "src/brain/context-assembler.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 254,
+      "lineCount": 245,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module context-assembler.test.",
@@ -2988,10 +3432,10 @@
       "filePath": "src/brain/context-assembler.ts",
       "language": "typescript",
       "symbolCount": 4,
-      "lineCount": 225,
+      "lineCount": 235,
       "complexity": "moderate",
-      "pagerank": 0.005053,
-      "communityId": 2,
+      "pagerank": 0.004696,
+      "communityId": 1,
       "tags": [],
       "summary": "Application module context-assembler defining BrainContext, readJson, assembleContext.",
       "primaryOwner": "Phillip Yan"
@@ -3004,9 +3448,11 @@
       "symbolCount": 0,
       "lineCount": 14,
       "complexity": "simple",
-      "pagerank": 0.00311,
-      "communityId": 2,
-      "tags": ["barrel"],
+      "pagerank": 0.002899,
+      "communityId": 1,
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for brain/.",
       "primaryOwner": "hiden500"
     },
@@ -3018,8 +3464,8 @@
       "symbolCount": 3,
       "lineCount": 64,
       "complexity": "simple",
-      "pagerank": 0.003588,
-      "communityId": 2,
+      "pagerank": 0.003595,
+      "communityId": 1,
       "tags": [],
       "summary": "Application module ledger-manager defining mergeLedger, pruneLedger, writeLedger.",
       "primaryOwner": "hiden500"
@@ -3032,7 +3478,7 @@
       "symbolCount": 5,
       "lineCount": 75,
       "complexity": "moderate",
-      "pagerank": 0.004925,
+      "pagerank": 0.004837,
       "communityId": 4,
       "tags": [],
       "summary": "Application module llm-client defining getProvider, buildConfig, callLLM.",
@@ -3044,9 +3490,9 @@
       "filePath": "src/brain/providers/gemini-provider.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 97,
+      "lineCount": 120,
       "complexity": "moderate",
-      "pagerank": 0.003982,
+      "pagerank": 0.003806,
       "communityId": 4,
       "tags": [],
       "summary": "Application module gemini-provider defining GeminiProvider, constructor, generate.",
@@ -3060,7 +3506,7 @@
       "symbolCount": 4,
       "lineCount": 54,
       "complexity": "moderate",
-      "pagerank": 0.003982,
+      "pagerank": 0.003806,
       "communityId": 4,
       "tags": [],
       "summary": "Application module groq-provider defining GroqProvider, constructor, generate.",
@@ -3072,9 +3518,9 @@
       "filePath": "src/brain/providers/openai-provider.ts",
       "language": "typescript",
       "symbolCount": 5,
-      "lineCount": 122,
+      "lineCount": 148,
       "complexity": "moderate",
-      "pagerank": 0.003982,
+      "pagerank": 0.003806,
       "communityId": 4,
       "tags": [],
       "summary": "Application module openai-provider defining OpenAIProvider, constructor, generate.",
@@ -3088,7 +3534,7 @@
       "symbolCount": 3,
       "lineCount": 30,
       "complexity": "simple",
-      "pagerank": 0.012821,
+      "pagerank": 0.012244,
       "communityId": 4,
       "tags": [],
       "summary": "Application module provider defining ResponseSchema, ProviderConfig, LLMProvider.",
@@ -3102,7 +3548,7 @@
       "symbolCount": 6,
       "lineCount": 102,
       "complexity": "moderate",
-      "pagerank": 0.003941,
+      "pagerank": 0.003758,
       "communityId": 4,
       "tags": [],
       "summary": "Application module registry defining validateProviderEnv, createProvider, sleep.",
@@ -3116,8 +3562,8 @@
       "symbolCount": 3,
       "lineCount": 29,
       "complexity": "simple",
-      "pagerank": 0.003588,
-      "communityId": 2,
+      "pagerank": 0.003363,
+      "communityId": 1,
       "tags": [],
       "summary": "Application module response-parser defining normalizeStatuses, parseLLMResponse.",
       "primaryOwner": "hiden500"
@@ -3127,13 +3573,13 @@
       "type": "file",
       "filePath": "src/campaign/builder.ts",
       "language": "typescript",
-      "symbolCount": 5,
-      "lineCount": 144,
+      "symbolCount": 6,
+      "lineCount": 215,
       "complexity": "moderate",
-      "pagerank": 0.003627,
+      "pagerank": 0.004249,
       "communityId": 3,
       "tags": [],
-      "summary": "Application module builder defining BuildResult, buildCampaignFromDescription, suggestCampaignPivot.",
+      "summary": "Application module builder defining BuildResult, buildCampaignFromDescription, initializeCampaignFromMarkdown.",
       "primaryOwner": "hiden500"
     },
     {
@@ -3142,11 +3588,13 @@
       "filePath": "src/campaign/index.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 12,
+      "lineCount": 13,
       "complexity": "simple",
-      "pagerank": 0.003582,
+      "pagerank": 0.003564,
       "communityId": 3,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for campaign/.",
       "primaryOwner": "hiden500"
     },
@@ -3156,9 +3604,9 @@
       "filePath": "src/campaign/loader.ts",
       "language": "typescript",
       "symbolCount": 6,
-      "lineCount": 104,
+      "lineCount": 112,
       "complexity": "moderate",
-      "pagerank": 0.004067,
+      "pagerank": 0.004058,
       "communityId": 3,
       "tags": [],
       "summary": "Application module loader defining invalidateCache, loadAllCampaigns, findCampaign.",
@@ -3172,7 +3620,7 @@
       "symbolCount": 5,
       "lineCount": 46,
       "complexity": "moderate",
-      "pagerank": 0.010269,
+      "pagerank": 0.009887,
       "communityId": 3,
       "tags": [],
       "summary": "Application module types defining VictoryCondition, Priority, Constraint.",
@@ -3186,7 +3634,7 @@
       "symbolCount": 0,
       "lineCount": 94,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module validator.test.",
@@ -3200,7 +3648,7 @@
       "symbolCount": 2,
       "lineCount": 106,
       "complexity": "moderate",
-      "pagerank": 0.00621,
+      "pagerank": 0.005611,
       "communityId": 3,
       "tags": [],
       "summary": "Application module validator defining validateCampaign, isValidCampaign.",
@@ -3214,8 +3662,8 @@
       "symbolCount": 20,
       "lineCount": 363,
       "complexity": "complex",
-      "pagerank": 0.004956,
-      "communityId": 1,
+      "pagerank": 0.004686,
+      "communityId": 2,
       "tags": [],
       "summary": "Application module actions defining dismissGamePopups, typeText, ensureActionsPanelOpen.",
       "primaryOwner": "Phillip Yan"
@@ -3228,9 +3676,11 @@
       "symbolCount": 0,
       "lineCount": 7,
       "complexity": "simple",
-      "pagerank": 0.003516,
-      "communityId": 1,
-      "tags": ["barrel"],
+      "pagerank": 0.003285,
+      "communityId": 2,
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for hand/.",
       "primaryOwner": "Phillip Yan"
     },
@@ -3242,8 +3692,8 @@
       "symbolCount": 4,
       "lineCount": 86,
       "complexity": "moderate",
-      "pagerank": 0.003862,
-      "communityId": 1,
+      "pagerank": 0.003652,
+      "communityId": 2,
       "tags": [],
       "summary": "Application module navigate defining clickButton, openPresetAndSelectWW2.",
       "primaryOwner": "Phillip Yan"
@@ -3254,10 +3704,10 @@
       "filePath": "src/hand/selectors.ts",
       "language": "typescript",
       "symbolCount": 2,
-      "lineCount": 36,
+      "lineCount": 34,
       "complexity": "simple",
-      "pagerank": 0.007062,
-      "communityId": 1,
+      "pagerank": 0.006678,
+      "communityId": 2,
       "tags": [],
       "summary": "Application module selectors (2 symbols).",
       "primaryOwner": "Phillip Yan"
@@ -3268,9 +3718,9 @@
       "filePath": "src/index.integration.test.ts",
       "language": "typescript",
       "symbolCount": 1,
-      "lineCount": 194,
+      "lineCount": 181,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module index.integration.test defining cleanWarRoom.",
@@ -3281,14 +3731,16 @@
       "type": "file",
       "filePath": "src/index.ts",
       "language": "typescript",
-      "symbolCount": 18,
-      "lineCount": 318,
+      "symbolCount": 21,
+      "lineCount": 524,
       "complexity": "complex",
-      "pagerank": 0.002866,
-      "communityId": 1,
-      "tags": ["entry_point"],
-      "summary": "Application module index defining getAdvisorQueryForTurn, printStartupBanner, ensureAuthState.",
-      "primaryOwner": "Phillip Yan"
+      "pagerank": 0.002721,
+      "communityId": 2,
+      "tags": [
+        "entry_point"
+      ],
+      "summary": "Application module index defining getAdvisorQueryForTurn, printStartupBanner, createNewCampaignFlow.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/interactor.ts",
@@ -3298,8 +3750,8 @@
       "symbolCount": 5,
       "lineCount": 112,
       "complexity": "moderate",
-      "pagerank": 0.002866,
-      "communityId": 1,
+      "pagerank": 0.002721,
+      "communityId": 0,
       "tags": [],
       "summary": "Application module interactor defining ensureAuthState, main.",
       "primaryOwner": "Phillip Yan"
@@ -3312,9 +3764,11 @@
       "symbolCount": 0,
       "lineCount": 11,
       "complexity": "simple",
-      "pagerank": 0.003825,
+      "pagerank": 0.003564,
       "communityId": 6,
-      "tags": ["barrel"],
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for memory/.",
       "primaryOwner": "hiden500"
     },
@@ -3323,13 +3777,13 @@
       "type": "file",
       "filePath": "src/memory/loader.ts",
       "language": "typescript",
-      "symbolCount": 8,
-      "lineCount": 133,
+      "symbolCount": 9,
+      "lineCount": 138,
       "complexity": "moderate",
-      "pagerank": 0.004559,
+      "pagerank": 0.004309,
       "communityId": 6,
       "tags": [],
-      "summary": "Application module loader defining emptySummary, emptyMemory, readJsonFile.",
+      "summary": "Application module loader defining getMemoryPaths, emptySummary, emptyMemory.",
       "primaryOwner": "hiden500"
     },
     {
@@ -3340,7 +3794,7 @@
       "symbolCount": 7,
       "lineCount": 63,
       "complexity": "moderate",
-      "pagerank": 0.006855,
+      "pagerank": 0.006478,
       "communityId": 6,
       "tags": [],
       "summary": "Application module types defining StrategicSummaryEntry, StrategicSummary, RivalProfile.",
@@ -3352,9 +3806,9 @@
       "filePath": "src/memory/updater.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 79,
+      "lineCount": 82,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module updater.test.",
@@ -3368,7 +3822,7 @@
       "symbolCount": 4,
       "lineCount": 151,
       "complexity": "moderate",
-      "pagerank": 0.004559,
+      "pagerank": 0.004309,
       "communityId": 6,
       "tags": [],
       "summary": "Application module updater defining extractEntriesFromReasoning, updateRivalProfiles, updateMemoryAfterTurn.",
@@ -3380,10 +3834,10 @@
       "filePath": "src/shared/config.ts",
       "language": "typescript",
       "symbolCount": 7,
-      "lineCount": 72,
+      "lineCount": 73,
       "complexity": "moderate",
-      "pagerank": 0.014873,
-      "communityId": 3,
+      "pagerank": 0.012217,
+      "communityId": 0,
       "tags": [],
       "summary": "Utility module config (7 symbols).",
       "primaryOwner": "hiden500"
@@ -3396,9 +3850,11 @@
       "symbolCount": 0,
       "lineCount": 8,
       "complexity": "simple",
-      "pagerank": 0.011934,
-      "communityId": 2,
-      "tags": ["barrel"],
+      "pagerank": 0.011413,
+      "communityId": 1,
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for shared/.",
       "primaryOwner": "Phillip Yan"
     },
@@ -3410,8 +3866,8 @@
       "symbolCount": 1,
       "lineCount": 20,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 9,
+      "pagerank": 0.002721,
+      "communityId": 8,
       "tags": [],
       "summary": "Utility module logger (1 symbols).",
       "primaryOwner": "hiden500"
@@ -3422,9 +3878,9 @@
       "filePath": "src/shared/schemas.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 187,
+      "lineCount": 208,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module schemas.test.",
@@ -3435,13 +3891,13 @@
       "type": "file",
       "filePath": "src/shared/schemas.ts",
       "language": "typescript",
-      "symbolCount": 6,
-      "lineCount": 60,
+      "symbolCount": 7,
+      "lineCount": 67,
       "complexity": "moderate",
-      "pagerank": 0.009502,
-      "communityId": 2,
+      "pagerank": 0.012501,
+      "communityId": 1,
       "tags": [],
-      "summary": "Utility module schemas (6 symbols).",
+      "summary": "Utility module schemas (7 symbols).",
       "primaryOwner": "Phillip Yan"
     },
     {
@@ -3449,13 +3905,27 @@
       "type": "file",
       "filePath": "src/shared/session.ts",
       "language": "typescript",
-      "symbolCount": 3,
-      "lineCount": 28,
-      "complexity": "simple",
-      "pagerank": 0.012321,
+      "symbolCount": 7,
+      "lineCount": 59,
+      "complexity": "moderate",
+      "pagerank": 0.012239,
       "communityId": 0,
       "tags": [],
-      "summary": "Utility module session defining getActiveCampaignName, setActiveCampaignName, getSessionDir.",
+      "summary": "Utility module session defining slugify, getActiveCampaignName, setActiveCampaignName.",
+      "primaryOwner": "hiden500"
+    },
+    {
+      "id": "file:src/shared/tui.ts",
+      "type": "file",
+      "filePath": "src/shared/tui.ts",
+      "language": "typescript",
+      "symbolCount": 26,
+      "lineCount": 310,
+      "complexity": "complex",
+      "pagerank": 0.005954,
+      "communityId": 1,
+      "tags": [],
+      "summary": "Utility module tui defining Cell, Grid, constructor.",
       "primaryOwner": "hiden500"
     },
     {
@@ -3464,10 +3934,10 @@
       "filePath": "src/spy/capture.ts",
       "language": "typescript",
       "symbolCount": 2,
-      "lineCount": 19,
+      "lineCount": 23,
       "complexity": "simple",
-      "pagerank": 0.00436,
-      "communityId": 1,
+      "pagerank": 0.004117,
+      "communityId": 2,
       "tags": [],
       "summary": "Application module capture defining captureNextSimpleChatRequestBody.",
       "primaryOwner": "Phillip Yan"
@@ -3480,9 +3950,11 @@
       "symbolCount": 0,
       "lineCount": 3,
       "complexity": "simple",
-      "pagerank": 0.003516,
-      "communityId": 1,
-      "tags": ["barrel"],
+      "pagerank": 0.003285,
+      "communityId": 2,
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for spy/.",
       "primaryOwner": "Phillip Yan"
     },
@@ -3492,9 +3964,9 @@
       "filePath": "src/spy/ownership-parser.test.ts",
       "language": "typescript",
       "symbolCount": 0,
-      "lineCount": 144,
+      "lineCount": 174,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module ownership-parser.test.",
@@ -3505,10 +3977,10 @@
       "type": "file",
       "filePath": "src/spy/ownership-parser.ts",
       "language": "typescript",
-      "symbolCount": 3,
-      "lineCount": 70,
+      "symbolCount": 2,
+      "lineCount": 61,
       "complexity": "simple",
-      "pagerank": 0.004527,
+      "pagerank": 0.004237,
       "communityId": 0,
       "tags": [],
       "summary": "Application module ownership-parser defining parseOwnershipFromStateText, writeOwnershipSnapshot.",
@@ -3520,9 +3992,9 @@
       "filePath": "src/spy/state-writer.test.ts",
       "language": "typescript",
       "symbolCount": 1,
-      "lineCount": 144,
+      "lineCount": 155,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module state-writer.test defining cleanFiles.",
@@ -3534,13 +4006,27 @@
       "filePath": "src/spy/state-writer.ts",
       "language": "typescript",
       "symbolCount": 3,
-      "lineCount": 105,
+      "lineCount": 129,
       "complexity": "moderate",
-      "pagerank": 0.005114,
+      "pagerank": 0.004833,
       "communityId": 0,
       "tags": [],
-      "summary": "Application module state-writer defining stripAdvisorOnlyContent, writeGameStateFromPayload, writeAdvisorResponse.",
-      "primaryOwner": "Phillip Yan"
+      "summary": "Application module state-writer defining smartParseGameState, writeGameStateFromPayload, writeAdvisorResponse.",
+      "primaryOwner": "hiden500"
+    },
+    {
+      "id": "file:src/strategy/builder.ts",
+      "type": "file",
+      "filePath": "src/strategy/builder.ts",
+      "language": "typescript",
+      "symbolCount": 2,
+      "lineCount": 55,
+      "complexity": "simple",
+      "pagerank": 0.003122,
+      "communityId": 3,
+      "tags": [],
+      "summary": "Application module builder defining buildStrategyPlanFromCampaign.",
+      "primaryOwner": "hiden500"
     },
     {
       "id": "file:src/strategy/index.ts",
@@ -3550,9 +4036,11 @@
       "symbolCount": 0,
       "lineCount": 7,
       "complexity": "simple",
-      "pagerank": 0.003582,
-      "communityId": 8,
-      "tags": ["barrel"],
+      "pagerank": 0.003386,
+      "communityId": 3,
+      "tags": [
+        "barrel"
+      ],
       "summary": "Re-export barrel for strategy/.",
       "primaryOwner": "hiden500"
     },
@@ -3564,7 +4052,7 @@
       "symbolCount": 0,
       "lineCount": 138,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 212,
       "tags": [],
       "summary": "Test module planner.test.",
@@ -3575,13 +4063,13 @@
       "type": "file",
       "filePath": "src/strategy/planner.ts",
       "language": "typescript",
-      "symbolCount": 5,
-      "lineCount": 218,
+      "symbolCount": 6,
+      "lineCount": 215,
       "complexity": "moderate",
-      "pagerank": 0.004997,
-      "communityId": 8,
+      "pagerank": 0.005402,
+      "communityId": 3,
       "tags": [],
-      "summary": "Application module planner defining defaultStrategyPlan, loadStrategyPlan, saveStrategyPlan.",
+      "summary": "Application module planner defining getStrategyPlanPath, defaultStrategyPlan, loadStrategyPlan.",
       "primaryOwner": "hiden500"
     },
     {
@@ -3592,8 +4080,8 @@
       "symbolCount": 3,
       "lineCount": 36,
       "complexity": "simple",
-      "pagerank": 0.006059,
-      "communityId": 8,
+      "pagerank": 0.00655,
+      "communityId": 3,
       "tags": [],
       "summary": "Application module types defining StrategicPhase, StrategyPlan, PhaseAnalysis.",
       "primaryOwner": "hiden500"
@@ -3606,9 +4094,12 @@
       "symbolCount": 0,
       "lineCount": 1,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 216,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: .last-run.json."
     },
     {
@@ -3619,9 +4110,11 @@
       "symbolCount": 0,
       "lineCount": 11,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 217,
-      "tags": ["config"],
+      "tags": [
+        "config"
+      ],
       "summary": "TypeScript compiler configuration."
     },
     {
@@ -3632,7 +4125,7 @@
       "symbolCount": 0,
       "lineCount": 9,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 218,
       "tags": [],
       "summary": "Application module vitest.config.",
@@ -3644,11 +4137,14 @@
       "filePath": "war-room/campaigns/RussianTest.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 275,
+      "lineCount": 283,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 219,
-      "tags": ["config", "low_signal_summary"],
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: RussianTest.json."
     },
     {
@@ -3659,9 +4155,11 @@
       "symbolCount": 0,
       "lineCount": 289,
       "complexity": "moderate",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 220,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: RussianTest.md."
     },
     {
@@ -3672,23 +4170,12 @@
       "symbolCount": 0,
       "lineCount": 31,
       "complexity": "simple",
-      "pagerank": 0.002866,
+      "pagerank": 0.002721,
       "communityId": 221,
-      "tags": ["low_signal_summary"],
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: TEMPLATE.md."
-    },
-    {
-      "id": "file:war-room/campaigns/new-rus-2075.json",
-      "type": "config",
-      "filePath": "war-room/campaigns/new-rus-2075.json",
-      "language": "json",
-      "symbolCount": 0,
-      "lineCount": 65,
-      "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 222,
-      "tags": ["config", "low_signal_summary"],
-      "summary": "Configuration file: new-rus-2075.json."
     },
     {
       "id": "file:war-room/constitution.md",
@@ -3698,61 +4185,219 @@
       "symbolCount": 0,
       "lineCount": 0,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 223,
-      "tags": ["low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 222,
+      "tags": [
+        "low_signal_summary"
+      ],
       "summary": "Documentation: constitution.md."
     },
     {
-      "id": "file:war-room/sessions/default/current_state.json",
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/current_state.json",
       "type": "config",
-      "filePath": "war-room/sessions/default/current_state.json",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/current_state.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 3,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 223,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: current_state.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_1.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_1.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 224,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: ledger_snapshot_turn_1.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_2.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_2.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 225,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: ledger_snapshot_turn_2.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_3.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_3.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 27,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 226,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: ledger_snapshot_turn_3.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/lessons_learned.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/lessons_learned.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 227,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: lessons_learned.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/rival_profiles.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/rival_profiles.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 228,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: rival_profiles.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/strategic_summary.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/strategic_summary.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 12,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 229,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: strategic_summary.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_1.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_1.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 0,
+      "complexity": "simple",
+      "pagerank": 0.002721,
+      "communityId": 230,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: state_snapshot_turn_1.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_2.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_2.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 2885,
+      "complexity": "complex",
+      "pagerank": 0.002721,
+      "communityId": 231,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: state_snapshot_turn_2.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_3.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_3.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 3239,
+      "complexity": "complex",
+      "pagerank": 0.002721,
+      "communityId": 232,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: state_snapshot_turn_3.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/strategy/strategy-plan.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050-evraziyskiy-bastion/strategy/strategy-plan.json",
+      "language": "json",
+      "symbolCount": 0,
+      "lineCount": 150,
+      "complexity": "moderate",
+      "pagerank": 0.002721,
+      "communityId": 233,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
+      "summary": "Configuration file: strategy-plan.json."
+    },
+    {
+      "id": "file:war-room/sessions/rossiya-2050/current_state.json",
+      "type": "config",
+      "filePath": "war-room/sessions/rossiya-2050/current_state.json",
       "language": "json",
       "symbolCount": 0,
       "lineCount": 2,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 224,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 234,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: current_state.json."
     },
     {
-      "id": "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
+      "id": "file:war-room/sessions/rossiya-2050/strategy/strategy-plan.json",
       "type": "config",
-      "filePath": "war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
+      "filePath": "war-room/sessions/rossiya-2050/strategy/strategy-plan.json",
       "language": "json",
       "symbolCount": 0,
-      "lineCount": 0,
+      "lineCount": 52,
       "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 225,
-      "tags": ["config", "low_signal_summary"],
-      "summary": "Configuration file: current_state.json."
-    },
-    {
-      "id": "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
-      "type": "config",
-      "filePath": "war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
-      "language": "json",
-      "symbolCount": 0,
-      "lineCount": 0,
-      "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 226,
-      "tags": ["config", "low_signal_summary"],
-      "summary": "Configuration file: strategic_ledger.json."
-    },
-    {
-      "id": "file:war-room/strategy/strategy-plan.json",
-      "type": "config",
-      "filePath": "war-room/strategy/strategy-plan.json",
-      "language": "json",
-      "symbolCount": 0,
-      "lineCount": 44,
-      "complexity": "simple",
-      "pagerank": 0.002866,
-      "communityId": 227,
-      "tags": ["config", "low_signal_summary"],
+      "pagerank": 0.002721,
+      "communityId": 235,
+      "tags": [
+        "config",
+        "low_signal_summary"
+      ],
       "summary": "Configuration file: strategy-plan.json."
     },
     {
@@ -5178,6 +5823,15 @@
       "summary": ""
     },
     {
+      "id": "function:src/campaign/builder.ts:initializeCampaignFromMarkdown",
+      "type": "function",
+      "filePath": "src/campaign/builder.ts",
+      "name": "initializeCampaignFromMarkdown",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "function:src/campaign/builder.ts:main",
       "type": "function",
       "filePath": "src/campaign/builder.ts",
@@ -5403,6 +6057,15 @@
       "summary": ""
     },
     {
+      "id": "function:src/index.ts:createNewCampaignFlow",
+      "type": "function",
+      "filePath": "src/index.ts",
+      "name": "createNewCampaignFlow",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "function:src/index.ts:ensureAuthState",
       "type": "function",
       "filePath": "src/index.ts",
@@ -5439,10 +6102,28 @@
       "summary": ""
     },
     {
+      "id": "function:src/index.ts:resetCampaignSession",
+      "type": "function",
+      "filePath": "src/index.ts",
+      "name": "resetCampaignSession",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "function:src/index.ts:resetWarRoom",
       "type": "function",
       "filePath": "src/index.ts",
       "name": "resetWarRoom",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/index.ts:runInteractiveMenu",
+      "type": "function",
+      "filePath": "src/index.ts",
+      "name": "runInteractiveMenu",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -5493,6 +6174,15 @@
       "summary": ""
     },
     {
+      "id": "function:src/index.ts:viewCampaignStatus",
+      "type": "function",
+      "filePath": "src/index.ts",
+      "name": "viewCampaignStatus",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "function:src/interactor.ts:ensureAuthState",
       "type": "function",
       "filePath": "src/interactor.ts",
@@ -5533,6 +6223,15 @@
       "type": "function",
       "filePath": "src/memory/loader.ts",
       "name": "formatMemoryForPrompt",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/memory/loader.ts:getMemoryPaths",
+      "type": "function",
+      "filePath": "src/memory/loader.ts",
+      "name": "getMemoryPaths",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -5628,6 +6327,15 @@
       "summary": ""
     },
     {
+      "id": "function:src/shared/session.ts:getCampaignUrl",
+      "type": "function",
+      "filePath": "src/shared/session.ts",
+      "name": "getCampaignUrl",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
       "id": "function:src/shared/session.ts:getSessionDir",
       "type": "function",
       "filePath": "src/shared/session.ts",
@@ -5641,6 +6349,222 @@
       "type": "function",
       "filePath": "src/shared/session.ts",
       "name": "setActiveCampaignName",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/session.ts:setCampaignUrl",
+      "type": "function",
+      "filePath": "src/shared/session.ts",
+      "name": "setCampaignUrl",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/session.ts:slugify",
+      "type": "function",
+      "filePath": "src/shared/session.ts",
+      "name": "slugify",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:clear",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "clear",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:constructor",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "constructor",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:drawBox",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "drawBox",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:drawString",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "drawString",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:drawWrappedText",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "drawWrappedText",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:getInstance",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "getInstance",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:log",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "log",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:render",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "render",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:set",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "set",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setActions",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setActions",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setAdvisorQuery",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setAdvisorQuery",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setAdvisorResponse",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setAdvisorResponse",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setCampaign",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setCampaign",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setImmediateRisks",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setImmediateRisks",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setLessons",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setLessons",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setMilestoneChecks",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setMilestoneChecks",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setOperations",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setOperations",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setReasoning",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setReasoning",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setStatus",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setStatus",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:setTurn",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "setTurn",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:toString",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "toString",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/shared/tui.ts:truncate",
+      "type": "function",
+      "filePath": "src/shared/tui.ts",
+      "name": "truncate",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -5682,10 +6606,10 @@
       "summary": ""
     },
     {
-      "id": "function:src/spy/state-writer.ts:stripAdvisorOnlyContent",
+      "id": "function:src/spy/state-writer.ts:smartParseGameState",
       "type": "function",
       "filePath": "src/spy/state-writer.ts",
-      "name": "stripAdvisorOnlyContent",
+      "name": "smartParseGameState",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -5704,6 +6628,15 @@
       "type": "function",
       "filePath": "src/spy/state-writer.ts",
       "name": "writeGameStateFromPayload",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/strategy/builder.ts:buildStrategyPlanFromCampaign",
+      "type": "function",
+      "filePath": "src/strategy/builder.ts",
+      "name": "buildStrategyPlanFromCampaign",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -5731,6 +6664,15 @@
       "type": "function",
       "filePath": "src/strategy/planner.ts",
       "name": "formatStrategyForPrompt",
+      "language": "typescript",
+      "tags": [],
+      "summary": ""
+    },
+    {
+      "id": "function:src/strategy/planner.ts:getStrategyPlanPath",
+      "type": "function",
+      "filePath": "src/strategy/planner.ts",
+      "name": "getStrategyPlanPath",
       "language": "typescript",
       "tags": [],
       "summary": ""
@@ -7164,35 +8106,7 @@
     },
     {
       "source": "file:scripts/init-campaign.ts",
-      "target": "file:src/brain/llm-client.ts",
-      "type": "imports",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:scripts/init-campaign.ts",
-      "target": "file:src/campaign/types.ts",
-      "type": "imports",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:scripts/init-campaign.ts",
-      "target": "file:src/campaign/validator.ts",
-      "type": "imports",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:scripts/init-campaign.ts",
-      "target": "file:src/shared/config.ts",
-      "type": "imports",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:scripts/init-campaign.ts",
-      "target": "file:src/shared/session.ts",
+      "target": "file:src/campaign/builder.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -7234,7 +8148,21 @@
     },
     {
       "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:src/brain/ledger-manager.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
       "target": "file:src/brain/llm-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/manual-llm-test.ts",
+      "target": "file:src/shared/config.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -7473,6 +8401,13 @@
     {
       "source": "file:src/brain/action-generator.ts",
       "target": "file:src/shared/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/brain/action-generator.ts",
+      "target": "file:src/shared/session.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -8067,7 +9002,28 @@
     },
     {
       "source": "file:src/campaign/builder.ts",
+      "target": "file:src/shared/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/campaign/builder.ts",
+      "target": "file:src/strategy/builder.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/campaign/builder.ts",
       "target": "function:src/campaign/builder.ts:buildCampaignFromDescription",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/campaign/builder.ts",
+      "target": "function:src/campaign/builder.ts:initializeCampaignFromMarkdown",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -8438,6 +9394,13 @@
     },
     {
       "source": "file:src/index.ts",
+      "target": "file:external:@inquirer/prompts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
       "target": "file:external:fs",
       "type": "imports",
       "direction": "forward",
@@ -8473,6 +9436,20 @@
     },
     {
       "source": "file:src/index.ts",
+      "target": "file:src/campaign/index.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
+      "target": "file:src/campaign/loader.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
       "target": "file:src/hand/index.ts",
       "type": "imports",
       "direction": "forward",
@@ -8494,7 +9471,7 @@
     },
     {
       "source": "file:src/index.ts",
-      "target": "file:src/shared/session.ts",
+      "target": "file:src/shared/index.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -8509,6 +9486,13 @@
     {
       "source": "file:src/index.ts",
       "target": "function:src/index.ts:boot",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
+      "target": "function:src/index.ts:createNewCampaignFlow",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -8543,7 +9527,21 @@
     },
     {
       "source": "file:src/index.ts",
+      "target": "function:src/index.ts:resetCampaignSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
       "target": "function:src/index.ts:resetWarRoom",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
+      "target": "function:src/index.ts:runInteractiveMenu",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -8579,6 +9577,13 @@
     {
       "source": "file:src/index.ts",
       "target": "function:src/index.ts:stopPopupWatcher",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/index.ts",
+      "target": "function:src/index.ts:viewCampaignStatus",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -8683,7 +9688,7 @@
     },
     {
       "source": "file:src/memory/loader.ts",
-      "target": "file:src/shared/config.ts",
+      "target": "file:src/shared/session.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -8705,6 +9710,13 @@
     {
       "source": "file:src/memory/loader.ts",
       "target": "function:src/memory/loader.ts:formatMemoryForPrompt",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/memory/loader.ts",
+      "target": "function:src/memory/loader.ts:getMemoryPaths",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -8829,6 +9841,13 @@
       "weight": 1.0
     },
     {
+      "source": "file:src/shared/index.ts",
+      "target": "file:src/shared/tui.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
       "source": "file:src/shared/logger.ts",
       "target": "file:external:pino",
       "type": "imports",
@@ -8886,6 +9905,13 @@
     },
     {
       "source": "file:src/shared/session.ts",
+      "target": "function:src/shared/session.ts:getCampaignUrl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
       "target": "function:src/shared/session.ts:getSessionDir",
       "type": "contains",
       "direction": "forward",
@@ -8894,6 +9920,356 @@
     {
       "source": "file:src/shared/session.ts",
       "target": "function:src/shared/session.ts:setActiveCampaignName",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "function:src/shared/session.ts:setCampaignUrl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/session.ts",
+      "target": "function:src/shared/session.ts:slugify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "class:src/shared/tui.ts:Grid",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "class:src/shared/tui.ts:TUIDashboard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "file:src/shared/schemas.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:clear",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:constructor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:drawBox",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:drawString",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:drawWrappedText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:getInstance",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:log",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:render",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:set",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setActions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setAdvisorQuery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setAdvisorResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setCampaign",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setImmediateRisks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setLessons",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setMilestoneChecks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setOperations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setReasoning",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:setTurn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:toString",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts",
+      "target": "function:src/shared/tui.ts:truncate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::Grid",
+      "target": "function:src/shared/tui.ts:clear",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::Grid",
+      "target": "function:src/shared/tui.ts:constructor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::Grid",
+      "target": "function:src/shared/tui.ts:drawBox",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::Grid",
+      "target": "function:src/shared/tui.ts:drawString",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::Grid",
+      "target": "function:src/shared/tui.ts:drawWrappedText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::Grid",
+      "target": "function:src/shared/tui.ts:set",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::Grid",
+      "target": "function:src/shared/tui.ts:toString",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:constructor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:getInstance",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:log",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:render",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setActions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setAdvisorQuery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setAdvisorResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setCampaign",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setImmediateRisks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setLessons",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setMilestoneChecks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setOperations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setReasoning",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:setTurn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/shared/tui.ts::TUIDashboard",
+      "target": "function:src/shared/tui.ts:truncate",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -9096,7 +10472,7 @@
     },
     {
       "source": "file:src/spy/state-writer.ts",
-      "target": "function:src/spy/state-writer.ts:stripAdvisorOnlyContent",
+      "target": "function:src/spy/state-writer.ts:smartParseGameState",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -9111,6 +10487,41 @@
     {
       "source": "file:src/spy/state-writer.ts",
       "target": "function:src/spy/state-writer.ts:writeGameStateFromPayload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/strategy/builder.ts",
+      "target": "file:src/brain/llm-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/strategy/builder.ts",
+      "target": "file:src/campaign/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/strategy/builder.ts",
+      "target": "file:src/strategy/planner.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/strategy/builder.ts",
+      "target": "file:src/strategy/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/strategy/builder.ts",
+      "target": "function:src/strategy/builder.ts:buildStrategyPlanFromCampaign",
       "type": "contains",
       "direction": "forward",
       "weight": 1.0
@@ -9173,7 +10584,7 @@
     },
     {
       "source": "file:src/strategy/planner.ts",
-      "target": "file:src/shared/config.ts",
+      "target": "file:src/shared/session.ts",
       "type": "imports",
       "direction": "forward",
       "weight": 1.0
@@ -9208,6 +10619,13 @@
     },
     {
       "source": "file:src/strategy/planner.ts",
+      "target": "function:src/strategy/planner.ts:getStrategyPlanPath",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/strategy/planner.ts",
       "target": "function:src/strategy/planner.ts:loadStrategyPlan",
       "type": "contains",
       "direction": "forward",
@@ -9232,7 +10650,7 @@
     {
       "id": "layer:application",
       "name": "Core Agent Logic",
-      "description": "Orchestrates the primary cognitive processes, decision-making strategies, and state management for the agentic system.",
+      "description": "Contains the primary business logic, decision-making frameworks, and state management for the autonomous agent system.",
       "nodeIds": [
         "file:.eslintrc.json",
         "file:.mcp.json",
@@ -9269,6 +10687,7 @@
         "file:src/spy/index.ts",
         "file:src/spy/ownership-parser.ts",
         "file:src/spy/state-writer.ts",
+        "file:src/strategy/builder.ts",
         "file:src/strategy/index.ts",
         "file:src/strategy/planner.ts",
         "file:src/strategy/types.ts",
@@ -9278,12 +10697,20 @@
         "file:war-room/campaigns/RussianTest.json",
         "file:war-room/campaigns/RussianTest.md",
         "file:war-room/campaigns/TEMPLATE.md",
-        "file:war-room/campaigns/new-rus-2075.json",
         "file:war-room/constitution.md",
-        "file:war-room/sessions/default/current_state.json",
-        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
-        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
-        "file:war-room/strategy/strategy-plan.json"
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/current_state.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_1.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_2.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_3.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/lessons_learned.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/rival_profiles.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/strategic_summary.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_1.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_2.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_3.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/strategy/strategy-plan.json",
+        "file:war-room/sessions/rossiya-2050/current_state.json",
+        "file:war-room/sessions/rossiya-2050/strategy/strategy-plan.json"
       ],
       "display_order": 0,
       "order_basis": "imports"
@@ -9291,7 +10718,7 @@
     {
       "id": "layer:config",
       "name": "Agent Persona Definitions",
-      "description": "Contains specialized behavioral configurations and role-based instructions for various autonomous worker agents.",
+      "description": "A collection of specialized configuration files defining the roles, behaviors, and operational parameters for various autonomous worker agents.",
       "nodeIds": [
         "file:.agents/agents/business/workers/lead-research-assistant.md",
         "file:.agents/agents/database/workers/api-builder.md",
@@ -9477,7 +10904,10 @@
         "file:.agents/skills/webapp-testing/scripts/with_server.py",
         "file:.claude/CLAUDE.md",
         "file:.repowise/config.yaml",
+        "file:.repowise/jobs/40bf0008-3097-462d-aa27-cd78c652ae5b.json",
         "file:.repowise/knowledge-graph.json",
+        "file:.repowise/lancedb/__manifest/_versions/latest_version_hint.json",
+        "file:.repowise/lancedb/wiki_pages.lance/_versions/latest_version_hint.json",
         "file:.repowise/mcp.json",
         "file:.repowise/state.json"
       ],
@@ -9675,14 +11105,19 @@
         {
           "id": "layer:config:claude",
           "name": ".claude",
-          "nodeIds": ["file:.claude/CLAUDE.md"]
+          "nodeIds": [
+            "file:.claude/CLAUDE.md"
+          ]
         },
         {
           "id": "layer:config:repowise",
           "name": ".repowise",
           "nodeIds": [
             "file:.repowise/config.yaml",
+            "file:.repowise/jobs/40bf0008-3097-462d-aa27-cd78c652ae5b.json",
             "file:.repowise/knowledge-graph.json",
+            "file:.repowise/lancedb/__manifest/_versions/latest_version_hint.json",
+            "file:.repowise/lancedb/wiki_pages.lance/_versions/latest_version_hint.json",
             "file:.repowise/mcp.json",
             "file:.repowise/state.json"
           ]
@@ -9691,14 +11126,15 @@
     },
     {
       "id": "layer:utility",
-      "name": "Shared System Foundations",
-      "description": "Provides common infrastructure for configuration management, logging, and data validation across the application.",
+      "name": "Shared System Utilities",
+      "description": "Provides common infrastructure components including logging, session management, schema definitions, and terminal interface helpers.",
       "nodeIds": [
         "file:src/shared/config.ts",
         "file:src/shared/index.ts",
         "file:src/shared/logger.ts",
         "file:src/shared/schemas.ts",
-        "file:src/shared/session.ts"
+        "file:src/shared/session.ts",
+        "file:src/shared/tui.ts"
       ],
       "display_order": 2,
       "order_basis": "imports"
@@ -9706,7 +11142,7 @@
     {
       "id": "layer:docs-tooling",
       "name": "Project Documentation",
-      "description": "Maintains the technical specifications, architectural decisions, and roadmap for the development lifecycle.",
+      "description": "Maintains the architectural specifications, development roadmaps, and historical records for the project.",
       "nodeIds": [
         "file:docs/PRD.md",
         "file:docs/api.md",
@@ -9734,8 +11170,8 @@
     },
     {
       "id": "layer:test",
-      "name": "Verification Suite",
-      "description": "Validates core system functionality and logic through integration and unit testing.",
+      "name": "System Verification Suite",
+      "description": "Includes integration and unit tests designed to validate the correctness of core agent logic and shared utility functions.",
       "nodeIds": [
         "file:src/brain/action-generator.test.ts",
         "file:src/brain/context-assembler.test.ts",
@@ -9760,7 +11196,8 @@
       "depth": 0,
       "kind": "overview",
       "reason": "Start here for the end-to-end picture before diving into the code.",
-      "layer_id": "layer:application"
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 2,
@@ -9770,7 +11207,8 @@
       "depth": 0,
       "kind": "code",
       "reason": "An entry point \u2014 execution and imports fan out from here.",
-      "layer_id": "layer:application"
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 3,
@@ -9780,17 +11218,19 @@
       "depth": 1,
       "kind": "code",
       "reason": "Directly used by the entry points above; a core collaborator.",
-      "layer_id": "layer:utility"
+      "layer_id": "layer:utility",
+      "wikiPageIds": []
     },
     {
       "order": 4,
-      "target_path": "src/shared/session.ts",
+      "target_path": "src/shared/index.ts",
       "page_type": "file_page",
-      "title": "session.ts",
+      "title": "index.ts",
       "depth": 1,
       "kind": "code",
-      "reason": "Directly used by the entry points above; a core collaborator.",
-      "layer_id": "layer:utility"
+      "reason": "A re-export hub \u2014 the package's public surface fans out from here.",
+      "layer_id": "layer:utility",
+      "wikiPageIds": []
     },
     {
       "order": 5,
@@ -9800,57 +11240,41 @@
       "depth": 1,
       "kind": "code",
       "reason": "Directly used by the entry points above; a core collaborator.",
-      "layer_id": "layer:application"
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 6,
-      "target_path": "src/memory/index.ts",
+      "target_path": "src/campaign/loader.ts",
       "page_type": "file_page",
-      "title": "index.ts",
+      "title": "loader.ts",
       "depth": 1,
       "kind": "code",
-      "reason": "A re-export hub \u2014 the package's public surface fans out from here.",
-      "layer_id": "layer:application"
+      "reason": "Directly used by the entry points above; a core collaborator.",
+      "layer_id": "layer:application",
+      "wikiPageIds": []
     },
     {
       "order": 7,
-      "target_path": "src/brain/providers/provider.ts",
-      "page_type": "file_page",
-      "title": "provider.ts",
-      "depth": 2,
-      "kind": "code",
-      "reason": "Reached 2 imports deep \u2014 a supporting building block.",
-      "layer_id": "layer:application"
-    },
-    {
-      "order": 8,
-      "target_path": "src/hand/selectors.ts",
-      "page_type": "file_page",
-      "title": "selectors.ts",
-      "depth": 2,
-      "kind": "code",
-      "reason": "Reached 2 imports deep \u2014 a supporting building block.",
-      "layer_id": "layer:application"
-    },
-    {
-      "order": 9,
       "target_path": "scripts/capture-auth-state.ts",
       "page_type": "file_page",
       "title": "capture-auth-state.ts",
       "depth": 2,
       "kind": "code",
       "reason": "The Docs & Tooling layer's anchor \u2014 its most depended-on file.",
-      "layer_id": "layer:docs-tooling"
+      "layer_id": "layer:docs-tooling",
+      "wikiPageIds": []
     },
     {
-      "order": 10,
+      "order": 8,
       "target_path": "src/index.integration.test.ts",
       "page_type": "file_page",
       "title": "index.integration.test.ts",
       "depth": 3,
       "kind": "code",
       "reason": "The test suite \u2014 how the system's behavior is verified.",
-      "layer_id": "layer:test"
+      "layer_id": "layer:test",
+      "wikiPageIds": []
     }
   ],
   "modules": [
@@ -9895,6 +11319,7 @@
         "file:src/spy/index.ts",
         "file:src/spy/ownership-parser.ts",
         "file:src/spy/state-writer.ts",
+        "file:src/strategy/builder.ts",
         "file:src/strategy/index.ts",
         "file:src/strategy/planner.ts",
         "file:src/strategy/types.ts",
@@ -9904,15 +11329,40 @@
         "file:war-room/campaigns/RussianTest.json",
         "file:war-room/campaigns/RussianTest.md",
         "file:war-room/campaigns/TEMPLATE.md",
-        "file:war-room/campaigns/new-rus-2075.json",
         "file:war-room/constitution.md",
-        "file:war-room/sessions/default/current_state.json",
-        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/current_state.json",
-        "file:war-room/sessions/\u0420\u043e\u0441\u0441\u0438\u044f 2050/strategic_ledger.json",
-        "file:war-room/strategy/strategy-plan.json"
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/current_state.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_1.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_2.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/ledger_snapshot_turn_3.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/lessons_learned.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/rival_profiles.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/memory/strategic_summary.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_1.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_2.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/state_snapshot_turn_3.json",
+        "file:war-room/sessions/rossiya-2050-evraziyskiy-bastion/strategy/strategy-plan.json",
+        "file:war-room/sessions/rossiya-2050/current_state.json",
+        "file:war-room/sessions/rossiya-2050/strategy/strategy-plan.json"
       ],
       "wholeLayer": true,
       "language": "typescript"
+    },
+    {
+      "id": "module:config",
+      "name": "Config (top-level)",
+      "path": "",
+      "layerId": "layer:config",
+      "nodeIds": [
+        "file:.claude/CLAUDE.md",
+        "file:.repowise/config.yaml",
+        "file:.repowise/jobs/40bf0008-3097-462d-aa27-cd78c652ae5b.json",
+        "file:.repowise/knowledge-graph.json",
+        "file:.repowise/lancedb/__manifest/_versions/latest_version_hint.json",
+        "file:.repowise/lancedb/wiki_pages.lance/_versions/latest_version_hint.json",
+        "file:.repowise/mcp.json",
+        "file:.repowise/state.json"
+      ],
+      "language": "json"
     },
     {
       "id": "module:agents-agents",
@@ -10119,12 +11569,7 @@
         "file:.agents/skills/webapp-testing/examples/console_logging.py",
         "file:.agents/skills/webapp-testing/examples/element_discovery.py",
         "file:.agents/skills/webapp-testing/examples/static_html_automation.py",
-        "file:.agents/skills/webapp-testing/scripts/with_server.py",
-        "file:.claude/CLAUDE.md",
-        "file:.repowise/config.yaml",
-        "file:.repowise/knowledge-graph.json",
-        "file:.repowise/mcp.json",
-        "file:.repowise/state.json"
+        "file:.agents/skills/webapp-testing/scripts/with_server.py"
       ],
       "language": "markdown"
     },
@@ -10138,7 +11583,8 @@
         "file:src/shared/index.ts",
         "file:src/shared/logger.ts",
         "file:src/shared/schemas.ts",
-        "file:src/shared/session.ts"
+        "file:src/shared/session.ts",
+        "file:src/shared/tui.ts"
       ],
       "wholeLayer": true,
       "language": "typescript"

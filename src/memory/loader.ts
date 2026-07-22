@@ -34,6 +34,10 @@ function emptySummary(): StrategicSummary {
     failures: [],
     currentPriorities: [],
     historicalContext: "No historical context yet — campaign just started.",
+    strategicDirection: {
+      narrative: "No strategic direction defined yet — first turn will establish it.",
+      lastUpdatedTurn: 0,
+    },
     lastUpdatedTurn: 0,
   };
 }
@@ -113,7 +117,15 @@ export function formatMemoryForPrompt(memory: StrategicMemory): string {
 
   // Strategic summary
   lines.push("=== STRATEGIC MEMORY ===");
-  lines.push(`Historical Context: ${memory.summary.historicalContext}`);
+
+  // Strategic direction — LLM's self-authored plan (shown first, most important)
+  if (memory.summary.strategicDirection?.narrative) {
+    lines.push(`\nCurrent Strategic Direction:`);
+    lines.push(`  ${memory.summary.strategicDirection.narrative}`);
+    lines.push(`  (Last updated turn ${memory.summary.strategicDirection.lastUpdatedTurn})`);
+  }
+
+  lines.push(`\nHistorical Context: ${memory.summary.historicalContext}`);
 
   if (memory.summary.achievements.length > 0) {
     lines.push(`\nKey Achievements (${memory.summary.achievements.length}):`);

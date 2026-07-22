@@ -1,0 +1,13 @@
+{
+  "session_id": "b1839056-b8eb-415c-a85d-c6d6af1f7316",
+  "seq": 3,
+  "reads": {
+    "war-room/sessions/rossiya-2050-evraziyskiy-bastion/advisor_response.txt": 1,
+    "war-room/sessions/rossiya-2050-evraziyskiy-bastion/strategy/strategy-plan.json": 2,
+    "war-room/sessions/rossiya-2050-evraziyskiy-bastion/ownership_snapshot.json": 3
+  },
+  "edits": {},
+  "nudged": [],
+  "stale_notified": [],
+  "reread_notified": []
+}

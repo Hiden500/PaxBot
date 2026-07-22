@@ -10,40 +10,70 @@ describe("updateMemoryAfterTurn", () => {
   const emptyMem = emptyMemory();
 
   const sampleBatch: ActionBatch = {
-    reasoning:
-      "Successfully invaded Japan. Defeated their main army. GDP improved this quarter. Failed to capture Okinawa.",
-    actions: ["Invade Japan with 3 divisions", "Send diplomats to China"],
-    ledger_updates: [],
-    milestone_checks: [],
-    immediate_risks: [],
+    reasoning: "Reasoning block on this turn.",
+    actions: [
+      "Invade Japan with 3 divisions",
+      "Послать дипломатов в КНР",
+      "Declare war on Germany",
+    ],
+    ledger_updates: [
+      {
+        operation_id: "OP_ANNEX",
+        goal: "Annex Japan",
+        current_phase: 1,
+        steps: [
+          { phase: 1, action: "Invade Japan", status: "COMPLETE" },
+          { phase: 2, action: "Siege Kyoto", status: "PENDING" },
+        ],
+      },
+      {
+        operation_id: "OP_COUP",
+        goal: "Coup government",
+        current_phase: 2,
+        steps: [{ phase: 1, action: "Support rebels", status: "FAILED" }],
+      },
+    ],
+    milestone_checks: [
+      {
+        milestone: "GDP rank Top 10",
+        status: "ACHIEVED",
+        evidence: "We are rank 8.",
+      },
+      {
+        milestone: "Population 180M",
+        status: "FAILED",
+        evidence: "We are at 146M.",
+      },
+    ],
+    immediate_risks: ["Economic sanctions from USA", "Угроза НАТО"],
   };
 
-  it("extracts achievements from reasoning", () => {
+  it("extracts achievements from ledger updates and milestone checks", () => {
     const result = updateMemoryAfterTurn(emptyMem, sampleBatch, 1);
-    expect(result.summary.achievements.length).toBeGreaterThanOrEqual(1);
-    expect(
-      result.summary.achievements.some((a) => a.description.toLowerCase().includes("invaded"))
-    ).toBe(true);
+    expect(result.summary.achievements.length).toBe(2); // 1 ledger step + 1 milestone
+    expect(result.summary.achievements.some((a) => a.description.includes("Annex Japan"))).toBe(
+      true
+    );
+    expect(result.summary.achievements.some((a) => a.description.includes("GDP rank Top 10"))).toBe(
+      true
+    );
   });
 
-  it("extracts failures from reasoning", () => {
+  it("extracts failures from ledger updates and milestone checks", () => {
     const result = updateMemoryAfterTurn(emptyMem, sampleBatch, 1);
-    expect(result.summary.failures.length).toBeGreaterThanOrEqual(1);
-    expect(
-      result.summary.failures.some((f) => f.description.toLowerCase().includes("failed"))
-    ).toBe(true);
+    expect(result.summary.failures.length).toBe(2); // 1 ledger step + 1 milestone
+    expect(result.summary.failures.some((f) => f.description.includes("Coup government"))).toBe(
+      true
+    );
+    expect(result.summary.failures.some((f) => f.description.includes("Population 180M"))).toBe(
+      true
+    );
   });
 
-  it("extracts priority keywords from reasoning", () => {
-    const batchWithPriorities: ActionBatch = {
-      reasoning: "We prioritize expanding economy and focus on military buildup.",
-      actions: ["Build factories"],
-      ledger_updates: [],
-      milestone_checks: [],
-      immediate_risks: [],
-    };
-    const result = updateMemoryAfterTurn(emptyMem, batchWithPriorities, 1);
+  it("extracts priorities from ledger updates or risks", () => {
+    const result = updateMemoryAfterTurn(emptyMem, sampleBatch, 1);
     expect(result.summary.currentPriorities.length).toBeGreaterThan(0);
+    expect(result.summary.currentPriorities[0]).toContain("OP_ANNEX");
   });
 
   it("updates historical context", () => {
@@ -52,10 +82,12 @@ describe("updateMemoryAfterTurn", () => {
     expect(result.summary.lastUpdatedTurn).toBe(5);
   });
 
-  it("extracts rival nations from actions", () => {
+  it("extracts rival nations from actions including Cyrillic / Russian", () => {
     const result = updateMemoryAfterTurn(emptyMem, sampleBatch, 1);
-    expect(result.rivalProfiles.length).toBeGreaterThanOrEqual(1);
+    expect(result.rivalProfiles.length).toBe(3); // Japan, КНР, Germany
     expect(result.rivalProfiles.some((r) => r.nation.toLowerCase() === "japan")).toBe(true);
+    expect(result.rivalProfiles.some((r) => r.nation.toLowerCase() === "кнр")).toBe(true);
+    expect(result.rivalProfiles.some((r) => r.nation.toLowerCase() === "germany")).toBe(true);
   });
 
   it("does not duplicate achievements", () => {

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="title">PaxBot Панель Управления</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    body { background-color: #0f172a; color: #f3f4f6; }
+    .panel { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1rem; }
+    pre.json-debug { font-size: 0.75rem; line-height: 1.3; white-space: pre-wrap; word-break: break-all; }
+  </style>
+</head>
+<body class="p-4 h-screen flex flex-col gap-3 font-sans antialiased overflow-hidden">
+
+  <!-- LOBBY SCREEN (Settings, Campaign Setup, Start) -->
+  <div id="lobby-screen" class="flex-1 flex flex-col justify-center items-center overflow-y-auto">
+    <div class="panel w-full max-w-2xl flex flex-col gap-6">
+      <div class="flex items-center gap-4 border-b border-slate-700 pb-4">
+        <span class="text-4xl">🤖</span>
+        <div>
+          <h1 class="text-2xl font-bold text-slate-100" data-i18n="lobby.title">PaxBot: Настройка запуска</h1>
+          <p class="text-xs text-slate-400" data-i18n="lobby.subtitle">Настройте параметры кампании и провайдера LLM перед запуском игры</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Left: Campaign Selection & Customization -->
+        <div class="flex flex-col gap-4">
+          <h2 class="text-sm font-semibold text-cyan-400" data-i18n="lobby.campaign_game">📁 Кампания и игра</h2>
+          
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs text-slate-300 font-medium" data-i18n="lobby.select_campaign">Выбрать кампанию:</label>
+            <select id="lobby-campaign-select" onchange="onCampaignChange()" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
+              <option value="" data-i18n="lobby.loading_campaigns">Загрузка кампаний...</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs text-slate-300 font-medium" data-i18n="lobby.game_url">GAME_URL (Ссылка на партию):</label>
+            <input type="text" id="lobby-game-url" onchange="onGameUrlChange()" placeholder="https://www.paxhistoria.co/game/..." 
+              class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
+          </div>
+
+          <div class="flex items-center gap-3 mt-2">
+            <button onclick="createNewCampaign()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-xs font-semibold py-2 px-3 rounded border border-slate-600 transition-colors" data-i18n="lobby.create_template">
+              ✨ Создать шаблон
+            </button>
+            <button onclick="resetSessionProgress()" class="flex-1 bg-red-950/40 hover:bg-red-900/50 text-xs font-semibold py-2 px-3 rounded border border-red-900/50 text-red-300 transition-colors" data-i18n="lobby.reset_session">
+              🧹 Сбросить сессию
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: LLM & Language Settings -->
+        <div class="flex flex-col gap-4 border-l border-slate-700 pl-4">
+          <h2 class="text-sm font-semibold text-purple-400" data-i18n="lobby.ai_params">⚙️ Параметры ИИ</h2>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs text-slate-300 font-medium" data-i18n="lobby.provider">Провайдер LLM (LLM_PROVIDER):</label>
+            <select id="lobby-provider-select" onchange="onProviderSelectChange()" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
+              <option value="gemini" data-i18n="lobby.provider_gemini">Google Gemini (по умолчанию)</option>
+              <option value="groq" data-i18n="lobby.provider_groq">Groq API</option>
+              <option value="openai" data-i18n="lobby.provider_openai">OpenAI GPT</option>
+              <option value="openaicompat" data-i18n="lobby.provider_compat">Свой эндпоинт (OpenAI Compat)</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="text-xs text-slate-300 font-medium" data-i18n="lobby.model">Модель ИИ (LLM_MODEL):</label>
+            <select id="lobby-model-select" onchange="onModelChange()" class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
+              <option value="" data-i18n="lobby.loading_models">Загрузка моделей...</option>
+            </select>
+          </div>
+
+          <div id="key-input-container" class="flex flex-col gap-1.5">
+            <label id="key-label" class="text-xs text-slate-300 font-medium" data-i18n="lobby.api_key">API Ключ:</label>
+            <input type="password" id="lobby-api-key" onchange="onApiKeyChange()" placeholder="Вставьте ваш ключ API" 
+              class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
+          </div>
+
+          <div id="base-url-container" class="hidden flex flex-col gap-1.5">
+            <label class="text-xs text-slate-300 font-medium" data-i18n="lobby.base_url">Base URL эндпоинта:</label>
+            <input type="text" id="lobby-base-url" onchange="onBaseUrlChange()" placeholder="https://api.deepseek.com/v1" 
+              class="bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-purple-500">
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs text-slate-300 font-medium" data-i18n="lobby.agent_lang">Язык ИИ:</label>
+              <select id="lobby-agent-lang" onchange="onAgentLangChange()" class="bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 focus:outline-none">
+                <option value="Russian">Русский</option>
+                <option value="English">English</option>
+              </select>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs text-slate-300 font-medium" data-i18n="lobby.ui_lang">Язык UI:</label>
+              <select id="lobby-ui-lang" onchange="onUiLangChange()" class="bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-100 focus:outline-none">
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-700 pt-4 flex justify-between items-center">
+        <div id="lobby-error" class="text-xs text-red-400 font-medium max-w-md"></div>
+        <button id="btn-start-game" onclick="startGameCycle()"
+          class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm px-6 py-2.5 rounded shadow transition-all flex items-center gap-2" data-i18n="lobby.btn_start">
+          🚀 Запустить игру и авто-пилот
+        </button>
+        <button id="btn-compile-campaign" onclick="compileCampaign()"
+          class="hidden bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm px-6 py-2.5 rounded shadow transition-all flex items-center gap-2" data-i18n="lobby.btn_compile">
+          ⚙️ Скомпилировать кампанию из MD
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RUNNING DASHBOARD (Initially Hidden) -->
+  <div id="dashboard-screen" class="hidden flex-1 flex flex-col gap-3 overflow-hidden min-h-0">
+    
+    <!-- Header Summary -->
+    <header class="flex justify-between items-center bg-slate-800 px-4 py-2.5 rounded-lg border border-slate-700 shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="text-2xl">🤖</div>
+        <div>
+          <h1 class="text-base font-bold text-slate-100" data-i18n="dash.title">PaxBot Панель Управления</h1>
+          <p class="text-xs text-slate-400"><span data-i18n="dash.campaign">Кампания:</span> <span id="campaign-name" class="font-semibold text-cyan-400" data-i18n="dash.loading">Загрузка...</span></p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 text-sm">
+        <div class="bg-slate-700 px-3 py-1.5 rounded-md">
+          <span class="text-slate-400 text-xs" data-i18n="dash.turn">Ход:</span>
+          <span id="turn-count" class="font-bold text-green-400 ml-1">0</span>
+        </div>
+        <div class="bg-slate-700 px-3 py-1.5 rounded-md">
+          <span class="text-slate-400 text-xs" data-i18n="dash.lessons">Уроков:</span>
+          <span id="lessons-count" class="font-bold text-yellow-400 ml-1">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTROL PANEL -->
+    <div class="panel shrink-0 flex items-center gap-4 py-2.5">
+      <h2 class="text-sm font-semibold text-slate-400 pr-4 border-r border-slate-700" data-i18n="dash.control">⚙️ Управление</h2>
+      
+      <!-- Pause / Resume Button -->
+      <button id="btn-pause-toggle" onclick="togglePauseCommand()"
+        class="px-4 py-1.5 text-xs font-semibold rounded bg-yellow-700 hover:bg-yellow-600 text-white transition-colors flex items-center gap-1.5" data-i18n="dash.btn_pause">
+        ⏸️ Приостановить
+      </button>
+      
+      <!-- Exit back to lobby -->
+      <button onclick="stopAndLobby()"
+        class="px-3 py-1.5 text-xs font-semibold rounded bg-red-950/40 border border-red-900/50 hover:bg-red-900/50 text-red-300 transition-colors flex items-center gap-1.5" data-i18n="dash.btn_stop">
+        🔌 Выключить и выйти в Лобби
+      </button>
+      
+      <!-- Semi-Auto Toggle -->
+      <div class="flex items-center gap-2">
+        <label class="text-xs text-slate-300 cursor-pointer" for="toggle-semiauto" data-i18n="dash.semiauto">⏸️ Полу-ручной режим</label>
+        <button id="toggle-semiauto" role="switch" 
+          onclick="toggleSemiAuto()"
+          class="relative w-10 h-5 rounded-full bg-slate-600 transition-colors focus:outline-none"
+          aria-checked="false">
+          <span id="toggle-thumb" class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white transition-transform"></span>
+        </button>
+      </div>
+      
+      <!-- Next Turn Button (only visible in semi-auto mode) -->
+      <button id="btn-next-turn" onclick="sendCommand('next_turn')"
+        class="hidden px-3 py-1.5 text-xs font-semibold rounded bg-green-700 hover:bg-green-600 text-white transition-colors flex items-center gap-1.5" data-i18n="dash.btn_next">
+        ▶️ Сделать ход
+      </button>
+      
+      <!-- Status -->
+      <div class="ml-auto flex items-center gap-2">
+        <span id="pause-indicator" class="hidden text-xs bg-yellow-900/50 text-yellow-400 border border-yellow-700 rounded px-2 py-1" data-i18n="dash.status_wait_turn">⏸ Ожидание хода</span>
+        <span class="text-slate-400 text-xs" data-i18n="dash.status">Статус:</span>
+        <span id="current-status" class="font-medium text-yellow-400 text-xs max-w-xs truncate" data-i18n="dash.status_init">Инициализация...</span>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-12 gap-3 flex-1 overflow-hidden min-h-0">
+      <!-- Left Column (Ledger) -->
+      <div class="col-span-3 flex flex-col overflow-hidden">
+        <div class="panel flex-1 overflow-y-auto flex flex-col">
+          <h2 class="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-1.5" data-i18n="dash.ledger_title">📋 Журнал Операций</h2>
+          <div id="ledger-container" class="flex flex-col gap-3 text-xs">
+            <p class="text-slate-500 italic" data-i18n="dash.no_operations">Нет активных операций.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Column (Reasoning + Actions + Milestones/Risks) -->
+      <div class="col-span-5 flex flex-col gap-3 overflow-hidden">
+        <!-- Reasoning -->
+        <div class="panel flex flex-col overflow-hidden h-1/2">
+          <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5" data-i18n="dash.reasoning_title">🧠 Мышление ИИ</h2>
+          <div id="reasoning-text" class="flex-1 overflow-y-auto text-xs text-slate-200 whitespace-pre-wrap pr-1" data-i18n="dash.waiting_phase">
+            Ожидание следующей фазы...
+          </div>
+        </div>
+
+        <!-- Actions + Milestones/Risks -->
+        <div class="flex gap-3 overflow-hidden flex-1">
+          <!-- Actions -->
+          <div class="panel flex flex-col overflow-hidden flex-1">
+            <h2 class="text-sm font-semibold text-green-400 mb-2 flex items-center gap-1.5" data-i18n="dash.actions_title">⚡ Действия</h2>
+            <ul id="actions-list" class="flex-1 overflow-y-auto text-xs space-y-1.5 text-slate-200">
+              <li class="text-slate-500 italic" data-i18n="dash.actions_waiting">Ожидание...</li>
+            </ul>
+          </div>
+          
+          <!-- Milestones + Risks -->
+          <div class="panel flex flex-col overflow-hidden flex-1">
+            <div class="flex-1 overflow-y-auto">
+              <h3 class="text-xs font-semibold text-cyan-400 mb-1.5" data-i18n="dash.goals_title">🎯 Цели</h3>
+              <ul id="milestones-list" class="text-xs space-y-1 mb-3">
+                <li class="text-slate-500" data-i18n="dash.goals_none">Нет оценок.</li>
+              </ul>
+              <h3 class="text-xs font-semibold text-red-400 mb-1.5" data-i18n="dash.risks_title">⚠️ Риски</h3>
+              <ul id="risks-list" class="text-xs space-y-1">
+                <li class="text-green-500" data-i18n="dash.risks_none">Угроз нет.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column (Logs + JSON Debug) -->
+      <div class="col-span-4 flex flex-col gap-3 overflow-hidden h-full">
+        <!-- System Logs -->
+        <div class="panel flex-1 overflow-hidden flex flex-col min-h-0">
+          <h2 class="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-1.5 shrink-0" data-i18n="dash.logs_title">⚙️ Системные Логи</h2>
+          <div id="logs-container" class="flex-1 bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-y-auto min-h-0">
+          </div>
+        </div>
+
+        <!-- JSON Debug Panel -->
+        <div class="panel flex-1 overflow-hidden flex flex-col min-h-0">
+          <div class="flex items-center justify-between mb-2 shrink-0">
+            <h2 class="text-sm font-semibold text-purple-400 flex items-center gap-1.5" data-i18n="dash.debug_title">🔬 JSON Ответ Игры (Отладка)</h2>
+            <button onclick="copyJson()" class="text-xs text-slate-400 hover:text-slate-200 px-2 py-0.5 rounded border border-slate-700 hover:border-slate-500 transition-colors" data-i18n="dash.btn_copy">📋 Копировать</button>
+          </div>
+          <div class="flex-1 bg-slate-900 rounded overflow-hidden flex flex-col min-h-0">
+            <pre id="json-debug-content" class="json-debug text-green-400 flex-1 overflow-y-auto p-2 overflow-x-hidden min-h-0" data-i18n="dash.debug_waiting">
+Ожидание данных игры...
+            </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Status -->
+    <footer class="bg-slate-800 p-3 rounded-lg border border-slate-700 flex justify-between items-center text-sm shadow-md mt-2 shrink-0">
+      <div class="flex items-center gap-2">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+        </span>
+        <span class="text-slate-400" data-i18n="dash.status">Статус:</span>
+        <span id="current-status-footer" class="font-medium text-yellow-400 text-xs" data-i18n="dash.status_init">Инициализация...</span>
+      </div>
+      <div class="text-slate-500 text-xs" data-i18n="dash.footer_active">
+        PaxBot автономный режим активен.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const translations = {
+      ru: {
+        "title": "PaxBot Панель Управления",
+        "lobby.title": "PaxBot: Настройка запуска",
+        "lobby.subtitle": "Настройте параметры кампании и провайдера LLM перед запуском игры",
+        "lobby.campaign_game": "📁 Кампания и игра",
+        "lobby.select_campaign": "Выбрать кампанию:",
+        "lobby.loading_campaigns": "Загрузка кампаний...",
+        "lobby.no_campaigns": "Кампании не найдены",
+        "lobby.game_url": "GAME_URL (Ссылка на партию):",
+        "lobby.create_template": "✨ Создать шаблон",
+        "lobby.reset_session": "🧹 Сбросить сессию",
+        "lobby.ai_params": "⚙️ Параметры ИИ",
+        "lobby.provider": "Провайдер LLM (LLM_PROVIDER):",
+        "lobby.provider_gemini": "Google Gemini (по умолчанию)",
+        "lobby.provider_groq": "Groq API",
+        "lobby.provider_openai": "OpenAI GPT",
+        "lobby.provider_compat": "Свой эндпоинт (OpenAI Compat)",
+        "lobby.model": "Модель ИИ (LLM_MODEL):",
+        "lobby.loading_models": "Загрузка моделей...",
+        "lobby.no_models": "Модели не найдены",
+        "lobby.api_key": "API Ключ:",
+        "lobby.api_key_label_gemini": "Google API Key (GOOGLE_API_KEY):",
+        "lobby.api_key_label_groq": "Groq API Key (GROQ_API_KEY):",
+        "lobby.api_key_label_openai": "OpenAI API Key (OPENAI_API_KEY):",
+        "lobby.api_key_label_compat": "API Key (OPENAI_COMPATIBLE_API_KEY):",
+        "lobby.api_key_placeholder_gemini": "AI Studio Key...",
+        "lobby.api_key_placeholder_groq": "gsk_...",
+        "lobby.api_key_placeholder_openai": "sk-proj-...",
+        "lobby.api_key_placeholder_compat": "Ваш API ключ...",
+        "lobby.base_url": "Base URL эндпоинта:",
+        "lobby.agent_lang": "Язык ИИ:",
+        "lobby.ui_lang": "Язык UI:",
+        "lobby.btn_start": "🚀 Запустить игру и авто-пилот",
+        "lobby.btn_compile": "⚙️ Скомпилировать кампанию из MD",
+        "lobby.btn_compiling": "⚙️ Компиляция...",
+        "lobby.err.select_campaign": "Пожалуйста, создайте или выберите кампанию.",
+        "lobby.err.game_url_required": "GAME_URL обязателен для автопилота.",
+        
+        "dash.title": "PaxBot Панель Управления",
+        "dash.campaign": "Кампания:",
+        "dash.loading": "Загрузка...",
+        "dash.turn": "Ход:",
+        "dash.lessons": "Уроков:",
+        "dash.control": "⚙️ Управление",
+        "dash.btn_pause": "⏸️ Приостановить",
+        "dash.btn_resume": "▶️ Возобновить",
+        "dash.btn_stop": "🔌 Выключить и выйти в Лобби",
+        "dash.semiauto": "⏸️ Полу-ручной режим",
+        "dash.btn_next": "▶️ Сделать ход",
+        "dash.status": "Статус:",
+        "dash.status_init": "Инициализация...",
+        "dash.status_wait_turn": "⏸ Ожидание хода",
+        "dash.status_paused": "⏸ Приостановлено",
+        "dash.ledger_title": "📋 Журнал Операций",
+        "dash.no_operations": "Нет активных операций.",
+        "dash.reasoning_title": "🧠 Мышление ИИ",
+        "dash.waiting_phase": "Ожидание следующей фазы...",
+        "dash.actions_title": "⚡ Действия",
+        "dash.actions_waiting": "Ожидание...",
+        "dash.goals_title": "🎯 Цели",
+        "dash.goals_none": "Нет оценок.",
+        "dash.risks_title": "⚠️ Риски",
+        "dash.risks_none": "Угроз нет.",
+        "dash.logs_title": "⚙️ Системные Логи",
+        "dash.debug_title": "🔬 JSON Ответ Игры (Отладка)",
+        "dash.debug_waiting": "Ожидание данных игры...",
+        "dash.btn_copy": "📋 Копировать",
+        "dash.btn_copied": "✅ Скопировано",
+        "dash.footer_active": "PaxBot автономный режим активен.",
+        
+        // Alerts & Prompts
+        "alert.compile_waiting": "Компиляция кампании с помощью LLM... Пожалуйста, подождите.",
+        "prompt.new_campaign": "Введите имя новой кампании (например, 'world-domination'):",
+        "confirm.reset_session": "Вы уверены, что хотите полностью сбросить файлы сессии и истории ходов?",
+        "confirm.stop_bot": "Выключить браузер Playwright и вернуться в лобби настроек?",
+        "alert.campaign_created": "Шаблон новой кампании {file}.md создан в папке war-room/campaigns/! Заполните его и выберите в лобби.",
+        "alert.campaign_compiled": "Кампания {file} успешно скомпилирована из Markdown! Теперь её можно запустить.",
+        "alert.session_reset": "Сессия сброшена."
+      },
+      en: {
+        "title": "PaxBot Control Panel",
+        "lobby.title": "PaxBot: Launch Setup",
+        "lobby.subtitle": "Configure campaign settings and LLM provider before launching the game",
+        "lobby.campaign_game": "📁 Campaign & Game",
+        "lobby.select_campaign": "Select campaign:",
+        "lobby.loading_campaigns": "Loading campaigns...",
+        "lobby.no_campaigns": "No campaigns found",
+        "lobby.game_url": "GAME_URL (Game Link):",
+        "lobby.create_template": "✨ Create Template",
+        "lobby.reset_session": "🧹 Reset Session",
+        "lobby.ai_params": "⚙️ AI Parameters",
+        "lobby.provider": "LLM Provider (LLM_PROVIDER):",
+        "lobby.provider_gemini": "Google Gemini (default)",
+        "lobby.provider_groq": "Groq API",
+        "lobby.provider_openai": "OpenAI GPT",
+        "lobby.provider_compat": "Custom Endpoint (OpenAI Compat)",
+        "lobby.model": "AI Model (LLM_MODEL):",
+        "lobby.loading_models": "Loading models...",
+        "lobby.no_models": "No models found",
+        "lobby.api_key": "API Key:",
+        "lobby.api_key_label_gemini": "Google API Key (GOOGLE_API_KEY):",
+        "lobby.api_key_label_groq": "Groq API Key (GROQ_API_KEY):",
+        "lobby.api_key_label_openai": "OpenAI API Key (OPENAI_API_KEY):",
+        "lobby.api_key_label_compat": "API Key (OPENAI_COMPATIBLE_API_KEY):",
+        "lobby.api_key_placeholder_gemini": "AI Studio Key...",
+        "lobby.api_key_placeholder_groq": "gsk_...",
+        "lobby.api_key_placeholder_openai": "sk-proj-...",
+        "lobby.api_key_placeholder_compat": "Your API key...",
+        "lobby.base_url": "Endpoint Base URL:",
+        "lobby.agent_lang": "AI Language:",
+        "lobby.ui_lang": "UI Language:",
+        "lobby.btn_start": "🚀 Start Game & Autopilot",
+        "lobby.btn_compile": "⚙️ Compile Campaign from MD",
+        "lobby.btn_compiling": "⚙️ Compiling...",
+        "lobby.err.select_campaign": "Please create or select a campaign.",
+        "lobby.err.game_url_required": "GAME_URL is required for autopilot.",
+        
+        "dash.title": "PaxBot Control Panel",
+        "dash.campaign": "Campaign:",
+        "dash.loading": "Loading...",
+        "dash.turn": "Turn:",
+        "dash.lessons": "Lessons:",
+        "dash.control": "⚙️ Control",
+        "dash.btn_pause": "⏸️ Pause",
+        "dash.btn_resume": "▶️ Resume",
+        "dash.btn_stop": "🔌 Stop & Go to Lobby",
+        "dash.semiauto": "⏸️ Semi-auto Mode",
+        "dash.btn_next": "▶️ Take Turn",
+        "dash.status": "Status:",
+        "dash.status_init": "Initializing...",
+        "dash.status_wait_turn": "⏸ Waiting for turn",
+        "dash.status_paused": "⏸ Paused",
+        "dash.ledger_title": "📋 Operation Ledger",
+        "dash.no_operations": "No active operations.",
+        "dash.reasoning_title": "🧠 AI Reasoning",
+        "dash.waiting_phase": "Waiting for next phase...",
+        "dash.actions_title": "⚡ Actions",
+        "dash.actions_waiting": "Waiting...",
+        "dash.goals_title": "🎯 Goals",
+        "dash.goals_none": "No assessments.",
+        "dash.risks_title": "⚠️ Risks",
+        "dash.risks_none": "No threats.",
+        "dash.logs_title": "⚙️ System Logs",
+        "dash.debug_title": "🔬 Game JSON Response (Debug)",
+        "dash.debug_waiting": "Waiting for game data...",
+        "dash.btn_copy": "📋 Copy",
+        "dash.btn_copied": "✅ Copied",
+        "dash.footer_active": "PaxBot autonomous mode is active.",
+        
+        // Alerts & Prompts
+        "alert.compile_waiting": "Compiling campaign using LLM... Please wait.",
+        "prompt.new_campaign": "Enter the name of the new campaign (e.g. 'world-domination'):",
+        "confirm.reset_session": "Are you sure you want to completely reset session files and turn history?",
+        "confirm.stop_bot": "Stop Playwright browser and return to settings lobby?",
+        "alert.campaign_created": "Template for new campaign {file}.md has been created in war-room/campaigns/! Fill it out and select in lobby.",
+        "alert.campaign_compiled": "Campaign {file} has been successfully compiled from Markdown! You can now start it.",
+        "alert.session_reset": "Session has been reset."
+      }
+    };
+
+    const socket = io();
+    let isSemiAutoEnabled = false;
+    let isClientPaused = false;
+    let lastJsonState = "";
+    let availableCampaigns = [];
+    let lastLobbyInfo = null;
+
+    function localize(lang) {
+      const dict = translations[lang] || translations['en'];
+      
+      // Update HTML lang attribute
+      document.documentElement.lang = lang;
+
+      // Translate all elements with data-i18n attribute
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          if (el.tagName === 'OPTION') {
+            el.textContent = dict[key];
+          } else if (el.tagName === 'INPUT') {
+            el.placeholder = dict[key];
+          } else {
+            // Safe text replacement that preserves child nodes
+            let textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+            if (textNode) {
+              textNode.textContent = dict[key];
+            } else {
+              el.appendChild(document.createTextNode(dict[key]));
+            }
+          }
+        }
+      });
+
+      // Update placeholders dynamically based on language
+      const keyInput = document.getElementById('lobby-api-key');
+      if (keyInput) {
+        const provider = document.getElementById('lobby-provider-select').value;
+        keyInput.placeholder = dict[`lobby.api_key_placeholder_${provider}`] || dict['lobby.api_key'];
+      }
+    }
+
+    // Fetch setup details from server when connected
+    socket.on('connect', () => {
+      socket.emit('setup:get_info');
+    });
+
+    socket.on('setup:info', (info) => {
+      lastLobbyInfo = info;
+      availableCampaigns = info.campaigns || [];
+      const uiLang = info.uiLang || 'ru';
+      
+      // Populate Campaign Select
+      const select = document.getElementById('lobby-campaign-select');
+      
+      // Clear existing options
+      select.innerHTML = '';
+      
+      if (info.campaigns && info.campaigns.length > 0) {
+        info.campaigns.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.filename;
+          opt.textContent = c.name;
+          if (c.filename === info.activeCampaign) {
+            opt.selected = true;
+          }
+          select.appendChild(opt);
+        });
+        
+        // Force sync the select value
+        if (info.activeCampaign) {
+          select.value = info.activeCampaign;
+        }
+      } else {
+        const opt = document.createElement('option');
+        opt.value = "";
+        const dict = translations[uiLang] || translations['en'];
+        opt.textContent = dict["lobby.no_campaigns"];
+        select.appendChild(opt);
+      }
+
+      // Populate game URL
+      document.getElementById('lobby-game-url').value = info.gameUrl || "";
+
+      // Populate provider dropdown and keys
+      document.getElementById('lobby-provider-select').value = info.provider || "gemini";
+      document.getElementById('lobby-agent-lang').value = info.agentLang || "Russian";
+      document.getElementById('lobby-ui-lang').value = uiLang;
+      document.getElementById('lobby-base-url').value = info.baseUrl || "";
+      
+      localize(uiLang);
+      onProviderChange();
+      requestModels();
+      updateLobbyButtons(info.activeCampaign);
+
+      // Check if bot is already running
+      if (info.isRunning) {
+        showDashboard();
+      } else {
+        showLobby();
+      }
+    });
+
+    function updateLobbyButtons(activeFilename) {
+      const current = availableCampaigns.find(c => c.filename === activeFilename);
+      const startBtn = document.getElementById('btn-start-game');
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      
+      if (!startBtn || !compileBtn) return;
+
+      if (current && !current.hasJson) {
+        startBtn.classList.add('hidden');
+        compileBtn.classList.remove('hidden');
+      } else {
+        startBtn.classList.remove('hidden');
+        compileBtn.classList.add('hidden');
+      }
+    }
+
+    function onCampaignChange() {
+      const campaign = document.getElementById('lobby-campaign-select').value;
+      socket.emit('setup:change_campaign', campaign);
+    }
+
+    function onGameUrlChange() {
+      const url = document.getElementById('lobby-game-url').value;
+      socket.emit('setup:update_config', { gameUrl: url });
+    }
+
+    function onProviderSelectChange() {
+      onProviderChange();
+      const provider = document.getElementById('lobby-provider-select').value;
+      socket.emit('setup:update_config', { provider: provider });
+      requestModels();
+    }
+
+    function onProviderChange() {
+      const provider = document.getElementById('lobby-provider-select').value;
+      const keyLabel = document.getElementById('key-label');
+      const keyInput = document.getElementById('lobby-api-key');
+      const baseUrlContainer = document.getElementById('base-url-container');
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+
+      baseUrlContainer.classList.add('hidden');
+
+      if (provider === 'gemini') {
+        keyLabel.textContent = dict["lobby.api_key_label_gemini"] || "Google API Key (GOOGLE_API_KEY):";
+        keyInput.placeholder = dict["lobby.api_key_placeholder_gemini"] || "AI Studio Key...";
+      } else if (provider === 'groq') {
+        keyLabel.textContent = dict["lobby.api_key_label_groq"] || "Groq API Key (GROQ_API_KEY):";
+        keyInput.placeholder = dict["lobby.api_key_placeholder_groq"] || "gsk_...";
+      } else if (provider === 'openai') {
+        keyLabel.textContent = dict["lobby.api_key_label_openai"] || "OpenAI API Key (OPENAI_API_KEY):";
+        keyInput.placeholder = dict["lobby.api_key_placeholder_openai"] || "sk-proj-...";
+      } else if (provider === 'openaicompat') {
+        keyLabel.textContent = dict["lobby.api_key_label_compat"] || "API Key (OPENAI_COMPATIBLE_API_KEY):";
+        keyInput.placeholder = dict["lobby.api_key_placeholder_compat"] || "Your API key...";
+        baseUrlContainer.classList.remove('hidden');
+      }
+    }
+
+    function requestModels() {
+      const provider = document.getElementById('lobby-provider-select').value;
+      const apiKey = document.getElementById('lobby-api-key').value;
+      const baseUrl = document.getElementById('lobby-base-url').value;
+      socket.emit('setup:get_models', { provider, apiKey, baseUrl });
+    }
+
+    function onModelChange() {
+      const model = document.getElementById('lobby-model-select').value;
+      socket.emit('setup:update_config', { model: model });
+    }
+
+    function onAgentLangChange() {
+      const lang = document.getElementById('lobby-agent-lang').value;
+      socket.emit('setup:update_config', { agentLang: lang });
+    }
+
+    function onUiLangChange() {
+      const lang = document.getElementById('lobby-ui-lang').value;
+      socket.emit('setup:update_config', { uiLang: lang });
+      localize(lang);
+    }
+
+    function onApiKeyChange() {
+      const key = document.getElementById('lobby-api-key').value;
+      const provider = document.getElementById('lobby-provider-select').value;
+      socket.emit('setup:update_config', { provider: provider, apiKey: key });
+      requestModels();
+    }
+
+    function onBaseUrlChange() {
+      const url = document.getElementById('lobby-base-url').value;
+      socket.emit('setup:update_config', { baseUrl: url });
+      requestModels();
+    }
+
+    function compileCampaign() {
+      const campaign = document.getElementById('lobby-campaign-select').value;
+      if (!campaign) return;
+      
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      
+      showError(dict["alert.compile_waiting"]);
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      if (compileBtn) {
+        compileBtn.disabled = true;
+        compileBtn.textContent = dict["lobby.btn_compiling"];
+      }
+      socket.emit('setup:compile_campaign', campaign);
+    }
+
+    function createNewCampaign() {
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      const name = prompt(dict["prompt.new_campaign"]);
+      if (!name) return;
+      socket.emit('setup:create_campaign', name);
+    }
+
+    function resetSessionProgress() {
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      if (confirm(dict["confirm.reset_session"])) {
+        socket.emit('setup:reset_session');
+      }
+    }
+
+    function startGameCycle() {
+      const config = {
+        campaign: document.getElementById('lobby-campaign-select').value,
+        gameUrl: document.getElementById('lobby-game-url').value,
+        provider: document.getElementById('lobby-provider-select').value,
+        apiKey: document.getElementById('lobby-api-key').value,
+        baseUrl: document.getElementById('lobby-base-url').value,
+        agentLang: document.getElementById('lobby-agent-lang').value,
+        uiLang: document.getElementById('lobby-ui-lang').value,
+      };
+
+      const dict = translations[config.uiLang] || translations['en'];
+
+      if (!config.campaign) {
+        showError(dict["lobby.err.select_campaign"]);
+        return;
+      }
+      if (!config.gameUrl) {
+        showError(dict["lobby.err.game_url_required"]);
+        return;
+      }
+
+      showError(""); // Clear errors
+      socket.emit('setup:start_bot', config);
+      showDashboard();
+    }
+
+    function togglePauseCommand() {
+      socket.emit('command:toggle_pause');
+    }
+
+    function stopAndLobby() {
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      if (confirm(dict["confirm.stop_bot"])) {
+        socket.emit('command:stop_bot');
+        showLobby();
+      }
+    }
+
+    function showError(msg) {
+      document.getElementById('lobby-error').textContent = msg;
+    }
+
+    function showDashboard() {
+      document.getElementById('lobby-screen').classList.add('hidden');
+      document.getElementById('dashboard-screen').classList.remove('hidden');
+    }
+
+    function showLobby() {
+      document.getElementById('dashboard-screen').classList.add('hidden');
+      document.getElementById('lobby-screen').classList.remove('hidden');
+    }
+
+    function sendCommand(cmd) {
+      socket.emit('command:' + cmd);
+    }
+
+    function toggleSemiAuto() {
+      const configVal = !isSemiAutoEnabled;
+      socket.emit('command:toggle_semiauto', configVal);
+    }
+
+    function copyJson() {
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      navigator.clipboard.writeText(lastJsonState).then(() => {
+        // Find copy button safely
+        const btn = document.querySelector('[onclick="copyJson()"]');
+        if (btn) {
+          btn.textContent = dict["dash.btn_copied"];
+          setTimeout(() => btn.textContent = dict["dash.btn_copy"], 2000);
+        }
+      });
+    }
+
+    function esc(s) {
+      return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function dom(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+
+    // Command Response Error notifications
+    socket.on('setup:error', (msg) => {
+      showError(msg);
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      if (compileBtn) {
+        compileBtn.disabled = false;
+        const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+        const dict = translations[lang] || translations['en'];
+        compileBtn.textContent = dict["lobby.btn_compile"];
+      }
+      showLobby();
+    });
+
+    socket.on('setup:campaign_created', (name) => {
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      alert(dict["alert.campaign_created"].replace("{file}", name));
+      socket.emit('setup:get_info');
+    });
+
+    socket.on('setup:campaign_compiled', (name) => {
+      const compileBtn = document.getElementById('btn-compile-campaign');
+      if (compileBtn) {
+        compileBtn.disabled = false;
+        const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+        const dict = translations[lang] || translations['en'];
+        compileBtn.textContent = dict["lobby.btn_compile"];
+      }
+      showError("");
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      alert(dict["alert.campaign_compiled"].replace("{file}", name));
+      socket.emit('setup:get_info');
+    });
+
+    socket.on('setup:models', (data) => {
+      const select = document.getElementById('lobby-model-select');
+      select.innerHTML = '';
+      const uiLang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[uiLang] || translations['en'];
+      
+      if (data.models && data.models.length > 0) {
+        data.models.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          select.appendChild(opt);
+        });
+        
+        if (lastLobbyInfo && lastLobbyInfo.model) {
+          select.value = lastLobbyInfo.model;
+        }
+        
+        if (!select.value && select.options.length > 0) {
+          select.value = select.options[0].value;
+          onModelChange();
+        }
+      } else {
+        const opt = document.createElement('option');
+        opt.value = "";
+        opt.textContent = dict["lobby.no_models"];
+        select.appendChild(opt);
+      }
+    });
+
+    socket.on('setup:session_reset_done', () => {
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+      alert(dict["alert.session_reset"]);
+    });
+
+    socket.on('state', (state) => {
+      const lang = document.getElementById('lobby-ui-lang').value || 'ru';
+      const dict = translations[lang] || translations['en'];
+
+      // Header
+      dom('campaign-name', state.campaign);
+      dom('turn-count', state.turn);
+      dom('lessons-count', state.lessonsCount);
+      dom('current-status', state.currentStatus);
+      dom('current-status-footer', state.currentStatus);
+
+      // Handle pause/resume btn appearance
+      const pauseBtn = document.getElementById('btn-pause-toggle');
+      if (pauseBtn) {
+        isClientPaused = state.isPaused;
+        pauseBtn.textContent = isClientPaused ? dict["dash.btn_resume"] : dict["dash.btn_pause"];
+        pauseBtn.className = isClientPaused 
+          ? "px-4 py-1.5 text-xs font-semibold rounded bg-green-700 hover:bg-green-600 text-white transition-colors"
+          : "px-4 py-1.5 text-xs font-semibold rounded bg-yellow-700 hover:bg-yellow-600 text-white transition-colors";
+      }
+
+      // Control panel pause indicator
+      const pauseEl = document.getElementById('pause-indicator');
+      if (pauseEl) {
+        if (state.isPaused) {
+          pauseEl.classList.remove('hidden');
+          pauseEl.textContent = state.isSemiAuto ? dict["dash.status_wait_turn"] : dict["dash.status_paused"];
+        } else {
+          pauseEl.classList.add('hidden');
+        }
+      }
+
+      // Sync semi-auto toggle if state differs
+      if (state.isSemiAuto !== isSemiAutoEnabled) {
+        isSemiAutoEnabled = state.isSemiAuto;
+        const btn = document.getElementById('toggle-semiauto');
+        const thumb = document.getElementById('toggle-thumb');
+        const nextTurnBtn = document.getElementById('btn-next-turn');
+        if (isSemiAutoEnabled) {
+          btn.classList.replace('bg-slate-600', 'bg-blue-600');
+          thumb.classList.add('translate-x-5');
+          nextTurnBtn.classList.remove('hidden');
+        } else {
+          btn.classList.replace('bg-blue-600', 'bg-slate-600');
+          thumb.classList.remove('translate-x-5');
+          nextTurnBtn.classList.add('hidden');
+        }
+      }
+
+      // Reasoning
+      dom('reasoning-text', state.reasoning || dict["dash.waiting_phase"]);
+
+      // Actions
+      const actionsList = document.getElementById('actions-list');
+      if (state.actions && state.actions.length > 0) {
+        actionsList.innerHTML = state.actions.map((act, i) => 
+          `<li class="flex gap-1.5 items-start"><span class="text-green-500 font-bold shrink-0">${i+1}.</span> <span>${esc(act)}</span></li>`
+        ).join('');
+      } else {
+        actionsList.innerHTML = `<li class="text-slate-500 italic">${dict["dash.actions_waiting"]}</li>`;
+      }
+
+      // Milestones
+      const mList = document.getElementById('milestones-list');
+      if (state.milestoneChecks && state.milestoneChecks.length > 0) {
+        mList.innerHTML = state.milestoneChecks.map(m => {
+          const icon = m.status === 'ACHIEVED' ? '✅' : m.status === 'FAILED' ? '❌' : '⏳';
+          const color = m.status === 'ACHIEVED' ? 'text-green-400' : m.status === 'FAILED' ? 'text-red-400' : 'text-yellow-400';
+          return `<li class="flex gap-1"><span>${icon}</span> <span class="${color}">${esc(m.milestone)}</span></li>`;
+        }).join('');
+      } else {
+        mList.innerHTML = `<li class="text-slate-500">${dict["dash.goals_none"]}</li>`;
+      }
+
+      // Risks
+      const rList = document.getElementById('risks-list');
+      if (state.immediateRisks && state.immediateRisks.length > 0) {
+        rList.innerHTML = state.immediateRisks.map(r => 
+          `<li class="flex gap-1 text-red-300"><span>⚠️</span> <span>${esc(r)}</span></li>`
+        ).join('');
+      } else {
+        rList.innerHTML = `<li class="text-green-500">${dict["dash.risks_none"]}</li>`;
+      }
+
+      // Logs
+      const logsContainer = document.getElementById('logs-container');
+      logsContainer.innerHTML = state.logs.map(l => `<div class="border-b border-slate-800 py-0.5">${esc(l)}</div>`).join('');
+      logsContainer.scrollTop = logsContainer.scrollHeight;
+
+      // JSON Debug
+      if (state.rawGameState && state.rawGameState !== lastJsonState) {
+        lastJsonState = state.rawGameState;
+        try {
+          const parsed = JSON.parse(state.rawGameState);
+          document.getElementById('json-debug-content').textContent = JSON.stringify(parsed, null, 2);
+        } catch {
+          document.getElementById('json-debug-content').textContent = state.rawGameState;
+        }
+      } else if (!state.rawGameState) {
+        document.getElementById('json-debug-content').textContent = dict["dash.debug_waiting"];
+      }
+
+      // Ledger Operations
+      const ledgerContainer = document.getElementById('ledger-container');
+      if (state.activeOperations && state.activeOperations.length > 0) {
+        ledgerContainer.innerHTML = state.activeOperations.map(op => {
+          const stepsHtml = (op.steps || []).map(step => {
+            const sIcon = step.status === 'COMPLETE' ? '✓' : step.status === 'FAILED' ? '✗' : '⏳';
+            const sColor = step.status === 'COMPLETE' ? 'text-green-400' : step.status === 'FAILED' ? 'text-red-400' : 'text-yellow-400';
+            return `<div class="pl-3 py-0.5 flex gap-1.5 ${sColor}">
+              <span class="w-3 shrink-0">${sIcon}</span>
+              <span class="text-slate-500 shrink-0">Ph${step.phase}:</span>
+              <span class="truncate">${esc(step.action)}</span>
+            </div>`;
+          }).join('');
+
+          return `
+            <div class="bg-slate-800 rounded border border-slate-700 overflow-hidden">
+              <div class="bg-slate-700/50 px-2 py-1.5 flex gap-1.5 items-center">
+                <span class="font-mono bg-cyan-900/50 text-cyan-400 px-1 rounded text-xs border border-cyan-800">${esc(op.operation_id)}</span>
+                <span class="font-semibold text-slate-200 truncate" title="${esc(op.goal)}">${esc(op.goal)}</span>
+              </div>
+              <div class="p-1">${stepsHtml}</div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        ledgerContainer.innerHTML = `<p class="text-slate-500 italic">${dict["dash.no_operations"]}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

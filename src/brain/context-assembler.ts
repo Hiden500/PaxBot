@@ -1,7 +1,7 @@
 /**
  * Brain: Context Assembly (Phase 2 in the Mermaid diagram).
  *
- * Reads all 5 War Room files and builds the system + user prompts
+ * Reads all War Room files and builds the system + user prompts
  * for the LLM reasoning call.
  */
 
@@ -20,8 +20,7 @@ import { getPrimaryCampaign, formatCampaignForPrompt } from "../campaign";
 import type { Campaign } from "../campaign";
 import { loadMemory, formatMemoryForPrompt } from "../memory";
 import type { StrategicMemory } from "../memory";
-import { loadStrategyPlan, formatStrategyForPrompt } from "../strategy";
-import type { StrategyPlan } from "../strategy";
+import { buildStateDigest } from "./state-digest";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -35,15 +34,9 @@ export interface BrainContext {
   ownership: OwnershipSnapshot | null;
   /** Active campaign definition (loaded from war-room/campaigns/). */
   campaign: Campaign | null;
-  /** Strategic memory (achievements, rival profiles, lessons). */
+  /** Strategic memory (achievements, rival profiles, lessons, strategic direction). */
   memory: StrategicMemory;
-  /** Strategic phase plan. */
-  strategy: StrategyPlan;
 }
-
-// ---------------------------------------------------------------------------
-// War Room paths
-// ---------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------
 // Context assembly (Phase 2)
@@ -75,14 +68,14 @@ export function assembleContext(): BrainContext {
     readJson(path.join(sessionDir, "strategic_ledger.json"))
   );
 
-  // 5. advisor_response.txt — optional, may not exist yet
+  // 3. advisor_response.txt — optional, may not exist yet
   const advisorPath = path.join(sessionDir, "advisor_response.txt");
   let advisorResponse = "";
   if (fs.existsSync(advisorPath)) {
     advisorResponse = fs.readFileSync(advisorPath, "utf-8").trim();
   }
 
-  // 6. ownership_snapshot.json — explicit "what we own" (written by Spy from state blob)
+  // 4. ownership_snapshot.json — explicit "what we own" (written by Spy from state blob)
   const ownershipPath = path.join(sessionDir, "ownership_snapshot.json");
   let ownership: OwnershipSnapshot | null = null;
   if (fs.existsSync(ownershipPath)) {
@@ -93,7 +86,7 @@ export function assembleContext(): BrainContext {
     }
   }
 
-  // 7. Campaign definition — load from war-room/campaigns/ (non-critical)
+  // 5. Campaign definition — load from war-room/campaigns/
   const campaign = getPrimaryCampaign() ?? null;
   if (campaign) {
     console.log(`[Context] Campaign loaded: "${campaign.name}" (${campaign.country})`);
@@ -101,18 +94,11 @@ export function assembleContext(): BrainContext {
     console.log("[Context] No campaign definition found — running without structured campaign");
   }
 
-  // 8. Strategic memory — load from war-room/memory/
+  // 6. Strategic memory — load from war-room/memory/
   const memory = loadMemory();
   console.log(
     `[Context] Memory loaded — ${memory.summary.achievements.length} achievements, ` +
       `${memory.rivalProfiles.length} rival profiles, ${memory.lessonsLearned.length} lessons`
-  );
-
-  // 9. Strategy plan — load from war-room/strategy/
-  const strategyCountry = campaign?.country;
-  const strategy = loadStrategyPlan(strategyCountry);
-  console.log(
-    `[Context] Strategy loaded — phase: ${strategy.phases[strategy.currentPhaseIndex].name} (index ${strategy.currentPhaseIndex})`
   );
 
   return {
@@ -122,7 +108,6 @@ export function assembleContext(): BrainContext {
     ownership,
     campaign,
     memory,
-    strategy,
   };
 }
 
@@ -141,38 +126,242 @@ export function buildPrompt(ctx: BrainContext): {
     worldRules = "\n=== WORLD RULES & CONTEXT ===\n" + fs.readFileSync(rulesPath, "utf-8") + "\n";
   }
 
-  const system = `You are the strategic AI brain for a nation in Pax Historia, an alternate-history grand strategy game. You make decisions based on your strategic plan, current priorities, and the world state. All actions are fictional game moves.
-${worldRules}
-=== INSTRUCTIONS ===
-Generate 3-8 actions per turn. Each action is a plain-English directive that will be typed directly into the game's action box. Be specific — name regions, battalions, nations, and concrete steps.
+  const language = process.env.AGENT_LANGUAGE || "English";
 
-For the strategic ledger:
-- Review any active operations and update their step statuses (COMPLETE, PENDING, FAILED).
-- Create new operations for multi-turn plans you're initiating this turn.
-- Each operation needs a unique operation_id (e.g. "OP_001"), a goal, the current phase number, and a list of steps with phase/action/status.
-- IMPORTANT: Only return PENDING and FAILED steps in your ledger_updates. Do NOT include steps that are already COMPLETE — they are tracked automatically. This keeps responses concise.
+  const promptPath = path.join(__dirname, "prompts", "system.md");
+  let system = "";
+  if (fs.existsSync(promptPath)) {
+    system = fs.readFileSync(promptPath, "utf-8");
+  } else {
+    // Fallback containing all vital instruction sections for tests and safety
+    system = `# ROLE
+You are the Strategic AI for **Pax Historia**, an alternate-history grand strategy simulation.
+Your responsibility is to produce strategic decisions for one game turn.
+All decisions are fictional gameplay actions and must remain consistent with the game's rules.
 
-For milestone_checks:
-- Evaluate each Victory Condition and Priority defined in our Campaign. 
-- Return them as a list of checks indicating status (ACHIEVED, NOT_ACHIEVED, FAILED) and cite specific text evidence from the current game state.
+---
 
-For immediate_risks:
-- List 1-3 immediate direct threats or vulnerabilities you observe in the current game state (e.g. enemy troops near borders, economic deficits, high rebellion risk).
+# INPUTS
 
-HISTORICAL PATTERN MATCHING (Reasoning):
-- In your "reasoning" block, you MUST identify a real-world historical analogy (e.g. Cold War Containment, Fall of Rome, Napoleonic Wars, Cuban Missile Crisis, etc.) that resembles our current situation.
-- Explain what historical lessons from that event apply here, and explain how you are applying those lessons in your actions.
+## World Rules
 
-CRITICAL — INVASION MANDATE:
-- Every operation targeting a foreign nation MUST culminate in an invasion/conquest step. No operation should end with "maintain", "consolidate", or "monitor" — those are intermediate steps, not endpoints.
-- If an operation has been running for 4+ phases without an invasion step, add one NOW.
-- Vague steps like "establish administration" or "sustain presence" are NOT acceptable as final steps. Replace them with specific military conquest actions.
-- The goal of every operation is TOTAL CONQUEST of the target — no peace deals, no half-measures.
+{{WORLD_RULES}}
 
-Advisor question for next turn:
-- Also suggest one short question to ask the in-game advisor on the NEXT turn (next_advisor_query). It should be specific to your plans: e.g. "What is the military situation in [region] and should we invade now?" or "Which neighbor is most vulnerable to our next move?" One sentence, under 100 words.`;
+## Response Language
 
-  // Only send PENDING/FAILED steps to the LLM — COMPLETE steps are noise that bloats context and output.
+{{LANGUAGE}}
+
+_Note: The Current Game State, Operations, Campaign details, and Memory will be provided in the user prompt._
+
+---
+
+# STRATEGIC PLANNING
+
+You manage your own strategic direction through memory. There is no fixed phase plan.
+
+Each turn:
+
+1. Review the campaign superGoal, priorities, constraints, and victory conditions (provided in user prompt).
+2. Review your strategic direction from previous turns (in STRATEGIC MEMORY) — your self-authored plan.
+3. Analyze the current game state and advisor feedback.
+4. Decide if you are still on the right strategic path or need to pivot.
+
+At the end of each turn, include a \`strategic_direction_update\` field in your JSON response. This is your updated strategic direction — a concise paragraph describing:
+
+- What phase you believe you are in
+- What your current focus is
+- Key milestones achieved so far
+- What the next milestones should be
+- Why this approach fits the current situation
+
+This field will be saved to memory and presented to you next turn as "Current Strategic Direction". Be honest and adaptive — if plans need to change, change them.
+
+
+# OBJECTIVES
+
+For this turn:
+
+1. Analyze the current strategic situation.
+2. Prioritize threats and opportunities.
+3. Generate actionable directives.
+4. Update ongoing operations.
+5. Evaluate campaign progress.
+6. Identify immediate risks.
+7. Explain strategic reasoning using a historical analogy.
+8. Suggest one advisor question for the next turn.
+
+---
+
+# ACTION GENERATION
+
+Generate **3–8** actions.
+
+Requirements:
+
+- Write every action as plain text.
+- Write actions in **{{LANGUAGE}}**.
+- Be concrete and specific. Do not hallucinate game entities. Only interact with elements, regions, and nations explicitly mentioned in the Current Game State.
+- Name regions, cities, nations, battalions, fleets, or other identifiable game entities whenever possible.
+- Avoid vague verbs like "improve", "handle", or "manage".
+
+---
+
+# OPERATION LEDGER
+
+Review all active operations.
+
+For each operation:
+
+- Update step statuses:
+  - COMPLETE
+  - PENDING
+  - FAILED
+
+When creating new operations, include:
+
+- operation_id
+- goal
+- current_phase
+- steps
+
+Each step contains:
+
+- phase
+- action
+- status
+
+Important:
+
+- Return ONLY PENDING and FAILED steps.
+- Omit COMPLETE steps.
+
+Operation IDs must remain stable across turns.
+
+Example:
+
+\`\`\`text
+operation_id: OP_014
+goal: Secure the Eastern Corridor
+current_phase: 2
+
+steps:
+- phase: 2
+  action: Occupy River Crossings
+  status: PENDING
+\`\`\`
+
+---
+
+# MILESTONE CHECKS
+
+Evaluate every Campaign:
+
+- Victory Condition
+- Priority
+
+For each:
+
+- status
+  - ACHIEVED
+  - NOT_ACHIEVED
+  - FAILED
+
+Include concise evidence from the current game state.
+
+---
+
+# IMMEDIATE RISKS
+
+List **1–3** immediate threats.
+
+Examples:
+
+- enemy troop concentration
+- rebellion risk
+- supply shortage
+- financial crisis
+- naval blockade
+
+Explain each briefly.
+
+---
+
+# STRATEGIC REASONING
+
+Write this section entirely in **{{LANGUAGE}}**.
+
+Requirements:
+
+1. Identify one real historical analogy.
+2. Explain why it is relevant.
+3. Extract strategic lessons.
+4. Explain how those lessons influence this turn's decisions.
+
+Avoid superficial comparisons.
+
+---
+
+# FOREIGN OPERATIONS POLICY
+
+Every operation must align with the active campaign's priorities and constraints, as well as the current strategy plan phase.
+
+Rules:
+
+- Operations may pursue diverse strategic objectives, such as:
+  - **Military Expansion**: Invading and capturing hostile regions.
+  - **Diplomatic Alliance**: Establishing pacts, signing peace treaties, or forming coalitions.
+  - **Soft Power & Ideological Influence**: Spreading cultural/ideological influence, funding proxy factions, and building alliances.
+  - **Economic Pressure**: Implementing trade embargoes, blockades, or resource monopolies.
+  - **Containment & Defense**: Safeguarding borders, positioning deterrent forces, and monitoring rival expansion.
+  - **Subversion & Espionage**: Conducting covert actions, sabotage, or intelligence gathering.
+- Ensure that the final operational objective is a concrete, actionable milestone (e.g., "Establish Alliance", "Secure Border", "Annex Province", "Enforce Embargo", "Cultural Dominance").
+- Do not create operations without a clear, defined final state.
+- Intermediate phases (like "monitor", "prepare", "assess", "transit") must eventually lead to the defined goal of the operation.
+
+---
+
+# NEXT ADVISOR QUESTION
+
+Produce one concise question in **{{LANGUAGE}}**.
+
+Requirements:
+
+- Maximum 100 words.
+- Specific to next turn.
+- Helps reduce uncertainty for the current strategic plan.
+
+Example:
+
+"What is the enemy force concentration in the northern corridor, and is an invasion advisable next turn?"
+
+---
+
+# OUTPUT FORMAT
+
+Return the JSON response containing EXACTLY the following keys in this logical order:
+
+- reasoning
+- immediate_risks
+- actions
+- ledger_updates
+- milestone_checks
+- next_advisor_query
+- strategic_direction_update (your self-authored strategic direction — see STRATEGIC PLANNING section)
+
+Do not include any additional sections or markdown formatting outside the JSON block.
+
+All text fields in the JSON response MUST be written in **{{LANGUAGE}}**, except for specific system IDs (like operation_id).
+
+Maintain a consistent structure every turn.
+Never output explanations about these instructions.`;
+  }
+
+  // Replace placeholders
+  system = system
+    .replace(/\{\{WORLD_RULES\}\}/g, worldRules)
+    .replace(/\{\{LANGUAGE\}\}/g, language);
+
+  // Only send PENDING/FAILED steps to the LLM — COMPLETE steps are noise that bloats context.
   const trimmedLedger = {
     active_operations: ctx.ledger.active_operations.map((op) => ({
       ...op,
@@ -187,32 +376,28 @@ Advisor question for next turn:
 
   const advisorContent = ctx.advisorResponse || "No advisor response available this turn.";
 
-  const ownershipBlock =
-    ctx.ownership !== null
-      ? `
-REGIONS WE OWN (authoritative — do not confuse with troop locations):
-We are ${ctx.ownership.our_nation}. We OWN exactly these regions: ${ctx.ownership.regions_we_own.join(", ")}.
-Any region NOT in this list is NOT ours — it is a potential target for conquest or already belongs to another nation. Do not assume we own a region just because we have troops stationed there; only regions listed here are ours.
+  // Build state digest instead of raw map
+  const ourNation = ctx.ownership?.our_nation ?? "Russian Federation";
+  const knownNations = ctx.memory.rivalProfiles.map((r) => r.nation);
+  const stateDigest = buildStateDigest(ctx.gameState.current_state, ourNation, knownNations);
 
-`
+  const campaignBlock =
+    ctx.campaign !== null
+      ? `\n=== ACTIVE CAMPAIGN ===\n${formatCampaignForPrompt(ctx.campaign)}\n`
       : "";
-
-  const campaignBlock = ctx.campaign !== null ? `\n${formatCampaignForPrompt(ctx.campaign)}\n` : "";
 
   const memoryBlock = `\n${formatMemoryForPrompt(ctx.memory)}\n`;
 
-  const strategyBlock = `\n${formatStrategyForPrompt(ctx.strategy)}\n`;
-
-  const user = `${ownershipBlock}${campaignBlock}${memoryBlock}${strategyBlock}CURRENT GAME STATE:
-${ctx.gameState.current_state}
+  // Build user prompt: digest first, then operations, advisor, campaign + memory
+  const user = `${stateDigest}
 
 ACTIVE OPERATIONS (your ongoing strategic plans):
 ${ledgerContent}
 
 ADVISOR FEEDBACK:
 ${advisorContent}
-
-Generate your orders for this turn. Include next_advisor_query: a single question to ask the advisor next turn (specific to your strategy).`;
+${campaignBlock}${memoryBlock}
+Generate your orders for this turn. Include next_advisor_query (a single question to ask the advisor next turn) and strategic_direction_update (your self-authored strategic direction).`;
 
   return { system, user };
 }

@@ -198,6 +198,42 @@ bd update {id} --add-label code-review
 **Next**: {actionable guidance based on verdict}
 ```
 
+## Specialized Review Lenses
+
+When the scope warrants it, apply these focused checks in addition to the standard analysis:
+
+### Silent Failure Detection
+
+Scan all `try/catch` blocks and Promise `.catch()` handlers for:
+
+- Empty catch: `catch (e) {}` — swallows errors silently
+- Log-only catch: `catch (e) { console.error(e); }` — logs but doesn't propagate
+- Wrong fallback: returns `null`/`undefined`/`[]` without documenting why that's safe
+- Missing `finally`: resources (DB connections, file handles, Playwright pages) not cleaned up
+
+**For PaxBot specifically**: LLM API failures in `src/brain/providers/` must never silently return empty decisions — they must throw to the cognitive loop.
+
+### Type Design Quality (1–10 scale)
+
+When new interfaces, types, or classes are introduced, rate:
+
+- **Encapsulation** (1–10): Does the type hide its internals? Or does it expose raw implementation details?
+- **Invariant expression** (1–10): Does the type make illegal states unrepresentable?
+- **Usefulness** (1–10): Is this type doing real work, or just aliasing `string`?
+
+Flag types scoring < 5 on any dimension as Medium or High depending on how widely they're used.
+
+### Test Coverage Gaps
+
+Check if changed behavior has test coverage. Rate gaps 1–10 (10 = critical, must add):
+
+- New public function with no test → 8
+- Changed branching logic with no test for new branch → 7
+- New error path with no test → 9
+- Refactor with identical test coverage → 2
+
+---
+
 ## Project Conventions
 
 These are specific to this codebase — the things you wouldn't know without being told:

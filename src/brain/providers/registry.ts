@@ -5,25 +5,21 @@
  * Handles provider selection, initialization, and retry logic.
  */
 
-import { existsSync } from "fs";
-import { resolve } from "path";
-import dotenv from "dotenv";
+import { loadEnv } from "../../shared/env-loader";
 import type { LLMProvider, ProviderConfig } from "./provider";
 import { GeminiProvider } from "./gemini-provider";
 import { GroqProvider } from "./groq-provider";
 import { OpenAIProvider } from "./openai-provider";
+import { OpenAICompatProvider } from "./openaicompat-provider";
 import { LLM_CONFIG } from "../../shared/config";
 
 // Load .env
-const envPath = existsSync(resolve(process.cwd(), ".env"))
-  ? resolve(process.cwd(), ".env")
-  : resolve(process.cwd(), ".env.example");
-dotenv.config({ path: envPath });
+loadEnv();
 
 /**
  * Supported LLM provider types.
  */
-export type ProviderType = "gemini" | "groq" | "openai";
+export type ProviderType = "gemini" | "groq" | "openai" | "openaicompat";
 
 /**
  * Validate that required API keys exist for the selected provider.
@@ -33,6 +29,7 @@ export function validateProviderEnv(provider: ProviderType): void {
     gemini: "GOOGLE_API_KEY",
     groq: "GROQ_API_KEY",
     openai: "OPENAI_API_KEY",
+    openaicompat: "OPENAI_COMPATIBLE_API_KEY",
   };
 
   const keyName = keyMap[provider];
@@ -67,8 +64,18 @@ export function createProvider(provider?: ProviderType): LLMProvider {
       const apiKey = process.env.OPENAI_API_KEY!;
       return new OpenAIProvider(apiKey);
     }
+    case "openaicompat": {
+      const apiKey = process.env.OPENAI_COMPATIBLE_API_KEY!;
+      const baseUrl = process.env.OPENAI_COMPATIBLE_BASE_URL;
+      if (!baseUrl) {
+        throw new Error("OPENAI_COMPATIBLE_BASE_URL is required when using openaicompat provider");
+      }
+      return new OpenAICompatProvider(apiKey, baseUrl);
+    }
     default: {
-      throw new Error(`Unknown LLM provider: "${type}". Supported: gemini, groq, openai`);
+      throw new Error(
+        `Unknown LLM provider: "${type}". Supported: gemini, groq, openai, openaicompat`
+      );
     }
   }
 }
