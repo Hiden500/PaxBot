@@ -13,7 +13,6 @@ import { callLLM } from "../brain/llm-client";
 import { PATHS } from "../shared/config";
 import { getPrimaryCampaign, invalidateCache } from "./loader";
 import { setActiveCampaignName, getSessionDir } from "../shared/session";
-import { buildStrategyPlanFromCampaign } from "../strategy/builder";
 
 // ---------------------------------------------------------------------------
 // Prompt for the LLM
@@ -197,8 +196,8 @@ Return ONLY valid JSON without any markdown formatting like \`\`\`json.`;
   // Initialize session
   getSessionDir();
 
-  // Strategy plan
-  await buildStrategyPlanFromCampaign(campaign);
+  // Strategy plan is no longer generated upfront.
+  // LLM develops strategic direction dynamically through memory (strategic_direction_update).
 
   return campaign;
 }

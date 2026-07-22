@@ -85,9 +85,9 @@ describe("updateMemoryAfterTurn", () => {
   it("extracts rival nations from actions including Cyrillic / Russian", () => {
     const result = updateMemoryAfterTurn(emptyMem, sampleBatch, 1);
     expect(result.rivalProfiles.length).toBe(3); // Japan, КНР, Germany
-    expect(result.rivalProfiles.some((r) => r.nation === "Japan")).toBe(true);
-    expect(result.rivalProfiles.some((r) => r.nation === "КНР")).toBe(true);
-    expect(result.rivalProfiles.some((r) => r.nation === "Germany")).toBe(true);
+    expect(result.rivalProfiles.some((r) => r.nation.toLowerCase() === "japan")).toBe(true);
+    expect(result.rivalProfiles.some((r) => r.nation.toLowerCase() === "кнр")).toBe(true);
+    expect(result.rivalProfiles.some((r) => r.nation.toLowerCase() === "germany")).toBe(true);
   });
 
   it("does not duplicate achievements", () => {

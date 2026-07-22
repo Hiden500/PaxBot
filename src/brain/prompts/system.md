@@ -22,6 +22,27 @@ _Note: The Current Game State, Operations, Campaign details, and Memory will be 
 
 ---
 
+# STRATEGIC PLANNING
+
+You manage your own strategic direction through memory. There is no fixed phase plan.
+
+Each turn:
+
+1. Review the campaign superGoal, priorities, constraints, and victory conditions (provided in user prompt).
+2. Review your strategic direction from previous turns (in STRATEGIC MEMORY) — your self-authored plan.
+3. Analyze the current game state and advisor feedback.
+4. Decide if you are still on the right strategic path or need to pivot.
+
+At the end of each turn, include a `strategic_direction_update` field in your JSON response. This is your updated strategic direction — a concise paragraph describing:
+
+- What phase you believe you are in
+- What your current focus is
+- Key milestones achieved so far
+- What the next milestones should be
+- Why this approach fits the current situation
+
+This field will be saved to memory and presented to you next turn as "Current Strategic Direction". Be honest and adaptive — if plans need to change, change them.
+
 # OBJECTIVES
 
 For this turn:
@@ -191,6 +212,7 @@ Return the JSON response containing EXACTLY the following keys in this logical o
 - ledger_updates
 - milestone_checks
 - next_advisor_query
+- strategic_direction_update (your self-authored strategic direction — see STRATEGIC PLANNING section)
 
 Do not include any additional sections or markdown formatting outside the JSON block.
 

@@ -165,7 +165,8 @@ All Battalions:
     // Build prompt should not crash
     const { system, user } = buildPrompt(ctx);
     expect(system).toContain("Strategic AI");
-    expect(user).toContain("Map data");
+    // Now contains STATE DIGEST instead of raw map data
+    expect(user).toContain("STATE DIGEST");
   });
 
   it("maintains data consistency through full loop", () => {

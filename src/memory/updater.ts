@@ -5,8 +5,13 @@
  * and executed actions.
  */
 
+import * as fs from "fs";
+import * as path from "path";
 import type { StrategicMemory, StrategicSummaryEntry, RivalProfile, LearnedLesson } from "./types";
 import type { ActionBatch } from "../shared";
+import { extractNationNames } from "../brain/state-digest";
+import { getSessionDir } from "../shared/session";
+import { PATHS } from "../shared/config";
 
 // ---------------------------------------------------------------------------
 // Achievement/Failure extraction from LLM ActionBatch structure (Language-independent)
@@ -70,80 +75,56 @@ function extractEntriesFromBatch(batch: ActionBatch, turn: number): StrategicSum
 }
 
 // ---------------------------------------------------------------------------
-// Rival profile updates (Unicode-compatible for Cyrillic/Russian and English)
+// Rival profile updates — uses known nations from game state
 // ---------------------------------------------------------------------------
 
 /**
- * Common Russian/English stopwords in geopolitics to avoid treating them as country names.
+ * Fallback list of major nations for test/fallback scenarios when game state is unavailable.
  */
-const GEOPOLITICAL_STOPWORDS = new Set([
-  "the",
-  "our",
-  "their",
-  "this",
-  "that",
-  "these",
-  "those",
-  "наш",
-  "наша",
-  "наше",
-  "наши",
-  "этот",
-  "эта",
-  "это",
-  "эти",
-  "союз",
-  "союзник",
-  "соперник",
-  "враг",
-  "страна",
-  "государство",
-  "война",
-  "мир",
-  "договор",
-  "альянс",
-  "армия",
-  "флот",
-  "invade",
-  "attack",
-  "declare",
-  "sanction",
-  "ally",
-  "negotiate",
-  "send",
-  "build",
-  "mobilize",
-  "annex",
-  "support",
-  "with",
-  "divisions",
-  "war",
-  "peace",
-  "diplomats",
-  "to",
-  "вторгнуться",
-  "напасть",
-  "объявить",
-  "санкции",
-  "союзник",
-  "переговоры",
-  "отправить",
-  "послать",
-  "построить",
-  "мобилизовать",
-  "аннексировать",
-  "поддержать",
-  "войну",
-  "мир",
-  "дипломатов",
-  "в",
-  "на",
-  "для",
+const FALLBACK_KNOWN_NATIONS = new Set([
+  "japan",
+  "кнр",
+  "china",
+  "germany",
+  "united states of america",
+  "russian federation",
+  "russia",
+  "belarus",
+  "kazakhstan",
+  "ukraine",
+  "france",
+  "united kingdom",
+  "turkey",
+  "iran",
+  "afghanistan",
+  "chechnya",
 ]);
 
 /**
+ * Load known nation names from the current game state for validation.
+ * Falls back to a static list if game state is unavailable (e.g., in tests).
+ */
+function getKnownNations(): Set<string> {
+  const statePath = path.join(getSessionDir(), PATHS.CURRENT_STATE);
+  try {
+    if (fs.existsSync(statePath)) {
+      const raw = fs.readFileSync(statePath, "utf-8");
+      const parsed = JSON.parse(raw);
+      if (parsed.current_state) {
+        const names = extractNationNames(parsed.current_state);
+        return new Set(names.map((n) => n.toLowerCase()));
+      }
+    }
+  } catch {
+    // ignore
+  }
+  // Fallback: return major known nations for tests and edge cases
+  return FALLBACK_KNOWN_NATIONS;
+}
+
+/**
  * Update rival profiles based on actions taken this turn.
- * Supports Cyrillic and Latin names using Unicode properties.
+ * Validates candidates against known nations from the game state.
  */
 function updateRivalProfiles(
   profiles: RivalProfile[],
@@ -151,26 +132,19 @@ function updateRivalProfiles(
   turn: number
 ): RivalProfile[] {
   const updated = [...profiles];
+  const knownNations = getKnownNations();
   const nationsMentioned = new Set<string>();
 
-  // Regex using Unicode properties: match capitalized Latin or Cyrillic words
-  // supporting single capitalized word, title case word, or fully capitalized acronyms (like USA, КНР)
-  const nationRegex = /(?:^|[^0-9\p{L}])([\p{Lu}][\p{L}]+|[\p{Lu}]{2,})(?=[^0-9\p{L}]|$)/gu;
-
   for (const action of batch.actions) {
-    let match: RegExpExecArray | null;
-    nationRegex.lastIndex = 0;
-    while ((match = nationRegex.exec(action)) !== null) {
-      const candidate = match[1].trim();
-      const lowerCandidate = candidate.toLowerCase();
-      // Skip if candidate is a stopword or too short
-      if (candidate.length >= 2 && !GEOPOLITICAL_STOPWORDS.has(lowerCandidate)) {
-        nationsMentioned.add(candidate);
+    // Check each known nation: does the action mention it?
+    for (const knownName of knownNations) {
+      if (action.toLowerCase().includes(knownName)) {
+        nationsMentioned.add(knownName);
       }
     }
   }
 
-  // Update or create profiles for mentioned nations
+  // Update or create profiles for found nations
   for (const nation of nationsMentioned) {
     const existing = updated.find((p) => p.nation.toLowerCase() === nation.toLowerCase());
     if (existing) {
@@ -236,10 +210,18 @@ export function updateMemoryAfterTurn(
     summary.currentPriorities = batch.immediate_risks.slice(0, 3).map((r) => `[Risk] ${r}`);
   }
 
-  // Update historical context
+  // Update historical context — full text, no truncation
   if (batch.actions.length > 0) {
-    const recentAction = batch.actions[0].slice(0, 100);
-    summary.historicalContext = `Turn ${turn}: Executed ${batch.actions.length} action(s). Reasoning: ${batch.reasoning.slice(0, 200)}. First action: ${recentAction}...`;
+    const firstAction = batch.actions[0];
+    summary.historicalContext = `Turn ${turn}: Executed ${batch.actions.length} action(s). Reasoning: ${batch.reasoning}. First action: ${firstAction}`;
+  }
+
+  // Update strategic direction from LLM's self-authored plan
+  if (batch.strategic_direction_update?.trim()) {
+    summary.strategicDirection = {
+      narrative: batch.strategic_direction_update.trim(),
+      lastUpdatedTurn: turn,
+    };
   }
 
   summary.lastUpdatedTurn = turn;
